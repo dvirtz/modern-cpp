@@ -1,0 +1,13 @@
+{
+    "preprocessor": "scripts/preprocess.js",
+    "includeDir": "slides",
+    "verticalSeparator": "^---\n",
+    "separator": "^----\n",
+    "scripts": [
+        "scripts/compiler-explorer.js",
+        "node_modules/jquery/dist/jquery.min.js",
+        "scripts/customize.js"
+    ],
+    "css": "css/custom.css",
+    "_": ["slides/index.md"]
+}

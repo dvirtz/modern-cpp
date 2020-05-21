@@ -1,0 +1,26 @@
+{
+  "name": "modern-cpp",
+  "version": "1.0.0",
+  "description": "slides on modern C++",
+  "main": "index.js",
+  "scripts": {
+    "test": "reveal-md slides/index.md"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dvirtz/modern-cpp.git"
+  },
+  "keywords": [
+    "reveal.js"
+  ],
+  "author": "Dvir Yitzchaki",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dvirtz/modern-cpp/issues"
+  },
+  "devDependencies": {
+    "reveal-md": "^3.4.7",
+    "jquery": "^3.5.1"
+  },
+  "homepage": "https://github.com/dvirtz/modern-cpp#readme"
+}
