@@ -9,5 +9,8 @@
         "scripts/customize.js"
     ],
     "css": "css/custom.css",
-    "_": ["slides/index.md"]
+    "_": ["slides/index.md"],
+    "staticDirs": [
+        "slides/images"
+    ]
 }

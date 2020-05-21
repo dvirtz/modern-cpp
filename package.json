@@ -4,7 +4,8 @@
   "description": "slides on modern C++",
   "main": "index.js",
   "scripts": {
-    "test": "reveal-md slides/index.md"
+    "test": "reveal-md slides/index.md",
+    "generate": "reveal-md slides/index.md --static .site"
   },
   "repository": {
     "type": "git",
