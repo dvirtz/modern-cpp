@@ -1,9 +1,10 @@
 Reveal.addEventListener('ready', (event) => {
+    const isLocal = !!window.location.host.match(/localhost/gi);
     const ce_nodes = document.querySelectorAll('code.language-cpp');
 
     for (let i = 0, len = ce_nodes.length; i < len; i++) {
         let element = ce_nodes[i];
-        let compiler = "g82";
+        let compiler = isLocal ? "clangdefault" : "g82";
         let options = "-O2 -march=haswell";
         let execute = false
         let source = unescape(element.textContent);
@@ -108,7 +109,7 @@ Reveal.addEventListener('ready', (event) => {
         };
         let ceFragment = encodeURIComponent(JSON.stringify(obj));
 
-        const baseUrl = 'https://godbolt.org/';
+        const baseUrl = isLocal ? 'http://localhost:10240/' : 'https://godbolt.org/';
 
         element.onclick = (evt) => {
             if (evt.ctrlKey || evt.metaKey) {
