@@ -2,43 +2,37 @@ Reveal.addEventListener('ready', (event) => {
     const isLocal = !!window.location.host.match(/localhost/gi);
     const ce_nodes = document.querySelectorAll('code.language-cpp');
 
-    for (let i = 0, len = ce_nodes.length; i < len; i++) {
-        let element = ce_nodes[i];
+    for (element of ce_nodes) {
         let compiler = isLocal ? "clangdefault" : "g82";
         let options = "-O2 -march=haswell";
         let execute = false
+        let libs = []
         let source = unescape(element.textContent);
         let lines = source.split('\n');
         source = "";
         let displaySource = "";
-        const configMatcher = /^\s*\/\/\/\s*([^:]+):(.*)$/;
-        const hideMatcher = /^\s*\/\/(\/)?\s*((un)?hide)$/;
-        const executeMatcher = /^\s*\/\/(\/)?\s*execute$/;
+        const hideMatcher = /^\s*\/\/\/\s*((un)?hide)$/;
+        const executeMatcher = /^\s*\/\/\/\s*execute$/;
+        const compilerMatcher = /^\s*\/\/\/\s*compiler=(.*)$/;
+        const optionsMatcher = /^\s*\/\/\/\s*options=(.*)$/;
+        const libsMatcher = /^\s*\/\/\/\s*libs=(\w+:\w+(?:,\w+:\w+)*)$/;
         let skipDisplay = false;
         let hide = false;
-        for (let idx = 0; idx < lines.length; ++idx) {
-            let line = lines[idx];
-            let match = line.match(configMatcher);
-            if (match) {
-                compiler = match[1];
-                options = match[2];
-            } else if (line.match(executeMatcher)) {
-                execute = true;
+        for (line of lines) {
+            if (line.match(/^\/\/\//)) {
+                (line.match(compilerMatcher) || []).slice(1).forEach(match => compiler = match);
+                (line.match(optionsMatcher) || []).slice(1).forEach(match => options = match);
+                (line.match(libsMatcher) || []).slice(1).forEach(match => {
+                    [...match.matchAll(/(\w+):(\w+)/g)].forEach(match => {
+                        libs.push({
+                            name: match[1],
+                            ver: match[2]
+                        });
+                    })
+                });
+                (line.match(executeMatcher) || []).forEach(_ => execute = true);
+                (line.match(hideMatcher) || []).slice(1, 2).forEach(match => hide = match == "hide");
             } else {
-                match = line.match(hideMatcher);
-                if (match) {
-                    if (match[1] !== '/') {
-                        console.warn('(un)hide should be preceded by 3 forward slashes')
-                    }
-                    hide = match[2] === "hide";
-                    continue;
-                }
-                if (line === "// setup") {
-                    skipDisplay = true;
-                } else if (line[0] !== ' ') {
-                    skipDisplay = false;
-                }
-
                 source += line + "\n";
                 if (!skipDisplay && !hide)
                     displaySource += line + "\n";
@@ -80,15 +74,16 @@ Reveal.addEventListener('ready', (event) => {
                 componentState: {
                     source: 1,
                     filters: {
-                        commentOnly: true, 
-                        directives: true, 
-                        intel: true, 
-                        labels: true, 
+                        commentOnly: true,
+                        directives: true,
+                        intel: true,
+                        labels: true,
                         trim: true,
                         execute: execute
                     },
                     options: options,
                     compiler: compiler,
+                    libs: libs,
                     fontScale: 3.0
                 }
             }, {
