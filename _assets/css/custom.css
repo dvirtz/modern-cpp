@@ -32,3 +32,26 @@ input[type='checkbox']:checked:after {
 	left: 3px;
 	color: #99a1a7;
 }
+
+#title {
+	text-shadow: 3px 3px black; 
+	color: lightblue;
+}
+
+#logo {
+	size: 250px 250px;
+	border: none;
+	background: none;
+	position: absolute;
+	animation: moveLeftToRight 5s linear infinite alternate, spin 5s linear infinite alternate;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes moveLeftToRight {
+  0%   { left: -100px; }
+  100% { left: 100%; }
+}
