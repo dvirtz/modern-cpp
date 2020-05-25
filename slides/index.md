@@ -1,6 +1,6 @@
-<!-- .slide: data-background="./images/title.jpg"  -->
+# C++11 and Beyond! <!-- .element: id="title" -->
 
-# C++11 and Beyond! <!-- .element: style="text-shadow: 3px 3px black;color: lightblue" -->
+<img id="logo" src="images/cpp_logo.png" alt="logo">
 
 ----
 
