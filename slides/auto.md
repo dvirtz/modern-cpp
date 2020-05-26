@@ -1,4 +1,4 @@
-## What is the problem with this code?
+## What problems can you find in this code?
 
 ```cpp
 ///hide
@@ -21,6 +21,11 @@ std::vector<int> v2 = 5;
 }
 ```
 
+Note:
+- uninitialized variable
+- possible data lose converting from `size_t` to `int`
+- although looking similar, the second line does not compile, because the constructor is *explicit*
+
 ---
 
 ## And this?
@@ -38,6 +43,9 @@ void traverser( const std::vector<int>& v ) {
   }
 }
 ```
+
+Note:
+- this code does not compile because we need a `const_iterator`
 
 ---
 
@@ -71,6 +79,43 @@ widget w = get_gadget();
 }
 ```
 
+<small> assuming `gadget` is implicitly convertible to `widget` </small>
+
+Note:
+- a temporary `getget` is created which might be a performance pitfall, as the creation of the temporary object is not at all obvious from reading the call site alone.
+- it's possible that using `gadget` is just as well as viable in this code
+
+---
+
+<!-- .slide: data-background-color="#bee4fd" -->
+
+## Non member `begin` and `end`
+
+Accept anything with a member `begin` and `end` as well as C-style arrays
+
+```cpp
+///execute
+///hide
+#include <vector>
+#include <cassert>
+ 
+int main() 
+{
+///unhide
+std::vector<int> v = { 3, 1, 4 };
+auto vi = std::begin(v);
+assert(*vi == 3);
+
+int a[] = { -5, 10, 15 };
+auto ai = std::begin(a);
+assert(*ai == -5);
+///hide
+}
+```
+
+Note:
+- prefer to use this in generic code
+
 ---
 
 What does this function do?
@@ -90,18 +135,28 @@ void some_function( Container& c, const Value& v ) {
 }
 ```
 
+Note:
+- `append_unique`
+
 ---
 
+<!-- .slide: data-background="https://media.giphy.com/media/3oKIPmnZ2IxoAQBta8/giphy.gif" -->
+
 # auto
+<!-- .element: style="text-shadow: 3px 3px black; color: lightblue; position: fixed; top: 0; left: 40%" -->
 
-- oldest feature in C++11 (1983)
-- most commonly used
+ Slides are based on <!-- .element: class="footnote" style="text-shadow:-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black" -->  [Herb Sutter's](herbsutter.com) GOTW series
 
- Slides are based on <!-- .element: class="footnote" -->  [Herb Sutter's](herbsutter.com) GOTW series
+Note: 
+- our main topic today
+- oldest feature in C++11 (first implementation at 1983)
 
 ---
 
 ## declaring a local variable
+
+syntax
+
 ```cpp
 ///hide
 void foo(int its_initial_value){
@@ -111,7 +166,7 @@ auto my_new_variable = its_initial_value;
 }
 ```
 
-deduce the type from the expression used to initialize the new variable
+deduce type from initializing expression
 
 ```cpp
 ///hide
@@ -178,10 +233,16 @@ int         val = 0;
 auto        a   = val; // The type of a is int
 auto&       b   = val; // The type of b is int&
 const auto  c   = val; // The type of c is const int
-const auto& d   = val; // The type of a is const int&
+const auto& d   = val; // The type of d is const int&
 ///hide
 }
 ```
+
+Note: If needed, `const` and `&` can be explicity added
+
+---
+
+<!-- .slide: data-background="https://media.giphy.com/media/Wtalnj96EH5t2iPxGZ/giphy.gif" data-background-size="contain" -->
 
 ---
 
@@ -208,6 +269,8 @@ auto i = 42;    // guaranteed to be initialized
 ///hide
 }
 ```
+
+Note: solving the first problem
 
 ---
 
@@ -243,6 +306,8 @@ auto size = v.size(); // exact type, no narrowing
 }
 ```
 
+Note: solving narrowing conversions
+
 ---
 
 ## DRY initialization syntax
@@ -273,6 +338,8 @@ auto v2 = std::vector<int>(5); // keep it DRY
 }
 ```
 
+Note: if one wants to use explicit constructor with the assignment syntax they would have to repeat the type but not with auto 
+
 ---
 
 ## Correct type by default
@@ -298,7 +365,7 @@ write
 
 void foo(std::vector &v) {
 ///unhide
-auto i = v.begin();
+auto i = begin(v);
 ///hide
 }
 ```
@@ -306,11 +373,11 @@ auto i = v.begin();
 Note: 
 - correct and clear and simpler
 - stays correct if we change the type of the parameter to be non-const
-- or even pass some other type of container
+- or even replace vector with some other type of container
 
 ---
 
-## Cheeper
+## Avoids hidden temporaries
 
 instead of
 
@@ -328,9 +395,7 @@ struct widget{
     widget() { std::cout << "widget()\n"; }
     widget(const gadget&) { std::cout << "widget(gadget&)\n"; }
 };
-///unhide
-gadget get_gadget();
-///hide
+
 gadget get_gadget() {
     return gadget();
 }
@@ -359,18 +424,84 @@ struct widget{
     widget() { std::cout << "widget()\n"; }
     widget(const gadget&) { std::cout << "widget(gadget&)\n"; }
 };
-///unhide
-gadget get_gadget();
-///hide
+
 gadget get_gadget() {
     return gadget();
 }
 
 int main() {
 ///unhide
-auto w = get_gadget();
+auto w = get_gadget(); // gadget can be used
 ///hide
 }
+```
+
+or
+
+```cpp
+///execute
+///hide
+#include <iostream>
+
+struct gadget{
+    gadget() { std::cout << "gadget()\n"; }
+    gadget(const gadget&) { std::cout << "gadget(gadget&)\n"; }
+};
+
+struct widget{
+    widget() { std::cout << "widget()\n"; }
+    widget(const gadget&) { std::cout << "widget(gadget&)\n"; }
+};
+
+gadget get_gadget() {
+    return gadget();
+}
+
+int main() {
+///unhide
+auto w = widget(get_gadget()); // widget is needed
+///hide
+}
+```
+
+---
+
+<!-- .slide: data-background-color="#bee4fd" -->
+
+## `static_assert`
+
+Check assertions at compile time:
+```cpp
+static_assert ( bool_constexpr , message )
+```
+
+For example:
+```cpp
+static_assert(sizeof(void *) == 4, 
+  "64-bit code generation is not supported.");
+```
+
+Note:
+- If you only support 32 bit you can give a compile time error if anyone tries to use you code to compile for 64 bit
+- Open CE
+
+---
+
+<!-- .slide: data-background-color="#bee4fd" -->
+
+## `decltype`
+
+Similar to `sizeof(expr)` but returns type instead of size.
+
+```cpp
+#include <type_traits>
+
+int f();
+
+static_assert(sizeof(f()) == sizeof(int), 
+  "f should return int");
+static_assert(std::is_same<int, decltype(f())>::value, 
+  "f should return int");
 ```
 
 ---
@@ -390,37 +521,29 @@ RETURN_TYPE trace(Func f, T t) {
 }
 ```
 
----
-
-## `static_assert`
-
-Check assertions at compile time:
-```cpp
-static_assert ( bool_constexpr , message )
-```
-
-For example:
-```cpp
-static_assert(sizeof(void *) == 4, 
-  "64-bit code generation is not supported.");
-```
+Note: we implement a generic tracing function which gets a function `f` and a value `t` and returns the result of `f(t)`.
 
 ---
 
-## `decltype`
+## what should be the return type
 
-Similar to `sizeof(expr)` but returns type instead of size.
+first try
 
 ```cpp
-#include <type_traits>
+///hide
+#include <iostream>
 
-int f();
-
-static_assert(sizeof(f()) == sizeof(int), 
-  "f should return int");
-static_assert(std::is_same<int, decltype(f())>::value, 
-  "f should return int");
+///unhide
+template <typename Func, typename T>
+decltype(f(t)) trace(Func f, T t) { 
+  std::cout << "Calling f on " << t;
+  return f(t); 
+}
 ```
+
+Note: 
+- open CE
+- to express the return type we need to refer to `f` and `t` which are unknown to the compiler at the point of defining the return type.
 
 ---
 
@@ -437,6 +560,9 @@ auto trace(Func f, T t) -> decltype(f(t)) {
 }
 ```
 
+Note: we replace the return type with `auto` and add the actual return type after the arrow.
+At this point we can refer to `f` and `t`.
+
 ---
 
 ## `auto` return type (C++14)
@@ -452,31 +578,18 @@ auto trace(Func f, T t) {
 }
 ```
 
----
-
-## `auto` return type (C++14)
-
-```cpp
-auto max(int& a, int& b) { 
-  return a < b ? b : a;
-}
-```
-
----
-
-## `decltype(auto)` (C++14)
-
-```cpp
-decltype(auto) max(int& a, int& b) { 
-  return a < b ? b : a;
-}
-```
+Note: in c++14, this idiom was shortened to mean deduce the return type from the return statement
 
 ---
 
 <!-- .slide: data-background="https://media.giphy.com/media/GPn300EibJ2F2/giphy.gif" -->
 
 # CONCERNED?
+<!-- .element: style="text-shadow: 3px 3px black; color: lightblue" -->
+
+Note:
+- There are number of popular concerns about using auto.
+- Let's tackle some of them.
 
 ---
 
@@ -491,6 +604,17 @@ Writing auto is about
 - [x] maintainability <!-- .element: class="fragment" -->
 - [x] robustness <!-- .element: class="fragment" -->
 - [x] convenience <!-- .element: class="fragment" -->
+
+Note:
+No, writing auto is about
+- correctness
+- performance
+- maintainability
+- robustness
+- AND FINALLY, ALSO
+- convenience
+
+Next...
 
 ---
 
@@ -509,6 +633,8 @@ auto x = type(init);
 ///hide
 }
 ```
+
+Note: WRONG!
 
 ---
 
@@ -533,13 +659,22 @@ void append_unique( Container& c, const Value& v ) {
 }
 ```
 
+Note: 
+the lack of exact types makes it much more powerful and doesn’t significantly harm its readability
+
 ---
 
 ## write code against interfaces, not implementations
 
-- functions - hiding code
-- OOO - hiding code and data
-- Polymorphism - hiding type
+- <!-- .element: class="fragment" -->  Functions - hiding code
+- <!-- .element: class="fragment" -->  OO - hiding code and data
+- <!-- .element: class="fragment" --> Polymorphism - hiding type
+
+Note: 
+- we write functions to hide implmenetation code
+- we write class to hide private members and methods
+- we use static (templates) and dynamic (virtual methods) polymorphism to write generic code
+- using `auto` is another link in this software development chain
 
 ---
 
