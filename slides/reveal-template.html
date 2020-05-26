@@ -49,7 +49,7 @@
       // Optional libraries used to extend on reveal.js
       var deps = [
         { src: '{{{base}}}/plugin/markdown/marked.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
-        { src: '{{{base}}}/_assets/scripts/markdown.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
+        { src: '{{{base}}}/plugins/markdown.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
         { src: '{{{base}}}/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
         { src: '{{{base}}}/plugin/zoom-js/zoom.js', async: true },
         { src: '{{{base}}}/plugin/notes/notes.js', async: true },

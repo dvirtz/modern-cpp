@@ -11,7 +11,8 @@
     "css": "css/custom.css",
     "_": ["slides/index.md"],
     "staticDirs": [
-        "slides/images"
+        "slides/images",
+        "slides/plugins"
     ],
-    "template": "slides/reveal.html"
+    "template": "slides/reveal-template.html"
 }
