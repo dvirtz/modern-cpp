@@ -4,25 +4,22 @@ Reveal.addEventListener('ready', (event) => {
 
     for (element of ce_nodes) {
         let compiler = isLocal ? "clangdefault" : "g82";
-        let options = "-O2 -march=haswell";
+        let options = "-O2 -march=haswell -Wall -Wextra -pedantic";
         let execute = false
         let libs = []
+        let forceExternal = false;
         let source = unescape(element.textContent);
         let lines = source.split('\n');
         source = "";
         let displaySource = "";
-        const hideMatcher = /^\s*\/\/\/\s*((un)?hide)$/;
-        const executeMatcher = /^\s*\/\/\/\s*execute$/;
-        const compilerMatcher = /^\s*\/\/\/\s*compiler=(.*)$/;
-        const optionsMatcher = /^\s*\/\/\/\s*options=(.*)$/;
-        const libsMatcher = /^\s*\/\/\/\s*libs=(\w+:\w+(?:,\w+:\w+)*)$/;
+        let matcher = pattern => new RegExp(`^\s*\/\/\/\s*${pattern}$`);
         let skipDisplay = false;
         let hide = false;
         for (line of lines) {
             if (line.match(/^\/\/\//)) {
-                (line.match(compilerMatcher) || []).slice(1).forEach(match => compiler = match);
-                (line.match(optionsMatcher) || []).slice(1).forEach(match => options = match);
-                (line.match(libsMatcher) || []).slice(1).forEach(match => {
+                (line.match(matcher('compiler=(.*)')) || []).slice(1).forEach(match => compiler = match);
+                (line.match(matcher('options=(.*)')) || []).slice(1).forEach(match => options = match);
+                (line.match(matcher('libs=(\w+:\w+(?:,\w+:\w+)*)')) || []).slice(1).forEach(match => {
                     [...match.matchAll(/(\w+):(\w+)/g)].forEach(match => {
                         libs.push({
                             name: match[1],
@@ -30,8 +27,9 @@ Reveal.addEventListener('ready', (event) => {
                         });
                     })
                 });
-                (line.match(executeMatcher) || []).forEach(_ => execute = true);
-                (line.match(hideMatcher) || []).slice(1, 2).forEach(match => hide = match == "hide");
+                (line.match(matcher('execute')) || []).forEach(_ => execute = true);
+                (line.match(matcher('external')) || []).forEach(_ => forceExternal = true);
+                (line.match(matcher('((un)?hide)')) || []).slice(1, 2).forEach(match => hide = match == "hide");
             } else {
                 source += line + "\n";
                 if (!skipDisplay && !hide)
@@ -52,9 +50,8 @@ Reveal.addEventListener('ready', (event) => {
             return source;
         }
 
-        displaySource = trim(displaySource);
+        displaySource = displaySource;
         source = trim(source);
-        options += " -Wall -Wextra -pedantic";
         let content = [];
         content.push({
             type: 'component',
@@ -73,6 +70,11 @@ Reveal.addEventListener('ready', (event) => {
                 componentName: 'compiler',
                 componentState: {
                     source: 1,
+                    lang: 'c++',
+                    compiler: compiler,
+                    options: options,
+                    libs: libs,
+                    fontScale: 3.0,
                     filters: {
                         commentOnly: true,
                         directives: true,
@@ -80,11 +82,7 @@ Reveal.addEventListener('ready', (event) => {
                         labels: true,
                         trim: true,
                         execute: execute
-                    },
-                    options: options,
-                    compiler: compiler,
-                    libs: libs,
-                    fontScale: 3.0
+                    }
                 }
             }, {
                 type: 'component',
@@ -104,9 +102,9 @@ Reveal.addEventListener('ready', (event) => {
         };
         let ceFragment = encodeURIComponent(JSON.stringify(obj));
 
-        const baseUrl = isLocal ? 'http://localhost:10240/' : 'https://godbolt.org/';
+        const baseUrl = (isLocal && !forceExternal) ? 'http://localhost:10240/' : 'https://godbolt.org/';
 
-        element.onclick = (evt) => {
+        element.parentNode.onclick = (evt) => {
             if (evt.ctrlKey || evt.metaKey) {
                 window.open(baseUrl + "#" + ceFragment, "ce");
             }
