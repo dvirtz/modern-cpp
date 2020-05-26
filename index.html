@@ -708,7 +708,7 @@ void append_unique( Container& c, const Value& v ) {
       // Optional libraries used to extend on reveal.js
       var deps = [
         { src: './plugin/markdown/marked.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
-        { src: './_assets/scripts/markdown.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
+        { src: './plugins/markdown.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
         { src: './plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
         { src: './plugin/zoom-js/zoom.js', async: true },
         { src: './plugin/notes/notes.js', async: true },

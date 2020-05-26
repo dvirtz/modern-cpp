@@ -82,6 +82,7 @@ input[type='checkbox']:checked:after {
 
 @keyframes v11 {
 	25% { opacity: 0;}
+	26% { opacity: 1; }
 	100% { opacity: 1; }
 }
 
@@ -91,6 +92,7 @@ input[type='checkbox']:checked:after {
 
 @keyframes v14 {
 	50% { opacity: 0;}
+	51% { opacity: 1; }
 	100% { opacity: 1; }
 }
 
@@ -100,6 +102,7 @@ input[type='checkbox']:checked:after {
 
 @keyframes v17 {
 	75% { opacity: 0;}
+	76% { opacity: 1; }
 	100% { opacity: 1; }
 }
 
@@ -109,6 +112,7 @@ input[type='checkbox']:checked:after {
 
 @keyframes v20 {
 	95% { opacity: 0;}
+	96% { opacity: 1; }
 	100% { opacity: 1; }
 }
 
