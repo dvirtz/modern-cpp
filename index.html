@@ -125,7 +125,7 @@ widget w = get_gadget();
 </aside></script></section><section data-markdown><script type="text/template">
 <!-- .slide: data-background-color="#bee4fd" -->
 
-## Not member `begin` and `end`
+## Non member `begin` and `end`
 
 Accept anything with a member `begin` and `end` as well as C-style arrays
 
@@ -177,7 +177,7 @@ void some_function( Container& c, const Value& v ) {
 <!-- .slide: data-background="https://media.giphy.com/media/3oKIPmnZ2IxoAQBta8/giphy.gif" -->
 
 # auto
-<!-- .element: style="text-shadow: 3px 3px black; color: lightblue" -->
+<!-- .element: style="text-shadow: 3px 3px black; color: lightblue; position: fixed; top: 0; left: 40%" -->
 
  Slides are based on <!-- .element: class="footnote" style="text-shadow:-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black" -->  [Herb Sutter's](herbsutter.com) GOTW series
 
@@ -262,7 +262,7 @@ int         val = 0;
 auto        a   = val; // The type of a is int
 auto&       b   = val; // The type of b is int&
 const auto  c   = val; // The type of c is const int
-const auto& d   = val; // The type of a is const int&
+const auto& d   = val; // The type of d is const int&
 ///hide
 }
 ```
@@ -296,7 +296,8 @@ auto i = 42;    // guaranteed to be initialized
 }
 ```
 
-</script></section><section data-markdown><script type="text/template">
+<aside class="notes"><p>solving the first problem</p>
+</aside></script></section><section data-markdown><script type="text/template">
 ## Avoid narrowing conversions
 
 instead of
@@ -329,7 +330,8 @@ auto size = v.size(); // exact type, no narrowing
 }
 ```
 
-</script></section><section data-markdown><script type="text/template">
+<aside class="notes"><p>solving narrowing conversions</p>
+</aside></script></section><section data-markdown><script type="text/template">
 ## DRY initialization syntax
 
 instead of
@@ -391,10 +393,10 @@ auto i = begin(v);
 <aside class="notes"><ul>
 <li>correct and clear and simpler</li>
 <li>stays correct if we change the type of the parameter to be non-const</li>
-<li>or even pass some other type of container</li>
+<li>or even replace vector with some other type of container</li>
 </ul>
 </aside></script></section><section data-markdown><script type="text/template">
-## Cheeper
+## Avoids hidden temporaries
 
 instead of
 
@@ -497,7 +499,10 @@ static_assert(sizeof(void *) == 4,
   "64-bit code generation is not supported.");
 ```
 
-<aside class="notes"><p>Open CE</p>
+<aside class="notes"><ul>
+<li>If you only support 32 bit you can give a compile time error if anyone tries to use you code to compile for 64 bit</li>
+<li>Open CE</li>
+</ul>
 </aside></script></section><section data-markdown><script type="text/template">
 <!-- .slide: data-background-color="#bee4fd" -->
 
@@ -532,7 +537,7 @@ RETURN_TYPE trace(Func f, T t) {
 }
 ```
 
-<aside class="notes"><p>we implement a tracing function which gets a function <code>f</code> and a value <code>t</code> and returns the result of <code>f(t)</code>.</p>
+<aside class="notes"><p>we implement a generic tracing function which gets a function <code>f</code> and a value <code>t</code> and returns the result of <code>f(t)</code>.</p>
 </aside></script></section><section data-markdown><script type="text/template">
 ## what should be the return type
 
@@ -584,14 +589,17 @@ auto trace(Func f, T t) {
 }
 ```
 
-<aside class="notes"><p>in c++14, this idiom was shortened</p>
+<aside class="notes"><p>in c++14, this idiom was shortened to mean deduce the return type from the return statement</p>
 </aside></script></section><section data-markdown><script type="text/template">
 <!-- .slide: data-background="https://media.giphy.com/media/GPn300EibJ2F2/giphy.gif" -->
 
 # CONCERNED?
 <!-- .element: style="text-shadow: 3px 3px black; color: lightblue" -->
 
-<aside class="notes"><p>Let&#39;s look at some possible reactions to <code>auto</code></p>
+<aside class="notes"><ul>
+<li>There are number of popular concerns about using auto.</li>
+<li>Let&#39;s tackle some of them.</li>
+</ul>
 </aside></script></section><section data-markdown><script type="text/template">
 > writing auto to declare a variable is primarily about saving typing.
 
@@ -652,7 +660,8 @@ void append_unique( Container& c, const Value& v ) {
 }
 ```
 
-</script></section><section data-markdown><script type="text/template">
+<aside class="notes"><p>the lack of exact types makes it much more powerful and doesn’t significantly harm its readability</p>
+</aside></script></section><section data-markdown><script type="text/template">
 ## write code against interfaces, not implementations
 
 - <!-- .element: class="fragment" -->  Functions - hiding code

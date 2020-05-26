@@ -1,7 +1,7 @@
 .footnote {
-  position: absolute;
-  bottom: -10em;
-  right: 0;
+  position: fixed;
+  bottom: 10px;
+  left: 0;
   font-size: 0.5em;
 }
 
