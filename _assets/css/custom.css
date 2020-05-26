@@ -2,7 +2,7 @@
   position: absolute;
   bottom: -10em;
   right: 0;
-  font-size: small;
+  font-size: 0.5em;
 }
 
 input[type='checkbox'] {
@@ -39,7 +39,7 @@ input[type='checkbox']:checked:after {
 }
 
 #logo {
-	size: 250px 250px;
+	max-height: 250px;
 	border: none;
 	background: none;
 	position: absolute;
@@ -54,4 +54,64 @@ input[type='checkbox']:checked:after {
 @keyframes moveLeftToRight {
   0%   { left: -100px; }
   100% { left: 100%; }
+}
+
+.container {
+	display: flex;
+	font-size: 0.55em;
+}
+
+.container div {
+	width: 50%;
+	height: 100px;
+}
+
+#versions {
+	width: 100%;
+	height: 250px;
+}
+
+#versions td {
+	text-align: center;
+	vertical-align: bottom;
+}
+
+#versions h1 {
+	opacity: 0;
+}
+
+@keyframes v11 {
+	25% { opacity: 0;}
+	100% { opacity: 1; }
+}
+
+#v11 {
+	animation: v11 5s linear infinite alternate;
+}
+
+@keyframes v14 {
+	50% { opacity: 0;}
+	100% { opacity: 1; }
+}
+
+#v14 {
+	animation: v14 5s linear infinite alternate;
+}
+
+@keyframes v17 {
+	75% { opacity: 0;}
+	100% { opacity: 1; }
+}
+
+#v17 {
+	animation: v17 5s linear infinite alternate;
+}
+
+@keyframes v20 {
+	95% { opacity: 0;}
+	100% { opacity: 1; }
+}
+
+#v20 {
+	animation: v20 5s linear infinite alternate;
 }

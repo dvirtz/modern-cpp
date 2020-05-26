@@ -18,8 +18,26 @@
 
 <img id="logo" src="images/cpp_logo.png" alt="logo">
 
-</script></section><section ><section data-markdown><script type="text/template">
-## What is the problem with this code?
+<table id="versions">
+  <tr>
+    <td><h1 id="v11">11</h1></td>
+    <td><h1 id="v14">14</h1></td>
+    <td><h1 id="v17">17</h1></td>
+    <td><h1 id="v20">20</h1></td>
+  </tr>
+</table>
+
+[Dvir Yitzchaki](github.com/dvirtz)
+
+<aside class="notes"><ul>
+<li>The first C++ standard was published on 1998 with a small bug fix update on 2003.</li>
+<li>After being stale for over a decade, starting from 2011, the standard switched to a train model where a new standard is being released every 3 years.</li>
+<li>In this series we&#39;re going to discuss the new language and library features added to the C++ standard in the new revisons released since.</li>
+<li>On each session we will have one main topic and smaller features will be introduced as needed.</li>
+<li>Let&#39;s start.</li>
+</ul>
+</aside></script></section><section ><section data-markdown><script type="text/template">
+## What problems can you find in this code?
 
 ```cpp
 ///hide
@@ -42,7 +60,12 @@ std::vector<int> v2 = 5;
 }
 ```
 
-</script></section><section data-markdown><script type="text/template">
+<aside class="notes"><ul>
+<li>uninitialized variable</li>
+<li>possible data lose converting from <code>size_t</code> to <code>int</code></li>
+<li>although looking similar, the second line does not compile, because the constructor is <em>explicit</em></li>
+</ul>
+</aside></script></section><section data-markdown><script type="text/template">
 ## And this?
 
 ```cpp
@@ -59,7 +82,10 @@ void traverser( const std::vector<int>& v ) {
 }
 ```
 
-</script></section><section data-markdown><script type="text/template">
+<aside class="notes"><ul>
+<li>this code does not compile because we need a <code>const_iterator</code></li>
+</ul>
+</aside></script></section><section data-markdown><script type="text/template">
 ## And this?
 
 ```cpp
@@ -90,7 +116,43 @@ widget w = get_gadget();
 }
 ```
 
-</script></section><section data-markdown><script type="text/template">
+<small> assuming `gadget` is implicitly convertible to `widget` </small>
+
+<aside class="notes"><ul>
+<li>a temporary <code>getget</code> is created which might be a performance pitfall, as the creation of the temporary object is not at all obvious from reading the call site alone.</li>
+<li>it&#39;s possible that using <code>gadget</code> is just as well as viable in this code</li>
+</ul>
+</aside></script></section><section data-markdown><script type="text/template">
+<!-- .slide: data-background-color="#bee4fd" -->
+
+## Not member `begin` and `end`
+
+Accept anything with a member `begin` and `end` as well as C-style arrays
+
+```cpp
+///execute
+///hide
+#include <vector>
+#include <cassert>
+ 
+int main() 
+{
+///unhide
+std::vector<int> v = { 3, 1, 4 };
+auto vi = std::begin(v);
+assert(*vi == 3);
+
+int a[] = { -5, 10, 15 };
+auto ai = std::begin(a);
+assert(*ai == -5);
+///hide
+}
+```
+
+<aside class="notes"><ul>
+<li>prefer to use this in generic code</li>
+</ul>
+</aside></script></section><section data-markdown><script type="text/template">
 What does this function do?
 
 ```cpp
@@ -108,16 +170,26 @@ void some_function( Container& c, const Value& v ) {
 }
 ```
 
-</script></section><section data-markdown><script type="text/template">
+<aside class="notes"><ul>
+<li><code>append_unique</code></li>
+</ul>
+</aside></script></section><section data-markdown><script type="text/template">
+<!-- .slide: data-background="https://media.giphy.com/media/3oKIPmnZ2IxoAQBta8/giphy.gif" -->
+
 # auto
+<!-- .element: style="text-shadow: 3px 3px black; color: lightblue" -->
 
-- oldest feature in C++11 (1983)
-- most commonly used
+ Slides are based on <!-- .element: class="footnote" style="text-shadow:-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black" -->  [Herb Sutter's](herbsutter.com) GOTW series
 
- Slides are based on <!-- .element: class="footnote" -->  [Herb Sutter's](herbsutter.com) GOTW series
-
-</script></section><section data-markdown><script type="text/template">
+<aside class="notes"><ul>
+<li>our main topic today</li>
+<li>oldest feature in C++11 (first implementation at 1983)</li>
+</ul>
+</aside></script></section><section data-markdown><script type="text/template">
 ## declaring a local variable
+
+syntax
+
 ```cpp
 ///hide
 void foo(int its_initial_value){
@@ -127,7 +199,7 @@ auto my_new_variable = its_initial_value;
 }
 ```
 
-deduce the type from the expression used to initialize the new variable
+deduce type from initializing expression
 
 ```cpp
 ///hide
@@ -194,6 +266,10 @@ const auto& d   = val; // The type of a is const int&
 ///hide
 }
 ```
+
+<aside class="notes"><p>If needed, <code>const</code> and <code>&amp;</code> can be explicity added</p>
+</aside></script></section><section data-markdown><script type="text/template">
+<!-- .slide: data-background="https://media.giphy.com/media/Wtalnj96EH5t2iPxGZ/giphy.gif" data-background-size="contain" -->
 
 </script></section><section data-markdown><script type="text/template">
 ## Forces initialization
@@ -282,7 +358,8 @@ auto v2 = std::vector<int>(5); // keep it DRY
 }
 ```
 
-</script></section><section data-markdown><script type="text/template">
+<aside class="notes"><p>if one wants to use explicit constructor with the assignment syntax they would have to repeat the type but not with auto</p>
+</aside></script></section><section data-markdown><script type="text/template">
 ## Correct type by default
 
 instead of
@@ -306,7 +383,7 @@ write
 
 void foo(std::vector &v) {
 ///unhide
-auto i = v.begin();
+auto i = begin(v);
 ///hide
 }
 ```
@@ -335,9 +412,7 @@ struct widget{
     widget() { std::cout << "widget()\n"; }
     widget(const gadget&) { std::cout << "widget(gadget&)\n"; }
 };
-///unhide
-gadget get_gadget();
-///hide
+
 gadget get_gadget() {
     return gadget();
 }
@@ -366,18 +441,79 @@ struct widget{
     widget() { std::cout << "widget()\n"; }
     widget(const gadget&) { std::cout << "widget(gadget&)\n"; }
 };
-///unhide
-gadget get_gadget();
-///hide
+
 gadget get_gadget() {
     return gadget();
 }
 
 int main() {
 ///unhide
-auto w = get_gadget();
+auto w = get_gadget(); // gadget can be used
 ///hide
 }
+```
+
+or
+
+```cpp
+///execute
+///hide
+#include <iostream>
+
+struct gadget{
+    gadget() { std::cout << "gadget()\n"; }
+    gadget(const gadget&) { std::cout << "gadget(gadget&)\n"; }
+};
+
+struct widget{
+    widget() { std::cout << "widget()\n"; }
+    widget(const gadget&) { std::cout << "widget(gadget&)\n"; }
+};
+
+gadget get_gadget() {
+    return gadget();
+}
+
+int main() {
+///unhide
+auto w = widget(get_gadget()); // widget is needed
+///hide
+}
+```
+
+</script></section><section data-markdown><script type="text/template">
+<!-- .slide: data-background-color="#bee4fd" -->
+
+## `static_assert`
+
+Check assertions at compile time:
+```cpp
+static_assert ( bool_constexpr , message )
+```
+
+For example:
+```cpp
+static_assert(sizeof(void *) == 4, 
+  "64-bit code generation is not supported.");
+```
+
+<aside class="notes"><p>Open CE</p>
+</aside></script></section><section data-markdown><script type="text/template">
+<!-- .slide: data-background-color="#bee4fd" -->
+
+## `decltype`
+
+Similar to `sizeof(expr)` but returns type instead of size.
+
+```cpp
+#include <type_traits>
+
+int f();
+
+static_assert(sizeof(f()) == sizeof(int), 
+  "f should return int");
+static_assert(std::is_same<int, decltype(f())>::value, 
+  "f should return int");
 ```
 
 </script></section><section data-markdown><script type="text/template">
@@ -396,37 +532,29 @@ RETURN_TYPE trace(Func f, T t) {
 }
 ```
 
-</script></section><section data-markdown><script type="text/template">
-## `static_assert`
+<aside class="notes"><p>we implement a tracing function which gets a function <code>f</code> and a value <code>t</code> and returns the result of <code>f(t)</code>.</p>
+</aside></script></section><section data-markdown><script type="text/template">
+## what should be the return type
 
-Check assertions at compile time:
-```cpp
-static_assert ( bool_constexpr , message )
-```
-
-For example:
-```cpp
-static_assert(sizeof(void *) == 4, 
-  "64-bit code generation is not supported.");
-```
-
-</script></section><section data-markdown><script type="text/template">
-## `decltype`
-
-Similar to `sizeof(expr)` but returns type instead of size.
+first try
 
 ```cpp
-#include <type_traits>
+///hide
+#include <iostream>
 
-int f();
-
-static_assert(sizeof(f()) == sizeof(int), 
-  "f should return int");
-static_assert(std::is_same<int, decltype(f())>::value, 
-  "f should return int");
+///unhide
+template <typename Func, typename T>
+decltype(f(t)) trace(Func f, T t) { 
+  std::cout << "Calling f on " << t;
+  return f(t); 
+}
 ```
 
-</script></section><section data-markdown><script type="text/template">
+<aside class="notes"><ul>
+<li>open CE</li>
+<li>to express the return type we need to refer to <code>f</code> and <code>t</code> which are unknown to the compiler at the point of defining the return type.</li>
+</ul>
+</aside></script></section><section data-markdown><script type="text/template">
 ## trailing return type
 
 ```cpp
@@ -440,7 +568,9 @@ auto trace(Func f, T t) -> decltype(f(t)) {
 }
 ```
 
-</script></section><section data-markdown><script type="text/template">
+<aside class="notes"><p>we replace the return type with <code>auto</code> and add the actual return type after the arrow.
+At this point we can refer to <code>f</code> and <code>t</code>.</p>
+</aside></script></section><section data-markdown><script type="text/template">
 ## `auto` return type (C++14)
 
 ```cpp
@@ -454,30 +584,15 @@ auto trace(Func f, T t) {
 }
 ```
 
-</script></section><section data-markdown><script type="text/template">
-## `auto` return type (C++14)
-
-```cpp
-auto max(int& a, int& b) { 
-  return a < b ? b : a;
-}
-```
-
-</script></section><section data-markdown><script type="text/template">
-## `decltype(auto)` (C++14)
-
-```cpp
-decltype(auto) max(int& a, int& b) { 
-  return a < b ? b : a;
-}
-```
-
-</script></section><section data-markdown><script type="text/template">
+<aside class="notes"><p>in c++14, this idiom was shortened</p>
+</aside></script></section><section data-markdown><script type="text/template">
 <!-- .slide: data-background="https://media.giphy.com/media/GPn300EibJ2F2/giphy.gif" -->
 
 # CONCERNED?
+<!-- .element: style="text-shadow: 3px 3px black; color: lightblue" -->
 
-</script></section><section data-markdown><script type="text/template">
+<aside class="notes"><p>Let&#39;s look at some possible reactions to <code>auto</code></p>
+</aside></script></section><section data-markdown><script type="text/template">
 > writing auto to declare a variable is primarily about saving typing.
 
 </script></section><section data-markdown><script type="text/template">
@@ -489,7 +604,17 @@ Writing auto is about
 - [x] robustness <!-- .element: class="fragment" -->
 - [x] convenience <!-- .element: class="fragment" -->
 
-</script></section><section data-markdown><script type="text/template">
+<aside class="notes"><p>No, writing auto is about</p>
+<ul>
+<li>correctness</li>
+<li>performance</li>
+<li>maintainability</li>
+<li>robustness</li>
+<li>AND FINALLY, ALSO</li>
+<li>convenience</li>
+</ul>
+<p>Next...</p>
+</aside></script></section><section data-markdown><script type="text/template">
 > But in some cases I do want to commit to a specific type, not automatically deduce it, so I can’t use auto.
 
 </script></section><section data-markdown><script type="text/template">
@@ -505,7 +630,8 @@ auto x = type(init);
 }
 ```
 
-</script></section><section data-markdown><script type="text/template">
+<aside class="notes"><p>WRONG!</p>
+</aside></script></section><section data-markdown><script type="text/template">
 > My code gets unreadable quickly when I don’t know what exact type my variable is without hunting around to see what that function or expression returns, so I can’t just use auto all the time.
 
 </script></section><section data-markdown><script type="text/template">
@@ -529,11 +655,17 @@ void append_unique( Container& c, const Value& v ) {
 </script></section><section data-markdown><script type="text/template">
 ## write code against interfaces, not implementations
 
-- functions - hiding code
-- OOO - hiding code and data
-- Polymorphism - hiding type
+- <!-- .element: class="fragment" -->  Functions - hiding code
+- <!-- .element: class="fragment" -->  OO - hiding code and data
+- <!-- .element: class="fragment" --> Polymorphism - hiding type
 
-</script></section><section data-markdown><script type="text/template">
+<aside class="notes"><ul>
+<li>we write functions to hide implmenetation code</li>
+<li>we write class to hide private members and methods</li>
+<li>we use static (templates) and dynamic (virtual methods) polymorphism to write generic code</li>
+<li>using <code>auto</code> is another link in this software development chain</li>
+</ul>
+</aside></script></section><section data-markdown><script type="text/template">
 ## Using `auto`
 
 - <!-- .element: class="fragment" --> guarantees the variable will be initialized
@@ -567,7 +699,7 @@ void append_unique( Container& c, const Value& v ) {
       // Optional libraries used to extend on reveal.js
       var deps = [
         { src: './plugin/markdown/marked.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
-        { src: './plugin/markdown/markdown.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
+        { src: './_assets/scripts/markdown.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
         { src: './plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
         { src: './plugin/zoom-js/zoom.js', async: true },
         { src: './plugin/notes/notes.js', async: true },
