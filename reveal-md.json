@@ -12,5 +12,6 @@
     "_": ["slides/index.md"],
     "staticDirs": [
         "slides/images"
-    ]
+    ],
+    "template": "slides/reveal.html"
 }
