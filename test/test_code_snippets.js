@@ -1,4 +1,4 @@
-const { preprocessSync } = require('../scripts/preprocess')
+const preprocess = require('../scripts/preprocess')
 const processElement = require('../scripts/compiler-explorer')
 const { readFileSync } = require('fs');
 const { describe, it } = require('mocha');
@@ -12,7 +12,7 @@ const compile = bent('https://godbolt.org/', 'POST', 'json')
 
 
 describe('compile snippets', function () {
-  const text = preprocessSync(readFileSync('slides/index.md', 'ascii'), { includeDir: 'slides' })
+  const text = preprocess(readFileSync('slides/index.md', 'ascii'), { includeDir: 'slides' })
 
   const codeSnippets = [...text.matchAll(CODE_SNIPPET)].map(m => m[1]);
 
