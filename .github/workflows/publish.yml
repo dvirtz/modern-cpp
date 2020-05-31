@@ -24,9 +24,23 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: | 
-        npm ci
-        npm run generate
+    - name: Cache Node.js modules
+      uses: actions/cache@v2
+      with:
+        # npm cache files are stored in `~/.npm` on Linux/macOS
+        path: ~/.npm 
+        key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.OS }}-node-
+          ${{ runner.OS }}-
+    - name: Install dependencies
+      run: npm ci
+    - name: Run tests
+      run: npm test
+      env:
+        CI: true
+    - name: Generate static site
+      run: npm run generate
     - name: GitHub Pages action
       uses: peaceiris/actions-gh-pages@v3.6.1
       with:
