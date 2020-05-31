@@ -4,8 +4,9 @@
   "description": "slides on modern C++",
   "main": "index.js",
   "scripts": {
-    "test": "reveal-md slides/index.md",
-    "generate": "reveal-md slides/index.md --static .site"
+    "present": "reveal-md slides/index.md",
+    "generate": "reveal-md slides/index.md --static .site",
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -21,7 +22,11 @@
   },
   "devDependencies": {
     "reveal-md": "^3.4.7",
-    "jquery": "^3.5.1"
+    "jquery": "^3.5.1",
+    "mocha": "^7.1.2",
+    "bent": "^7.3.1",
+    "chai": "^4.2.0",
+    "ansi-colors": "^4.1.1"
   },
   "homepage": "https://github.com/dvirtz/modern-cpp#readme"
 }

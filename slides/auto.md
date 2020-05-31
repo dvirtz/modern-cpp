@@ -1,6 +1,7 @@
 ## What problems can you find in this code?
 
 ```cpp
+///fails
 ///hide
 #include <string>
 #include <vector>
@@ -31,6 +32,7 @@ Note:
 ## And this?
 
 ```cpp
+///fails
 ///hide
 #include <vector>
 ///unhide
@@ -140,7 +142,7 @@ Note:
 
 ---
 
-<!-- .slide: data-background="https://media.giphy.com/media/3oKIPmnZ2IxoAQBta8/giphy.gif" -->
+<!-- .slide: data-background="https://media.giphy.com/media/3oKIPmnZ2IxoAQBta8/giphy.gif" data-transition="none slide" -->
 
 # auto
 <!-- .element: style="text-shadow: 3px 3px black; color: lightblue; position: fixed; top: 0; left: 40%" -->
@@ -350,7 +352,7 @@ instead of
 ///hide
 #include <vector>
 
-void foo(std::vector &v) {
+void foo(std::vector<int> &v) {
 ///unhide
 std::vector<int>::const_iterator i = v.begin();
 ///hide
@@ -363,7 +365,7 @@ write
 ///hide
 #include <vector>
 
-void foo(std::vector &v) {
+void foo(std::vector<int> &v) {
 ///unhide
 auto i = begin(v);
 ///hide
@@ -404,7 +406,6 @@ int main() {
 ///unhide
 widget w = get_gadget();
 ///hide
-}
 }
 ```
 
@@ -472,17 +473,21 @@ auto w = widget(get_gadget()); // widget is needed
 
 Check assertions at compile time:
 ```cpp
-static_assert ( bool_constexpr , message )
+///hide
+constexpr auto bool_constexpr = true;
+#define message "should never appear"
+///unhide
+static_assert ( bool_constexpr , message );
 ```
 
 For example:
 ```cpp
-static_assert(sizeof(void *) == 4, 
-  "64-bit code generation is not supported.");
+static_assert(sizeof(void *) == 8, 
+  "Only 64-bit code generation is supported.");
 ```
 
 Note:
-- If you only support 32 bit you can give a compile time error if anyone tries to use you code to compile for 64 bit
+- If you only support 64 bit you can give a compile time error if anyone tries to use you code to compile for other architectures
 - Open CE
 
 ---
@@ -530,6 +535,7 @@ Note: we implement a generic tracing function which gets a function `f` and a va
 first try
 
 ```cpp
+///fails
 ///hide
 #include <iostream>
 

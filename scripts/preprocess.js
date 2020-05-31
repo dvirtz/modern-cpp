@@ -11,10 +11,16 @@ const loadFileContent = (line, basePath) => {
     return readFileSync(path.join(basePath, filePath));
 };
 
-const preprocess = async (markdown, options) =>
+const preprocessSync = (markdown, options) =>
     markdown
         .split(LINE_SEPARATOR)
         .map(line => isFileReference(line) ? loadFileContent(line, options.includeDir) : line)
         .join(LINE_SEPARATOR);
 
-module.exports = preprocess;
+const preprocess = async (markdown, options) =>
+    preprocessSync(markdown, options)
+
+module.exports = {
+    preprocess: preprocess,
+    preprocessSync: preprocessSync
+};
