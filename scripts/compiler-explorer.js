@@ -51,7 +51,7 @@ const processElement = (content, isLocal) => {
     return [info, displaySource]
 };
 
-function prepareUrl(info) {
+function prepareUrl(info, isLocal) {
     function trim(source) {
         while (source.startsWith("\n")) {
             source = source.slice(1, source.length);
