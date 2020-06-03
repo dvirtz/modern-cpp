@@ -22,7 +22,7 @@
 
 	var SCRIPT_END_PLACEHOLDER = '__SCRIPT_END__';
 
-	const CODE_LINE_NUMBER_REGEX = /\[([\s\d,|-]*)\]/;
+	const CODE_LINE_NUMBER_REGEX = /(\d*)\[([\s\d,|-]*)\]/;
 
 
 	/**
@@ -317,7 +317,8 @@
 			nodeValue = nodeValue.substring( 0, matches.index ) + nodeValue.substring( mardownClassesInElementsRegex.lastIndex );
 			node.nodeValue = nodeValue;
 			while( matchesClass = mardownClassRegex.exec( classes ) ) {
-				elementTarget.setAttribute( matchesClass[1], matchesClass[2] );
+				let element = (matchesClass[1] == 'data-fragment-index' && elementTarget.querySelector('code')) || elementTarget;
+				element.setAttribute( matchesClass[1], matchesClass[2] );
 			}
 			return true;
 		}
@@ -433,13 +434,18 @@
         code(code, infostring, escaped) {
 					// Off by default
 					let lineNumbers = '';
+					let startNumber = '';
 
 					// Users can opt in to show line numbers and highlight
 					// specific lines.
 					// ```javascript []        show line numbers
 					// ```javascript [1,4-8]   highlights lines 1 and 4-8
-					if( CODE_LINE_NUMBER_REGEX.test( infostring ) ) {
-						lineNumbers = infostring.match( CODE_LINE_NUMBER_REGEX )[1].trim();
+					const match = infostring.match(CODE_LINE_NUMBER_REGEX)
+					if (match) {
+						if (match[1].length > 0) {
+							startNumber = `data-line-numbers-start="${match[1]}"`;
+						}
+						lineNumbers = match[2].trim();
 						lineNumbers = `data-line-numbers="${lineNumbers}"`;
 						infostring = infostring.replace( CODE_LINE_NUMBER_REGEX, '' ).trim();
 					}
@@ -447,7 +453,7 @@
 					const rendered = super.code(code, infostring, escaped);
 
 					if (lineNumbers) {
-						return rendered.replace(/<code ([^>]*)>/, `<code $1 ${lineNumbers}>`)
+						return rendered.replace(/<code ([^>]*)>/, `<code $1 ${lineNumbers} ${startNumber}>`)
 					}
 
           return rendered;
