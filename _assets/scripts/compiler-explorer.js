@@ -1,6 +1,6 @@
 const processElement = (content, isLocal) => {
     let compiler = isLocal ? "clangdefault" : "g82";
-    let options = "-O2 -march=haswell -Wall -Wextra -pedantic";
+    let options = "-O2 -march=haswell -Wall -Wextra -pedantic -Wno-unused-variable";
     let execute = false
     let libs = []
     let forceExternal = false;

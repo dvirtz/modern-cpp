@@ -58,12 +58,14 @@ input[type='checkbox']:checked:after {
 
 .container {
 	display: flex;
-	font-size: 0.55em;
 }
 
-.container div {
-	width: 50%;
-	height: 100px;
+.container pre {
+	width: 49%;
+}
+
+.container code {
+	height: 100%;
 }
 
 #versions {
