@@ -11,7 +11,7 @@
   </tr>
 </table>
 
-[Dvir Yitzchaki](github.com/dvirtz)
+[Dvir Yitzchaki](https://github.com/dvirtz)
 
 Note:
 - The first C++ standard was published on 1998 with a small bug fix update on 2003.
