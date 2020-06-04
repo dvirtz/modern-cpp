@@ -505,7 +505,7 @@ assert(aDozenOfFives != twelveAndFive);
 
 ---
 
-<!-- .slide: data-background-color="#bee4fd" -->
+<!-- .slide: class="aside" -->
 
 ## Range-based for loop
 
