@@ -50,7 +50,7 @@
       var deps = [
         { src: '{{{base}}}/plugin/markdown/marked.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
         { src: '{{{base}}}/plugins/markdown.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
-        { src: '{{{base}}}/plugins/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+        { src: '{{{base}}}/plugins/highlight.js', async: true },
         { src: '{{{base}}}/plugin/zoom-js/zoom.js', async: true },
         { src: '{{{base}}}/plugin/notes/notes.js', async: true },
         { src: '{{{base}}}/plugin/math/math.js', async: true }
