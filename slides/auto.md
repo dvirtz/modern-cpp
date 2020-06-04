@@ -89,7 +89,7 @@ Note:
 
 ---
 
-<!-- .slide: data-background-color="#bee4fd" -->
+<!-- .slide: class="aside" -->
 
 ## Non member `begin` and `end`
 
@@ -467,7 +467,7 @@ auto w = widget(get_gadget()); // widget is needed
 
 ---
 
-<!-- .slide: data-background-color="#bee4fd" -->
+<!-- .slide: class="aside" -->
 
 ## `static_assert`
 
@@ -492,7 +492,7 @@ Note:
 
 ---
 
-<!-- .slide: data-background-color="#bee4fd" -->
+<!-- .slide: class="aside" -->
 
 ## `decltype`
 

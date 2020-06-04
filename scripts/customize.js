@@ -10,4 +10,6 @@ Reveal.addEventListener('ready', (event) => {
       child.removeAttr('data-fragment-index').removeClass('fragment')
       return fragmentIndex;
     });
+  $('.aside').attr('data-background-color', "#bee4fd");
+  Reveal.sync();
 });
