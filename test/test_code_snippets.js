@@ -23,7 +23,7 @@ fileList(slideFile('index.md'))
   .filter(fileSnippets => fileSnippets.snippets.length > 0)
   .map(fileSnippets => {
     describe(`compile snippets from ${fileSnippets.file}`, function () {
-      this.timeout(3000);
+      this.timeout(5000);
 
       fileSnippets.snippets.forEach(function (codeSnippet, index) {
         it(`should compile snippet ${index}`, async function () {

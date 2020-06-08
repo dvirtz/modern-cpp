@@ -317,8 +317,7 @@
 			nodeValue = nodeValue.substring( 0, matches.index ) + nodeValue.substring( mardownClassesInElementsRegex.lastIndex );
 			node.nodeValue = nodeValue;
 			while( matchesClass = mardownClassRegex.exec( classes ) ) {
-				let element = (matchesClass[1] == 'data-fragment-index' && elementTarget.querySelector('code')) || elementTarget;
-				element.setAttribute( matchesClass[1], matchesClass[2] );
+				elementTarget.setAttribute( matchesClass[1], matchesClass[2] );
 			}
 			return true;
 		}

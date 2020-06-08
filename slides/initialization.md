@@ -1,6 +1,6 @@
 Take a look at the following code:
 
-<div class="container" style="font-size: 0.6em">
+<div class="container">
 
 ```cpp [|4-6,8-10|1|8,16]
 ///options=-std=c++03
@@ -34,8 +34,6 @@ int main() {
 }
 ```
 
-<!-- .element: data-fragment-index="0" -->
-
 ```cpp 18[|0|21-26|19-20]
 ///hide
 ///options=-std=c++03
@@ -68,8 +66,6 @@ int main() {
   pf[1] = 2.3f;
 }
 ```
-
-<!-- .element: data-fragment-index="0" -->
 
 </div>
 
@@ -409,8 +405,6 @@ int main() {
 }
 ```
 
-<!-- .element: data-fragment-index="0" -->
-
 ```cpp 14[|15|16]
 ///hide
 #include <vector>
@@ -434,8 +428,6 @@ int main() {
   s.append({6, 7, 8});
 }
 ```
-
-<!-- .element: data-fragment-index="0" -->
 
 </div>
 
