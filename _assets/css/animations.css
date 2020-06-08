@@ -1,0 +1,104 @@
+#title {
+	text-shadow: 3px 3px black; 
+	color: lightblue;
+}
+
+#logo {
+	max-height: 250px;
+	border: none;
+	background: none;
+	position: absolute;
+	animation: moveLeftToRight 5s linear infinite alternate, spin 5s linear infinite alternate;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes moveLeftToRight {
+  0%   { left: -100px; }
+  100% { left: 100%; }
+}
+
+#versions {
+	width: 100%;
+	height: 250px;
+}
+
+#versions td {
+	text-align: center;
+	vertical-align: bottom;
+}
+
+#versions h1 {
+	opacity: 0;
+}
+
+@keyframes v11 {
+	25% { opacity: 0;}
+	26% { opacity: 1; }
+	100% { opacity: 1; }
+}
+
+#v11 {
+	animation: v11 5s linear infinite alternate;
+}
+
+@keyframes v14 {
+	50% { opacity: 0;}
+	51% { opacity: 1; }
+	100% { opacity: 1; }
+}
+
+#v14 {
+	animation: v14 5s linear infinite alternate;
+}
+
+@keyframes v17 {
+	75% { opacity: 0;}
+	76% { opacity: 1; }
+	100% { opacity: 1; }
+}
+
+#v17 {
+	animation: v17 5s linear infinite alternate;
+}
+
+@keyframes v20 {
+	95% { opacity: 0;}
+	96% { opacity: 1; }
+	100% { opacity: 1; }
+}
+
+#v20 {
+	animation: v20 5s linear infinite alternate;
+}
+
+.animated .filling {
+  animation: filling 5s steps(5);
+}
+
+@keyframes filling {
+  0% { width: 0 }
+  100% { width: 200 }
+}
+
+.animated .error {
+  opacity: 0;
+  animation: error 500ms 5s 5 alternate;
+}
+
+@keyframes error {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.animated .new {
+  animation: disappear 1s 7.5s forwards;
+}
+
+@keyframes disappear {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
