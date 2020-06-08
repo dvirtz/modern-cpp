@@ -8,7 +8,10 @@
         "node_modules/jquery/dist/jquery.min.js",
         "scripts/customize.js"
     ],
-    "css": "css/custom.css",
+    "css": [
+        "css/custom.css",
+        "css/animations.css"
+    ],
     "_": ["slides/index.md"],
     "staticDirs": [
         "slides/images",
