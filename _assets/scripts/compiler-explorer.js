@@ -32,9 +32,6 @@ const processElement = (content, isLocal) => {
             source += line + "\n";
             if (!skipDisplay && !hide)
                 displaySource += line + "\n";
-            if (line.length > 63) {
-                console.error(`Line too long: "${line}"`);
-            }
         }
     }
 

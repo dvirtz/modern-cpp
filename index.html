@@ -695,569 +695,6 @@ void append_unique( Container& c, const Value& v ) {
 # Thank you
 
 </script></section></section><section ><section data-markdown><script type="text/template">
-Take a look at the following code:
-
-<div class="container">
-
-```cpp [|4-6,8-10|1|8,16]
-///options=-std=c++03
-struct POD { int i; float f; };
-
-class C {
-  POD p;
-  int iarr[3];
-  double d;
-public:
-  C() : d(3.14) {
-    p.i=2; p.f=22.34;
-    for (unsigned i = 0; i < 3; ++i) iarr[i] = i;
-  }
-};
-
-class D {
-public:
-  D(C const&, POD const&) {}
-};
-///hide
-int main() {
-  C c(); 
-  D d(C(), POD());
-  POD* pp = new POD();
-  pp->i = 4;
-  pp->f = 22.1;
-  float* pf = new float[2];
-  pf[0] = 1.2f;
-  pf[1] = 2.3f;
-}
-```
-
-```cpp 18[|0|21-26|19-20]
-///hide
-///options=-std=c++03
-struct POD { int i; float f; };
-
-class C {
-  POD p;
-  int iarr[3];
-  double d;
-public:
-  C() : d(3.14) {
-    p.i=2; p.f=22.34;
-    for (unsigned i = 0; i < 3; ++i) iarr[i] = i;
-  }
-};
-
-class D {
-public:
-  D(C const&, POD const&) {}
-};
-///unhide
-int main() {
-  C c(); 
-  D d(C(), POD());
-  POD* pp = new POD();
-  pp->i = 4;
-  pp->f = 22.1;
-  float* pf = new float[2];
-  pf[0] = 1.2f;
-  pf[1] = 2.3f;
-}
-```
-
-</div>
-
-</script></section><section data-markdown><script type="text/template">
-## Most vexing parse
-
-```cpp
-///fails
-C c();            // c: () => C
-D d(C(), POD());  // d: (() => C, () => POD) => D
-```
-
-</script></section><section data-markdown><script type="text/template">
-Different initialization syntax
-
-```cpp
-///fails
-X t1 = v;     // copy initialization
-X t2(v);      // direct initialization
-X t3 = { v }; // initialize using initializer list
-X t4 = X(v);  // make an X from v and copy it to t4
-```
-
-</script></section><section data-markdown><script type="text/template">
-```cpp
-///hide
-int main() {
-///unhide
-int v = 7;
-typedef int X;
-X t1 = v;     // ok
-X t2(v);      // ok
-X t3 = { v }; // ok
-X t4 = X(v);  // ok
-///hide
-}
-```
-
-</script></section><section data-markdown><script type="text/template">
-```cpp
-///fails
-///hide
-int main() {
-///unhide
-int v = 7;
-typedef struct { int x; int y; } X;
-X t1 = v;     // error
-X t2(v);      // error
-X t3 = { v }; // ok: X is an aggregate 
-              // (“extra members” are default initialized)
-X t4 = X(v);  // error: we can’t cast an int to a struct
-///hide
-}
-```
-
-</script></section><section data-markdown><script type="text/template">
-```cpp
-///fails
-///hide
-#include <vector>
-int main() {
-///unhide
-int v = 7;
-typedef std::vector<int> X;
-X t1 = v;     // error: constructor is explicit
-X t2(v);      // ok
-X t3 = { v }; // error: not an aggregate
-X t4 = X(v);  // ok (make an X from v and copy it to t4)
-///hide
-}
-```
-
-</script></section><section data-markdown><script type="text/template">
-```cpp
-///fails
-///hide
-int main() {
-///unhide
-int v = 7;
-typedef int* X;
-X t1 = v;     // error
-X t2(v);      // error
-X t3 = { v }; // error
-X t4 = X(v);  // ok: unfortunately converts int to an int*
-///hide
-}
-```
-
-</script></section><section data-markdown><script type="text/template">
-## More initialization
-
-```cpp
-///hide
-struct X {
-    X(int);
-};
-struct Y : X {
-    Y(int);
-    int m;
-};
-
-int v;
-
-void f1() {
-///unhide
-X(42);                      // create a temporary
-///hide
-}
-///unhide
-X f(int v) { return v; }    // return a value
-///hide
-void f2() {
-///unhide
-void g(X); g(v);            // pass an argument
-new X(v);                   // create object on free store
-///hide
-}
-///unhide
-Y::Y(int v) :X(v), m(v) {}  // base and member initializers
-///hide
-void f3() {
-///unhide
-throw v;                    // throw an exception 
-///hide
-}
-```
-
-</script></section><section data-markdown><script type="text/template">
-<!-- .slide: data-background-image="https://media.giphy.com/media/YLHwkqayc1j7a/giphy.gif" data-transition="none slide"- -->
-
-# List Initialization
-
-<!-- .element: style="text-shadow: 3px 3px black; color: lightblue" -->
-
-<div style="position: fixed; left: 0; bottom: 0;">
-<small>
-
-Sources:
-- [simplify C++](https://arne-mertz.de/2015/07/new-c-features-uniform-initialization-and-initializer_list/)
-- [N2215](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2215.pdf)
-
-<small>
-<div>
-
-</script></section><section data-markdown><script type="text/template">
-## Initialize (almost) anything with `{}`
-
-```cpp
-///hide
-struct X {
-    X(int);
-};
-struct Y : X {
-    Y(int);
-    int m;
-};
-
-int v;
-
-void f1() {
-///unhide
-X{42};                      // create a temporary
-///hide
-}
-///unhide
-X f(int v) { return {v}; }  // return a value
-///hide
-void f2() {
-///unhide
-void g(X); g({v});          // pass an argument
-new X{v};                   // create object on free store
-///hide
-}
-///unhide
-Y::Y(int v) :X{v}, m{v} {}  // base and member initializers
-```
-
-This is still forbidden:
-
-```cpp
-///fails
-///hide
-void f3() {
-int v = 42;
-///unhide
-throw {v};                  // throw an exception 
-///hide
-}
-```
-
-</script></section><section data-markdown><script type="text/template">
-# It's also safer
-
-```cpp
-///fails
-int i1(4.2); // no problem
-int i2{4.2}; // error: narrowing conversion
-
-double d;
-float f1(d); // no problem
-float f2{d}; // error: narrowing conversion
-
-float f3(i1); // no problem
-float f4{i1}; // error: narrowing conversion
-
-unsigned int ui1(-1); // no problem
-unsigned int ui2{-1}; // error: narrowing conversion
-```
-
-</script></section><section data-markdown><script type="text/template">
-## Now, with list initialization
-
-```cpp [8,17-20]
-struct POD { int i; float f; };
-
-class C {
-  POD p;
-  int iarr[3];
-  double d;
-public:
-  C() : p{2, 22.34}, iarr{0, 1, 2}, d{3.14} {}
-};
-
-class D {
-public:
-  D(C const&, POD const&) {}
-};
-
-int main() {
-  C c{}; 
-  D d{C(), POD()};
-  POD* pp = new POD{4, 22.1};
-  float* pf = new float[2]{1.2f, 2.3f};
-}
-```
-
-<!-- .element: style="font-size: 0.3em" -->
-
-</script></section><section data-markdown><script type="text/template">
-## Creating an array
-
-```cpp
-///options=-std=c++03
-///hide
-#include <string>
-
-int main(){
-///unhide
-std::string days[] = { 
-  "Sunday", 
-  "Monday", 
-  "Tuesday", 
-  "Wednesday", 
-  "Thursday", 
-  "Friday", 
-  "Saturday" 
-};
-///hide
-}
-```
-
-</script></section><section data-markdown><script type="text/template">
-## Creating a vector
-
-```cpp
-///options=-std=c++03
-///hide
-#include <string>
-#include <vector>
-
-int main(){
-///unhide
-std::vector<std::string> days;
-days.reserve(7);
-
-days.push_back("Sunday"); 
-days.push_back("Monday"); 
-days.push_back("Tuesday"); 
-days.push_back("Wednesday"); 
-days.push_back("Thursday"); 
-days.push_back("Friday"); 
-days.push_back("Saturday");
-///hide
-}
-```
-
-</script></section><section data-markdown><script type="text/template">
-### `std::initializer_list<T>`
-
-- A lightweight proxy object that provides access to an array of objects of type const T.
-- Custructed automatically by the compiler when 
-  - calling a constructor/function accepting `std::initializer_list`
-  - binding a `braced-init-list` to auto
-
-</script></section><section data-markdown><script type="text/template">
-## Example
-
-<div class="container" style="font-size: 0.6em">
-
-```cpp [|4|10]
-///hide
-#include <vector>
-#include <iostream>
-///unhide
-template <class T>
-struct S {
-    std::vector<T> v;
-    S(std::initializer_list<T> l) : v(l) {
-         std::cout 
-          << "constructed with a " 
-          << l.size() 
-          << "-element list\n";
-    }
-    void append(std::initializer_list<T> l) {
-        v.insert(end(v), begin(l), end(l));
-    }
-};
-///hide
-int main() {
-  S<int> s = {1, 2, 3, 4, 5};
-  s.append({6, 7, 8});
-}
-```
-
-```cpp 14[|15|16]
-///hide
-#include <vector>
-#include <iostream>
-template <class T>
-struct S {
-    std::vector<T> v;
-    S(std::initializer_list<T> l) : v(l) {
-         std::cout 
-          << "constructed with a " 
-          << l.size() 
-          << "-element list\n";
-    }
-    void append(std::initializer_list<T> l) {
-        v.insert(end(v), begin(l), end(l));
-    }
-};
-///unhide
-int main() {
-  S<int> s = {1, 2, 3, 4, 5};
-  s.append({6, 7, 8});
-}
-```
-
-</div>
-
-</script></section><section data-markdown><script type="text/template">
-## and
-
-```cpp
-///hide
-#include <string>
-#include <vector>
-
-int main(){
-///unhide
-std::vector<std::string> days { 
-  "Sunday", 
-  "Monday", 
-  "Tuesday", 
-  "Wednesday", 
-  "Thursday", 
-  "Friday", 
-  "Saturday" 
-};
-///hide
-}
-```
-
-</script></section><section data-markdown><script type="text/template">
-## or even
-
-```cpp
-///hide
-#include <map>
-#include <string>
-
-int main() {
-std::string s1;
-///unhide
-std::map<int, std::string> m = {
-        {1, "a"},
-        {2, {'a', 'b', 'c'} },
-        {3, s1}
-};
-///hide
-}
-
-</script></section><section data-markdown><script type="text/template">
-## `initializer_list` constructor is prefered
-
-```cpp
-///execute
-///hide
-#include <vector>
-#include <cassert>
-
-int main() {
-///unhide
-std::vector<int> aDozenOfFives(12, 5);
-std::vector<int> twelveAndFive{12, 5};
-assert(aDozenOfFives != twelveAndFive);
-///hide
-}
-///
-```
-
-</script></section><section data-markdown><script type="text/template">
-<!-- .slide: class="aside" -->
-
-## Range-based for loop
-
-Instead of
-
-```cpp
-///hide
-#include <vector>
-#include <iostream>
-///unhide
-void print(const std::vector<int>& v){
-  for (auto it = begin(v); it != end(v); ++it) {
-    std::cout << *it << ' ';
-  }
-  std::cout << '\n';
-}
-```
-
-write
-
-```cpp
-///hide
-#include <vector>
-#include <iostream>
-///unhide
-void print(const std::vector<int>& v){
-  for (const auto& i: v) {
-    std::cout << i << ' ';
-  }
-  std::cout << '\n';
-}
-```
-
-</script></section><section data-markdown><script type="text/template">
-## with `std::initializer_list`
-
-```cpp
-///hide
-#include <iostream>
-int main(){
-///unhide
-for (auto x : {-1, -2, -3})
-  std::cout << x << ' ';
-std::cout << '\n';
-///hide
-}
-```
-
-</script></section><section data-markdown><script type="text/template">
-## Note
-
-```cpp [1-5|7-9|11-13]
-///hide
-#include <initializer_list>
-#include <type_traits>
-
-///unhide
-template<typename Expected, typename Actual>
-void hasType(const Actual &) {
-  static_assert(std::is_same<Actual, Expected>::value,
-                "should be the same");
-}
-
-///hide
-int main() {
-///unhide
-int i1{42};
-auto i2{42};
-hasType<int>(i2);
-
-int i3 = {42};
-auto i4 = {42};
-hasType<std::initializer_list<int>>(i4);
-///hide
-}
-```
-
-<aside class="notes"><p>This initialization syntax is frequently referred to as &quot;Uniform initialization&quot;. For these reasons, it is not always advised to use this syntax.</p>
-</aside></script></section><section data-markdown><script type="text/template">
-<!-- .slide: data-background-image="https://media.giphy.com/media/26gsjCZpPolPr3sBy/giphy.gif" data-background-size="contain" -->
-
-</script></section></section><section ><section data-markdown><script type="text/template">
 ## How many copies?
 
 ```cpp
@@ -1303,9 +740,9 @@ int f(D);
 class A
 {
 public:
-    A() : a{7}, b{5}, hash_algorithm{"MD5"}, s{"Constructor run"} {}
-    A(int a_val) : a{a_val}, b{5}, hash_algorithm{"MD5"}, s{"Constructor run"} {}
-    A(D d) : a{f(d)}, b{a}, hash_algorithm{"MD5"}, s{"Constroctor run"} {}
+    A() : a(7), b(5), hash_algorithm("MD5"), s("Constructor run") {}
+    A(int a_val) : a(a_val), b(5), hash_algorithm("MD5"), s("Constructor run") {}
+    A(D d) : a(f(d)), b(a), hash_algorithm("MD5"), s("Constroctor run") {}
 private:
     int a, b;
     HashingFunction hash_algorithm;
@@ -1333,12 +770,12 @@ class A
 {
 public:
     A() {}
-    A(int a_val) : a{a_val} {}
-    A(D d) : a{f(d)}, b{a} {}
+    A(int a_val) : a(a_val) {}
+    A(D d) : a(f(d)), b(a) {}
 private:
-    int a{7}, b{5};
-    HashingFunction hash_algorithm{"MD5"};
-    std::string s{"Constructor run"};
+    int a(7), b(5);
+    HashingFunction hash_algorithm("MD5");
+    std::string s("Constructor run");
 };
 ```
 
@@ -1364,9 +801,9 @@ public:
       int _b = 5, 
       const HashingFunction& _hash_algorithm ="MD5", 
       const std::string& _s = "Constructor run") 
-    : a{_a}, b{_b}, hash_algorithm{_hash_algorithm}, s{_s} 
+    : a(_a), b(_b), hash_algorithm(_hash_algorithm), s(_s) 
     {}
-    A(D d) : A(f(d), b{a}) {}
+    A(D d) : A(f(d), b(a)) {}
 private:
     int a, b;
     HashingFunction hash_algorithm;
@@ -1417,14 +854,14 @@ struct Buffer {
     int* m_pArray;
 
     Buffer(size_t size = 0) 
-        : m_size{size}
-        , m_pArray{size == 0 
+        : m_size(size)
+        , m_pArray(size == 0 
                     ? nullptr 
-                    : new int[size]}
+                    : new int[size])
     {}
 
     Buffer(const Buffer& other) 
-        : Buffer{other.m_size}
+        : Buffer(other.m_size)
     {
         std::copy(other.m_pArray, 
                   other.m_pArray + m_size, 
@@ -1454,14 +891,14 @@ struct Buffer {
     int* m_pArray;
 
     Buffer(size_t size = 0) 
-        : m_size{size}
-        , m_pArray{size == 0 
+        : m_size(size)
+        , m_pArray(size == 0 
                     ? nullptr 
-                    : new int[size]}
+                    : new int[size])
     {}
 
     Buffer(const Buffer& other) 
-        : Buffer{other.m_size}
+        : Buffer(other.m_size)
     {
         std::copy(other.m_pArray, 
                   other.m_pArray + m_size, 
@@ -1499,14 +936,14 @@ struct Buffer {
     int* m_pArray;
 
     Buffer(size_t size = 0) 
-        : m_size{size}
-        , m_pArray{size == 0 
+        : m_size(size)
+        , m_pArray(size == 0 
                     ? nullptr 
-                    : new int[size]}
+                    : new int[size])
     {}
 
     Buffer(const Buffer& other) 
-        : Buffer{other.m_size}
+        : Buffer(other.m_size)
     {
         std::copy(other.m_pArray, 
                   other.m_pArray + m_size, 
@@ -1515,7 +952,7 @@ struct Buffer {
 ///hide
     Buffer& operator=(const Buffer& other) 
     {
-        Buffer tmp{other};
+        Buffer tmp(other);
         std::swap(m_size, tmp.m_size);
         std::swap(m_pArray, tmp.m_pArray);
         return *this;
@@ -1533,14 +970,14 @@ struct Buffer {
     int* m_pArray;
 
     Buffer(size_t size = 0) 
-        : m_size{size}
-        , m_pArray{size == 0 
+        : m_size(size)
+        , m_pArray(size == 0 
                     ? nullptr 
-                    : new int[size]}
+                    : new int[size])
     {}
 
     Buffer(const Buffer& other) 
-        : Buffer{other.m_size}
+        : Buffer(other.m_size)
     {
         std::copy(other.m_pArray, 
                   other.m_pArray + m_size, 
@@ -1549,7 +986,7 @@ struct Buffer {
 ///unhide
     Buffer& operator=(const Buffer& other) 
     {
-        Buffer tmp{other};
+        Buffer tmp(other);
         std::swap(m_size, tmp.m_size);
         std::swap(m_pArray, tmp.m_pArray);
         return *this;
@@ -1572,15 +1009,15 @@ size_t m_size;
 int* m_pArray;
 
 Buffer(size_t size = 0) 
-    : m_size{size}
-    , m_pArray{size == 0 
+    : m_size(size)
+    , m_pArray(size == 0 
                 ? nullptr 
-                : new int[size]}
+                : new int[size])
 {}
 ///unhide
 Buffer(const Buffer& temporary)
-    : m_size{temporary.m_size}
-    , m_pArray{temporary.m_pArray}
+    : m_size(temporary.m_size)
+    , m_pArray(temporary.m_pArray)
 {}
 ///hide
 ~Buffer() { delete[] m_pArray; }
@@ -1602,15 +1039,15 @@ size_t m_size;
 int* m_pArray;
 
 Buffer(size_t size = 0) 
-    : m_size{size}
-    , m_pArray{size == 0 
+    : m_size(size)
+    , m_pArray(size == 0 
                 ? nullptr 
-                : new int[size]}
+                : new int[size])
 {}
 ///unhide
 Buffer(Buffer& temporary)
-    : m_size{temporary.m_size}
-    , m_pArray{temporary.m_pArray}
+    : m_size(temporary.m_size)
+    , m_pArray(temporary.m_pArray)
 {
     temporary.m_size = 0;
     temporary.m_pArray = nullptr;
@@ -1638,13 +1075,13 @@ struct Buffer {
     int* m_pArray;
 
     Buffer(size_t size = 0) 
-        : m_size{size}
-        , m_pArray{size == 0 
+        : m_size(size)
+        , m_pArray(size == 0 
                     ? nullptr 
-                    : new int[size]}
+                    : new int[size])
     {}
     Buffer(const Buffer& other)
-        : Buffer{other.m_size}
+        : Buffer(other.m_size)
     {
         std::copy(other.m_pArray, 
                     other.m_pArray + m_size, 
@@ -1771,8 +1208,8 @@ struct MovableBuffer
 
     // move constructor
     MovableBuffer(MovableBuffer&& other)
-        : m_size{other.m_size}
-        , m_pArray{other.m_pArray}
+        : m_size(other.m_size)
+        , m_pArray(other.m_pArray)
     {
         other.m_size = 0;
         other.m_pArray = nullptr;
@@ -1786,7 +1223,7 @@ struct MovableBuffer
     // move assignment operator
     MovableBuffer& operator=(MovableBuffer&& other)
     {
-        MovableBuffer tmp{other};
+        MovableBuffer tmp(other);
         std::swap(m_size, tmp.m_size);
         std::swap(m_pArray, tmp.m_pArray);
         return *this;
@@ -1813,8 +1250,8 @@ struct MovableBuffer
     
     // move constructor
     MovableBuffer(MovableBuffer&& other) 
-        : m_size{other.m_size}
-        , m_pArray{other.m_pArray}
+        : m_size(other.m_size)
+        , m_pArray(other.m_pArray)
     {
         other.m_size = 0;
         other.m_pArray = nullptr;
@@ -1829,7 +1266,7 @@ struct MovableBuffer
     MovableBuffer& operator=(
         MovableBuffer&& other)
     {
-        MovableBuffer tmp{other};
+        MovableBuffer tmp(other);
         std::swap(m_size, tmp.m_size);
         std::swap(m_pArray, tmp.m_pArray);
         return *this;
@@ -1864,8 +1301,8 @@ struct MoveOnlyBuffer
     ~MoveOnlyBuffer() { delete[] m_pArray; }
     
     MoveOnlyBuffer(MoveOnlyBuffer&& other) 
-        : m_size{other.m_size}
-        , m_pArray{other.m_pArray}
+        : m_size(other.m_size)
+        , m_pArray(other.m_pArray)
     {
         other.m_size = 0;
         other.m_pArray = nullptr;
@@ -1874,7 +1311,7 @@ struct MoveOnlyBuffer
 ///hide
     MoveOnlyBuffer& operator=(MoveOnlyBuffer&& other)
     {
-        MoveOnlyBuffer tmp{other};
+        MoveOnlyBuffer tmp(other);
         std::swap(m_size, tmp.m_size);
         std::swap(m_pArray, tmp.m_pArray);
         return *this;
@@ -1898,8 +1335,8 @@ struct MoveOnlyBuffer
     ~MoveOnlyBuffer() { delete[] m_pArray; }
     
     MoveOnlyBuffer(MoveOnlyBuffer&& other) 
-        : m_size{other.m_size}
-        , m_pArray{other.m_pArray}
+        : m_size(other.m_size)
+        , m_pArray(other.m_pArray)
     {
         other.m_size = 0;
         other.m_pArray = nullptr;
@@ -1909,7 +1346,7 @@ struct MoveOnlyBuffer
     MoveOnlyBuffer& operator=(
         MoveOnlyBuffer&& other)
     {
-        MoveOnlyBuffer tmp{other};
+        MoveOnlyBuffer tmp(other);
         std::swap(m_size, tmp.m_size);
         std::swap(m_pArray, tmp.m_pArray);
         return *this;
@@ -1965,8 +1402,8 @@ struct MoveOnlyBuffer
     ~MoveOnlyBuffer() { delete[] m_pArray; }
     
     MoveOnlyBuffer(MoveOnlyBuffer&& other) 
-        : m_size{other.m_size}
-        , m_pArray{other.m_pArray}
+        : m_size(other.m_size)
+        , m_pArray(other.m_pArray)
     {
         other.m_size = 0;
         other.m_pArray = nullptr;
@@ -1975,7 +1412,7 @@ struct MoveOnlyBuffer
 ///hide
     MoveOnlyBuffer& operator=(MoveOnlyBuffer&& other)
     {
-        MoveOnlyBuffer tmp{std::move(other)};
+        MoveOnlyBuffer tmp(std::move(other));
         std::swap(m_size, tmp.m_size);
         std::swap(m_pArray, tmp.m_pArray);
         return *this;
@@ -1998,8 +1435,8 @@ struct MoveOnlyBuffer
     ~MoveOnlyBuffer() { delete[] m_pArray; }
     
     MoveOnlyBuffer(MoveOnlyBuffer&& other) 
-        : m_size{other.m_size}
-        , m_pArray{other.m_pArray}
+        : m_size(other.m_size)
+        , m_pArray(other.m_pArray)
     {
         other.m_size = 0;
         other.m_pArray = nullptr;
@@ -2009,7 +1446,7 @@ struct MoveOnlyBuffer
     MoveOnlyBuffer& operator=(
         MoveOnlyBuffer&& other)
     {
-        MoveOnlyBuffer tmp{std::move(other)};
+        MoveOnlyBuffer tmp(std::move(other));
         std::swap(m_size, tmp.m_size);
         std::swap(m_pArray, tmp.m_pArray);
         return *this;
@@ -2183,8 +1620,8 @@ struct MovableBuffer
 
     // move constructor
     MovableBuffer(MovableBuffer&& other) noexcept
-        : m_size{other.m_size}
-        , m_pArray{other.m_pArray}
+        : m_size(other.m_size)
+        , m_pArray(other.m_pArray)
     {
         other.m_size = 0;
         other.m_pArray = nullptr;
@@ -2199,7 +1636,7 @@ struct MovableBuffer
     MovableBuffer& operator=(
         MovableBuffer&& other) noexcept
     {
-        MovableBuffer tmp{std::move(other)};
+        MovableBuffer tmp(std::move(other));
         std::swap(m_size, tmp.m_size);
         std::swap(m_pArray, tmp.m_pArray);
         return *this;
@@ -2226,8 +1663,8 @@ struct MovableBuffer
     
     // move constructor
     MovableBuffer(MovableBuffer&& other) noexcept
-        : m_size{other.m_size}
-        , m_pArray{other.m_pArray}
+        : m_size(other.m_size)
+        , m_pArray(other.m_pArray)
     {
         other.m_size = 0;
         other.m_pArray = nullptr;
@@ -2242,7 +1679,7 @@ struct MovableBuffer
     MovableBuffer& operator=(
         MovableBuffer&& other) noexcept
     {
-        MovableBuffer tmp{std::move(other)};
+        MovableBuffer tmp(std::move(other));
         std::swap(m_size, tmp.m_size);
         std::swap(m_pArray, tmp.m_pArray);
         return *this;
@@ -2506,6 +1943,640 @@ Source: [Jonathan Müller](https://foonathan.net/2019/02/special-member-function
 
 # Thank you
 <!-- .element: style="text-shadow: 3px 3px black; color: lightblue; position: fixed; top: 0; left: 20%" -->
+
+</script></section></section><section ><section data-markdown><script type="text/template">
+Take a look at the following code:
+
+<div class="container">
+
+```cpp [|4-6,8-10|1|8,16]
+///options=-std=c++03
+struct POD { int i; float f; };
+
+class C {
+  POD p;
+  int iarr[3];
+  double d;
+public:
+  C() : d(3.14) {
+    p.i=2; p.f=22.34;
+    for (unsigned i = 0; i < 3; ++i) iarr[i] = i;
+  }
+};
+
+class D {
+public:
+  D(C const&, POD const&) {}
+};
+///hide
+int main() {
+  C c(); 
+  D d(C(), POD());
+  POD* pp = new POD();
+  pp->i = 4;
+  pp->f = 22.1;
+  float* pf = new float[2];
+  pf[0] = 1.2f;
+  pf[1] = 2.3f;
+}
+```
+
+```cpp 18[|0|21-26|19-20]
+///hide
+///options=-std=c++03
+struct POD { int i; float f; };
+
+class C {
+  POD p;
+  int iarr[3];
+  double d;
+public:
+  C() : d(3.14) {
+    p.i=2; p.f=22.34;
+    for (unsigned i = 0; i < 3; ++i) iarr[i] = i;
+  }
+};
+
+class D {
+public:
+  D(C const&, POD const&) {}
+};
+///unhide
+int main() {
+  C c(); 
+  D d(C(), POD());
+  POD* pp = new POD();
+  pp->i = 4;
+  pp->f = 22.1;
+  float* pf = new float[2];
+  pf[0] = 1.2f;
+  pf[1] = 2.3f;
+}
+```
+
+</div>
+
+</script></section><section data-markdown><script type="text/template">
+## Most vexing parse
+
+```cpp
+///fails
+C c();            // c: () => C
+D d(C(), POD());  // d: (() => C, () => POD) => D
+```
+
+</script></section><section data-markdown><script type="text/template">
+Different initialization syntax
+
+```cpp
+///fails
+X t1 = v;     // copy initialization
+X t2(v);      // direct initialization
+X t3 = { v }; // initialize using initializer list
+X t4 = X(v);  // make an X from v and copy it to t4
+```
+
+</script></section><section data-markdown><script type="text/template">
+```cpp
+///hide
+int main() {
+///unhide
+int v = 7;
+typedef int X;
+X t1 = v;     // ok
+X t2(v);      // ok
+X t3 = { v }; // ok
+X t4 = X(v);  // ok
+///hide
+}
+```
+
+</script></section><section data-markdown><script type="text/template">
+```cpp
+///fails
+///hide
+int main() {
+///unhide
+int v = 7;
+typedef struct { int x; int y; } X;
+X t1 = v;     // error
+X t2(v);      // error
+X t3 = { v }; // ok: X is an aggregate 
+              // (“extra members” are default initialized)
+X t4 = X(v);  // error: we can’t cast an int to a struct
+///hide
+}
+```
+
+</script></section><section data-markdown><script type="text/template">
+```cpp
+///fails
+///hide
+#include <vector>
+int main() {
+///unhide
+int v = 7;
+typedef std::vector<int> X;
+X t1 = v;     // error: constructor is explicit
+X t2(v);      // ok
+X t3 = { v }; // error: not an aggregate
+X t4 = X(v);  // ok (make an X from v and copy it to t4)
+///hide
+}
+```
+
+</script></section><section data-markdown><script type="text/template">
+```cpp
+///fails
+///hide
+int main() {
+///unhide
+int v = 7;
+typedef int* X;
+X t1 = v;     // error
+X t2(v);      // error
+X t3 = { v }; // error
+X t4 = X(v);  // ok: unfortunately converts int to an int*
+///hide
+}
+```
+
+</script></section><section data-markdown><script type="text/template">
+## More initialization
+
+```cpp
+///hide
+struct X {
+    X(int);
+};
+struct Y : X {
+    Y(int);
+    int m;
+};
+
+int v;
+
+void f1() {
+///unhide
+X(42);                      // create a temporary
+///hide
+}
+///unhide
+X f(int v) { return v; }    // return a value
+///hide
+void f2() {
+///unhide
+void g(X); g(v);            // pass an argument
+new X(v);                   // create object on free store
+///hide
+}
+///unhide
+Y::Y(int v) :X(v), m(v) {}  // base and member initializers
+///hide
+void f3() {
+///unhide
+throw v;                    // throw an exception 
+///hide
+}
+```
+
+</script></section><section data-markdown><script type="text/template">
+<!-- .slide: data-background-image="images/list.gif" data-transition="none slide"- -->
+
+# List Initialization
+
+<!-- .element: style="text-shadow: 3px 3px black; color: lightblue" -->
+
+<div style="position: fixed; left: 0; bottom: 0;">
+<small>
+
+Sources:
+- [simplify C++](https://arne-mertz.de/2015/07/new-c-features-uniform-initialization-and-initializer_list/)
+- [N2215](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2215.pdf)
+
+<small>
+<div>
+
+</script></section><section data-markdown><script type="text/template">
+## Initialize (almost) anything with `{}`
+
+```cpp
+///hide
+struct X {
+    X(int);
+};
+struct Y : X {
+    Y(int);
+    int m;
+};
+
+int v;
+
+void f1() {
+///unhide
+X{42};                      // create a temporary
+///hide
+}
+///unhide
+X f(int v) { return {v}; }  // return a value
+///hide
+void f2() {
+///unhide
+void g(X); g({v});          // pass an argument
+new X{v};                   // create object on free store
+///hide
+}
+///unhide
+Y::Y(int v) :X{v}, m{v} {}  // base and member initializers
+```
+
+This is still forbidden:
+
+```cpp
+///fails
+///hide
+void f3() {
+int v = 42;
+///unhide
+throw {v};                  // throw an exception 
+///hide
+}
+```
+
+</script></section><section data-markdown><script type="text/template">
+# It's also safer
+
+```cpp
+///fails
+int i1(4.2); // no problem
+int i2{4.2}; // error: narrowing conversion
+
+double d;
+float f1(d); // no problem
+float f2{d}; // error: narrowing conversion
+
+float f3(i1); // no problem
+float f4{i1}; // error: narrowing conversion
+
+unsigned int ui1(-1); // no problem
+unsigned int ui2{-1}; // error: narrowing conversion
+```
+
+</script></section><section data-markdown><script type="text/template">
+## Now, with list initialization
+
+```cpp [8,17-20]
+struct POD { int i; float f; };
+
+class C {
+  POD p;
+  int iarr[3];
+  double d;
+public:
+  C() : p{2, 22.34}, iarr{0, 1, 2}, d{3.14} {}
+};
+
+class D {
+public:
+  D(C const&, POD const&) {}
+};
+
+int main() {
+  C c{}; 
+  D d{C(), POD()};
+  POD* pp = new POD{4, 22.1};
+  float* pf = new float[2]{1.2f, 2.3f};
+}
+```
+
+<!-- .element: style="font-size: 0.3em" -->
+
+</script></section><section data-markdown><script type="text/template">
+## Creating an array
+
+```cpp
+///options=-std=c++03
+///hide
+#include <string>
+
+int main(){
+///unhide
+std::string days[] = { 
+  "Sunday", 
+  "Monday", 
+  "Tuesday", 
+  "Wednesday", 
+  "Thursday", 
+  "Friday", 
+  "Saturday" 
+};
+///hide
+}
+```
+
+</script></section><section data-markdown><script type="text/template">
+## Creating a vector
+
+```cpp
+///options=-std=c++03
+///hide
+#include <string>
+#include <vector>
+
+int main(){
+///unhide
+std::vector<std::string> days;
+days.reserve(7);
+
+days.push_back("Sunday"); 
+days.push_back("Monday"); 
+days.push_back("Tuesday"); 
+days.push_back("Wednesday"); 
+days.push_back("Thursday"); 
+days.push_back("Friday"); 
+days.push_back("Saturday");
+///hide
+}
+```
+
+</script></section><section data-markdown><script type="text/template">
+### `std::initializer_list<T>`
+
+- A lightweight proxy object that provides access to an array of objects of type const T.
+- Custructed automatically by the compiler when 
+  - calling a constructor/function accepting `std::initializer_list`
+  - binding a `braced-init-list` to auto
+
+</script></section><section data-markdown><script type="text/template">
+## Example
+
+<div class="container">
+
+```cpp [|4|10]
+///hide
+#include <vector>
+#include <iostream>
+///unhide
+template <class T>
+struct S {
+    std::vector<T> v;
+    S(std::initializer_list<T> l) : v(l) {
+         std::cout 
+          << "constructed with a " 
+          << l.size() 
+          << "-element list\n";
+    }
+    void append(std::initializer_list<T> l) {
+        v.insert(end(v), begin(l), end(l));
+    }
+};
+///hide
+int main() {
+  S<int> s = {1, 2, 3, 4, 5};
+  s.append({6, 7, 8});
+}
+```
+
+```cpp 14[|15|16]
+///hide
+#include <vector>
+#include <iostream>
+template <class T>
+struct S {
+    std::vector<T> v;
+    S(std::initializer_list<T> l) : v(l) {
+         std::cout 
+          << "constructed with a " 
+          << l.size() 
+          << "-element list\n";
+    }
+    void append(std::initializer_list<T> l) {
+        v.insert(end(v), begin(l), end(l));
+    }
+};
+///unhide
+int main() {
+  S<int> s = {1, 2, 3, 4, 5};
+  s.append({6, 7, 8});
+}
+```
+
+</div>
+
+</script></section><section data-markdown><script type="text/template">
+## and
+
+```cpp
+///hide
+#include <string>
+#include <vector>
+
+int main(){
+///unhide
+std::vector<std::string> days { 
+  "Sunday", 
+  "Monday", 
+  "Tuesday", 
+  "Wednesday", 
+  "Thursday", 
+  "Friday", 
+  "Saturday" 
+};
+///hide
+}
+```
+
+</script></section><section data-markdown><script type="text/template">
+## or even
+
+```cpp
+///hide
+#include <map>
+#include <string>
+
+int main() {
+std::string s1;
+///unhide
+std::map<int, std::string> m = {
+        {1, "a"},
+        {2, {'a', 'b', 'c'} },
+        {3, s1}
+};
+///hide
+}
+
+</script></section><section data-markdown><script type="text/template">
+## `initializer_list` constructor is prefered
+
+```cpp
+///execute
+///hide
+#include <vector>
+#include <cassert>
+
+int main() {
+///unhide
+std::vector<int> aDozenOfFives(12, 5);
+std::vector<int> twelveAndFive{12, 5};
+assert(aDozenOfFives != twelveAndFive);
+///hide
+}
+///
+```
+
+</script></section><section data-markdown><script type="text/template">
+<!-- .slide: class="aside" -->
+
+## Range-based for loop
+
+Instead of
+
+```cpp
+///hide
+#include <vector>
+#include <iostream>
+///unhide
+void print(const std::vector<int>& v){
+  for (auto it = begin(v); it != end(v); ++it) {
+    std::cout << *it << ' ';
+  }
+  std::cout << '\n';
+}
+```
+
+write
+
+```cpp
+///hide
+#include <vector>
+#include <iostream>
+///unhide
+void print(const std::vector<int>& v){
+  for (const auto& i: v) {
+    std::cout << i << ' ';
+  }
+  std::cout << '\n';
+}
+```
+
+</script></section><section data-markdown><script type="text/template">
+## with `std::initializer_list`
+
+```cpp
+///hide
+#include <iostream>
+int main(){
+///unhide
+for (auto x : {-1, -2, -3})
+  std::cout << x << ' ';
+std::cout << '\n';
+///hide
+}
+```
+
+</script></section><section data-markdown><script type="text/template">
+## Note
+
+```cpp [1-5|7-9|11-13]
+///hide
+#include <initializer_list>
+#include <type_traits>
+
+///unhide
+template<typename Expected, typename Actual>
+void hasType(const Actual &) {
+  static_assert(std::is_same<Actual, Expected>::value,
+                "should be the same");
+}
+
+///hide
+int main() {
+///unhide
+int i1{42};
+auto i2{42};
+hasType<int>(i2);
+
+int i3 = {42};
+auto i4 = {42};
+hasType<std::initializer_list<int>>(i4);
+///hide
+}
+```
+
+<aside class="notes"><p>This initialization syntax is frequently referred to as &quot;Uniform initialization&quot;. For these reasons, it is not always advised to use this syntax.</p>
+</aside></script></section><section data-markdown><script type="text/template">
+## note
+
+a *braced-init-list* does not have a type in itself:
+
+```cpp
+///fails
+template <typename T>
+void do_sth(T t);
+
+///hide
+int main() {
+///unhide
+do_sth({1, 2, 3, 4, 5}); // error: couldn't infer template argument
+///hide
+}
+```
+
+<!-- .element: style="font-size: 0.5em" -->
+
+</script></section><section data-markdown><script type="text/template">
+## note
+
+Does not support moves
+
+<div class="container">
+
+```cpp
+///execute
+///hide
+#include <vector>
+#include <iostream>
+
+///unhide
+struct S {
+  S() { std::cout << "default\n"; }
+  S(const S&) { std::cout << "copy\n"; }
+  S(S&&) { std::cout << "move\n"; }
+};
+
+///hide
+int main() {
+///unhide
+std::vector<S> v{S(), S(), S()};
+///hide
+}
+```
+
+```cpp
+///fails
+///hide
+#include <vector>
+#include <iostream>
+
+///unhide
+struct S {
+  S() { std::cout << "default\n"; }
+  S(const S&) = delete;
+  S(S&&) { std::cout << "move\n"; }
+};
+
+///hide
+int main() {
+///unhide
+std::vector<S> v{S(), S(), S()}; // error
+///hide
+}
+```
+
+</div>
+
+</script></section><section data-markdown><script type="text/template">
+<!-- .slide: data-background-image="images/aladin_thanks.gif" data-background-size="contain" -->
 </script></section></section></div>
     </div>
 
