@@ -202,7 +202,7 @@ throw v;                    // throw an exception
 
 ---
 
-<!-- .slide: data-background-image="https://media.giphy.com/media/YLHwkqayc1j7a/giphy.gif" data-transition="none slide"- -->
+<!-- .slide: data-background-image="images/list.gif" data-transition="none slide"- -->
 
 # List Initialization
 
@@ -378,7 +378,7 @@ days.push_back("Saturday");
 
 ## Example
 
-<div class="container" style="font-size: 0.6em">
+<div class="container">
 
 ```cpp [|4|10]
 ///hide
@@ -582,4 +582,77 @@ This initialization syntax is frequently referred to as "Uniform initialization"
 
 ---
 
-<!-- .slide: data-background-image="https://media.giphy.com/media/26gsjCZpPolPr3sBy/giphy.gif" data-background-size="contain" -->
+## note
+
+a *braced-init-list* does not have a type in itself:
+
+```cpp
+///fails
+template <typename T>
+void do_sth(T t);
+
+///hide
+int main() {
+///unhide
+do_sth({1, 2, 3, 4, 5}); // error: couldn't infer template argument
+///hide
+}
+```
+
+<!-- .element: style="font-size: 0.5em" -->
+
+---
+
+## note
+
+Does not support moves
+
+<div class="container">
+
+```cpp
+///execute
+///hide
+#include <vector>
+#include <iostream>
+
+///unhide
+struct S {
+  S() { std::cout << "default\n"; }
+  S(const S&) { std::cout << "copy\n"; }
+  S(S&&) { std::cout << "move\n"; }
+};
+
+///hide
+int main() {
+///unhide
+std::vector<S> v{S(), S(), S()};
+///hide
+}
+```
+
+```cpp
+///fails
+///hide
+#include <vector>
+#include <iostream>
+
+///unhide
+struct S {
+  S() { std::cout << "default\n"; }
+  S(const S&) = delete;
+  S(S&&) { std::cout << "move\n"; }
+};
+
+///hide
+int main() {
+///unhide
+std::vector<S> v{S(), S(), S()}; // error
+///hide
+}
+```
+
+</div>
+
+---
+
+<!-- .slide: data-background-image="images/aladin_thanks.gif" data-background-size="contain" -->

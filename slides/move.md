@@ -44,9 +44,9 @@ int f(D);
 class A
 {
 public:
-    A() : a{7}, b{5}, hash_algorithm{"MD5"}, s{"Constructor run"} {}
-    A(int a_val) : a{a_val}, b{5}, hash_algorithm{"MD5"}, s{"Constructor run"} {}
-    A(D d) : a{f(d)}, b{a}, hash_algorithm{"MD5"}, s{"Constroctor run"} {}
+    A() : a(7), b(5), hash_algorithm("MD5"), s("Constructor run") {}
+    A(int a_val) : a(a_val), b(5), hash_algorithm("MD5"), s("Constructor run") {}
+    A(D d) : a(f(d)), b(a), hash_algorithm("MD5"), s("Constroctor run") {}
 private:
     int a, b;
     HashingFunction hash_algorithm;
@@ -75,12 +75,12 @@ class A
 {
 public:
     A() {}
-    A(int a_val) : a{a_val} {}
-    A(D d) : a{f(d)}, b{a} {}
+    A(int a_val) : a(a_val) {}
+    A(D d) : a(f(d)), b(a) {}
 private:
-    int a{7}, b{5};
-    HashingFunction hash_algorithm{"MD5"};
-    std::string s{"Constructor run"};
+    int a(7), b(5);
+    HashingFunction hash_algorithm("MD5");
+    std::string s("Constructor run");
 };
 ```
 
@@ -108,9 +108,9 @@ public:
       int _b = 5, 
       const HashingFunction& _hash_algorithm ="MD5", 
       const std::string& _s = "Constructor run") 
-    : a{_a}, b{_b}, hash_algorithm{_hash_algorithm}, s{_s} 
+    : a(_a), b(_b), hash_algorithm(_hash_algorithm), s(_s) 
     {}
-    A(D d) : A(f(d), b{a}) {}
+    A(D d) : A(f(d), b(a)) {}
 private:
     int a, b;
     HashingFunction hash_algorithm;
@@ -163,14 +163,14 @@ struct Buffer {
     int* m_pArray;
 
     Buffer(size_t size = 0) 
-        : m_size{size}
-        , m_pArray{size == 0 
+        : m_size(size)
+        , m_pArray(size == 0 
                     ? nullptr 
-                    : new int[size]}
+                    : new int[size])
     {}
 
     Buffer(const Buffer& other) 
-        : Buffer{other.m_size}
+        : Buffer(other.m_size)
     {
         std::copy(other.m_pArray, 
                   other.m_pArray + m_size, 
@@ -200,14 +200,14 @@ struct Buffer {
     int* m_pArray;
 
     Buffer(size_t size = 0) 
-        : m_size{size}
-        , m_pArray{size == 0 
+        : m_size(size)
+        , m_pArray(size == 0 
                     ? nullptr 
-                    : new int[size]}
+                    : new int[size])
     {}
 
     Buffer(const Buffer& other) 
-        : Buffer{other.m_size}
+        : Buffer(other.m_size)
     {
         std::copy(other.m_pArray, 
                   other.m_pArray + m_size, 
@@ -246,14 +246,14 @@ struct Buffer {
     int* m_pArray;
 
     Buffer(size_t size = 0) 
-        : m_size{size}
-        , m_pArray{size == 0 
+        : m_size(size)
+        , m_pArray(size == 0 
                     ? nullptr 
-                    : new int[size]}
+                    : new int[size])
     {}
 
     Buffer(const Buffer& other) 
-        : Buffer{other.m_size}
+        : Buffer(other.m_size)
     {
         std::copy(other.m_pArray, 
                   other.m_pArray + m_size, 
@@ -262,7 +262,7 @@ struct Buffer {
 ///hide
     Buffer& operator=(const Buffer& other) 
     {
-        Buffer tmp{other};
+        Buffer tmp(other);
         std::swap(m_size, tmp.m_size);
         std::swap(m_pArray, tmp.m_pArray);
         return *this;
@@ -280,14 +280,14 @@ struct Buffer {
     int* m_pArray;
 
     Buffer(size_t size = 0) 
-        : m_size{size}
-        , m_pArray{size == 0 
+        : m_size(size)
+        , m_pArray(size == 0 
                     ? nullptr 
-                    : new int[size]}
+                    : new int[size])
     {}
 
     Buffer(const Buffer& other) 
-        : Buffer{other.m_size}
+        : Buffer(other.m_size)
     {
         std::copy(other.m_pArray, 
                   other.m_pArray + m_size, 
@@ -296,7 +296,7 @@ struct Buffer {
 ///unhide
     Buffer& operator=(const Buffer& other) 
     {
-        Buffer tmp{other};
+        Buffer tmp(other);
         std::swap(m_size, tmp.m_size);
         std::swap(m_pArray, tmp.m_pArray);
         return *this;
@@ -320,15 +320,15 @@ size_t m_size;
 int* m_pArray;
 
 Buffer(size_t size = 0) 
-    : m_size{size}
-    , m_pArray{size == 0 
+    : m_size(size)
+    , m_pArray(size == 0 
                 ? nullptr 
-                : new int[size]}
+                : new int[size])
 {}
 ///unhide
 Buffer(const Buffer& temporary)
-    : m_size{temporary.m_size}
-    , m_pArray{temporary.m_pArray}
+    : m_size(temporary.m_size)
+    , m_pArray(temporary.m_pArray)
 {}
 ///hide
 ~Buffer() { delete[] m_pArray; }
@@ -351,15 +351,15 @@ size_t m_size;
 int* m_pArray;
 
 Buffer(size_t size = 0) 
-    : m_size{size}
-    , m_pArray{size == 0 
+    : m_size(size)
+    , m_pArray(size == 0 
                 ? nullptr 
-                : new int[size]}
+                : new int[size])
 {}
 ///unhide
 Buffer(Buffer& temporary)
-    : m_size{temporary.m_size}
-    , m_pArray{temporary.m_pArray}
+    : m_size(temporary.m_size)
+    , m_pArray(temporary.m_pArray)
 {
     temporary.m_size = 0;
     temporary.m_pArray = nullptr;
@@ -389,13 +389,13 @@ struct Buffer {
     int* m_pArray;
 
     Buffer(size_t size = 0) 
-        : m_size{size}
-        , m_pArray{size == 0 
+        : m_size(size)
+        , m_pArray(size == 0 
                     ? nullptr 
-                    : new int[size]}
+                    : new int[size])
     {}
     Buffer(const Buffer& other)
-        : Buffer{other.m_size}
+        : Buffer(other.m_size)
     {
         std::copy(other.m_pArray, 
                     other.m_pArray + m_size, 
@@ -531,8 +531,8 @@ struct MovableBuffer
 
     // move constructor
     MovableBuffer(MovableBuffer&& other)
-        : m_size{other.m_size}
-        , m_pArray{other.m_pArray}
+        : m_size(other.m_size)
+        , m_pArray(other.m_pArray)
     {
         other.m_size = 0;
         other.m_pArray = nullptr;
@@ -546,7 +546,7 @@ struct MovableBuffer
     // move assignment operator
     MovableBuffer& operator=(MovableBuffer&& other)
     {
-        MovableBuffer tmp{other};
+        MovableBuffer tmp(other);
         std::swap(m_size, tmp.m_size);
         std::swap(m_pArray, tmp.m_pArray);
         return *this;
@@ -573,8 +573,8 @@ struct MovableBuffer
     
     // move constructor
     MovableBuffer(MovableBuffer&& other) 
-        : m_size{other.m_size}
-        , m_pArray{other.m_pArray}
+        : m_size(other.m_size)
+        , m_pArray(other.m_pArray)
     {
         other.m_size = 0;
         other.m_pArray = nullptr;
@@ -589,7 +589,7 @@ struct MovableBuffer
     MovableBuffer& operator=(
         MovableBuffer&& other)
     {
-        MovableBuffer tmp{other};
+        MovableBuffer tmp(other);
         std::swap(m_size, tmp.m_size);
         std::swap(m_pArray, tmp.m_pArray);
         return *this;
@@ -626,8 +626,8 @@ struct MoveOnlyBuffer
     ~MoveOnlyBuffer() { delete[] m_pArray; }
     
     MoveOnlyBuffer(MoveOnlyBuffer&& other) 
-        : m_size{other.m_size}
-        , m_pArray{other.m_pArray}
+        : m_size(other.m_size)
+        , m_pArray(other.m_pArray)
     {
         other.m_size = 0;
         other.m_pArray = nullptr;
@@ -636,7 +636,7 @@ struct MoveOnlyBuffer
 ///hide
     MoveOnlyBuffer& operator=(MoveOnlyBuffer&& other)
     {
-        MoveOnlyBuffer tmp{other};
+        MoveOnlyBuffer tmp(other);
         std::swap(m_size, tmp.m_size);
         std::swap(m_pArray, tmp.m_pArray);
         return *this;
@@ -660,8 +660,8 @@ struct MoveOnlyBuffer
     ~MoveOnlyBuffer() { delete[] m_pArray; }
     
     MoveOnlyBuffer(MoveOnlyBuffer&& other) 
-        : m_size{other.m_size}
-        , m_pArray{other.m_pArray}
+        : m_size(other.m_size)
+        , m_pArray(other.m_pArray)
     {
         other.m_size = 0;
         other.m_pArray = nullptr;
@@ -671,7 +671,7 @@ struct MoveOnlyBuffer
     MoveOnlyBuffer& operator=(
         MoveOnlyBuffer&& other)
     {
-        MoveOnlyBuffer tmp{other};
+        MoveOnlyBuffer tmp(other);
         std::swap(m_size, tmp.m_size);
         std::swap(m_pArray, tmp.m_pArray);
         return *this;
@@ -729,8 +729,8 @@ struct MoveOnlyBuffer
     ~MoveOnlyBuffer() { delete[] m_pArray; }
     
     MoveOnlyBuffer(MoveOnlyBuffer&& other) 
-        : m_size{other.m_size}
-        , m_pArray{other.m_pArray}
+        : m_size(other.m_size)
+        , m_pArray(other.m_pArray)
     {
         other.m_size = 0;
         other.m_pArray = nullptr;
@@ -739,7 +739,7 @@ struct MoveOnlyBuffer
 ///hide
     MoveOnlyBuffer& operator=(MoveOnlyBuffer&& other)
     {
-        MoveOnlyBuffer tmp{std::move(other)};
+        MoveOnlyBuffer tmp(std::move(other));
         std::swap(m_size, tmp.m_size);
         std::swap(m_pArray, tmp.m_pArray);
         return *this;
@@ -762,8 +762,8 @@ struct MoveOnlyBuffer
     ~MoveOnlyBuffer() { delete[] m_pArray; }
     
     MoveOnlyBuffer(MoveOnlyBuffer&& other) 
-        : m_size{other.m_size}
-        , m_pArray{other.m_pArray}
+        : m_size(other.m_size)
+        , m_pArray(other.m_pArray)
     {
         other.m_size = 0;
         other.m_pArray = nullptr;
@@ -773,7 +773,7 @@ struct MoveOnlyBuffer
     MoveOnlyBuffer& operator=(
         MoveOnlyBuffer&& other)
     {
-        MoveOnlyBuffer tmp{std::move(other)};
+        MoveOnlyBuffer tmp(std::move(other));
         std::swap(m_size, tmp.m_size);
         std::swap(m_pArray, tmp.m_pArray);
         return *this;
@@ -956,8 +956,8 @@ struct MovableBuffer
 
     // move constructor
     MovableBuffer(MovableBuffer&& other) noexcept
-        : m_size{other.m_size}
-        , m_pArray{other.m_pArray}
+        : m_size(other.m_size)
+        , m_pArray(other.m_pArray)
     {
         other.m_size = 0;
         other.m_pArray = nullptr;
@@ -972,7 +972,7 @@ struct MovableBuffer
     MovableBuffer& operator=(
         MovableBuffer&& other) noexcept
     {
-        MovableBuffer tmp{std::move(other)};
+        MovableBuffer tmp(std::move(other));
         std::swap(m_size, tmp.m_size);
         std::swap(m_pArray, tmp.m_pArray);
         return *this;
@@ -999,8 +999,8 @@ struct MovableBuffer
     
     // move constructor
     MovableBuffer(MovableBuffer&& other) noexcept
-        : m_size{other.m_size}
-        , m_pArray{other.m_pArray}
+        : m_size(other.m_size)
+        , m_pArray(other.m_pArray)
     {
         other.m_size = 0;
         other.m_pArray = nullptr;
@@ -1015,7 +1015,7 @@ struct MovableBuffer
     MovableBuffer& operator=(
         MovableBuffer&& other) noexcept
     {
-        MovableBuffer tmp{std::move(other)};
+        MovableBuffer tmp(std::move(other));
         std::swap(m_size, tmp.m_size);
         std::swap(m_pArray, tmp.m_pArray);
         return *this;
