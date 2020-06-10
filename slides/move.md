@@ -309,7 +309,7 @@ struct Buffer {
 
 ---
 
-## Still from temporary
+## Steal from temporary
 
 ```cpp
 ///hide
