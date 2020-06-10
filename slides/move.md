@@ -6,7 +6,6 @@
 #include <cstdint>
 
 ///unhide
-
 template<typename Buffer>
 std::vector<Buffer> generateBuffers(const size_t INSTANCES, 
                                     const size_t BUFFER_SIZE)
