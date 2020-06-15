@@ -83,55 +83,48 @@ D d(C(), POD());  // d: (() => C, () => POD) => D
 
 Different initialization syntax
 
+<div class="r-stack r-stretch">
+
 ```cpp
-///fails
+///hide
+int v = 7;
+typedef int X;
+///unhide
+
+
 X t1 = v;     // copy initialization
 X t2(v);      // direct initialization
 X t3 = { v }; // initialize using initializer list
 X t4 = X(v);  // make an X from v and copy it to t4
 ```
 
----
-
 ```cpp
-///hide
-int main() {
-///unhide
 int v = 7;
 typedef int X;
 X t1 = v;     // ok
 X t2(v);      // ok
 X t3 = { v }; // ok
 X t4 = X(v);  // ok
-///hide
-}
 ```
 
----
+<!-- .element: class="fragment current-visible" -->
 
 ```cpp
 ///fails
-///hide
-int main() {
-///unhide
 int v = 7;
 typedef struct { int x; int y; } X;
 X t1 = v;     // error
 X t2(v);      // error
-X t3 = { v }; // ok: X is an aggregate 
-              // (“extra members” are default initialized)
+X t3 = { v }; // ok: X is an aggregate
 X t4 = X(v);  // error: we can’t cast an int to a struct
-///hide
-}
 ```
 
----
+<!-- .element: class="fragment current-visible" -->
 
 ```cpp
 ///fails
 ///hide
 #include <vector>
-int main() {
 ///unhide
 int v = 7;
 typedef std::vector<int> X;
@@ -139,26 +132,23 @@ X t1 = v;     // error: constructor is explicit
 X t2(v);      // ok
 X t3 = { v }; // error: not an aggregate
 X t4 = X(v);  // ok (make an X from v and copy it to t4)
-///hide
-}
 ```
 
----
+<!-- .element: class="fragment current-visible" -->
 
 ```cpp
 ///fails
-///hide
-int main() {
-///unhide
 int v = 7;
 typedef int* X;
 X t1 = v;     // error
 X t2(v);      // error
 X t3 = { v }; // error
 X t4 = X(v);  // ok: unfortunately converts int to an int*
-///hide
-}
 ```
+
+<!-- .element: class="fragment current-visible" -->
+
+</div>
 
 ---
 
@@ -503,7 +493,7 @@ assert(aDozenOfFives != twelveAndFive);
 
 Instead of
 
-```cpp
+```cpp [2-4]
 ///hide
 #include <vector>
 #include <iostream>
@@ -518,7 +508,7 @@ void print(const std::vector<int>& v){
 
 write
 
-```cpp
+```cpp [2-4]
 ///hide
 #include <vector>
 #include <iostream>
@@ -551,7 +541,7 @@ std::cout << '\n';
 
 ## Note
 
-```cpp [1-5|7-9|11-13]
+```cpp [7-13]
 ///hide
 #include <initializer_list>
 #include <type_traits>

@@ -16,7 +16,7 @@ const processElement = (content, isLocal) => {
         if (line.match(/^\/\/\//)) {
             (line.match(matcher('compiler=(.*)')) || []).slice(1).forEach(match => compiler = match);
             (line.match(matcher('options=(.*)')) || []).slice(1).forEach(match => options = match);
-            (line.match(matcher('libs=(\w+:\w+(?:,\w+:\w+)*)')) || []).slice(1).forEach(match => {
+            (line.match(matcher('libs=(\\w+:\\w+(?:,\\w+:\\w+)*)')) || []).slice(1).forEach(match => {
                 [...match.matchAll(/(\w+):(\w+)/g)].forEach(match => {
                     libs.push({
                         name: match[1],
@@ -116,26 +116,31 @@ function prepareUrl(info, isLocal) {
     return `${baseUrl}#${ceFragment}`;
 };
 
-if (typeof exports === 'object') {
- 
-    module.exports = processElement;
+const Plugin = () => {
+    return {
+        id: 'compiler-explorer',
+        init: function (reveal) {
+            const isLocal = !!window.location.host.match(/localhost/gi);
+            const ce_nodes = reveal.getRevealElement().querySelectorAll('code.language-cpp');
 
-} else {
-
-    Reveal.addEventListener('ready', (event) => {
-        const isLocal = !!window.location.host.match(/localhost/gi);
-        const ce_nodes = document.querySelectorAll('code.language-cpp');
-
-        for (element of ce_nodes) {
-            const [info, displaySource] = processElement(element.textContent, isLocal)
-            const url = prepareUrl(info, isLocal);
-            element.parentNode.onclick = (evt) => {
-                if (evt.ctrlKey || evt.metaKey) {
-                    window.open(url, "ce");
-                }
-            };
-            element.textContent = displaySource;
+            for (element of ce_nodes) {
+                const [info, displaySource] = processElement(element.textContent, isLocal)
+                const url = prepareUrl(info, isLocal);
+                element.parentNode.onclick = (evt) => {
+                    if (evt.ctrlKey || evt.metaKey) {
+                        window.open(url, "ce");
+                    }
+                };
+                element.textContent = displaySource;
+            }
         }
-    });
-    
+    };
+};
+
+// export default Plugin;
+if (typeof exports === 'object') {
+    module.exports = processElement;
+}
+else if (defaultOptions != 'undefined') {
+    defaultOptions.plugins.push(Plugin);
 }

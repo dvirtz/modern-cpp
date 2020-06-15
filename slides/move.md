@@ -423,7 +423,7 @@ We need a way to distinguish between references to temporary objects and regular
 Originally:
 
 > - l-value: can be on the left hand side of an assignment
-- r-value: can be **only** on the right hand side of an assignment
+> - r-value: can be **only** on the right hand side of an assignment
 
 ---
 
@@ -1221,7 +1221,7 @@ static_assert(std::is_copy_constructible<T>::value,
 
 ## class prototypes:
 
-<div class="stack">
+<div class="r-stack r-stretch">
 
 ```cpp
 class normal
@@ -1246,7 +1246,7 @@ public:
 };
 ```
 
-<!-- .element: class="fragment fade-in-then-out" -->
+<!-- .element: class="fragment current-visible" -->
 
 ```cpp
 class resource_handle
@@ -1263,7 +1263,7 @@ public:
 };
 ```
 
-<!-- .element: class="fragment fade-in-then-out" style="font-size:0.5em" -->
+<!-- .element: class="fragment current-visible" style="font-size:0.5em" -->
 
 ```cpp
 class immoveable
@@ -1280,7 +1280,7 @@ public:
 };
 ```
 
-<!-- .element: class="fragment fade-in" -->
+<!-- .element: class="fragment current-visible" -->
 
 </div>
 
