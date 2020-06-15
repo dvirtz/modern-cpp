@@ -4,9 +4,10 @@
     "verticalSeparator": "^---\n",
     "separator": "^----\n",
     "scripts": [
-        "scripts/compiler-explorer.js",
+        "scripts/startfrom.js",
         "node_modules/jquery/dist/jquery.min.js",
-        "scripts/customize.js"
+        "scripts/customize.js",
+        "scripts/compiler-explorer.js"
     ],
     "css": [
         "css/custom.css",
@@ -14,8 +15,6 @@
     ],
     "_": ["slides/index.md"],
     "staticDirs": [
-        "slides/images",
-        "slides/plugins"
-    ],
-    "template": "slides/reveal-template.html"
+        "slides/images"
+    ]
 }

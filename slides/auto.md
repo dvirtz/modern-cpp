@@ -142,7 +142,7 @@ Note:
 
 ---
 
-<!-- .slide: data-background="https://media.giphy.com/media/3oKIPmnZ2IxoAQBta8/giphy.gif" data-transition="none slide" -->
+<!-- .slide: data-background-image="images/auto.gif" data-transition="none slide" -->
 
 # auto
 <!-- .element: style="text-shadow: 3px 3px black; color: lightblue; position: fixed; top: 0; left: 40%" -->
@@ -244,7 +244,7 @@ Note: If needed, `const` and `&` can be explicity added
 
 ---
 
-<!-- .slide: data-background="https://media.giphy.com/media/Wtalnj96EH5t2iPxGZ/giphy.gif" data-background-size="contain" -->
+<!-- .slide: data-background-image="images/whats_init.gif" data-background-size="contain" -->
 
 ---
 
@@ -588,7 +588,7 @@ Note: in c++14, this idiom was shortened to mean deduce the return type from the
 
 ---
 
-<!-- .slide: data-background="https://media.giphy.com/media/GPn300EibJ2F2/giphy.gif" -->
+<!-- .slide: data-background="images/concerned.gif" -->
 
 # CONCERNED?
 <!-- .element: style="text-shadow: 3px 3px black; color: lightblue" -->

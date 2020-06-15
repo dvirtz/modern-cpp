@@ -12,7 +12,11 @@ Reveal.addEventListener('ready', (event) => {
     });
   $('.aside').attr('data-background-color', "#bee4fd");
   $('.container code').attr('data-fragment-index', 0);
-  $('.animated').addClass('should-animate').removeClass('animated')
+  $('.animated').addClass('should-animate').removeClass('animated');
+  const highlight = Reveal.getPlugin('highlight');
+  $('pre code').each(function () {
+    highlight.highlightBlock($(this).get(0));
+  });
   Reveal.sync();
 });
 

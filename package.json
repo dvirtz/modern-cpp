@@ -21,7 +21,7 @@
     "url": "https://github.com/dvirtz/modern-cpp/issues"
   },
   "devDependencies": {
-    "reveal-md": "^3.4.7",
+    "reveal-md": "^4.0.0-beta.0",
     "jquery": "^3.5.1",
     "mocha": "^7.1.2",
     "bent": "^7.3.1",
