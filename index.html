@@ -5,10 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
     <title>reveal-md</title>
-    <link rel="stylesheet" href="./css/reveal.css" />
-    <link rel="stylesheet" href="./css/theme/black.css" id="theme" />
+    <link rel="stylesheet" href="./dist/reveal.css" />
+    <link rel="stylesheet" href="./dist/theme/black.css" id="theme" />
     <link rel="stylesheet" href="./css/highlight/zenburn.css" />
-    <link rel="stylesheet" href="./css/print/paper.css" type="text/css" media="print" />
     <link rel="stylesheet" href="./_assets/css/custom.css" />
     <link rel="stylesheet" href="./_assets/css/animations.css" />
 
@@ -177,7 +176,7 @@ void some_function( Container& c, const Value& v ) {
 <li><code>append_unique</code></li>
 </ul>
 </aside></script></section><section data-markdown><script type="text/template">
-<!-- .slide: data-background="https://media.giphy.com/media/3oKIPmnZ2IxoAQBta8/giphy.gif" data-transition="none slide" -->
+<!-- .slide: data-background-image="images/auto.gif" data-transition="none slide" -->
 
 # auto
 <!-- .element: style="text-shadow: 3px 3px black; color: lightblue; position: fixed; top: 0; left: 40%" -->
@@ -272,7 +271,7 @@ const auto& d   = val; // The type of d is const int&
 
 <aside class="notes"><p>If needed, <code>const</code> and <code>&amp;</code> can be explicity added</p>
 </aside></script></section><section data-markdown><script type="text/template">
-<!-- .slide: data-background="https://media.giphy.com/media/Wtalnj96EH5t2iPxGZ/giphy.gif" data-background-size="contain" -->
+<!-- .slide: data-background-image="images/whats_init.gif" data-background-size="contain" -->
 
 </script></section><section data-markdown><script type="text/template">
 ## Forces initialization
@@ -598,7 +597,7 @@ auto trace(Func f, T t) {
 
 <aside class="notes"><p>in c++14, this idiom was shortened to mean deduce the return type from the return statement</p>
 </aside></script></section><section data-markdown><script type="text/template">
-<!-- .slide: data-background="https://media.giphy.com/media/GPn300EibJ2F2/giphy.gif" -->
+<!-- .slide: data-background="images/concerned.gif" -->
 
 # CONCERNED?
 <!-- .element: style="text-shadow: 3px 3px black; color: lightblue" -->
@@ -1106,7 +1105,7 @@ Buffer d = c; // cannot move
 Originally:
 
 > - l-value: can be on the left hand side of an assignment
-- r-value: can be **only** on the right hand side of an assignment
+> - r-value: can be **only** on the right hand side of an assignment
 
 </script></section><section data-markdown><script type="text/template">
 ## Left or right?
@@ -1872,7 +1871,7 @@ static_assert(std::is_copy_constructible<T>::value,
 </script></section><section data-markdown><script type="text/template">
 ## class prototypes:
 
-<div class="stack">
+<div class="r-stack r-stretch">
 
 ```cpp
 class normal
@@ -1897,7 +1896,7 @@ public:
 };
 ```
 
-<!-- .element: class="fragment fade-in-then-out" -->
+<!-- .element: class="fragment current-visible" -->
 
 ```cpp
 class resource_handle
@@ -1914,7 +1913,7 @@ public:
 };
 ```
 
-<!-- .element: class="fragment fade-in-then-out" style="font-size:0.5em" -->
+<!-- .element: class="fragment current-visible" style="font-size:0.5em" -->
 
 ```cpp
 class immoveable
@@ -1931,7 +1930,7 @@ public:
 };
 ```
 
-<!-- .element: class="fragment fade-in" -->
+<!-- .element: class="fragment current-visible" -->
 
 </div>
 
@@ -2027,52 +2026,48 @@ D d(C(), POD());  // d: (() => C, () => POD) => D
 </script></section><section data-markdown><script type="text/template">
 Different initialization syntax
 
+<div class="r-stack r-stretch">
+
 ```cpp
-///fails
+///hide
+int v = 7;
+typedef int X;
+///unhide
+
+
 X t1 = v;     // copy initialization
 X t2(v);      // direct initialization
 X t3 = { v }; // initialize using initializer list
 X t4 = X(v);  // make an X from v and copy it to t4
 ```
 
-</script></section><section data-markdown><script type="text/template">
 ```cpp
-///hide
-int main() {
-///unhide
 int v = 7;
 typedef int X;
 X t1 = v;     // ok
 X t2(v);      // ok
 X t3 = { v }; // ok
 X t4 = X(v);  // ok
-///hide
-}
 ```
 
-</script></section><section data-markdown><script type="text/template">
+<!-- .element: class="fragment current-visible" -->
+
 ```cpp
 ///fails
-///hide
-int main() {
-///unhide
 int v = 7;
 typedef struct { int x; int y; } X;
 X t1 = v;     // error
 X t2(v);      // error
-X t3 = { v }; // ok: X is an aggregate 
-              // (“extra members” are default initialized)
+X t3 = { v }; // ok: X is an aggregate
 X t4 = X(v);  // error: we can’t cast an int to a struct
-///hide
-}
 ```
 
-</script></section><section data-markdown><script type="text/template">
+<!-- .element: class="fragment current-visible" -->
+
 ```cpp
 ///fails
 ///hide
 #include <vector>
-int main() {
 ///unhide
 int v = 7;
 typedef std::vector<int> X;
@@ -2080,25 +2075,23 @@ X t1 = v;     // error: constructor is explicit
 X t2(v);      // ok
 X t3 = { v }; // error: not an aggregate
 X t4 = X(v);  // ok (make an X from v and copy it to t4)
-///hide
-}
 ```
 
-</script></section><section data-markdown><script type="text/template">
+<!-- .element: class="fragment current-visible" -->
+
 ```cpp
 ///fails
-///hide
-int main() {
-///unhide
 int v = 7;
 typedef int* X;
 X t1 = v;     // error
 X t2(v);      // error
 X t3 = { v }; // error
 X t4 = X(v);  // ok: unfortunately converts int to an int*
-///hide
-}
 ```
+
+<!-- .element: class="fragment current-visible" -->
+
+</div>
 
 </script></section><section data-markdown><script type="text/template">
 ## More initialization
@@ -2430,7 +2423,7 @@ assert(aDozenOfFives != twelveAndFive);
 
 Instead of
 
-```cpp
+```cpp [2-4]
 ///hide
 #include <vector>
 #include <iostream>
@@ -2445,7 +2438,7 @@ void print(const std::vector<int>& v){
 
 write
 
-```cpp
+```cpp [2-4]
 ///hide
 #include <vector>
 #include <iostream>
@@ -2476,7 +2469,7 @@ std::cout << '\n';
 </script></section><section data-markdown><script type="text/template">
 ## Note
 
-```cpp [1-5|7-9|11-13]
+```cpp [7-13]
 ///hide
 #include <initializer_list>
 #include <type_traits>
@@ -2579,8 +2572,13 @@ std::vector<S> v{S(), S(), S()}; // error
 </script></section></section></div>
     </div>
 
-    <script src="./js/reveal.js"></script>
+    <script src="./dist/reveal.js"></script>
 
+    <script src="./plugin/markdown/markdown.js"></script>
+    <script src="./plugin/highlight/highlight.js"></script>
+    <script src="./plugin/zoom/zoom.js"></script>
+    <script src="./plugin/notes/notes.js"></script>
+    <script src="./plugin/math/math.js"></script>
     <script>
       function extend() {
         var target = {};
@@ -2595,16 +2593,6 @@ std::vector<S> v{S(), S(), S()}; // error
         return target;
       }
 
-      // Optional libraries used to extend on reveal.js
-      var deps = [
-        { src: './plugin/markdown/marked.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
-        { src: './plugins/markdown.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
-        { src: './plugins/highlight.js', async: true },
-        { src: './plugin/zoom-js/zoom.js', async: true },
-        { src: './plugin/notes/notes.js', async: true },
-        { src: './plugin/math/math.js', async: true }
-      ];
-
       // default options to init reveal.js
       var defaultOptions = {
         controls: true,
@@ -2612,18 +2600,25 @@ std::vector<S> v{S(), S(), S()}; // error
         history: true,
         center: true,
         transition: 'default', // none/fade/slide/convex/concave/zoom
-        dependencies: deps
+        plugins: [
+          RevealMarkdown,
+          RevealHighlight,
+          RevealZoom,
+          RevealNotes,
+          RevealMath
+        ]
       };
 
       // options from URL query string
-      var queryOptions = Reveal.getQueryHash() || {};
+      var queryOptions = Reveal().getQueryHash() || {};
 
-      var options = extend(defaultOptions, {}, queryOptions);
+      var options = extend(defaultOptions, {"highlight":{"highlightOnLoad":false}}, queryOptions);
     </script>
 
-    <script src="./_assets/scripts/compiler-explorer.js"></script>
+    <script src="./_assets/scripts/startfrom.js"></script>
     <script src="./_assets/node_modules/jquery/dist/jquery.min.js"></script>
     <script src="./_assets/scripts/customize.js"></script>
+    <script src="./_assets/scripts/compiler-explorer.js"></script>
 
     <script>
       Reveal.initialize(options);
