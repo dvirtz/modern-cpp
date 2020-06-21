@@ -1,3 +1,7 @@
+<!-- .slide: data-background-image="01_auto/schmeichel.jpg" -->
+
+---
+
 ## What problems can you find in this code?
 
 ```cpp
@@ -142,7 +146,7 @@ Note:
 
 ---
 
-<!-- .slide: data-background-image="images/auto.gif" data-transition="none slide" -->
+<!-- .slide: data-background-image="01_auto/auto.gif" data-transition="none slide" -->
 
 # auto
 <!-- .element: style="text-shadow: 3px 3px black; color: lightblue; position: fixed; top: 0; left: 40%" -->
@@ -244,7 +248,7 @@ Note: If needed, `const` and `&` can be explicity added
 
 ---
 
-<!-- .slide: data-background-image="images/whats_init.gif" data-background-size="contain" -->
+<!-- .slide: data-background-image="01_auto/whats_init.gif" data-background-size="contain" -->
 
 ---
 
@@ -588,7 +592,7 @@ Note: in c++14, this idiom was shortened to mean deduce the return type from the
 
 ---
 
-<!-- .slide: data-background="images/concerned.gif" -->
+<!-- .slide: data-background="concerned.gif" -->
 
 # CONCERNED?
 <!-- .element: style="text-shadow: 3px 3px black; color: lightblue" -->

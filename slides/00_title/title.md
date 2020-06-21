@@ -1,6 +1,6 @@
 # C++11 and Beyond! <!-- .element: id="title" -->
 
-<img id="logo" src="images/cpp_logo.png" alt="logo">
+<img id="logo" src="00_title/cpp_logo.png" alt="logo">
 
 <table id="versions">
   <tr>

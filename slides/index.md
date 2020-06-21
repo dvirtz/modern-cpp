@@ -1,13 +1,13 @@
-FILE: title.md
+FILE: 00_title/title.md
 
 ----
 
-FILE: auto.md
+FILE: 01_auto/auto.md
 
 ----
 
-FILE: move.md
+FILE: 02_move/move.md
 
 ----
 
-FILE: initialization.md
+FILE: 03_initialization/initialization.md
