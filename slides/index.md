@@ -11,3 +11,7 @@ FILE: 02_move/move.md
 ----
 
 FILE: 03_initialization/initialization.md
+
+----
+
+FILE: 04_variadic/variadic.md
