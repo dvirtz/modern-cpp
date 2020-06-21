@@ -62,3 +62,20 @@ table.noborder td {
 .r-stretch pre {
 	height: 100%;
 }
+
+.reveal pre[data-auto-animate-target] code {
+	overflow: hidden;
+}
+
+.highlight {
+	position: relative;
+	z-index: 1;
+	font-size: 0.55em;
+	display: flex;
+	font-weight: bold;
+	justify-content: center;
+}
+
+.highlight.bottom {
+  align-items: flex-end;
+}
