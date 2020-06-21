@@ -1,3 +1,7 @@
+<!-- .slide: data-background-image="03_initialization/irwin.jpeg" -->
+
+---
+
 Take a look at the following code:
 
 <div class="container">
@@ -192,7 +196,7 @@ throw v;                    // throw an exception
 
 ---
 
-<!-- .slide: data-background-image="images/list.gif" data-transition="none slide"- -->
+<!-- .slide: data-background-image="03_initialization/list.gif" data-transition="none slide"- -->
 
 # List Initialization
 
@@ -645,4 +649,4 @@ std::vector<S> v{S(), S(), S()}; // error
 
 ---
 
-<!-- .slide: data-background-image="images/aladin_thanks.gif" data-background-size="contain" -->
+<!-- .slide: data-background-image="03_initialization/aladin_thanks.gif" data-background-size="contain" -->
