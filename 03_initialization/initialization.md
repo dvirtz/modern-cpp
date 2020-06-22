@@ -85,24 +85,30 @@ D d(C(), POD());  // d: (() => C, () => POD) => D
 
 ---
 
-Different initialization syntax
+<!-- .slide: data-auto-animate -->
 
-<div class="r-stack r-stretch">
+## Different initialization syntax
 
-```cpp
+```cpp []
 ///hide
 int v = 7;
 typedef int X;
 ///unhide
-
-
 X t1 = v;     // copy initialization
 X t2(v);      // direct initialization
 X t3 = { v }; // initialize using initializer list
 X t4 = X(v);  // make an X from v and copy it to t4
 ```
 
-```cpp
+<!-- .element: data-id="code" -->
+
+---
+
+<!-- .slide: data-auto-animate -->
+
+## Different initialization syntax
+
+```cpp []
 int v = 7;
 typedef int X;
 X t1 = v;     // ok
@@ -111,9 +117,15 @@ X t3 = { v }; // ok
 X t4 = X(v);  // ok
 ```
 
-<!-- .element: class="fragment current-visible" -->
+<!-- .element: data-id="code" -->
 
-```cpp
+---
+
+<!-- .slide: data-auto-animate -->
+
+## Different initialization syntax
+
+```cpp []
 ///fails
 int v = 7;
 typedef struct { int x; int y; } X;
@@ -123,9 +135,15 @@ X t3 = { v }; // ok: X is an aggregate
 X t4 = X(v);  // error: we can’t cast an int to a struct
 ```
 
-<!-- .element: class="fragment current-visible" -->
+<!-- .element: data-id="code" -->
 
-```cpp
+---
+
+<!-- .slide: data-auto-animate -->
+
+## Different initialization syntax
+
+```cpp []
 ///fails
 ///hide
 #include <vector>
@@ -138,9 +156,15 @@ X t3 = { v }; // error: not an aggregate
 X t4 = X(v);  // ok (make an X from v and copy it to t4)
 ```
 
-<!-- .element: class="fragment current-visible" -->
+<!-- .element: data-id="code" -->
 
-```cpp
+---
+
+<!-- .slide: data-auto-animate -->
+
+## Different initialization syntax
+
+```cpp []
 ///fails
 int v = 7;
 typedef int* X;
@@ -150,9 +174,7 @@ X t3 = { v }; // error
 X t4 = X(v);  // ok: unfortunately converts int to an int*
 ```
 
-<!-- .element: class="fragment current-visible" -->
-
-</div>
+<!-- .element: data-id="code" -->
 
 ---
 
@@ -196,13 +218,13 @@ throw v;                    // throw an exception
 
 ---
 
-<!-- .slide: data-background-image="03_initialization/list.gif" data-transition="none slide"- -->
+<!-- .slide: data-background-image="03_initialization/list.gif" -->
 
 # List Initialization
 
-<!-- .element: style="text-shadow: 3px 3px black; color: lightblue" -->
+<!-- .element: class="r-stretch" style="display: flex; align-items: flex-end; text-shadow: 3px 3px black; color: lightblue" -->
 
-<div style="position: fixed; left: 0; bottom: 0;">
+<div style="display: flex; text-shadow: 3px 3px black; color: lightblue">
 <small>
 
 Sources:
