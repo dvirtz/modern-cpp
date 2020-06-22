@@ -18,7 +18,7 @@ markdownPlugin.init = function (reveal) {
       // specific lines.
       // ```javascript []        show line numbers
       // ```javascript [1,4-8]   highlights lines 1 and 4-8
-      const match = infostring.match(CODE_LINE_NUMBER_REGEX)
+      const match = infostring && infostring.match(CODE_LINE_NUMBER_REGEX);
       if (match) {
         if (match[1].length > 0) {
           startNumber = `data-line-numbers-start="${match[1]}"`;
