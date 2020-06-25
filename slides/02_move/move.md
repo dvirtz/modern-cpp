@@ -41,7 +41,7 @@ Note:
 struct HashingFunction{
     HashingFunction(const std::string&);
 };
-struct D;
+struct D {};
 int f(D);
 ///unhide
 class A
@@ -71,7 +71,7 @@ private:
 struct HashingFunction{
     HashingFunction(const std::string&);
 };
-struct D;
+struct D {};
 int f(D);
 ///unhide
 class A
@@ -81,9 +81,9 @@ public:
     A(int a_val) : a(a_val) {}
     A(D d) : a(f(d)), b(a) {}
 private:
-    int a(7), b(5);
-    HashingFunction hash_algorithm("MD5");
-    std::string s("Constructor run");
+    int a = 7, b = 5;
+    HashingFunction hash_algorithm = HashingFunction("MD5");
+    std::string s = "Constructor run";
 };
 ```
 
@@ -101,7 +101,7 @@ Note: `auto` is not allowed even with initializer;
 struct HashingFunction{
     HashingFunction(const std::string&);
 };
-struct D;
+struct D {};
 int f(D);
 ///unhide
 class A
@@ -109,11 +109,11 @@ class A
 public:
     A(int _a = 7, 
       int _b = 5, 
-      const HashingFunction& _hash_algorithm ="MD5", 
+      const HashingFunction& _hash_algorithm = HashingFunction("MD5"), 
       const std::string& _s = "Constructor run") 
     : a(_a), b(_b), hash_algorithm(_hash_algorithm), s(_s) 
     {}
-    A(D d) : A(f(d), b(a)) {}
+    A(D d) : A(f(d), a) {}
 private:
     int a, b;
     HashingFunction hash_algorithm;
@@ -436,6 +436,10 @@ Originally:
 ```cpp [|4|5|6|7|8|9]
 ///hide
 #include <vector>
+#include <algorithm>
+
+using std::min;
+
 int main() {
 ///unhide
 int a, b, *p;
@@ -464,7 +468,7 @@ More accurately:
 ## Value type
 
 ```cpp
-///fails
+///fails=lvalue required as unary '&' operand
 ///hide
 int main() {
 ///unhide
@@ -487,7 +491,7 @@ All named objects are l-values.
 A (non-const) reference can be bound only to l-values:
 
 ```cpp
-///fails
+///fails=cannot bind non-const lvalue reference of type 'int&' to an rvalue of type 'int'
 int a, b;
 int& c = a;
 int& d = (a * b); // error
@@ -500,7 +504,7 @@ int& d = (a * b); // error
 Can be bound only to r-values and uses the && syntax.
 
 ```cpp
-///fails
+///fails=cannot bind rvalue reference of type 'int&&' to lvalue of type 'int'
 int a = 1, b = 2;
 int&& c = a; // error
 int&& d = (a * b);
@@ -613,7 +617,7 @@ struct MovableBuffer
 <div class="container">
 
 ```cpp [|0]
-///fails
+///fails=use of deleted function 'constexpr MoveOnlyBuffer::MoveOnlyBuffer(const MoveOnlyBuffer&)'
 ///hide
 #include <cstddef>
 #include <utility>
@@ -648,7 +652,7 @@ struct MoveOnlyBuffer
 ```
 
 ```cpp 18[|21]
-///fails
+///fails=use of deleted function 'constexpr MoveOnlyBuffer::MoveOnlyBuffer(const MoveOnlyBuffer&)'
 ///hide
 #include <cstddef>
 #include <utility>
@@ -814,7 +818,7 @@ struct MoveOnlyBuffer
 `vector::push_back` pseudo code
 
 ```cpp
-///fails
+///fails=expected initializer before '<' token
 template<typename T>
 void vector<T>::push_back(const T& value) {
     if (size == capacity) {
@@ -1100,14 +1104,14 @@ static_assert(std::is_same<rref<rref<int>>, int&&>::value,
 calling `std::move(s)` instantiates 
 
 ```cpp
-///fails
+///fails='move' in namespace 'std' does not name a template type
 std::move<std::string&>(std::string & && t)
 ```
 
 i.e. 
 
 ```cpp
-///fails
+///fails='move' in namespace 'std' does not name a template type
 std::move<std::string&>(std::string & t)
 ```
 
@@ -1171,7 +1175,7 @@ Source: [Howard Hinnant](https://howardhinnant.github.io/classdecl.html)
 e.g. to prevent narrowing conversions:
 
 ```cpp
-///fails
+///fails=use of deleted function 'void foo(int)'
 void foo(short i);
 void foo(int i) = delete;
 
