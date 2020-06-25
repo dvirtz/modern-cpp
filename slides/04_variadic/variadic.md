@@ -95,7 +95,6 @@ class thread {
 
 ```cpp
 ///compiler=g75
-///execute
 #include <cstdio>
 #include <string>
 
@@ -224,7 +223,7 @@ static_assert(count<int, int, double>::value == 3,
 ///hide
 #include <cstddef>
 
-//unhide
+///unhide
 template<typename... Args> struct count 
 {
   static const size_t value = sizeof...(Args);
@@ -406,8 +405,11 @@ class thread {
 
 ```cpp [1|2|3|4-7|8-9]
 ///hide
-template<typename... Args> f(Args...);
-template<typename... Args> h(Args...);
+template<typename... Args> void f(Args...);
+template<typename... Args> void h(Args...);
+template<typename... Args>
+void foo(Args... args) {
+auto n = 0;
 ///unhide
 f(&args...); // f(&E1, &E2, &E3)
 f(n, ++args...); // f(n, ++E1, ++E2, ++E3);
@@ -418,6 +420,8 @@ f(const_cast<const Args*>(&args)...);
 //   const_cast<const E3*>(&X3))
 f(h(args...) + args...);
 // f(h(E1,E2,E3) + E1, h(E1,E2,E3) + E2, h(E1,E2,E3) + E3)
+///hide
+}
 ```
 
 Note: last is nested
@@ -470,7 +474,6 @@ class tuple;
 ## return multiple values
 
 ```cpp [|1|3|9-13]
-///execute
 ///hide
 #include <tuple>
 #include <string>
@@ -506,7 +509,6 @@ std::cout << "ID: 0, "
 ## `std::tie`
 
 ```cpp [9-16]
-///execute
 ///hide
 #include <tuple>
 #include <string>
@@ -571,7 +573,6 @@ if (inserted) {
 ## avoiding cecursion
 
 ```cpp
-///execute
 ///hide
 #include <cassert>
 ///unhide
@@ -598,7 +599,6 @@ assert(sum(1, 2, 3) == 6);
 ## `std::initializer_list` for the rescue
 
 ```cpp
-///execute
 ///hide
 #include <cassert>
 #include <initializer_list>
@@ -730,6 +730,7 @@ int main() {
 f(A(), 42);
 ///hide
 }
+```
 
 ---
 
