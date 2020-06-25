@@ -1,59 +1,64 @@
-const processElement = (content, isLocal) => {
-    let compiler = isLocal ? "clangdefault" : "g82";
-    let options = "-O2 -march=haswell -Wall -Wextra -pedantic -Wno-unused-variable";
-    let execute = false
-    let libs = []
-    let forceExternal = false;
-    let shouldFail = false;
-    let source = unescape(content);
-    let lines = source.split('\n');
-    source = "";
-    let displaySource = "";
-    let matcher = pattern => new RegExp(`^\s*\/\/\/\s*${pattern}$`);
-    let skipDisplay = false;
-    let hide = false;
-    for (line of lines) {
-        if (line.match(/^\/\/\//)) {
-            (line.match(matcher('compiler=(.*)')) || []).slice(1).forEach(match => compiler = match);
-            (line.match(matcher('options=(.*)')) || []).slice(1).forEach(match => options = match);
-            (line.match(matcher('libs=(\\w+:\\w+(?:,\\w+:\\w+)*)')) || []).slice(1).forEach(match => {
-                [...match.matchAll(/(\w+):(\w+)/g)].forEach(match => {
-                    libs.push({
-                        name: match[1],
-                        ver: match[2]
-                    });
-                })
+const directive = pattern => new RegExp(`^\s*\/\/\/\s*${pattern}$`);
+
+const directives = new Map([
+    ['compiler=(.*)', (matches, info) => matches.slice(1).forEach(match => info.compiler = match)],
+    ['options=(.*)', (matches, info) => matches.slice(1).forEach(match => info.options = match)],
+    ['libs=(\\w+:\\w+(?:,\\w+:\\w+)*)', (matches, info) => matches.slice(1).forEach(match => {
+        [...match.matchAll(/(\w+):(\w+)/g)].forEach(match => {
+            info.libs.push({
+                name: match[1],
+                ver: match[2]
             });
-            (line.match(matcher('execute')) || []).forEach(_ => execute = true);
-            (line.match(matcher('external')) || []).forEach(_ => forceExternal = true);
-            (line.match(matcher('fails')) || []).forEach(_ => shouldFail = true);
-            (line.match(matcher('((un)?hide)')) || []).slice(1, 2).forEach(match => hide = match == "hide");
+        })
+    })
+    ],
+    ['execute', (matches, info) => matches.forEach(_ => info.execute = true)],
+    ['external', (matches, info) => matches.forEach(_ => info.forceExternal = true)],
+    ['fails=(.*)', (matches, info) => matches.slice(1).forEach(match => info.failReason = match)],
+    ['((un)?hide)', (matches, info) => matches.slice(1, 2).forEach(match => info.hide = match == 'hide')]
+]);
+
+const processElement = (content, isLocal = false) => {
+    let defaultCompiler = 'g83';
+    let defaultOptions = '-O2 -march=haswell -Wall -Wextra -pedantic -Wno-unused-variable';
+    let lines = unescape(content).split('\n');
+    let displaySource = '';
+    let matches = (line, regex) => line.match(directive(regex)) || [];
+    let skipDisplay = false;
+
+    const info = {
+        source: '',
+        compiler: defaultCompiler,
+        options: defaultOptions,
+        libs: [],
+        execute: false,
+        forceExternal: false,
+        failReason: '',
+        hide: false
+    };
+
+    for (line of lines) {
+        if (line.startsWith('///')) {
+            directives.forEach((match, directive) => match(matches(line, directive), info))
         } else {
-            source += line + "\n";
-            if (!skipDisplay && !hide)
-                displaySource += line + "\n";
+            matches(line, /int main/).forEach(_ => info.execute = true)
+            info.source += line + '\n';
+            if (!skipDisplay && !info.hide)
+                displaySource += line + '\n';
         }
     }
 
-    const info = {
-        source: source,
-        compiler: compiler,
-        options: options,
-        libs: libs,
-        execute: execute,
-        forceExternal: forceExternal,
-        shouldFail: shouldFail
-    };
+    delete info.hide;
 
     return [info, displaySource]
 };
 
 function prepareUrl(info, isLocal) {
     function trim(source) {
-        while (source.startsWith("\n")) {
+        while (source.startsWith('\n')) {
             source = source.slice(1, source.length);
         }
-        while (source.endsWith("\n\n")) {
+        while (source.endsWith('\n\n')) {
             source = source.slice(0, source.length - 1);
         }
         return source;
@@ -128,7 +133,7 @@ const Plugin = () => {
                 const url = prepareUrl(info, isLocal);
                 element.parentNode.onclick = (evt) => {
                     if (evt.ctrlKey || evt.metaKey) {
-                        window.open(url, "ce");
+                        window.open(url, 'ce');
                     }
                 };
                 element.textContent = displaySource;
@@ -139,7 +144,10 @@ const Plugin = () => {
 
 // export default Plugin;
 if (typeof exports === 'object') {
-    module.exports = processElement;
+    module.exports = {
+        processElement: processElement,
+        directives: directives.keys()
+    };
 }
 else if (defaultOptions != 'undefined') {
     defaultOptions.plugins.push(Plugin);

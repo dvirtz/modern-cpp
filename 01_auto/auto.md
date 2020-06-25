@@ -5,7 +5,7 @@
 ## What problems can you find in this code?
 
 ```cpp
-///fails
+///fails=conversion from 'int' to non-scalar type 'std::vector<int>' requested
 ///hide
 #include <string>
 #include <vector>
@@ -36,7 +36,7 @@ Note:
 ## And this?
 
 ```cpp
-///fails
+///fails=conversion from '__normal_iterator<const int*,[...]>' to non-scalar type '__normal_iterator<int*,[...]>' requested
 ///hide
 #include <vector>
 ///unhide
@@ -58,7 +58,6 @@ Note:
 ## And this?
 
 ```cpp
-///execute
 ///hide
 #include <iostream>
 
@@ -100,7 +99,6 @@ Note:
 Accept anything with a member `begin` and `end` as well as C-style arrays
 
 ```cpp
-///execute
 ///hide
 #include <vector>
 #include <cassert>
@@ -388,7 +386,6 @@ Note:
 instead of
 
 ```cpp
-///execute
 ///hide
 #include <iostream>
 
@@ -416,7 +413,6 @@ widget w = get_gadget();
 write
 
 ```cpp
-///execute
 ///hide
 #include <iostream>
 
@@ -444,7 +440,6 @@ auto w = get_gadget(); // gadget can be used
 or
 
 ```cpp
-///execute
 ///hide
 #include <iostream>
 
@@ -539,7 +534,7 @@ Note: we implement a generic tracing function which gets a function `f` and a va
 first try
 
 ```cpp
-///fails
+///fails='t' was not declared in this scope
 ///hide
 #include <iostream>
 

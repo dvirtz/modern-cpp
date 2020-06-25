@@ -78,7 +78,11 @@ int main() {
 ## Most vexing parse
 
 ```cpp
-///fails
+///hide
+struct C{};
+struct D{};
+struct POD{};
+///unhide
 C c();            // c: () => C
 D d(C(), POD());  // d: (() => C, () => POD) => D
 ```
@@ -126,7 +130,7 @@ X t4 = X(v);  // ok
 ## Different initialization syntax
 
 ```cpp []
-///fails
+///fails=conversion from 'int' to non-scalar type 'X' requested
 int v = 7;
 typedef struct { int x; int y; } X;
 X t1 = v;     // error
@@ -144,7 +148,7 @@ X t4 = X(v);  // error: we can’t cast an int to a struct
 ## Different initialization syntax
 
 ```cpp []
-///fails
+///fails=conversion from 'int' to non-scalar type 'X' {aka 'std::vector<int>'} requested
 ///hide
 #include <vector>
 ///unhide
@@ -165,7 +169,7 @@ X t4 = X(v);  // ok (make an X from v and copy it to t4)
 ## Different initialization syntax
 
 ```cpp []
-///fails
+///fails=invalid conversion from 'int' to 'X' {aka 'int*'}
 int v = 7;
 typedef int* X;
 X t1 = v;     // error
@@ -271,7 +275,7 @@ Y::Y(int v) :X{v}, m{v} {}  // base and member initializers
 This is still forbidden:
 
 ```cpp
-///fails
+///fails=expected primary-expression before '{' token
 ///hide
 void f3() {
 int v = 42;
@@ -286,7 +290,7 @@ throw {v};                  // throw an exception
 # It's also safer
 
 ```cpp
-///fails
+///fails=narrowing conversion
 int i1(4.2); // no problem
 int i2{4.2}; // error: narrowing conversion
 
@@ -490,13 +494,13 @@ std::map<int, std::string> m = {
 };
 ///hide
 }
+```
 
 ---
 
 ## `initializer_list` constructor is prefered
 
 ```cpp
-///execute
 ///hide
 #include <vector>
 #include <cassert>
@@ -603,7 +607,7 @@ This initialization syntax is frequently referred to as "Uniform initialization"
 a *braced-init-list* does not have a type in itself:
 
 ```cpp
-///fails
+///fails=no matching function for call to 'do_sth(<brace-enclosed initializer list>)'
 template <typename T>
 void do_sth(T t);
 
@@ -626,7 +630,6 @@ Does not support moves
 <div class="container">
 
 ```cpp
-///execute
 ///hide
 #include <vector>
 #include <iostream>
@@ -647,7 +650,7 @@ std::vector<S> v{S(), S(), S()};
 ```
 
 ```cpp
-///fails
+///fails=use of deleted function 'S::S(const S&)'
 ///hide
 #include <vector>
 #include <iostream>
