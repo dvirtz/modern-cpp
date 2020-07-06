@@ -1,5 +1,18 @@
+.reveal .chapter {
+	display: flex; 
+	justify-content: center; 
+	text-shadow: 3px 3px black; 
+	color: lightblue;
+}
+
+.reveal .chapter.bottom {
+	align-items: flex-end;
+}
+
 .footnote {
-  display: flex;
+	display: flex;
+	align-items: start;
+	flex-direction: column; 
   font-size: 0.5em;
 }
 
