@@ -17,6 +17,11 @@ Reveal.addEventListener('ready', (event) => {
   $('pre code').each(function () {
     highlight.highlightBlock($(this).get(0));
   });
+  $(Reveal.getRevealElement()).prepend($('<a>', {
+    class: 'github-fork-ribbon top-right fixed',
+    href: 'https://github.com/dvirtz/modern-cpp',
+    'data-ribbon': 'Fork me on GitHub'
+  }));
   Reveal.sync();
 });
 

@@ -10,6 +10,7 @@
         "scripts/compiler-explorer.js"
     ],
     "css": [
+        "node_modules/github-fork-ribbon-css/gh-fork-ribbon.css",
         "css/custom.css",
         "css/animations.css"
     ],
