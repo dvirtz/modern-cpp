@@ -158,7 +158,7 @@ These functions and functors also unnecessarily ‘clutter up’ the code.
 
 # Lambda expressions
 
-<!-- .element: class="r-stretch" style="display: flex; align-items: flex-end; text-shadow: 3px 3px black; color: lightblue" -->
+<!-- .element: class="chapter bottom" -->
 
 ---
 
@@ -1382,6 +1382,8 @@ int callGet(const Derived& d, int i) {
 
 ---
 
+<div class="r-stretch" style="display: flex; flex-direction: column; align-items: center; justify-content: center">
+
 ## Lambdas
 
 1. make code more readable
@@ -1390,7 +1392,9 @@ int callGet(const Derived& d, int i) {
 4. make using algorithms easy
 5. get better with each revision
 
-<div class="r-stretch footnote">
+</div>
+
+<div class="footnote">
 
 Source: [Bartek's coding blog](https://www.bfilipek.com/2020/05/lambdasadvantages.html?m=1#5-lambdas-get-better-with-each-revision-of-c)
 
