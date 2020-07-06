@@ -511,7 +511,6 @@ std::vector<int> twelveAndFive{12, 5};
 assert(aDozenOfFives != twelveAndFive);
 ///hide
 }
-///
 ```
 
 ---
@@ -611,7 +610,7 @@ template <typename T>
 void do_sth(T t);
 
 ///hide
-int main() {
+void foo() {
 ///unhide
 do_sth({1, 2, 3, 4, 5}); // error: couldn't infer template argument
 ///hide
@@ -662,7 +661,7 @@ struct S {
 };
 
 ///hide
-int main() {
+void foo() {
 ///unhide
 std::vector<S> v{S(), S(), S()}; // error
 ///hide

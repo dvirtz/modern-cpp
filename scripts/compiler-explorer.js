@@ -18,7 +18,7 @@ const directives = new Map([
     ['external', (matches, info) => matches.forEach(_ => info.forceExternal = true)],
     ['fails=(.*)', (matches, info) => matches.slice(1).forEach(match => info.failReason = match)],
     ['((un)?hide)', (matches, info) => matches.slice(1, 2).forEach(match => info.hide = match == 'hide')]
-]);
+].map(([regex, action]) => [directive(regex), action]));
 
 const processElement = (content, isLocal = false) => {
     let defaultCompiler = 'g83';
@@ -41,7 +41,7 @@ const processElement = (content, isLocal = false) => {
 
     for (line of lines) {
         if (line.startsWith('///')) {
-            directives.forEach((match, regex) => match(matches(line, directive(regex)), info))
+            directives.forEach((action, regex) => action(matches(line, regex), info))
         } else {
             matches(line, /int main/).forEach(_ => info.execute = true)
             info.source += line + '\n';
@@ -148,7 +148,7 @@ const Plugin = () => {
 if (typeof exports === 'object') {
     module.exports = {
         processElement: processElement,
-        directives: directives.keys()
+        directives: Array.from(directives.keys())
     };
 }
 else if (defaultOptions != 'undefined') {

@@ -643,7 +643,7 @@ Note: C++17 has fold expressions
 int sum(std::initializer_list<int> ints);
 
 ///hide
-int main() {
+void foo() {
 ///unhide
 assert(sum({1, 2, 3}) == 6);
 // sum({1, 2, "3"}); // fails to compile
@@ -694,7 +694,7 @@ int sum(const Args&... args) {
 }
 
 ///hide
-int main() {
+void foo() {
 ///unhide
 assert(sum(1, 2, 3) == 6);
 // sum(1, 2, "3"); // fails to compile
@@ -723,7 +723,7 @@ struct A
 };
 
 ///hide
-int main() {
+void foo() {
 ///unhide
 f(A(), 42);
 ///hide
@@ -772,7 +772,7 @@ template<typename... Args, typename = AllInts<Args...>>
 int sum(const Args&... args);
 
 ///hide
-int main() {
+void foo() {
 ///unhide
 assert(sum(1, 2, 3) == 6);
 // sum(1, 2, "3"); // fails to compile
