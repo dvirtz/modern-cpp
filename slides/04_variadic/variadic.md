@@ -116,19 +116,17 @@ printf("Hello %s", getName());
 
 <!-- .slide: data-background-image="04_variadic/smith.gif" -->
 
-# Variadic templates
+## Variadic templates
 
-<!-- .element: class="r-stretch" style="display: flex; align-items: flex-end; text-shadow: 3px 3px black; color: lightblue" -->
+<!-- .element: class="r-stretch" style="display: flex; align-items: flex-end; text-shadow: 3px 3px black; color: lightblue; justify-content: center" -->
 
-<div style="display: flex">
-<small>
+<div class="footnote">
 
 Sources:
 - [N2080](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2080.pdf)
 - [cppreference](https://en.cppreference.com/w/cpp/language/parameter_pack)
 - [Fluent{C++}](https://www.fluentcpp.com/2019/02/05/how-to-define-a-variadic-number-of-arguments-of-the-same-type-part-3/)
 
-<small>
 <div>
 
 <!-- .element: style="text-shadow: 3px 3px black; color: lightblue; position: fixed; bottom: 0" -->

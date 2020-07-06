@@ -228,14 +228,13 @@ throw v;                    // throw an exception
 
 <!-- .element: class="r-stretch" style="display: flex; align-items: flex-end; text-shadow: 3px 3px black; color: lightblue" -->
 
-<div style="display: flex; text-shadow: 3px 3px black; color: lightblue">
-<small>
+<div class="footnote" style="text-shadow: 3px 3px black; color: lightblue">
 
 Sources:
+
 - [simplify C++](https://arne-mertz.de/2015/07/new-c-features-uniform-initialization-and-initializer_list/)
 - [N2215](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2215.pdf)
 
-<small>
 <div>
 
 ---
