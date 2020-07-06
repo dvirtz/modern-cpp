@@ -15,3 +15,7 @@ FILE: 03_initialization/initialization.md
 ----
 
 FILE: 04_variadic/variadic.md
+
+----
+
+FILE: 05_lambda/lambda.md
