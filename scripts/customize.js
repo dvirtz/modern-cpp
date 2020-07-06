@@ -24,4 +24,12 @@ Reveal.addEventListener('ready', (event) => {
 Reveal.addEventListener('slidechanged', (event) => {
   $(event.currentSlide).children('.should-animate').addClass('animated');
   $(event.previousSlide).children('.should-animate').removeClass('animated');
+  $(event.currentSlide).find('pre[data-auto-animate-target]')
+    .on('transitionstart', function () {
+      $(this).find('code').css('overflow', 'hidden')
+    })
+    .on('transitionend', function () {
+      $(this).find('code').css('overflow', 'auto')
+    })
+  $(event.previousSlide).find('pre[data-auto-animate-target] code').css('overflow', 'hidden')
 });
