@@ -149,7 +149,11 @@ Note:
 # auto
 <!-- .element: style="text-shadow: 3px 3px black; color: lightblue; position: fixed; top: 0; left: 40%" -->
 
- Slides are based on <!-- .element: class="footnote" style="text-shadow:-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black" -->  [Herb Sutter's](herbsutter.com) GOTW series
+<div class="r-stretch footnote" style="text-shadow:-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black">
+
+Slides are based on [Herb Sutter's](herbsutter.com) GOTW series
+
+</div>
 
 Note: 
 - our main topic today
