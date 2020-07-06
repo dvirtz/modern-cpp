@@ -32,7 +32,7 @@ const fileSnippets = file => {
       } else if (line.match(SNIPPET_MARK)) {
         currentSnippet = {
           shortLocation: `${file}:${index + 1}`,
-          fullLocation: `file://${path.join(cwd(), 'slides', file)}#${index + 1}`,
+          fullLocation: `${path.join(cwd(), 'slides', file)}:${index + 1}`,
           code: []
         }
       }
@@ -53,8 +53,8 @@ fileList(slideFile('index.md'))
     describe(`compile snippets from ${fileSnippets.file}`, function () {
       this.timeout(5000);
 
-      fileSnippets.snippets.forEach(function (codeSnippet) {
-        it(`should compile ${codeSnippet.shortLocation}`, async function () {
+      fileSnippets.snippets.forEach(function (codeSnippet, index) {
+        it(`should compile ${fileSnippets.file} snippet #${index}`, async function () {
           for (const line of codeSnippet.code) {
             if (line.startsWith('//') && !line.startsWith('///')) {
               for (directive of directives) {
