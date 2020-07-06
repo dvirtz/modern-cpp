@@ -8,7 +8,7 @@ const chai = require('chai')
 const { unstyle } = require('ansi-colors');
 const path = require('path');
 const { pwd, cwd } = require('process');
-const { assert } = require('console');
+const { assert, dir } = require('console');
 
 const SNIPPET_MARK = /^```/;
 const compile = bent('https://godbolt.org/', 'POST', 'json');
@@ -56,10 +56,14 @@ fileList(slideFile('index.md'))
       fileSnippets.snippets.forEach(function (codeSnippet, index) {
         it(`should compile ${fileSnippets.file} snippet #${index}`, async function () {
           for (const line of codeSnippet.code) {
+            const directiveMessage = `${codeSnippet.fullLocation} :\nwrong directive: ${line}`
             if (line.startsWith('//') && !line.startsWith('///')) {
               for (directive of directives) {
-                line.should.not.match(new RegExp(directive), `${codeSnippet.fullLocation} :\nwrong directive: ${line}`);
+                line.should.not.match(directive, directiveMessage);
               };
+            }
+            else if (line.startsWith('///')) {
+              line.should.satisfy(line => directives.some(directive => line.match(directive)), directiveMessage);
             }
           }
           const [info] = processElement(codeSnippet.code.join(['\n']))
@@ -79,12 +83,27 @@ fileList(slideFile('index.md'))
             }
           };
           const response = await compile(`api/compiler/${info.compiler}/compile`, data);
-          const message = `\n${codeSnippet.fullLocation} :\n${unstyle(response.stderr.map(x => x.text).join('\n'))}`;
-          if (info.failReason) {
-            response.code.should.not.equal(0, message);
-            message.should.contain(info.failReason)
+          const message = (stderr) => `\n${codeSnippet.fullLocation} :\n${unstyle(stderr.map(x => x.text).join('\n'))}`;
+          const compileMessage = message(response.stderr);
+          if (info.execute) {
+            const execMessage = message( response.execResult.buildResult.stderr.concat(response.execResult.stderr));
+            if (info.failReason) {
+              if (response.code === 0) {
+                response.execResult.code.should.not.equal(0, execMessage);
+                execMessage.should.contain(info.failReason);
+              } else {
+                compileMessage.should.contain(info.failReason)
+              }
+            }
+            else {
+              response.execResult.code.should.be.at.least(0, execMessage);
+            }
+          }
+          else if (info.failReason) {
+            response.code.should.not.equal(0, compileMessage);
+            compileMessage.should.contain(info.failReason)
           } else {
-            response.code.should.equal(0, message);
+            response.code.should.equal(0, compileMessage);
           }
         });
       });

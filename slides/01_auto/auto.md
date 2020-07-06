@@ -10,7 +10,7 @@
 #include <string>
 #include <vector>
 
-int main() {
+void foo() {
 ///unhide
 // (a)
 int i;

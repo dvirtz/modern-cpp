@@ -470,7 +470,7 @@ More accurately:
 ```cpp
 ///fails=lvalue required as unary '&' operand
 ///hide
-int main() {
+void foo() {
 ///unhide
 int a, b;
 int* c;
@@ -900,13 +900,8 @@ int* allocate_array() noexcept(N >= 0) {
     return allocate_array_impl(N);
 }
 
-///hide
-int main() {
-///unhide
 int* a = allocate_array<42>();
 int* b = allocate_array<-1>();
-///hide
-}
 ```
 
 `noexcept` is a shortcut for `noexcept(true)`.
@@ -1180,7 +1175,7 @@ void foo(short i);
 void foo(int i) = delete;
 
 ///hide
-int main() {
+void bar() {
 ///unhide
 foo(static_cast<short>(42));    // ok
 foo(42);                        // error, deleted function
