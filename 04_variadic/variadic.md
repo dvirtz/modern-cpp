@@ -116,19 +116,17 @@ printf("Hello %s", getName());
 
 <!-- .slide: data-background-image="04_variadic/smith.gif" -->
 
-# Variadic templates
+## Variadic templates
 
-<!-- .element: class="r-stretch" style="display: flex; align-items: flex-end; text-shadow: 3px 3px black; color: lightblue" -->
+<!-- .element: class="r-stretch" style="display: flex; align-items: flex-end; text-shadow: 3px 3px black; color: lightblue; justify-content: center" -->
 
-<div style="display: flex">
-<small>
+<div class="footnote">
 
 Sources:
 - [N2080](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2080.pdf)
 - [cppreference](https://en.cppreference.com/w/cpp/language/parameter_pack)
 - [Fluent{C++}](https://www.fluentcpp.com/2019/02/05/how-to-define-a-variadic-number-of-arguments-of-the-same-type-part-3/)
 
-<small>
 <div>
 
 <!-- .element: style="text-shadow: 3px 3px black; color: lightblue; position: fixed; bottom: 0" -->
@@ -645,7 +643,7 @@ Note: C++17 has fold expressions
 int sum(std::initializer_list<int> ints);
 
 ///hide
-int main() {
+void foo() {
 ///unhide
 assert(sum({1, 2, 3}) == 6);
 // sum({1, 2, "3"}); // fails to compile
@@ -696,7 +694,7 @@ int sum(const Args&... args) {
 }
 
 ///hide
-int main() {
+void foo() {
 ///unhide
 assert(sum(1, 2, 3) == 6);
 // sum(1, 2, "3"); // fails to compile
@@ -725,7 +723,7 @@ struct A
 };
 
 ///hide
-int main() {
+void foo() {
 ///unhide
 f(A(), 42);
 ///hide
@@ -774,7 +772,7 @@ template<typename... Args, typename = AllInts<Args...>>
 int sum(const Args&... args);
 
 ///hide
-int main() {
+void foo() {
 ///unhide
 assert(sum(1, 2, 3) == 6);
 // sum(1, 2, "3"); // fails to compile

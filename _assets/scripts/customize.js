@@ -13,14 +13,23 @@ Reveal.addEventListener('ready', (event) => {
   $('.aside').attr('data-background-color', "#bee4fd");
   $('.container code').attr('data-fragment-index', 0);
   $('.animated').addClass('should-animate').removeClass('animated');
-  const highlight = Reveal.getPlugin('highlight');
-  $('pre code').each(function () {
-    highlight.highlightBlock($(this).get(0));
-  });
+  $(Reveal.getRevealElement()).prepend($('<a>', {
+    class: 'github-fork-ribbon top-right fixed',
+    href: 'https://github.com/dvirtz/modern-cpp',
+    'data-ribbon': 'Fork me on GitHub'
+  }));
   Reveal.sync();
 });
 
 Reveal.addEventListener('slidechanged', (event) => {
   $(event.currentSlide).children('.should-animate').addClass('animated');
   $(event.previousSlide).children('.should-animate').removeClass('animated');
+  $(event.currentSlide).find('pre[data-auto-animate-target]')
+    .on('transitionstart', function () {
+      $(this).find('code').css('overflow', 'hidden')
+    })
+    .on('transitionend', function () {
+      $(this).find('code').css('overflow', 'auto')
+    })
+  $(event.previousSlide).find('pre[data-auto-animate-target] code').css('overflow', 'hidden')
 });

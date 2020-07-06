@@ -228,14 +228,13 @@ throw v;                    // throw an exception
 
 <!-- .element: class="r-stretch" style="display: flex; align-items: flex-end; text-shadow: 3px 3px black; color: lightblue" -->
 
-<div style="display: flex; text-shadow: 3px 3px black; color: lightblue">
-<small>
+<div class="footnote" style="text-shadow: 3px 3px black; color: lightblue">
 
 Sources:
+
 - [simplify C++](https://arne-mertz.de/2015/07/new-c-features-uniform-initialization-and-initializer_list/)
 - [N2215](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2215.pdf)
 
-<small>
 <div>
 
 ---
@@ -512,7 +511,6 @@ std::vector<int> twelveAndFive{12, 5};
 assert(aDozenOfFives != twelveAndFive);
 ///hide
 }
-///
 ```
 
 ---
@@ -612,7 +610,7 @@ template <typename T>
 void do_sth(T t);
 
 ///hide
-int main() {
+void foo() {
 ///unhide
 do_sth({1, 2, 3, 4, 5}); // error: couldn't infer template argument
 ///hide
@@ -663,7 +661,7 @@ struct S {
 };
 
 ///hide
-int main() {
+void foo() {
 ///unhide
 std::vector<S> v{S(), S(), S()}; // error
 ///hide
