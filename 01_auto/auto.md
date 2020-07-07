@@ -144,12 +144,12 @@ Note:
 
 ---
 
-<!-- .slide: data-background-image="01_auto/auto.gif" data-transition="none slide" -->
+<!-- .slide: data-background-image="01_auto/auto.gif" -->
 
 # auto
-<!-- .element: style="text-shadow: 3px 3px black; color: lightblue; position: fixed; top: 0; left: 40%" -->
+<!-- .element: class="chapter" -->
 
-<div class="r-stretch footnote" style="text-shadow:-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black">
+<div class="footnote" style="text-shadow:-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black">
 
 Slides are based on [Herb Sutter's](herbsutter.com) GOTW series
 

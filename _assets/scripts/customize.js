@@ -18,6 +18,7 @@ Reveal.addEventListener('ready', (event) => {
     href: 'https://github.com/dvirtz/modern-cpp',
     'data-ribbon': 'Fork me on GitHub'
   }));
+  $('.chapter').addClass('r-stretch');
   Reveal.sync();
 });
 

@@ -226,7 +226,7 @@ throw v;                    // throw an exception
 
 # List Initialization
 
-<!-- .element: class="r-stretch" style="display: flex; align-items: flex-end; text-shadow: 3px 3px black; color: lightblue" -->
+<!-- .element: class="chapter" -->
 
 <div class="footnote" style="text-shadow: 3px 3px black; color: lightblue">
 

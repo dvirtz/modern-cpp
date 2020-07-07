@@ -118,7 +118,7 @@ printf("Hello %s", getName());
 
 ## Variadic templates
 
-<!-- .element: class="r-stretch" style="display: flex; align-items: flex-end; text-shadow: 3px 3px black; color: lightblue; justify-content: center" -->
+<!-- .element: class="chapter bottom"  -->
 
 <div class="footnote">
 
