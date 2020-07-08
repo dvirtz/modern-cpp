@@ -87,6 +87,8 @@ private:
 };
 ```
 
+<!-- .element: style="font-size: 0.5em" -->
+
 Note: `auto` is not allowed even with initializer;
 
 ---
@@ -155,9 +157,7 @@ foo(nullptr); // calls foo(char*);
 
 ## Buffer copy
 
-<div class="container">
-
-```cpp [|2-3|5-10|12-18|0|0]
+```cpp [|2-3|5-10|12-18|20-29|31]
 ///hide
 #include <algorithm>
 ///unhide
@@ -179,7 +179,7 @@ struct Buffer {
                   other.m_pArray + m_size, 
                   m_pArray);
     }
-///hide
+
     Buffer& operator=(const Buffer& other) 
     {
         delete[] m_pArray;
@@ -193,54 +193,21 @@ struct Buffer {
 
     ~Buffer() { delete[] m_pArray; }
 };
+
+
+
+
+
+
 ```
 
-```cpp 19[|0|0|0|19-28|30]
-///hide
-#include <algorithm>
-struct Buffer {
-    size_t m_size;
-    int* m_pArray;
-
-    Buffer(size_t size = 0) 
-        : m_size(size)
-        , m_pArray(size == 0 
-                    ? nullptr 
-                    : new int[size])
-    {}
-
-    Buffer(const Buffer& other) 
-        : Buffer(other.m_size)
-    {
-        std::copy(other.m_pArray, 
-                  other.m_pArray + m_size, 
-                  m_pArray);
-    }
-///unhide
-    Buffer& operator=(const Buffer& other) 
-    {
-        delete[] m_pArray;
-        m_size = other.m_size;
-        m_pArray = new int[m_size];
-        std::copy(other.m_pArray, 
-                  other.m_pArray + m_size, 
-                  m_pArray);
-        return *this;
-    }
-
-    ~Buffer() { delete[] m_pArray; }
-};
-```
-
-<div>
+<!-- .element: class="split" -->
 
 ---
 
 ## implement assignment by copy constructor
 
-<div class="container">
-
-```cpp [0]
+```cpp [20-26]
 ///hide
 #include <algorithm>
 ///unhide
@@ -262,7 +229,7 @@ struct Buffer {
                   other.m_pArray + m_size, 
                   m_pArray);
     }
-///hide
+    
     Buffer& operator=(const Buffer& other) 
     {
         Buffer tmp(other);
@@ -273,43 +240,17 @@ struct Buffer {
 
     ~Buffer() { delete[] m_pArray; }
 };
+
+
+
+
+
+
+
+
 ```
 
-```cpp 19[19-25]
-///hide
-#include <algorithm>
-struct Buffer {
-    size_t m_size;
-    int* m_pArray;
-
-    Buffer(size_t size = 0) 
-        : m_size(size)
-        , m_pArray(size == 0 
-                    ? nullptr 
-                    : new int[size])
-    {}
-
-    Buffer(const Buffer& other) 
-        : Buffer(other.m_size)
-    {
-        std::copy(other.m_pArray, 
-                  other.m_pArray + m_size, 
-                  m_pArray);
-    }
-///unhide
-    Buffer& operator=(const Buffer& other) 
-    {
-        Buffer tmp(other);
-        std::swap(m_size, tmp.m_size);
-        std::swap(m_pArray, tmp.m_pArray);
-        return *this;
-    }
-
-    ~Buffer() { delete[] m_pArray; }
-};
-```
-
-<div>
+<!-- .element: class="split" -->
 
 ---
 
@@ -512,13 +453,12 @@ cout << ++d << endl;
 ```
 
 Note: `d` is extending the lifetime of `(a * b)`
+
 ---
 
 ## Move constructor and assignment operator
 
-<div class="container">
-
-```cpp [|3-11|13-20|0]
+```cpp [|3-11,22-24|13-20|26-33]
 ///hide
 #include <cstddef>
 #include <utility>
@@ -545,7 +485,6 @@ struct MovableBuffer
         other.m_pArray = nullptr;
     }
 
-///hide
     // copy assignment operator
     MovableBuffer& operator=(
         const MovableBuffer& other);
@@ -559,52 +498,17 @@ struct MovableBuffer
         return *this;
     }
 };
+
+
+
+
+
+
+
+
 ```
 
-```cpp 22[|22-24|0|26-34]
-///hide
-#include <cstddef>
-#include <utility>
-
-struct MovableBuffer
-{
-    size_t m_size;
-    int* m_pArray;
-
-    MovableBuffer(size_t size = 0);
-
-    ~MovableBuffer() { delete[] m_pArray; }
-
-    // copy constructor
-    MovableBuffer(const MovableBuffer& other); 
-    
-    // move constructor
-    MovableBuffer(MovableBuffer&& other) 
-        : m_size(other.m_size)
-        , m_pArray(other.m_pArray)
-    {
-        other.m_size = 0;
-        other.m_pArray = nullptr;
-    }
-
-///unhide
-    // copy assignment operator
-    MovableBuffer& operator=(
-        const MovableBuffer& other);
-
-    // move assignment operator
-    MovableBuffer& operator=(
-        MovableBuffer&& other)
-    {
-        MovableBuffer tmp(other);
-        std::swap(m_size, tmp.m_size);
-        std::swap(m_pArray, tmp.m_pArray);
-        return *this;
-    }
-};
-```
-
-</div>
+<!-- .element: class="split" -->
 
 ---
 
@@ -614,9 +518,7 @@ struct MovableBuffer
 
 ## Move only
 
-<div class="container">
-
-```cpp [|0]
+```cpp [|20]
 ///fails=use of deleted function 'constexpr MoveOnlyBuffer::MoveOnlyBuffer(const MoveOnlyBuffer&)'
 ///hide
 #include <cstddef>
@@ -640,7 +542,6 @@ struct MoveOnlyBuffer
         other.m_pArray = nullptr;
     }
 
-///hide
     MoveOnlyBuffer& operator=(MoveOnlyBuffer&& other)
     {
         MoveOnlyBuffer tmp(other);
@@ -649,44 +550,17 @@ struct MoveOnlyBuffer
         return *this;
     }
 };
+
+
+
+
+
+
+
+
 ```
 
-```cpp 18[|21]
-///fails=use of deleted function 'constexpr MoveOnlyBuffer::MoveOnlyBuffer(const MoveOnlyBuffer&)'
-///hide
-#include <cstddef>
-#include <utility>
-
-struct MoveOnlyBuffer
-{
-    size_t m_size;
-    int* m_pArray;
-
-    MoveOnlyBuffer(size_t size = 0);
-
-    ~MoveOnlyBuffer() { delete[] m_pArray; }
-    
-    MoveOnlyBuffer(MoveOnlyBuffer&& other) 
-        : m_size(other.m_size)
-        , m_pArray(other.m_pArray)
-    {
-        other.m_size = 0;
-        other.m_pArray = nullptr;
-    }
-
-///unhide
-    MoveOnlyBuffer& operator=(
-        MoveOnlyBuffer&& other)
-    {
-        MoveOnlyBuffer tmp(other);
-        std::swap(m_size, tmp.m_size);
-        std::swap(m_pArray, tmp.m_pArray);
-        return *this;
-    }
-};
-```
-
-</div>
+<!-- .element: class="split" -->
 
 Note: 
 - show compiler error
@@ -718,9 +592,7 @@ typename remove_reference<T>::type&& move( T&& t ) noexcept {
 
 ## (really) move only
 
-<div class="container">
-
-```cpp [0]
+```cpp [20]
 ///hide
 #include <cstddef>
 #include <utility>
@@ -743,7 +615,6 @@ struct MoveOnlyBuffer
         other.m_pArray = nullptr;
     }
 
-///hide
     MoveOnlyBuffer& operator=(MoveOnlyBuffer&& other)
     {
         MoveOnlyBuffer tmp(std::move(other));
@@ -752,43 +623,17 @@ struct MoveOnlyBuffer
         return *this;
     }
 };
+
+
+
+
+
+
+
+
 ```
 
-```cpp 18[21]
-///hide
-#include <cstddef>
-#include <utility>
-
-struct MoveOnlyBuffer
-{
-    size_t m_size;
-    int* m_pArray;
-
-    MoveOnlyBuffer(size_t size = 0);
-
-    ~MoveOnlyBuffer() { delete[] m_pArray; }
-    
-    MoveOnlyBuffer(MoveOnlyBuffer&& other) 
-        : m_size(other.m_size)
-        , m_pArray(other.m_pArray)
-    {
-        other.m_size = 0;
-        other.m_pArray = nullptr;
-    }
-
-///unhide
-    MoveOnlyBuffer& operator=(
-        MoveOnlyBuffer&& other)
-    {
-        MoveOnlyBuffer tmp(std::move(other));
-        std::swap(m_size, tmp.m_size);
-        std::swap(m_pArray, tmp.m_pArray);
-        return *this;
-    }
-};
-```
-
-</div>
+<!-- .element: class="split" -->
 
 ---
 
@@ -936,9 +781,7 @@ void g() noexcept {
 
 ## `noexcept` move
 
-<div class="container">
-
-```cpp [14]
+```cpp [14, 27-28]
 ///hide
 #include <cstddef>
 #include <utility>
@@ -965,7 +808,6 @@ struct MovableBuffer
         other.m_pArray = nullptr;
     }
 
-///hide
     // copy assignment operator
     MovableBuffer& operator=(
         const MovableBuffer& other);
@@ -980,52 +822,15 @@ struct MovableBuffer
         return *this;
     }
 };
+
+
+
+
+
+
 ```
 
-```cpp 22[27-28]
-///hide
-#include <cstddef>
-#include <utility>
-
-struct MovableBuffer
-{
-    size_t m_size;
-    int* m_pArray;
-
-    MovableBuffer(size_t size = 0);
-
-    ~MovableBuffer() { delete[] m_pArray; }
-
-    // copy constructor
-    MovableBuffer(const MovableBuffer& other); 
-    
-    // move constructor
-    MovableBuffer(MovableBuffer&& other) noexcept
-        : m_size(other.m_size)
-        , m_pArray(other.m_pArray)
-    {
-        other.m_size = 0;
-        other.m_pArray = nullptr;
-    }
-
-///unhide
-    // copy assignment operator
-    MovableBuffer& operator=(
-        const MovableBuffer& other);
-
-    // move assignment operator
-    MovableBuffer& operator=(
-        MovableBuffer&& other) noexcept
-    {
-        MovableBuffer tmp(std::move(other));
-        std::swap(m_size, tmp.m_size);
-        std::swap(m_pArray, tmp.m_pArray);
-        return *this;
-    }
-};
-```
-
-</div>
+<!-- .element: class="split" -->
 
 ---
 

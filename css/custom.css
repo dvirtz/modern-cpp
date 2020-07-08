@@ -44,19 +44,6 @@ input[type='checkbox']:checked:after {
 	color: #99a1a7;
 }
 
-.container {
-	display: flex;
-}
-
-.container pre {
-	width: 49%;
-	font-size: 0.35em;
-}
-
-.container code {
-	height: 100%;
-}
-
 table.noborder td {
 	border-bottom: none;
 }
@@ -97,4 +84,24 @@ table.noborder td {
 
 .github-fork-ribbon:after {
   color: #333;
+}
+
+.split {
+	column-count: 2;
+}
+
+.split ul {
+	display: inline;
+}
+
+.reveal pre code.split {
+	column-rule: solid #191919 10px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+
+.reveal div.split pre {
+	font-size: 0.35em;
+	margin: 0px;
+	width: auto;
 }

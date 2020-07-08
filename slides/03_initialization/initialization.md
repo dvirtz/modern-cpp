@@ -4,9 +4,8 @@
 
 Take a look at the following code:
 
-<div class="container">
 
-```cpp [|4-6,8-10|1|8,16]
+```cpp [|4-6,8-10|1,22-27|8,16,20-21]
 ///options=-std=c++03
 struct POD { int i; float f; };
 
@@ -25,7 +24,7 @@ class D {
 public:
   D(C const&, POD const&) {}
 };
-///hide
+
 int main() {
   C c(); 
   D d(C(), POD());
@@ -36,42 +35,16 @@ int main() {
   pf[0] = 1.2f;
   pf[1] = 2.3f;
 }
+
+
+
+
+
+
+
 ```
 
-```cpp 18[|0|21-26|19-20]
-///hide
-///options=-std=c++03
-struct POD { int i; float f; };
-
-class C {
-  POD p;
-  int iarr[3];
-  double d;
-public:
-  C() : d(3.14) {
-    p.i=2; p.f=22.34;
-    for (unsigned i = 0; i < 3; ++i) iarr[i] = i;
-  }
-};
-
-class D {
-public:
-  D(C const&, POD const&) {}
-};
-///unhide
-int main() {
-  C c(); 
-  D d(C(), POD());
-  POD* pp = new POD();
-  pp->i = 4;
-  pp->f = 22.1;
-  float* pf = new float[2];
-  pf[0] = 1.2f;
-  pf[1] = 2.3f;
-}
-```
-
-</div>
+<!-- .element: class="split" -->
 
 ---
 
@@ -330,9 +303,17 @@ int main() {
   POD* pp = new POD{4, 22.1};
   float* pf = new float[2]{1.2f, 2.3f};
 }
+
+
+
+
+
+
+
+
 ```
 
-<!-- .element: style="font-size: 0.3em" -->
+<!-- .element: class="split" -->
 
 ---
 
@@ -397,9 +378,7 @@ days.push_back("Saturday");
 
 ## Example
 
-<div class="container">
-
-```cpp [|4|10]
+```cpp [|4,16|10,17]
 ///hide
 #include <vector>
 #include <iostream>
@@ -417,38 +396,22 @@ struct S {
         v.insert(end(v), begin(l), end(l));
     }
 };
-///hide
+
 int main() {
   S<int> s = {1, 2, 3, 4, 5};
   s.append({6, 7, 8});
 }
+
+
+
+
+
+
+
+
 ```
 
-```cpp 14[|15|16]
-///hide
-#include <vector>
-#include <iostream>
-template <class T>
-struct S {
-    std::vector<T> v;
-    S(std::initializer_list<T> l) : v(l) {
-         std::cout 
-          << "constructed with a " 
-          << l.size() 
-          << "-element list\n";
-    }
-    void append(std::initializer_list<T> l) {
-        v.insert(end(v), begin(l), end(l));
-    }
-};
-///unhide
-int main() {
-  S<int> s = {1, 2, 3, 4, 5};
-  s.append({6, 7, 8});
-}
-```
-
-</div>
+<!-- .element: class="split" -->
 
 ---
 
@@ -625,7 +588,7 @@ do_sth({1, 2, 3, 4, 5}); // error: couldn't infer template argument
 
 Does not support moves
 
-<div class="container">
+<div class="split">
 
 ```cpp
 ///hide
