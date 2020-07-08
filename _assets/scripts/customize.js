@@ -22,6 +22,18 @@ Reveal.addEventListener('ready', (event) => {
   if (Reveal.isSpeakerNotes()) {
     $('.github-fork-ribbon').css('visibility', 'hidden');
   }
+  $('pre.split').each(function() {
+    $(this).removeClass('split').css('width', '100%').css('font-size', '0.35em');
+    $(this).children('code').addClass('split').each(function() {
+      const lastNotEmpty = $('tr td:nth-child(2)', this).filter(function() {
+        return $(this).text().trim() !== '';
+      }).get(-1);
+      if (lastNotEmpty) {
+        const index = $(lastNotEmpty.parentElement).index();
+        $('tr td:nth-child(1)', this).slice(index + 1).hide();
+      }
+    });
+  });
   Reveal.sync();
 });
 
