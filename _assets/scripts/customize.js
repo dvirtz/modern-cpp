@@ -19,6 +19,9 @@ Reveal.addEventListener('ready', (event) => {
     'data-ribbon': 'Fork me on GitHub'
   }));
   $('.chapter').addClass('r-stretch');
+  if (Reveal.isSpeakerNotes()) {
+    $('.github-fork-ribbon').css('visibility', 'hidden');
+  }
   Reveal.sync();
 });
 
