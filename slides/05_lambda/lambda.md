@@ -154,7 +154,7 @@ These functions and functors also unnecessarily ‘clutter up’ the code.
 
 ---
 
-<!-- .slide: data-background-image="05_lambda/sirtaki.gif" -->
+<!-- .slide: id="lambda_expressions" data-background-image="05_lambda/sirtaki.gif" -->
 
 # Lambda expressions
 
@@ -625,7 +625,7 @@ void fill_vector(std::vector<int>& v) {
 
 ---
 
-<!-- .slide: data-auto-animate -->
+<!-- .slide: id="lambda_init_capture" data-auto-animate -->
 
 ## capture init (C++14)
 
@@ -897,6 +897,8 @@ Note: need to keep `cb` alive while the callback is active
 [Benchmark 2](https://quick-bench.com/q/19wvZEycM8eMDSXe5PVn4TUwstw)
 
 ---
+
+<!-- .slide: id="generic_lambdas" -->
 
 ## Generic Lambda (C++14)
 
@@ -1253,9 +1255,9 @@ assert(p->get(0) == 2);
 
 ---
 
-## proper compiler error
+<!-- .slide: id="override" class="aside" data-auto-animate -->
 
-<!-- .slide: class="aside" data-auto-animate -->
+## proper compiler error
 
 ```cpp [7]
 ///fails='int Derived::get() const' marked 'override', but does not override
@@ -1285,9 +1287,9 @@ assert(p->get(0) == 2);
 
 ---
 
-## disable override
+<!-- .slide: id="final" class="aside" data-auto-animate -->
 
-<!-- .slide: class="aside" data-auto-animate -->
+## disable override
 
 ```cpp [7,11]
 ///fails=virtual function 'virtual int Grandson::get(int) const' overriding final function

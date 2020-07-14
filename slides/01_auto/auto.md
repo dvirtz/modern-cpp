@@ -92,7 +92,7 @@ Note:
 
 ---
 
-<!-- .slide: class="aside" -->
+<!-- .slide: id="begin_end" class="aside" -->
 
 ## Non member `begin` and `end`
 
@@ -151,7 +151,7 @@ Note:
 
 <div class="footnote" style="text-shadow:-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black">
 
-Slides are based on [Herb Sutter's](herbsutter.com) GOTW series
+Slides are based on [Herb Sutter's](https://herbsutter.com) GOTW series
 
 </div>
 
@@ -160,6 +160,8 @@ Note:
 - oldest feature in C++11 (first implementation at 1983)
 
 ---
+
+<!-- .slide: id="auto" -->
 
 ## declaring a local variable
 
@@ -470,7 +472,7 @@ auto w = widget(get_gadget()); // widget is needed
 
 ---
 
-<!-- .slide: class="aside" -->
+<!-- .slide: id="static_assert" class="aside" -->
 
 ## `static_assert`
 
@@ -495,7 +497,7 @@ Note:
 
 ---
 
-<!-- .slide: class="aside" -->
+<!-- .slide: id="decltype" class="aside" -->
 
 ## `decltype`
 
@@ -556,6 +558,8 @@ Note:
 
 ---
 
+<!-- .slide: id="trailing_return" -->
+
 ## trailing return type
 
 ```cpp
@@ -573,6 +577,8 @@ Note: we replace the return type with `auto` and add the actual return type afte
 At this point we can refer to `f` and `t`.
 
 ---
+
+<!-- .slide: id="auto_return" -->
 
 ## `auto` return type (C++14)
 

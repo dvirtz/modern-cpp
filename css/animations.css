@@ -1,33 +1,43 @@
 #title {
-	text-shadow: 3px 3px black; 
-	color: lightblue;
+	text-shadow: 3px 3px black;
+	color      : lightblue;
 }
 
 #logo {
 	max-height: 250px;
-	border: none;
+	border    : none;
 	background: none;
-	position: absolute;
-	animation: moveLeftToRight 5s linear infinite alternate, spin 5s linear infinite alternate;
+	position  : absolute;
+	animation : moveLeftToRight 5s linear infinite alternate, spin 5s linear infinite alternate;
 }
 
 @keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+	from {
+		transform: rotate(0deg);
+	}
+
+	to {
+		transform: rotate(360deg);
+	}
 }
 
 @keyframes moveLeftToRight {
-  0%   { left: -100px; }
-  100% { left: 100%; }
+	0% {
+		left: -100px;
+	}
+
+	100% {
+		left: 100%;
+	}
 }
 
 #versions {
-	width: 100%;
+	width : 100%;
 	height: 250px;
 }
 
 #versions td {
-	text-align: center;
+	text-align    : center;
 	vertical-align: bottom;
 }
 
@@ -36,9 +46,17 @@
 }
 
 @keyframes v11 {
-	25% { opacity: 0;}
-	26% { opacity: 1; }
-	100% { opacity: 1; }
+	25% {
+		opacity: 0;
+	}
+
+	26% {
+		opacity: 1;
+	}
+
+	100% {
+		opacity: 1;
+	}
 }
 
 #v11 {
@@ -46,9 +64,17 @@
 }
 
 @keyframes v14 {
-	50% { opacity: 0;}
-	51% { opacity: 1; }
-	100% { opacity: 1; }
+	50% {
+		opacity: 0;
+	}
+
+	51% {
+		opacity: 1;
+	}
+
+	100% {
+		opacity: 1;
+	}
 }
 
 #v14 {
@@ -56,9 +82,17 @@
 }
 
 @keyframes v17 {
-	75% { opacity: 0;}
-	76% { opacity: 1; }
-	100% { opacity: 1; }
+	75% {
+		opacity: 0;
+	}
+
+	76% {
+		opacity: 1;
+	}
+
+	100% {
+		opacity: 1;
+	}
 }
 
 #v17 {
@@ -66,9 +100,17 @@
 }
 
 @keyframes v20 {
-	95% { opacity: 0;}
-	96% { opacity: 1; }
-	100% { opacity: 1; }
+	95% {
+		opacity: 0;
+	}
+
+	96% {
+		opacity: 1;
+	}
+
+	100% {
+		opacity: 1;
+	}
 }
 
 #v20 {
@@ -76,29 +118,44 @@
 }
 
 .animated .filling {
-  animation: filling 5s steps(5);
+	animation: filling 5s steps(5);
 }
 
 @keyframes filling {
-  0% { width: 0 }
-  100% { width: 200 }
+	0% {
+		width: 0
+	}
+
+	100% {
+		width: 200
+	}
 }
 
 .animated .error {
-  opacity: 0;
-  animation: error 500ms 5s 5 alternate;
+	opacity  : 0;
+	animation: error 500ms 5s 5 alternate;
 }
 
 @keyframes error {
-  0% { opacity: 0; }
-  100% { opacity: 1; }
+	0% {
+		opacity: 0;
+	}
+
+	100% {
+		opacity: 1;
+	}
 }
 
 .animated .new {
-  animation: disappear 1s 7.5s forwards;
+	animation: disappear 1s 7.5s forwards;
 }
 
 @keyframes disappear {
-  0% { opacity: 1; }
-  100% { opacity: 0; }
+	0% {
+		opacity: 1;
+	}
+
+	100% {
+		opacity: 0;
+	}
 }

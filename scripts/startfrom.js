@@ -39,7 +39,8 @@ markdownPlugin.init = function (reveal) {
   };
   
   markdownPlugin.marked.setOptions({
-    renderer: new Renderer()
+    renderer: new Renderer(),
+    headerIds: false
   });
 
   return result;
