@@ -118,7 +118,7 @@ printf("Hello %s", getName());
 
 ## Variadic templates
 
-<!-- .element: class="chapter bottom"  -->
+<!-- .element: id="variadic_templates" class="chapter bottom"  -->
 
 <div class="footnote">
 
@@ -652,6 +652,8 @@ assert(sum({1, 2, 3}) == 6);
 ```
 
 ---
+
+<!-- .slide: id="conjunction" -->
 
 ```cpp
 #include <type_traits>

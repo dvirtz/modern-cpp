@@ -1,7 +1,9 @@
 Reveal.addEventListener('ready', (event) => {
-  $('[type=checkbox]').parent()
+  $('ul > li > input[type=checkbox]').parent()
     .css("margin-left", "-1.5em")
     .css("list-style-type", "none");
+    $('li > ul > li > input[type=checkbox]').parent()
+      .css("margin-left", "-5.5em");
   $('li:has(.fragment[type=checkbox])')
     .attr('class', 'fragment')
     .attr('data-fragment-index', function () {
@@ -33,6 +35,9 @@ Reveal.addEventListener('ready', (event) => {
         $('tr td:nth-child(1)', this).slice(index + 1).hide();
       }
     });
+  });
+  $('.split[column-count]').css('column-count', function() {
+    return $(this).attr('column-count');
   });
   Reveal.sync();
 });

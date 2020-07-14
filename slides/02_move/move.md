@@ -93,7 +93,7 @@ Note: `auto` is not allowed even with initializer;
 
 ---
 
-<!-- .slide: class="aside" -->
+<!-- .slide: id="delegating_constructors" class="aside" -->
 
 ## Delegating constructors
 
@@ -127,7 +127,7 @@ private:
 
 ---
 
-<!-- .slide: class="aside" -->
+<!-- .slide: id="nullptr" class="aside" -->
 
 ## `nullptr`
 
@@ -440,6 +440,8 @@ int& d = (a * b); // error
 
 ---
 
+<!-- .slide: id="rvalue_references" -->
+
 ## R-value references
 
 Can be bound only to r-values and uses the && syntax.
@@ -455,6 +457,8 @@ cout << ++d << endl;
 Note: `d` is extending the lifetime of `(a * b)`
 
 ---
+
+<!-- .slide: id="move_constructors" -->
 
 ## Move constructor and assignment operator
 
@@ -731,6 +735,8 @@ void vector<T>::push_back(const T& value) {
 
 ---
 
+<!-- .slide: id="noexcept_specifier" -->
+
 ## `noexcept` specifier
 
 A function can be decorated with `noexcept(expr)` specifier to indicate whether it will throw:
@@ -752,6 +758,8 @@ int* b = allocate_array<-1>();
 `noexcept` is a shortcut for `noexcept(true)`.
 
 ---
+
+<!-- .slide: id="noexcept_operator" -->
 
 ## `noexcept` operator
 
@@ -970,6 +978,8 @@ Source: [Howard Hinnant](https://howardhinnant.github.io/classdecl.html)
 
 ---
 
+<!-- .slide: id="deleted" -->
+
 ## deleted function
 
 e.g. to prevent narrowing conversions:
@@ -989,6 +999,8 @@ foo(42);                        // error, deleted function
 ```
 
 ---
+
+<!-- .slide: id="defaulted" -->
 
 ## defaulted special member function
 

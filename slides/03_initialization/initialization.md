@@ -195,7 +195,7 @@ throw v;                    // throw an exception
 
 ---
 
-<!-- .slide: data-background-image="03_initialization/list.gif" -->
+<!-- .slide: id="list_initilization" data-background-image="03_initialization/list.gif" -->
 
 # List Initialization
 
@@ -367,6 +367,8 @@ days.push_back("Saturday");
 
 ---
 
+<!-- .slide: id="initializer_list" -->
+
 ### `std::initializer_list<T>`
 
 - A lightweight proxy object that provides access to an array of objects of type const T.
@@ -478,7 +480,7 @@ assert(aDozenOfFives != twelveAndFive);
 
 ---
 
-<!-- .slide: class="aside" -->
+<!-- .slide: id="range_for" class="aside" -->
 
 ## Range-based for loop
 
