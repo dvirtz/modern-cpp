@@ -31,6 +31,7 @@ Note:
 3. [List Initialization](#/3)
 4. [Variadic Templates](#/4)
 5. [Lambda Expressions](#/5)
+6. [Smart Pointers](#/6)
 
 ## Index
 
@@ -71,7 +72,7 @@ Note:
 - [ ] generalized PODs (trivial types and standard-layout types)
 - [ ] Unicode string literals
 - [ ] user-defined literals
-- [ ] attributes
+- [x] [attributes](#/attributes)
 - [x] [lambda expressions](#/lambda_expressions)
 - [x] [noexcept specifier](#/noexcept_specifier) and [noexcept operator](#/noexcept_operator)
 - [ ] alignof and alignas
@@ -84,8 +85,8 @@ Note:
 ### Library
 
 - [ ] atomic operations library
-- [ ] emplace()
-- [ ] std::unique_ptr
+- [x] [emplace()](#/emplace)
+- [x] [std::unique_ptr](#/unique_ptr), [std::shared_ptr](#/shared_ptr), [std::weak_ptr](#/weak_ptr)
 - [ ] std::move_iterator
 - [x] [std::initializer_list](#/initializer_list)
 - [ ] stateful and scoped allocators
@@ -126,7 +127,7 @@ Note:
 
 ### Library
 
-- [ ] std::make_unique
+- [x] [std::make_unique](#/make_unique)
 - [ ] std::shared_timed_mutex and std::shared_lock
 - [ ] std::integer_sequence
 - [ ] std::exchange

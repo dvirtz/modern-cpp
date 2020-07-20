@@ -19,3 +19,7 @@ FILE: 04_variadic/variadic.md
 ----
 
 FILE: 05_lambda/lambda.md
+
+----
+
+FILE: 06_smart_pointers/smart_pointers.md
