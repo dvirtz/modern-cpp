@@ -25,7 +25,10 @@ Reveal.addEventListener('ready', (event) => {
     $('.github-fork-ribbon').css('visibility', 'hidden');
   }
   $('pre.split').each(function() {
-    $(this).removeClass('split').css('width', '100%').css('font-size', '0.35em');
+    $(this).removeClass('split').css('width', '100%')
+    if (!$(this).attr("style").includes('font-size')) {
+      $(this).css('font-size', '0.35em');
+    }
     $(this).children('code').addClass('split').each(function() {
       const lastNotEmpty = $('tr td:nth-child(2)', this).filter(function() {
         return $(this).text().trim() !== '';
