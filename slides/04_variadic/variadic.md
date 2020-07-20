@@ -114,11 +114,11 @@ printf("Hello %s", getName());
 
 ---
 
-<!-- .slide: data-background-image="04_variadic/smith.gif" -->
+<!-- .slide: id="variadic_templates" data-background-image="04_variadic/smith.gif" -->
 
 ## Variadic templates
 
-<!-- .element: id="variadic_templates" class="chapter bottom"  -->
+<!-- .element: class="chapter bottom"  -->
 
 <div class="footnote">
 
@@ -455,6 +455,8 @@ class X : public Mixins... {
 ```
 
 ---
+
+<!-- .slide: id="tuple" -->
 
 ## `std::tuple`
 
