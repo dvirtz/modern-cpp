@@ -15,7 +15,7 @@
   </head>
   <body>
     <div class="reveal">
-      <div class="slides"><section  data-markdown><script type="text/template"># C++11 and Beyond! <!-- .element: id="title" -->
+      <div class="slides"><section ><section data-markdown><script type="text/template"># C++11 and Beyond! <!-- .element: id="title" -->
 
 <img id="logo" src="00_title/cpp_logo.png" alt="logo">
 
@@ -37,7 +37,286 @@
 <li>On each session we will have one main topic and smaller features will be introduced as needed.</li>
 <li>Let&#39;s start.</li>
 </ul>
-</aside></script></section><section ><section data-markdown><script type="text/template">
+</aside></script></section><section data-markdown><script type="text/template">
+<div class="split">
+
+## Chapters
+
+1. [auto](#/1)
+2. [Move Semantics](#/2)
+3. [List Initialization](#/3)
+4. [Variadic Templates](#/4)
+5. [Lambda Expressions](#/5)
+
+## Index
+
+- [C++11](#/cpp11)
+- [C++14](#/cpp14)
+- [C++17](#/cpp17)
+- [C++20](#/cpp20)
+
+</div>
+
+</script></section><section data-markdown><script type="text/template">
+<!-- .slide: id="cpp11" -->
+
+## C++11
+
+<div class="split" column-count="4" id="bla">
+
+### Language
+
+- [x] [auto](#/auto) and [decltype](#/decltype)
+- [x] [defaulted](#/defaulted) and [deleted](#/deleted) functions
+- [x] [final](#/final) and [override](#/override)
+- [x] [trailing return type](#/trailing_return)
+- [x] [rvalue references](#/rvalue_references)
+- [x] [move constructors](#/move_constructors) and [move assignment operators](#/move_constructors)
+- [ ] scoped enums
+- [ ] constexpr and literal types
+- [x] [list initilization](#/list_initilization)
+- [x] [delegating](#/delegating_constructors) and inherited constructors
+- [ ] brace-or-equal initializers
+- [x] [nullptr](#/nullptr)
+- [ ] long long
+- [ ] char16_t and char32_t
+- [ ] type aliases
+- [x] [variadic templates](#/variadic_templates)
+- [ ] generalized (non-trivial) unions
+- [ ] generalized PODs (trivial types and standard-layout types)
+- [ ] Unicode string literals
+- [ ] user-defined literals
+- [ ] attributes
+- [x] [lambda expressions](#/lambda_expressions)
+- [x] [noexcept specifier](#/noexcept_specifier) and [noexcept operator](#/noexcept_operator)
+- [ ] alignof and alignas
+- [ ] multithreaded memory model
+- [ ] thread-local storage
+- [ ] GC interface
+- [x] [range based for loop](#/range_for)
+- [x] [static_assert](#/static_assert)
+
+### Library
+
+- [ ] atomic operations library
+- [ ] emplace()
+- [ ] std::unique_ptr
+- [ ] std::move_iterator
+- [x] [std::initializer_list](#/initializer_list)
+- [ ] stateful and scoped allocators
+- [ ] std::forward_list
+- [ ] chrono library
+- [ ] ratio library
+- [ ] new algorithms
+- [ ] Unicode conversion facets
+- [ ] thread library
+- [ ] std::exception_ptr
+- [ ] std::error_code and std::error_condition
+- [ ] iterator improvements
+  - [x] [std::begin/end](#/begin_end)
+  - [ ] std::next/prev
+- [ ] Unicode conversion functions
+
+</div>
+
+</script></section><section data-markdown><script type="text/template">
+<!-- .slide: id="cpp14" -->
+
+## C++14
+
+<div class="split" column-count="4">
+
+### Language
+
+- [ ] variable templates
+- [x] [generic lambdas](#/generic_lambdas)
+- [x] [lambda init-capture](#/lambda_init_capture)
+- [ ] new/delete elision
+- [ ] relaxed restrictions on constexpr functions
+- [ ] binary literals
+- [ ] digit separators
+- [x] [return type deduction](#/auto_return) for functions
+- [ ] aggregate classes with default non-static member initializers.
+
+### Library
+
+- [ ] std::make_unique
+- [ ] std::shared_timed_mutex and std::shared_lock
+- [ ] std::integer_sequence
+- [ ] std::exchange
+- [ ] std::quoted
+- [ ] two-range overloads for some algorithms
+- [ ] type alias versions of type traits
+- [ ] user-defined literals for basic_string, duration and complex
+
+</div>
+
+</script></section><section data-markdown><script type="text/template">
+<!-- .slide: id="cpp17" -->
+
+## C++17
+
+<div class="split" column-count="4">
+
+### Language
+
+- [ ] fold-expressions
+- [ ] class template argument deduction
+- [ ] non-type template parameters declared with auto
+- [ ] compile-time if constexpr
+- [ ] inline variables
+- [ ] structured bindings
+- [ ] initializers for if and switch
+- [ ] u8 character literal
+- [ ] simplified nested namespaces
+- [ ] using-declaration declaring multiple names
+- [ ] made noexcept part of type system
+- [ ] new order of evaluation rules
+- [ ] guaranteed copy elision
+- [ ] lambda capture of *this
+- [ ] constexpr lambda
+- [ ] attribute namespaces don't have to repeat
+- [ ] new attributes:
+  - [ ] [[fallthrough]]
+  - [ ] [[nodiscard]]
+  - [ ] [[maybe_unused]]
+- [ ] __has_include
+
+</div>
+
+</script></section><section data-markdown><script type="text/template">
+## C++17
+
+<div class="split" column-count="4">
+
+### Library
+
+- [ ] tuple:
+  - [ ] apply
+  - [ ] deduction_guides
+  - [ ] make_from_tuple
+- [ ] variant
+- [ ] launder
+- [ ] to_chars/from_chars
+- [ ] as_const
+- [ ] searchers
+- [ ] optional
+- [ ] any
+- [ ] not_fn
+- [ ] uninitialized memory
+  - [ ] destroy_at
+  - [ ] destroy
+  - [ ] destroy_n
+  - [ ] uninitialized_move
+  - [ ] uninitialized_value_construct
+- [ ] weak_from_this
+- [ ] polymorphic allocators
+- [ ] aligned_alloc
+- [ ] transparent owner_less
+- [ ] array support for shared_ptr
+- [ ] allocation functions with explicit alignment
+- [ ] byte
+- [ ] [conjunction](#/conjunction)/disjunction/negation
+- [ ] type trait variable templates (xxx_v)
+- [ ] is_swappable
+- [ ] is_invocable
+- [ ] is_aggregate
+- [ ] has_unique_object_representations.
+- [ ] clamp
+- [ ] execution policies
+- [ ] reduce
+- [ ] inclusive_scan
+- [ ] exclusive_scan
+- [ ] map/set extract and map/set merge
+- [ ] map/unordered_map try_emplace and insert_or_assign
+- [ ] contiguous iterators
+- [ ] non-member size/empty/data
+- [ ] mathematical special functions
+- [ ] gcd
+- [ ] lcm
+- [ ] 3D hypot
+- [ ] is_always_lock_free
+- [ ] variadic lock_guard
+- [ ] cache line interface
+- [ ] uncaught_exceptions
+- [ ] timespec_get
+- [ ] rounding functions for duration and time_point
+
+</div>
+
+</script></section><section data-markdown><script type="text/template">
+<!-- .slide: id="cpp20" -->
+
+## C++20
+
+<div class="split" column-count="4">
+
+### Language
+
+- [ ] Feature test macros
+- [ ] 3-way comparison operator <=> and operator==() = default
+- [ ] designated initializers
+- [ ] init-statements and initializers in range-for
+- [ ] char8_t
+- [ ] new attributes
+  - [ ] [[no_unique_address]]
+  - [ ] [[likely]]
+  - [ ] [[unlikely]]
+- [ ] pack-expansions in lambda captures
+- [ ] removed the requirement to use typename to disambiguate types in many contexts
+- [ ] consteval, constinit
+- [ ] further relaxed constexpr
+- [ ] signed integers are 2's complement
+- [ ] aggregate initialization using parentheses
+- [ ] Coroutines
+- [ ] Modules
+- [ ] Constraints and concepts
+- [ ] Abbreviated function templates
+- [ ] DR: array new can deduce array size
+
+</div>
+
+</script></section><section data-markdown><script type="text/template">
+## C++20
+
+<div class="split" column-count="4">
+
+### Library
+
+- [ ] Formatting library
+- [ ] Calendar and Time Zone library
+- [ ] std::source_location
+- [ ] std::span
+- [ ] std::endian
+- [ ] array support for std::make_shared
+- [ ] std::remove_cvref
+- [ ] std::to_address
+- [ ] floating point and shared_ptr atomics
+- [ ] std::barrier, std::latch, and std::counting_semaphore
+- [ ] std::jthread and thread cancellation classes
+- [ ] <version>
+- [ ] std::osyncstream
+- [ ] std::u8string and other char8_t uses
+- [ ] constexpr for <algorithm>, <utility>, <complex>
+- [ ] std::string::starts_with / ends_with and std::string_view::starts_with / ends_with
+- [ ] std::assume_aligned
+- [ ] std::bind_front
+- [ ] std::c8rtomb/std::mbrtoc8
+- [ ] std::make_obj_using_allocator etc
+- [ ] std::make_shared_for_overwrite / std::make_unique_for_overwrite
+- [ ] heterogeneous lookup in unordered associative containers
+- [ ] std::polymoprhic_allocator with additional member functions and std::byte as its default template argument
+- [ ] std::execution::unseq
+- [ ] std::midpoint and std::lerp
+- [ ] std::ssize
+- [ ] std::is_bounded_array, std::is_unbounded_array
+- [ ] Ranges
+- [ ] uniform container erasure (std::erase/std::erase_if)
+- [ ] Mathematical constants
+
+</div>
+
+</script></section></section><section ><section data-markdown><script type="text/template">
 <!-- .slide: data-background-image="01_auto/schmeichel.jpg" -->
 
 </script></section><section data-markdown><script type="text/template">
@@ -128,7 +407,7 @@ widget w = get_gadget();
 <li>it&#39;s possible that using <code>gadget</code> is just as well as viable in this code</li>
 </ul>
 </aside></script></section><section data-markdown><script type="text/template">
-<!-- .slide: class="aside" -->
+<!-- .slide: id="begin_end" class="aside" -->
 
 ## Non member `begin` and `end`
 
@@ -185,7 +464,7 @@ void some_function( Container& c, const Value& v ) {
 
 <div class="footnote" style="text-shadow:-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black">
 
-Slides are based on [Herb Sutter's](herbsutter.com) GOTW series
+Slides are based on [Herb Sutter's](https://herbsutter.com) GOTW series
 
 </div>
 
@@ -194,6 +473,8 @@ Slides are based on [Herb Sutter's](herbsutter.com) GOTW series
 <li>oldest feature in C++11 (first implementation at 1983)</li>
 </ul>
 </aside></script></section><section data-markdown><script type="text/template">
+<!-- .slide: id="auto" -->
+
 ## declaring a local variable
 
 syntax
@@ -488,7 +769,7 @@ auto w = widget(get_gadget()); // widget is needed
 ```
 
 </script></section><section data-markdown><script type="text/template">
-<!-- .slide: class="aside" -->
+<!-- .slide: id="static_assert" class="aside" -->
 
 ## `static_assert`
 
@@ -512,7 +793,7 @@ static_assert(sizeof(void *) == 8,
 <li>Open CE</li>
 </ul>
 </aside></script></section><section data-markdown><script type="text/template">
-<!-- .slide: class="aside" -->
+<!-- .slide: id="decltype" class="aside" -->
 
 ## `decltype`
 
@@ -569,6 +850,8 @@ decltype(f(t)) trace(Func f, T t) {
 <li>to express the return type we need to refer to <code>f</code> and <code>t</code> which are unknown to the compiler at the point of defining the return type.</li>
 </ul>
 </aside></script></section><section data-markdown><script type="text/template">
+<!-- .slide: id="trailing_return" -->
+
 ## trailing return type
 
 ```cpp
@@ -585,6 +868,8 @@ auto trace(Func f, T t) -> decltype(f(t)) {
 <aside class="notes"><p>we replace the return type with <code>auto</code> and add the actual return type after the arrow.
 At this point we can refer to <code>f</code> and <code>t</code>.</p>
 </aside></script></section><section data-markdown><script type="text/template">
+<!-- .slide: id="auto_return" -->
+
 ## `auto` return type (C++14)
 
 ```cpp
@@ -787,7 +1072,7 @@ private:
 
 <aside class="notes"><p><code>auto</code> is not allowed even with initializer;</p>
 </aside></script></section><section data-markdown><script type="text/template">
-<!-- .slide: class="aside" -->
+<!-- .slide: id="delegating_constructors" class="aside" -->
 
 ## Delegating constructors
 
@@ -820,7 +1105,7 @@ private:
 <!-- .element: style="font-size: 0.4em" -->
 
 </script></section><section data-markdown><script type="text/template">
-<!-- .slide: class="aside" -->
+<!-- .slide: id="nullptr" class="aside" -->
 
 ## `nullptr`
 
@@ -1119,6 +1404,8 @@ int& d = (a * b); // error
 ```
 
 </script></section><section data-markdown><script type="text/template">
+<!-- .slide: id="rvalue_references" -->
+
 ## R-value references
 
 Can be bound only to r-values and uses the && syntax.
@@ -1133,6 +1420,8 @@ cout << ++d << endl;
 
 <aside class="notes"><p><code>d</code> is extending the lifetime of <code>(a * b)</code></p>
 </aside></script></section><section data-markdown><script type="text/template">
+<!-- .slide: id="move_constructors" -->
+
 ## Move constructor and assignment operator
 
 ```cpp [|3-11,22-24|13-20|26-33]
@@ -1398,6 +1687,8 @@ void vector<T>::push_back(const T& value) {
 </svg>
 
 </script></section><section data-markdown><script type="text/template">
+<!-- .slide: id="noexcept_specifier" -->
+
 ## `noexcept` specifier
 
 A function can be decorated with `noexcept(expr)` specifier to indicate whether it will throw:
@@ -1419,6 +1710,8 @@ int* b = allocate_array<-1>();
 `noexcept` is a shortcut for `noexcept(true)`.
 
 </script></section><section data-markdown><script type="text/template">
+<!-- .slide: id="noexcept_operator" -->
+
 ## `noexcept` operator
 
 `noexcept(expr)` returns `true` if `expr` is declared to not throw any exceptions.
@@ -1625,6 +1918,8 @@ auto trace(Func&& f, T&& t) {
 Source: [Howard Hinnant](https://howardhinnant.github.io/classdecl.html)
 
 </script></section><section data-markdown><script type="text/template">
+<!-- .slide: id="deleted" -->
+
 ## deleted function
 
 e.g. to prevent narrowing conversions:
@@ -1644,6 +1939,8 @@ foo(42);                        // error, deleted function
 ```
 
 </script></section><section data-markdown><script type="text/template">
+<!-- .slide: id="defaulted" -->
+
 ## defaulted special member function
 
 can force the compiler to generate
@@ -1940,7 +2237,7 @@ throw v;                    // throw an exception
 ```
 
 </script></section><section data-markdown><script type="text/template">
-<!-- .slide: data-background-image="03_initialization/list.gif" -->
+<!-- .slide: id="list_initilization" data-background-image="03_initialization/list.gif" -->
 
 # List Initialization
 
@@ -2106,6 +2403,8 @@ days.push_back("Saturday");
 ```
 
 </script></section><section data-markdown><script type="text/template">
+<!-- .slide: id="initializer_list" -->
+
 ### `std::initializer_list<T>`
 
 - A lightweight proxy object that provides access to an array of objects of type const T.
@@ -2212,7 +2511,7 @@ assert(aDozenOfFives != twelveAndFive);
 ```
 
 </script></section><section data-markdown><script type="text/template">
-<!-- .slide: class="aside" -->
+<!-- .slide: id="range_for" class="aside" -->
 
 ## Range-based for loop
 
@@ -2482,7 +2781,7 @@ printf("Hello %s", getName());
 
 ## Variadic templates
 
-<!-- .element: class="chapter bottom"  -->
+<!-- .element: id="variadic_templates" class="chapter bottom"  -->
 
 <div class="footnote">
 
@@ -2991,6 +3290,8 @@ assert(sum({1, 2, 3}) == 6);
 ```
 
 </script></section><section data-markdown><script type="text/template">
+<!-- .slide: id="conjunction" -->
+
 ```cpp
 #include <type_traits>
 
@@ -3264,7 +3565,7 @@ Creating functions or functors can be a lot of effort, especially if the functio
 These functions and functors also unnecessarily ‘clutter up’ the code.
 
 </script></section><section data-markdown><script type="text/template">
-<!-- .slide: data-background-image="05_lambda/sirtaki.gif" -->
+<!-- .slide: id="lambda_expressions" data-background-image="05_lambda/sirtaki.gif" -->
 
 # Lambda expressions
 
@@ -3711,7 +4012,7 @@ void fill_vector(std::vector<int>& v) {
 <!-- .element: data-id="code" style="font-size: 0.5em" -->
 
 </script></section><section data-markdown><script type="text/template">
-<!-- .slide: data-auto-animate -->
+<!-- .slide: id="lambda_init_capture" data-auto-animate -->
 
 ## capture init (C++14)
 
@@ -3969,6 +4270,8 @@ register_callback([](const char* buffer, int size, void* userdata){
 [Benchmark 2](https://quick-bench.com/q/19wvZEycM8eMDSXe5PVn4TUwstw)
 
 </script></section><section data-markdown><script type="text/template">
+<!-- .slide: id="generic_lambdas" -->
+
 ## Generic Lambda (C++14)
 
 ```cpp
@@ -4311,9 +4614,9 @@ assert(p->get(0) == 2);
 <!-- .element: data-id="override" -->
 
 </script></section><section data-markdown><script type="text/template">
-## proper compiler error
+<!-- .slide: id="override" class="aside" data-auto-animate -->
 
-<!-- .slide: class="aside" data-auto-animate -->
+## proper compiler error
 
 ```cpp [7]
 ///fails='int Derived::get() const' marked 'override', but does not override
@@ -4342,9 +4645,9 @@ assert(p->get(0) == 2);
 <!-- .element: data-id="override" -->
 
 </script></section><section data-markdown><script type="text/template">
-## disable override
+<!-- .slide: id="final" class="aside" data-auto-animate -->
 
-<!-- .slide: class="aside" data-auto-animate -->
+## disable override
 
 ```cpp [7,11]
 ///fails=virtual function 'virtual int Grandson::get(int) const' overriding final function
