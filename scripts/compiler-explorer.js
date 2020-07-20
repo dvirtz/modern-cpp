@@ -4,8 +4,11 @@ const directives = new Map([
     ['compiler=(.*)', (matches, info) => matches.slice(1).forEach(match => {
         info.compiler = match;
         info.forceExternal = true;
+        if (info.compiler.includes('vcpp')) {
+            info.options = ''
+        }
     })],
-    ['options=(.*)', (matches, info) => matches.slice(1).forEach(match => info.options = match)],
+    ['options=(.*)', (matches, info) => matches.slice(1).forEach(match => info.options += ' ' + match)],
     ['libs=(\\w+:\\w+(?:,\\w+:\\w+)*)', (matches, info) => matches.slice(1).forEach(match => {
         [...match.matchAll(/(\w+):(\w+)/g)].forEach(match => {
             info.libs.push({
