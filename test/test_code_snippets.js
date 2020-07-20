@@ -83,16 +83,19 @@ fileList(slideFile('index.md'))
             }
           };
           const response = await compile(`api/compiler/${info.compiler}/compile`, data);
-          const message = (stderr) => `\n${codeSnippet.fullLocation} :\n${unstyle(stderr.map(x => x.text).join('\n'))}`;
-          const compileMessage = message(response.stderr);
+          const error = (stderr) => unstyle(stderr.map(x => x.text).join('\n'));
+          const message = (error) => `\n${codeSnippet.fullLocation} :\n${error}`;
+          const compileError = error(response.stderr);
+          const compileMessage = message(compileError);
           if (info.execute) {
-            const execMessage = message( response.execResult.buildResult.stderr.concat(response.execResult.stderr));
+            const execError = error(response.execResult.buildResult.stderr.concat(response.execResult.stderr));
+            const execMessage = message(execError);
             if (info.failReason) {
               if (response.code === 0) {
                 response.execResult.code.should.not.equal(0, execMessage);
-                execMessage.should.contain(info.failReason);
+                execError.should.contain(info.failReason, execMessage);
               } else {
-                compileMessage.should.contain(info.failReason)
+                compileError.should.contain(info.failReason)
               }
             }
             else {
@@ -101,7 +104,7 @@ fileList(slideFile('index.md'))
           }
           else if (info.failReason) {
             response.code.should.not.equal(0, compileMessage);
-            compileMessage.should.contain(info.failReason)
+            compileError.should.contain(info.failReason, compileMessage);
           } else {
             response.code.should.equal(0, compileMessage);
           }
