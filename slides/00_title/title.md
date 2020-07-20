@@ -34,6 +34,7 @@ Note:
 6. [Smart Pointers](#/6)
 7. [`chrono`](#/7)
 8. [Error Handling](#/8)
+9. [Concurrency](#/9)
 
 ## Index
 

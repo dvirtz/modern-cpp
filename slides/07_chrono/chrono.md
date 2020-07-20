@@ -527,7 +527,7 @@ T operator""_suffix ( unsigned long long int );
 T x = 42_suffix;
 ```
 
-<!-- .element: data-id="code2" -->
+<!-- .element: data-id="code2" style="font-size: 0.5em" -->
 
 ---
 
@@ -547,7 +547,7 @@ T operator""_suffix ( long double );
 T x = 42.0_suffix;
 ```
 
-<!-- .element: data-id="code2" -->
+<!-- .element: data-id="code2" style="font-size: 0.5em" -->
 
 ---
 
@@ -569,7 +569,7 @@ T x = 42_suffix;
 T y = 42.0_suffix;
 ```
 
-<!-- .element: data-id="code2" -->
+<!-- .element: data-id="code2" style="font-size: 0.5em" -->
 
 used as fallbacks for integer and floating-point user-defined literals
 
@@ -597,7 +597,7 @@ T operator""_suffix ( char32_t );
 T x = u'4'_suffix;
 ```
 
-<!-- .element: data-id="code2" -->
+<!-- .element: data-id="code2" style="font-size: 0.5em" -->
 
 ---
 
@@ -618,14 +618,14 @@ struct T {};
 ///unhide
 T operator""_suffix ( const char     * , std::size_t );
 T operator""_suffix ( const wchar_t  * , std::size_t );
-T operator""_suffix ( const char8_t * , std::size_t ); // C++20
+T operator""_suffix ( const char8_t  * , std::size_t ); // C++20
 T operator""_suffix ( const char16_t * , std::size_t );
 T operator""_suffix ( const char32_t * , std::size_t );
 
 T x = U"42"_suffix;
 ```
 
-<!-- .element: data-id="code2" -->
+<!-- .element: data-id="code2" style="font-size: 0.5em" -->
 
 ---
 
