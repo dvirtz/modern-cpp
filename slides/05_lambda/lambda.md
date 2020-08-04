@@ -896,6 +896,8 @@ Note: need to keep `cb` alive while the callback is active
 
 [Benchmark 2](https://quick-bench.com/q/19wvZEycM8eMDSXe5PVn4TUwstw)
 
+Note: wrong `value_type` on the first
+
 ---
 
 <!-- .slide: id="generic_lambdas" -->
@@ -1380,7 +1382,9 @@ int callGet(const Derived& d, int i) {
 
 [Benchmark 1](https://quick-bench.com/q/DfBQBz4PrwOceIQZIGbodXAXLz8)
 
-[Benchmark 2](https://quick-bench.com/q/1P8T7rMTwrNIR-021rDiHwaJsnY)
+[Benchmark 2](https://quick-bench.com/q/28rParTpVouuPVLZvj4O_4O4do8)
+
+Note: 1st including `std::function` creation
 
 ---
 
