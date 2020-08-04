@@ -48,6 +48,10 @@ table.noborder td {
 	border-bottom: none;
 }
 
+table.noheader thead {
+	display: none;
+}
+
 .stack {
 	display: grid;
 }

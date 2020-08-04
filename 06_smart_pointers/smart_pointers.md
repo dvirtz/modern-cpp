@@ -1,4 +1,4 @@
-<!-- .slide: data-background-image="06_smart_pointers/pogba.png" -->
+<!-- .slide: data-background-image="06_smart_pointers/pallister.png" data-background-size="contain" -->
 
 ---
 
@@ -169,8 +169,8 @@ struct DumbSingleOwner
 
 ```cpp
 #include <memory>
-
 ///hide
+
 class Object{};
 ///unhide
 
@@ -181,6 +181,14 @@ struct SmartSingleOwner
     std::unique_ptr<Object> m_pObject;
 };
 ```
+
+Note: Keeps the rule of 0
+
+---
+
+## How does it work?
+
+`unique_ptr` deletes the stored object on its destructor.
 
 ---
 
@@ -238,7 +246,7 @@ int main()
 
 ## Can be used as a raw pointer
 
-```cpp
+```cpp [4|5|6]
 ///hide
 #include <string>
 #include <memory>
@@ -255,6 +263,14 @@ int main()
 ```
 
 <!-- .element: style="font-size: 0.5em" -->
+
+---
+
+## other useful methods
+
+- `.get()` - returns the stored pointer
+- `.reset()` - replaces the managed object
+- `.release()` - returns a pointer to the managed object and releases the ownership
 
 ---
 
@@ -292,7 +308,7 @@ public:
 class FreeSpiritFactory : public Factory
 {
 public:
-    Object* createObject()
+    Object* createObject() override
     {
         return new Object;
     }
@@ -320,7 +336,7 @@ public:
 class AccountantFactory : public Factory
 {
 public:
-    Object* createObject()
+    Object* createObject() override
     {
         m_objects.push_back(new Object);
         return m_objects.back();
@@ -394,7 +410,7 @@ assert(pIntMove && !pInt);
 
 ## Unique array
 
-```cpp
+```cpp [2,4]
 ///hide
 #include <memory>
 #include <cstdio>
@@ -428,7 +444,7 @@ If the factory would return a pointer, the user might already delete it by the t
 
 constructs a collection element in place
 
-```cpp
+```cpp [1-8|12|13]
 ///hide
 #include <iostream>
 #include <string>
@@ -504,7 +520,7 @@ private:
 
 ---
 
-## Why does it work?
+## How does it work?
 
 The `shared_ptr` works on reference counting, so as long as the factory holds a reference to the created object, it is guaranteed not be deleted. 
 
@@ -587,6 +603,8 @@ auto pFloat = std::make_unique<float>(INFINITY);
 ///hide
 }
 ```
+
+Note: to conclude...
 
 ---
 
@@ -700,7 +718,7 @@ fprintf(pFile.get(), "Hello World!");
 
 ## Leaky marriage
 
-```cpp
+```cpp [13-17,21|25-30]
 ///hide
 #include <string>
 #include <memory>
@@ -710,7 +728,8 @@ fprintf(pFile.get(), "Hello World!");
 class Person
 {
 public:
-    Person(const std::string& name) : m_name(name)
+    Person(const std::string& name)
+     : m_name(name)
     {
         std::cout << m_name << " created.\n";
     }
@@ -718,7 +737,8 @@ public:
     {
         std::cout << m_name << " destroyed.\n";
     }
-    void marry(const std::shared_ptr<Person>& spouse)
+    void marry
+        (const std::shared_ptr<Person>& spouse)
     {
         m_spouse = spouse;
     }
@@ -729,8 +749,10 @@ private:
 };
 int main()
 {
-    auto chandler = std::make_shared<Person>("Chandler");
-    auto monica = std::make_shared<Person>("Monica");
+    auto chandler 
+        = std::make_shared<Person>("Chandler");
+    auto monica 
+        = std::make_shared<Person>("Monica");
     chandler->marry(monica);
     monica->marry(chandler);
 }
@@ -748,7 +770,7 @@ int main()
 
 ```
 
-<!-- .element: class="split" style="font-size: 0.32em" -->
+<!-- .element: class="split" style="font-size: 0.35em" -->
 
 ---
 
@@ -813,7 +835,7 @@ if (auto pSharedChar2 = pWeakChar.lock())
 
 ## Back to marriage
 
-```cpp [12-15,19]
+```cpp [13-17,21]
 ///hide
 #include <string>
 #include <memory>
@@ -823,7 +845,8 @@ if (auto pSharedChar2 = pWeakChar.lock())
 class Person
 {
 public:
-    Person(const std::string& name) : m_name(name)
+    Person(const std::string& name)
+     : m_name(name)
     {
         std::cout << m_name << " created.\n";
     }
@@ -831,7 +854,8 @@ public:
     {
         std::cout << m_name << " destroyed.\n";
     }
-    void marry(const std::shared_ptr<Person>& spouse)
+    void marry(
+        const std::shared_ptr<Person>& spouse)
     {
         m_spouse = spouse;
     }
@@ -842,8 +866,10 @@ private:
 };
 int main()
 {
-    auto chandler = std::make_shared<Person>("Chandler");
-    auto monica = std::make_shared<Person>("Monica");
+    auto chandler 
+        = std::make_shared<Person>("Chandler");
+    auto monica 
+        = std::make_shared<Person>("Monica");
     chandler->marry(monica);
     monica->marry(chandler);
 }
@@ -861,7 +887,7 @@ int main()
 
 ```
 
-<!-- .element: class="split" style="font-size:0.3em" -->
+<!-- .element: class="split" style="font-size:0.35em" -->
 
 ---
 
@@ -896,7 +922,7 @@ private:
 
 The standard library provides functions to cast **`shared_ptr`s**:
 
-```cpp
+```cpp [1-9|13-16]
 ///hide
 #include <memory>
 
@@ -944,7 +970,7 @@ Note: Since casting creates a copy of the pointer, it can be used with `shared_p
 
 ## attributes
 
-- <!-- .element: class="fragment" --> Standardized GNU's `__attribute__` and MSVC’s `__declspec`
+- Standardized GNU's `__attribute__` and MSVC’s `__declspec`
 - <!-- .element: class="fragment" --> can be used almost everywhere in the C++ program, and can be applied to almost everything
 - <!-- .element: class="fragment" --> each particular attribute is only valid where it is permitted by the implementation
 - <!-- .element: class="fragment" --> Besides the standard attributes, implementations may support arbitrary non-standard attributes
@@ -970,7 +996,7 @@ Note: Since casting creates a copy of the pointer, it can be used with `shared_p
 
 [with inlining](https://quick-bench.com/q/BOW6gJETy-bFADckH42l_vkjP3w)
 
-[`make_shared` vs. `new`](https://quick-bench.com/q/U8Avjr9tX_wmaCltjw3L-sDjXtE)
+[`make_shared` vs. `new`](https://quick-bench.com/q/3J4mZ3uN45kbDosFrpOsMN5BNsk)
 
 ---
 
@@ -978,7 +1004,7 @@ Note: Since casting creates a copy of the pointer, it can be used with `shared_p
 
 ## do work
 
-```cpp []
+```cpp [1-5|9-13]
 struct ThreadPool
 {
     template<typename F>
@@ -1004,7 +1030,9 @@ struct Work
 };
 ```
 
-<!-- .element: data-id="code" style="font-size: 0.4em" -->
+<!-- .element: data-id="code" style="font-size: 0.35em" -->
+
+Note: what if work is destoryed before the pool?
 
 <div class="footnote">
 
@@ -1047,7 +1075,7 @@ struct Work
 };
 ```
 
-<!-- .element: data-id="code" style="font-size: 0.4em" -->
+<!-- .element: data-id="code" style="font-size: 0.35em" -->
 
 ---
 
@@ -1094,7 +1122,7 @@ work->doWork();
 }
 ```
 
-<!-- .element: data-id="code" style="font-size: 0.4em" -->
+<!-- .element: data-id="code" style="font-size: 0.35em" -->
 
 ---
 
@@ -1142,6 +1170,113 @@ work->doWork();
 ```
 
 <!-- .element: data-id="code" style="font-size: 0.4em" -->
+
+---
+
+<!-- .slide: data-auto-animate -->
+
+## how to pass smart pointers
+
+C++ Core Guidelines [R.32](http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#r32-take-a-unique_ptrwidget-parameter-to-express-that-a-function-assumes-ownership-of-a-widget): Take a `unique_ptr<widget>` parameter to express that a function assumes ownership of a widget
+
+```cpp
+///hide
+#include <memory>
+
+class widget;
+
+///unhide
+// takes ownership of the widget
+void sink(std::unique_ptr<widget>);
+```
+
+<!-- .element: data-id="code2" -->
+
+---
+
+<!-- .slide: data-auto-animate -->
+
+## how to pass smart pointers
+
+C++ Core Guidelines [R.33](http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#r33-take-a-unique_ptrwidget-parameter-to-express-that-a-function-reseats-thewidget): Take a `unique_ptr<widget>&` parameter to express that a function reseats the `widget`
+
+```cpp
+///hide
+#include <memory>
+
+class widget;
+
+///unhide
+// "will" or "might" reseat pointer
+void reseat(std::unique_ptr<widget>&);
+```
+
+<!-- .element: data-id="code2" -->
+
+Note: Note "reseat" means "making a pointer or a smart pointer refer to a different object."
+
+---
+
+<!-- .slide: data-auto-animate -->
+
+## how to pass smart pointers
+
+C++ Core Guidelines [R.34](http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#r34-take-a-shared_ptrwidget-parameter-to-express-that-a-function-is-part-owner): Take a `shared_ptr<widget>` parameter to express that a function is part owner
+
+```cpp
+///hide
+#include <memory>
+
+class widget;
+
+///unhide
+// share -- "will" retain refcount
+void share(std::shared_ptr<widget>);
+```
+
+<!-- .element: data-id="code2" -->
+
+---
+
+<!-- .slide: data-auto-animate -->
+
+## how to pass smart pointers
+
+C++ Core Guidelines [R.35](http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#r35-take-a-shared_ptrwidget-parameter-to-express-that-a-function-might-reseat-the-shared-pointer): Take a `shared_ptr<widget>&` parameter to express that a function might reseat the shared pointer
+
+```cpp
+///hide
+#include <memory>
+
+class widget;
+
+///unhide
+// "might" reseat ptr
+void reseat(std::shared_ptr<widget>&);
+```
+
+<!-- .element: data-id="code2" -->
+
+---
+
+<!-- .slide: data-auto-animate -->
+
+## how to pass smart pointers
+
+C++ Core Guidelines [R.36](http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#r32-take-a-unique_ptrwidget-parameter-to-express-that-a-function-assumes-ownership-of-a-widget): Take a `const shared_ptr<widget>&` parameter to express that it might retain a reference count to the object
+
+```cpp
+///hide
+#include <memory>
+
+class widget;
+
+///unhide
+// "might" retain refcount
+void may_share(const std::shared_ptr<widget>&);
+```
+
+<!-- .element: data-id="code2" -->
 
 ---
 

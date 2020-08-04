@@ -1890,26 +1890,16 @@ auto trace(Func&& f, T&& t) {
 </script></section><section data-markdown><script type="text/template">
 ## Special member functions
 
-<table class="noborder" style="font-size: 35px">
-    <tr>
-        <td>1.</td> <td>default constructor</td> <td><code>T()</code></td>
-    <tr>
-    <tr>
-        <td>2.</td> <td>copy constructor</td> <td><code>T(const T&)</code></td>
-    <tr>
-    <tr>
-        <td>3.</td> <td>move constructor</td> <td><code>T(T&&)</code></td>
-    <tr>
-    <tr>
-        <td>4.</td> <td>destructor</td> <td><code>~T()</code></td>
-    <tr>
-    <tr>
-        <td>5.</td> <td>copy assignment</td> <td><code>T& operator=(const T&)</code></td>
-    <tr>
-    <tr>
-        <td>6.</td> <td>move assignment</td> <td><code>T& operator=(T&&)</code></td>
-    <tr>
-</table>
+| | | |
+|-|-|-|
+|1.|default constructor|`T()`|
+|2.|copy constructor|`T(const T&)`|
+|3.|move constructor|`T(T&&)`|
+|4.|destructor|`~T()`|
+|5.|copy assignment|`T& operator=(const T&)`|
+|6.|move assignment|`T& operator=(T&&)`|
+
+<!-- .element: class="noheader noborder" style="font-size: 35px" -->
 
 **Special** - compiler generated, under certain circumstances
 
@@ -2665,7 +2655,7 @@ std::vector<S> v{S(), S(), S()}; // error
 <!-- .slide: data-background-image="03_initialization/aladin_thanks.gif" data-background-size="contain" -->
 
 </script></section></section><section ><section data-markdown><script type="text/template">
-<!-- .slide: data-background-image="04_variadic/bruce.png" data-background-size="contain" -->
+<!-- .slide: data-background-image="04_variadic/bruce.jpg" -->
 
 </script></section><section data-markdown><script type="text/template">
 ## from Boost::Thread library
@@ -4270,7 +4260,8 @@ register_callback([](const char* buffer, int size, void* userdata){
 
 [Benchmark 2](https://quick-bench.com/q/19wvZEycM8eMDSXe5PVn4TUwstw)
 
-</script></section><section data-markdown><script type="text/template">
+<aside class="notes"><p>wrong <code>value_type</code> on the first</p>
+</aside></script></section><section data-markdown><script type="text/template">
 <!-- .slide: id="generic_lambdas" -->
 
 ## Generic Lambda (C++14)
@@ -4735,9 +4726,10 @@ int callGet(const Derived& d, int i) {
 
 [Benchmark 1](https://quick-bench.com/q/DfBQBz4PrwOceIQZIGbodXAXLz8)
 
-[Benchmark 2](https://quick-bench.com/q/1P8T7rMTwrNIR-021rDiHwaJsnY)
+[Benchmark 2](https://quick-bench.com/q/28rParTpVouuPVLZvj4O_4O4do8)
 
-</script></section><section data-markdown><script type="text/template">
+<aside class="notes"><p>1st including <code>std::function</code> creation</p>
+</aside></script></section><section data-markdown><script type="text/template">
 <div class="r-stretch" style="display: flex; flex-direction: column; align-items: center; justify-content: center">
 
 ## Lambdas
@@ -4760,7 +4752,7 @@ Source: [Bartek's coding blog](https://www.bfilipek.com/2020/05/lambdasadvantage
 <!-- .slide: data-background-image="05_lambda/ευχαριστώ.jpg" data-background-size="contain" -->
 
 </script></section></section><section ><section data-markdown><script type="text/template">
-<!-- .slide: data-background-image="06_smart_pointers/pogba.png" -->
+<!-- .slide: data-background-image="06_smart_pointers/pallister.png" data-background-size="contain" -->
 
 </script></section><section data-markdown><script type="text/template">
 ## what's printed
@@ -4919,8 +4911,8 @@ struct DumbSingleOwner
 
 ```cpp
 #include <memory>
-
 ///hide
+
 class Object{};
 ///unhide
 
@@ -4931,6 +4923,12 @@ struct SmartSingleOwner
     std::unique_ptr<Object> m_pObject;
 };
 ```
+
+<aside class="notes"><p>Keeps the rule of 0</p>
+</aside></script></section><section data-markdown><script type="text/template">
+## How does it work?
+
+`unique_ptr` deletes the stored object on its destructor.
 
 </script></section><section data-markdown><script type="text/template">
 ## Testing
@@ -4986,7 +4984,7 @@ int main()
 </script></section><section data-markdown><script type="text/template">
 ## Can be used as a raw pointer
 
-```cpp
+```cpp [4|5|6]
 ///hide
 #include <string>
 #include <memory>
@@ -5003,6 +5001,13 @@ int main()
 ```
 
 <!-- .element: style="font-size: 0.5em" -->
+
+</script></section><section data-markdown><script type="text/template">
+## other useful methods
+
+- `.get()` - returns the stored pointer
+- `.reset()` - replaces the managed object
+- `.release()` - returns a pointer to the managed object and releases the ownership
 
 </script></section><section data-markdown><script type="text/template">
 ## Sequence of Owners
@@ -5038,7 +5043,7 @@ public:
 class FreeSpiritFactory : public Factory
 {
 public:
-    Object* createObject()
+    Object* createObject() override
     {
         return new Object;
     }
@@ -5065,7 +5070,7 @@ public:
 class AccountantFactory : public Factory
 {
 public:
-    Object* createObject()
+    Object* createObject() override
     {
         m_objects.push_back(new Object);
         return m_objects.back();
@@ -5135,7 +5140,7 @@ assert(pIntMove && !pInt);
 </script></section><section data-markdown><script type="text/template">
 ## Unique array
 
-```cpp
+```cpp [2,4]
 ///hide
 #include <memory>
 #include <cstdio>
@@ -5167,7 +5172,7 @@ If the factory would return a pointer, the user might already delete it by the t
 
 constructs a collection element in place
 
-```cpp
+```cpp [1-8|12|13]
 ///hide
 #include <iostream>
 #include <string>
@@ -5240,7 +5245,7 @@ private:
 ```
 
 </script></section><section data-markdown><script type="text/template">
-## Why does it work?
+## How does it work?
 
 The `shared_ptr` works on reference counting, so as long as the factory holds a reference to the created object, it is guaranteed not be deleted. 
 
@@ -5318,7 +5323,8 @@ auto pFloat = std::make_unique<float>(INFINITY);
 }
 ```
 
-</script></section><section data-markdown><script type="text/template">
+<aside class="notes"><p>to conclude...</p>
+</aside></script></section><section data-markdown><script type="text/template">
 ## C++ Core Guidelines [R.5](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#r5-prefer-scoped-objects-dont-heap-allocate-unnecessarily)
 
 > Prefer scoped objects, don’t heap-allocate unnecessarily
@@ -5422,7 +5428,7 @@ fprintf(pFile.get(), "Hello World!");
 </script></section><section data-markdown><script type="text/template">
 ## Leaky marriage
 
-```cpp
+```cpp [13-17,21|25-30]
 ///hide
 #include <string>
 #include <memory>
@@ -5432,7 +5438,8 @@ fprintf(pFile.get(), "Hello World!");
 class Person
 {
 public:
-    Person(const std::string& name) : m_name(name)
+    Person(const std::string& name)
+     : m_name(name)
     {
         std::cout << m_name << " created.\n";
     }
@@ -5440,7 +5447,8 @@ public:
     {
         std::cout << m_name << " destroyed.\n";
     }
-    void marry(const std::shared_ptr<Person>& spouse)
+    void marry
+        (const std::shared_ptr<Person>& spouse)
     {
         m_spouse = spouse;
     }
@@ -5451,8 +5459,10 @@ private:
 };
 int main()
 {
-    auto chandler = std::make_shared<Person>("Chandler");
-    auto monica = std::make_shared<Person>("Monica");
+    auto chandler 
+        = std::make_shared<Person>("Chandler");
+    auto monica 
+        = std::make_shared<Person>("Monica");
     chandler->marry(monica);
     monica->marry(chandler);
 }
@@ -5470,7 +5480,7 @@ int main()
 
 ```
 
-<!-- .element: class="split" style="font-size: 0.32em" -->
+<!-- .element: class="split" style="font-size: 0.35em" -->
 
 </script></section><section data-markdown><script type="text/template">
 ## What happened?
@@ -5530,7 +5540,7 @@ if (auto pSharedChar2 = pWeakChar.lock())
 </script></section><section data-markdown><script type="text/template">
 ## Back to marriage
 
-```cpp [12-15,19]
+```cpp [13-17,21]
 ///hide
 #include <string>
 #include <memory>
@@ -5540,7 +5550,8 @@ if (auto pSharedChar2 = pWeakChar.lock())
 class Person
 {
 public:
-    Person(const std::string& name) : m_name(name)
+    Person(const std::string& name)
+     : m_name(name)
     {
         std::cout << m_name << " created.\n";
     }
@@ -5548,7 +5559,8 @@ public:
     {
         std::cout << m_name << " destroyed.\n";
     }
-    void marry(const std::shared_ptr<Person>& spouse)
+    void marry(
+        const std::shared_ptr<Person>& spouse)
     {
         m_spouse = spouse;
     }
@@ -5559,8 +5571,10 @@ private:
 };
 int main()
 {
-    auto chandler = std::make_shared<Person>("Chandler");
-    auto monica = std::make_shared<Person>("Monica");
+    auto chandler 
+        = std::make_shared<Person>("Chandler");
+    auto monica 
+        = std::make_shared<Person>("Monica");
     chandler->marry(monica);
     monica->marry(chandler);
 }
@@ -5578,7 +5592,7 @@ int main()
 
 ```
 
-<!-- .element: class="split" style="font-size:0.3em" -->
+<!-- .element: class="split" style="font-size:0.35em" -->
 
 </script></section><section data-markdown><script type="text/template">
 ## better for factory
@@ -5611,7 +5625,7 @@ private:
 
 The standard library provides functions to cast **`shared_ptr`s**:
 
-```cpp
+```cpp [1-9|13-16]
 ///hide
 #include <memory>
 
@@ -5656,7 +5670,7 @@ There's also
 
 ## attributes
 
-- <!-- .element: class="fragment" --> Standardized GNU's `__attribute__` and MSVC’s `__declspec`
+- Standardized GNU's `__attribute__` and MSVC’s `__declspec`
 - <!-- .element: class="fragment" --> can be used almost everywhere in the C++ program, and can be applied to almost everything
 - <!-- .element: class="fragment" --> each particular attribute is only valid where it is permitted by the implementation
 - <!-- .element: class="fragment" --> Besides the standard attributes, implementations may support arbitrary non-standard attributes
@@ -5680,14 +5694,14 @@ There's also
 
 [with inlining](https://quick-bench.com/q/BOW6gJETy-bFADckH42l_vkjP3w)
 
-[`make_shared` vs. `new`](https://quick-bench.com/q/U8Avjr9tX_wmaCltjw3L-sDjXtE)
+[`make_shared` vs. `new`](https://quick-bench.com/q/3J4mZ3uN45kbDosFrpOsMN5BNsk)
 
 </script></section><section data-markdown><script type="text/template">
 <!-- .slide: data-auto-animate -->
 
 ## do work
 
-```cpp []
+```cpp [1-5|9-13]
 struct ThreadPool
 {
     template<typename F>
@@ -5713,15 +5727,13 @@ struct Work
 };
 ```
 
-<!-- .element: data-id="code" style="font-size: 0.4em" -->
+<!-- .element: data-id="code" style="font-size: 0.35em" -->
 
+<aside class="notes"><p>what if work is destoryed before the pool?</p>
 <div class="footnote">
 
-Source: [nextptr](https://www.nextptr.com/tutorial/ta1414193955/enable_shared_from_this-overview-examples-and-internals)
-
-</div>
-
-</script></section><section data-markdown><script type="text/template">
+<p>Source: <a href="https://www.nextptr.com/tutorial/ta1414193955/enable_shared_from_this-overview-examples-and-internals">nextptr</a></p>
+</div></aside></script></section><section data-markdown><script type="text/template">
 <!-- .slide: data-auto-animate -->
 
 ## do work
@@ -5755,7 +5767,7 @@ struct Work
 };
 ```
 
-<!-- .element: data-id="code" style="font-size: 0.4em" -->
+<!-- .element: data-id="code" style="font-size: 0.35em" -->
 
 </script></section><section data-markdown><script type="text/template">
 <!-- .slide: data-auto-animate -->
@@ -5801,7 +5813,7 @@ work->doWork();
 }
 ```
 
-<!-- .element: data-id="code" style="font-size: 0.4em" -->
+<!-- .element: data-id="code" style="font-size: 0.35em" -->
 
 </script></section><section data-markdown><script type="text/template">
 <!-- .slide: data-auto-animate -->
@@ -5848,6 +5860,107 @@ work->doWork();
 ```
 
 <!-- .element: data-id="code" style="font-size: 0.4em" -->
+
+</script></section><section data-markdown><script type="text/template">
+<!-- .slide: data-auto-animate -->
+
+## how to pass smart pointers
+
+C++ Core Guidelines [R.32](http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#r32-take-a-unique_ptrwidget-parameter-to-express-that-a-function-assumes-ownership-of-a-widget): Take a `unique_ptr<widget>` parameter to express that a function assumes ownership of a widget
+
+```cpp
+///hide
+#include <memory>
+
+class widget;
+
+///unhide
+// takes ownership of the widget
+void sink(std::unique_ptr<widget>);
+```
+
+<!-- .element: data-id="code2" -->
+
+</script></section><section data-markdown><script type="text/template">
+<!-- .slide: data-auto-animate -->
+
+## how to pass smart pointers
+
+C++ Core Guidelines [R.33](http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#r33-take-a-unique_ptrwidget-parameter-to-express-that-a-function-reseats-thewidget): Take a `unique_ptr<widget>&` parameter to express that a function reseats the `widget`
+
+```cpp
+///hide
+#include <memory>
+
+class widget;
+
+///unhide
+// "will" or "might" reseat pointer
+void reseat(std::unique_ptr<widget>&);
+```
+
+<!-- .element: data-id="code2" -->
+
+<aside class="notes"><p>Note &quot;reseat&quot; means &quot;making a pointer or a smart pointer refer to a different object.&quot;</p>
+</aside></script></section><section data-markdown><script type="text/template">
+<!-- .slide: data-auto-animate -->
+
+## how to pass smart pointers
+
+C++ Core Guidelines [R.34](http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#r34-take-a-shared_ptrwidget-parameter-to-express-that-a-function-is-part-owner): Take a `shared_ptr<widget>` parameter to express that a function is part owner
+
+```cpp
+///hide
+#include <memory>
+
+class widget;
+
+///unhide
+// share -- "will" retain refcount
+void share(std::shared_ptr<widget>);
+```
+
+<!-- .element: data-id="code2" -->
+
+</script></section><section data-markdown><script type="text/template">
+<!-- .slide: data-auto-animate -->
+
+## how to pass smart pointers
+
+C++ Core Guidelines [R.35](http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#r35-take-a-shared_ptrwidget-parameter-to-express-that-a-function-might-reseat-the-shared-pointer): Take a `shared_ptr<widget>&` parameter to express that a function might reseat the shared pointer
+
+```cpp
+///hide
+#include <memory>
+
+class widget;
+
+///unhide
+// "might" reseat ptr
+void reseat(std::shared_ptr<widget>&);
+```
+
+<!-- .element: data-id="code2" -->
+
+</script></section><section data-markdown><script type="text/template">
+<!-- .slide: data-auto-animate -->
+
+## how to pass smart pointers
+
+C++ Core Guidelines [R.36](http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#r32-take-a-unique_ptrwidget-parameter-to-express-that-a-function-assumes-ownership-of-a-widget): Take a `const shared_ptr<widget>&` parameter to express that it might retain a reference count to the object
+
+```cpp
+///hide
+#include <memory>
+
+class widget;
+
+///unhide
+// "might" retain refcount
+void may_share(const std::shared_ptr<widget>&);
+```
+
+<!-- .element: data-id="code2" -->
 
 </script></section><section data-markdown><script type="text/template">
 <!-- .slide: data-background-image="06_smart_pointers/thanks.webp" data-background-size="contain" -->
