@@ -55,5 +55,5 @@ Reveal.addEventListener('slidechanged', (event) => {
     .on('transitionend', function () {
       $(this).find('code').css('overflow', 'auto')
     })
-  $(event.previousSlide).find('pre[data-auto-animate-target] code').css('overflow', 'hidden')
+  $(event.previousSlide).find('pre[data-auto-animate-target] code').css('overflow', 'hidden');
 });
