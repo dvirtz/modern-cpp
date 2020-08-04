@@ -947,26 +947,16 @@ auto trace(Func&& f, T&& t) {
 
 ## Special member functions
 
-<table class="noborder" style="font-size: 35px">
-    <tr>
-        <td>1.</td> <td>default constructor</td> <td><code>T()</code></td>
-    <tr>
-    <tr>
-        <td>2.</td> <td>copy constructor</td> <td><code>T(const T&)</code></td>
-    <tr>
-    <tr>
-        <td>3.</td> <td>move constructor</td> <td><code>T(T&&)</code></td>
-    <tr>
-    <tr>
-        <td>4.</td> <td>destructor</td> <td><code>~T()</code></td>
-    <tr>
-    <tr>
-        <td>5.</td> <td>copy assignment</td> <td><code>T& operator=(const T&)</code></td>
-    <tr>
-    <tr>
-        <td>6.</td> <td>move assignment</td> <td><code>T& operator=(T&&)</code></td>
-    <tr>
-</table>
+| | | |
+|-|-|-|
+|1.|default constructor|`T()`|
+|2.|copy constructor|`T(const T&)`|
+|3.|move constructor|`T(T&&)`|
+|4.|destructor|`~T()`|
+|5.|copy assignment|`T& operator=(const T&)`|
+|6.|move assignment|`T& operator=(T&&)`|
+
+<!-- .element: class="noheader noborder" style="font-size: 35px" -->
 
 **Special** - compiler generated, under certain circumstances
 
