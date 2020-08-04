@@ -1,4 +1,4 @@
-<!-- .slide: data-background-image="04_variadic/bruce.png" data-background-size="contain" -->
+<!-- .slide: data-background-image="04_variadic/bruce.jpg" -->
 
 ---
 
