@@ -17,5 +17,6 @@
     "_": ["slides/index.md"],
     "staticDirs": [
         "slides"
-    ]
+    ],
+    "highlightTheme": "atom-one-dark"
 }
