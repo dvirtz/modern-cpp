@@ -23,3 +23,7 @@ FILE: 05_lambda/lambda.md
 ----
 
 FILE: 06_smart_pointers/smart_pointers.md
+
+----
+
+FILE: 07_chrono/chrono.md

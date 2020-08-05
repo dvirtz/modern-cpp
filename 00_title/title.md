@@ -32,6 +32,7 @@ Note:
 4. [Variadic Templates](#/4)
 5. [Lambda Expressions](#/5)
 6. [Smart Pointers](#/6)
+7. [chrono](#/7)
 
 ## Index
 
@@ -65,13 +66,13 @@ Note:
 - [ ] brace-or-equal initializers
 - [x] [nullptr](#/nullptr)
 - [ ] long long
-- [ ] char16_t and char32_t
+- [x] [char16_t and char32_t](#/utf_chars)
 - [ ] type aliases
 - [x] [variadic templates](#/variadic_templates)
 - [ ] generalized (non-trivial) unions
 - [ ] generalized PODs (trivial types and standard-layout types)
-- [ ] Unicode string literals
-- [ ] user-defined literals
+- [x] [Unicode string literals](#/utf_chars)
+- [x] [user-defined literals](#/UDL)
 - [x] [attributes](#/attributes)
 - [x] [lambda expressions](#/lambda_expressions)
 - [x] [noexcept specifier](#/noexcept_specifier) and [noexcept operator](#/noexcept_operator)
@@ -91,8 +92,8 @@ Note:
 - [x] [std::initializer_list](#/initializer_list)
 - [ ] stateful and scoped allocators
 - [ ] std::forward_list
-- [ ] chrono library
-- [ ] ratio library
+- [x] [chrono](#/chrono) library
+- [x] [ratio](#/ratio) library
 - [ ] new algorithms
 - [ ] Unicode conversion facets
 - [ ] thread library
@@ -134,7 +135,7 @@ Note:
 - [ ] std::quoted
 - [ ] two-range overloads for some algorithms
 - [ ] type alias versions of type traits
-- [ ] user-defined literals for basic_string, duration and complex
+- [x] user-defined literals for [basic_string](#/string_literals), [duration](#/duration_literals) and [complex](#/complex_literals)
 
 </div>
 
@@ -229,7 +230,7 @@ Note:
 - [ ] cache line interface
 - [ ] uncaught_exceptions
 - [ ] timespec_get
-- [ ] rounding functions for duration and time_point
+- [x] [rounding functions](#/chrono_rounding) for duration and time_point
 
 </div>
 
@@ -247,7 +248,7 @@ Note:
 - [ ] 3-way comparison operator <=> and operator==() = default
 - [ ] designated initializers
 - [ ] init-statements and initializers in range-for
-- [ ] char8_t
+- [x] [char8_t](#/utf_chars)
 - [ ] new attributes
   - [ ] [[no_unique_address]]
   - [ ] [[likely]]
