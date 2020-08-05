@@ -9,6 +9,7 @@ const { unstyle } = require('ansi-colors');
 const path = require('path');
 const { pwd, cwd } = require('process');
 const { assert, dir } = require('console');
+const promiseRetry = require('promise-retry');
 
 const SNIPPET_MARK = /^```/;
 const compile = bent('https://godbolt.org/', 'POST', 'json');
@@ -82,7 +83,18 @@ fileList(slideFile('index.md'))
               })
             }
           };
-          const response = await compile(`api/compiler/${info.compiler}/compile`, data);
+          const response = await promiseRetry(async (retry) => {
+            try {
+              return compile(`api/compiler/${info.compiler}/compile`, data);
+            }
+            catch (err) {
+              if (err.statusCode / 100 == 5) {
+                retry(err);
+              }
+
+              throw err;
+            }
+          });
           const error = (stderr) => unstyle(stderr.map(x => x.text).join('\n'));
           const message = (error) => `\n${codeSnippet.fullLocation} :\n${error}`;
           const compileError = error(response.stderr);
