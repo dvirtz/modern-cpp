@@ -29,7 +29,7 @@ Reveal.addEventListener('ready', (event) => {
     if (!$(this).attr("style").includes('font-size')) {
       $(this).css('font-size', '0.35em');
     }
-    $(this).children('code').addClass('split').each(function() {
+    $(this).children('code').addClass('split').css('column-count', $(this).prop('style').columnCount || 2).each(function() {
       const lastNotEmpty = $('tr td:nth-child(2)', this).filter(function() {
         return $(this).text().trim() !== '';
       }).get(-1);
@@ -38,9 +38,7 @@ Reveal.addEventListener('ready', (event) => {
         $('tr td:nth-child(1)', this).slice(index + 1).hide();
       }
     });
-  });
-  $('.split[column-count]').css('column-count', function() {
-    return $(this).attr('column-count');
+    $(this).css('column-count', '');
   });
   Reveal.sync();
 });

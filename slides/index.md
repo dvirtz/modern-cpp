@@ -27,3 +27,7 @@ FILE: 06_smart_pointers/smart_pointers.md
 ----
 
 FILE: 07_chrono/chrono.md
+
+----
+
+FILE: 08_error_handling/error_handling.md
