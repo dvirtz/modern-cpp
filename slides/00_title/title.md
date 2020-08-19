@@ -49,7 +49,7 @@ Note:
 
 ## C++11
 
-<div class="split" column-count="4" id="bla">
+<div class="split index">
 
 ### Language
 
@@ -59,7 +59,7 @@ Note:
 - [x] [trailing return type](#/trailing_return)
 - [x] [rvalue references](#/rvalue_references)
 - [x] [move constructors](#/move_constructors) and [move assignment operators](#/move_constructors)
-- [ ] scoped enums
+- [x] [scoped enums](#/scoped_enums)
 - [ ] constexpr and literal types
 - [x] [list initilization](#/list_initilization)
 - [x] [delegating](#/delegating_constructors) and inherited constructors
@@ -97,11 +97,11 @@ Note:
 - [ ] new algorithms
 - [ ] Unicode conversion facets
 - [ ] thread library
-- [ ] std::exception_ptr
-- [ ] std::error_code and std::error_condition
+- [x] [std::exception_ptr](#/exception_ptr)
+- [ ] [std::error_code](#/error_code) and [std::error_condition](#/error_condition)
 - [ ] iterator improvements
   - [x] [std::begin/end](#/begin_end)
-  - [ ] std::next/prev
+  - [x] [std::next/prev](#/next_prev)
 - [ ] Unicode conversion functions
 
 </div>
@@ -112,7 +112,7 @@ Note:
 
 ## C++14
 
-<div class="split" column-count="4">
+<div class="split index">
 
 ### Language
 
@@ -145,7 +145,7 @@ Note:
 
 ## C++17
 
-<div class="split" column-count="4">
+<div class="split index">
 
 ### Language
 
@@ -177,7 +177,7 @@ Note:
 
 ## C++17
 
-<div class="split" column-count="4">
+<div class="split index">
 
 ### Library
 
@@ -240,7 +240,7 @@ Note:
 
 ## C++20
 
-<div class="split" column-count="4">
+<div class="split index">
 
 ### Language
 
@@ -271,7 +271,7 @@ Note:
 
 ## C++20
 
-<div class="split" column-count="4">
+<div class="split index">
 
 ### Library
 
