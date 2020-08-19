@@ -117,13 +117,29 @@ table.noheader thead {
 	padding-bottom: 0px;
 }
 
+.reveal .aside pre code.split {
+	column-rule-color: #bee4fd;
+}
+
 .reveal div.split pre {
 	font-size: 0.35em;
 	margin   : 0px;
 	width    : auto;
 }
 
-.split[column-count="4"] {
+.split.index {
+	column-count: 4;
 	font-size: 0.3em;
 	position : relative;
+}
+
+.reveal div.grid2 {
+	display: grid;
+	grid-template-columns: 50% 50%;
+}
+
+.reveal div.grid2 pre {
+	font-size: 0.35em;
+	width: 97%;
+	height: 95%;
 }

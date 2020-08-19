@@ -76,7 +76,7 @@ highlightPlugin.highlightBlock = function( block ) {
 
       // If the original code block has a fragment-index,
       // each clone should follow in an incremental sequence
-      var fragmentIndex = parseInt( block.getAttribute( 'data-fragment-index' ), 10 );
+      var fragmentIndex = parseInt( block.getAttribute( 'data-fragment-index' ) || block.parentElement.getAttribute('data-fragment-index'), 10 );
 
       if( typeof fragmentIndex !== 'number' || isNaN( fragmentIndex ) ) {
         fragmentIndex = null;
@@ -100,8 +100,8 @@ highlightPlugin.highlightBlock = function( block ) {
         }
 
         // Scroll highlights into view as we step through them
-        fragmentBlock.addEventListener( 'visible', highlightPlugin.scrollHighlightedLineIntoView.bind( Plugin, fragmentBlock, scrollState ) );
-        fragmentBlock.addEventListener( 'hidden', highlightPlugin.scrollHighlightedLineIntoView.bind( Plugin, fragmentBlock.previousSibling, scrollState ) );
+        fragmentBlock.addEventListener( 'visible', highlightPlugin.scrollHighlightedLineIntoView.bind( highlightPlugin, fragmentBlock, scrollState ) );
+        fragmentBlock.addEventListener( 'hidden', highlightPlugin.scrollHighlightedLineIntoView.bind( highlightPlugin, fragmentBlock.previousSibling, scrollState ) );
 
       } );
 
