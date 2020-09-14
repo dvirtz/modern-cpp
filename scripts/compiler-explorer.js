@@ -3,7 +3,6 @@ const directive = pattern => new RegExp(`^\s*\/\/\/\s*${pattern}$`);
 const directives = new Map([
     ['compiler=(.*)', (matches, info) => matches.slice(1).forEach(match => {
         info.compiler = match;
-        info.forceExternal = true;
         if (info.compiler.includes('vcpp')) {
             info.options = ''
         }
