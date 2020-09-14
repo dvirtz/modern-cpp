@@ -33,6 +33,7 @@ Note:
 5. [Lambda Expressions](#/5)
 6. [Smart Pointers](#/6)
 7. [chrono](#/7)
+8. [Error Handling](#/8)
 
 ## Index
 
@@ -53,20 +54,20 @@ Note:
 
 ### Language
 
-- [x] [auto](#/auto) and [decltype](#/decltype)
+- [x] [`auto`](#/auto) and [`decltype`](#/decltype)
 - [x] [defaulted](#/defaulted) and [deleted](#/deleted) functions
-- [x] [final](#/final) and [override](#/override)
+- [x] [`final`](#/final) and [`override`](#/override)
 - [x] [trailing return type](#/trailing_return)
 - [x] [rvalue references](#/rvalue_references)
 - [x] [move constructors](#/move_constructors) and [move assignment operators](#/move_constructors)
 - [x] [scoped enums](#/scoped_enums)
-- [ ] constexpr and literal types
+- [ ] `constexpr` and literal types
 - [x] [list initilization](#/list_initilization)
 - [x] [delegating](#/delegating_constructors) and inherited constructors
 - [ ] brace-or-equal initializers
-- [x] [nullptr](#/nullptr)
-- [ ] long long
-- [x] [char16_t and char32_t](#/utf_chars)
+- [x] [`nullptr`](#/nullptr)
+- [ ] `long long`
+- [x] [`char16_t` and `char32_t`](#/utf_chars)
 - [ ] type aliases
 - [x] [variadic templates](#/variadic_templates)
 - [ ] generalized (non-trivial) unions
@@ -75,34 +76,36 @@ Note:
 - [x] [user-defined literals](#/UDL)
 - [x] [attributes](#/attributes)
 - [x] [lambda expressions](#/lambda_expressions)
-- [x] [noexcept specifier](#/noexcept_specifier) and [noexcept operator](#/noexcept_operator)
-- [ ] alignof and alignas
+- [x] [`noexcept` specifier](#/noexcept_specifier) and [`noexcept` operator](#/noexcept_operator)
+- [ ] `alignof` and `alignas`
 - [ ] multithreaded memory model
-- [ ] thread-local storage
+- [x] [thread-local](#/thread_local) storage
 - [ ] GC interface
 - [x] [range based for loop](#/range_for)
-- [x] [static_assert](#/static_assert)
+- [x] [`static_assert`](#/static_assert)
 
 ### Library
 
-- [ ] atomic operations library
-- [x] [emplace()](#/emplace)
-- [x] [std::unique_ptr](#/unique_ptr), [std::shared_ptr](#/shared_ptr), [std::weak_ptr](#/weak_ptr)
-- [ ] std::move_iterator
-- [x] [std::initializer_list](#/initializer_list)
+- [x] [atomic](#/atomic) operations library
+- [x] [`emplace()`](#/emplace)
+- [x] [`std::unique_ptr`](#/unique_ptr), [`std::shared_ptr`](#/shared_ptr), [`std::weak_ptr`](#/weak_ptr)
+- [ ] `std::move_iterator`
+- [x] [`std::initializer_list`](#/initializer_list)
 - [ ] stateful and scoped allocators
-- [ ] std::forward_list
-- [x] [chrono](#/chrono) library
-- [x] [ratio](#/ratio) library
+- [ ] `std::forward_list`
+- [x] [`chrono`](#/chrono) library
+- [x] [`ratio`](#/ratio) library
 - [ ] new algorithms
 - [ ] Unicode conversion facets
-- [ ] thread library
-- [x] [std::exception_ptr](#/exception_ptr)
-- [ ] [std::error_code](#/error_code) and [std::error_condition](#/error_condition)
-- [ ] iterator improvements
-  - [x] [std::begin/end](#/begin_end)
-  - [x] [std::next/prev](#/next_prev)
+- [x] [`thread`](#/concurrency) library
+- [x] [`std::exception_ptr`](#/exception_ptr)
+- [x] [`std::error_code`](#/error_code) and [`std::error_condition`](#/error_condition)
+- [x] iterator improvements
+  - [x] [`std::begin`/`end`](#/begin_end)
+  - [x] [`std::next`/`prev`](#/next_prev)
 - [ ] Unicode conversion functions
+- [ ] `std::array`
+- [x] [`std::tuple`](#/tuple)
 
 </div>
 
@@ -119,8 +122,8 @@ Note:
 - [ ] variable templates
 - [x] [generic lambdas](#/generic_lambdas)
 - [x] [lambda init-capture](#/lambda_init_capture)
-- [ ] new/delete elision
-- [ ] relaxed restrictions on constexpr functions
+- [ ] `new`/`delete` elision
+- [ ] relaxed restrictions on `constexpr` functions
 - [ ] binary literals
 - [ ] digit separators
 - [x] [return type deduction](#/auto_return) for functions
@@ -128,14 +131,14 @@ Note:
 
 ### Library
 
-- [x] [std::make_unique](#/make_unique)
-- [ ] std::shared_timed_mutex and std::shared_lock
-- [ ] std::integer_sequence
-- [ ] std::exchange
-- [ ] std::quoted
+- [x] [`std::make_unique`](#/make_unique)
+- [x] `std::shared_timed_mutex` and [`std::shared_lock`](#/shared_lock)
+- [ ] `std::integer_sequence`
+- [ ] `std::exchange`
+- [ ] `std::quoted`
 - [ ] two-range overloads for some algorithms
 - [ ] type alias versions of type traits
-- [x] user-defined literals for [basic_string](#/string_literals), [duration](#/duration_literals) and [complex](#/complex_literals)
+- [x] user-defined literals for [`basic_string`](#/string_literals), [`duration`](#/duration_literals) and [`complex`](#/complex_literals)
 
 </div>
 
@@ -152,23 +155,23 @@ Note:
 - [ ] fold-expressions
 - [ ] class template argument deduction
 - [ ] non-type template parameters declared with auto
-- [ ] compile-time if constexpr
+- [ ] compile-time `if constexpr`
 - [ ] inline variables
 - [ ] structured bindings
 - [ ] initializers for if and switch
 - [ ] u8 character literal
 - [ ] simplified nested namespaces
 - [ ] using-declaration declaring multiple names
-- [ ] made noexcept part of type system
+- [ ] made `noexcept` part of type system
 - [ ] new order of evaluation rules
 - [ ] guaranteed copy elision
-- [ ] lambda capture of *this
-- [ ] constexpr lambda
+- [ ] lambda capture of `*this`
+- [ ] `constexpr` lambda
 - [ ] attribute namespaces don't have to repeat
 - [ ] new attributes:
-  - [ ] [[fallthrough]]
-  - [ ] [[nodiscard]]
-  - [ ] [[maybe_unused]]
+  - [ ] `[[fallthrough]]`
+  - [ ] `[[nodiscard]]`
+  - [ ] `[[maybe_unused]]`
 - [ ] __has_include
 
 </div>
@@ -181,56 +184,56 @@ Note:
 
 ### Library
 
-- [ ] tuple:
-  - [ ] apply
-  - [ ] deduction_guides
-  - [ ] make_from_tuple
-- [ ] variant
-- [ ] launder
-- [ ] to_chars/from_chars
-- [ ] as_const
+- [ ] `tuple`:
+  - [ ] `apply`
+  - [ ] deduction guides
+  - [ ] `make_from_tuple`
+- [ ] `variant`
+- [ ] `launder`
+- [ ] `to_chars`/`from_chars`
+- [ ] `as_const`
 - [ ] searchers
-- [ ] optional
-- [ ] any
-- [ ] not_fn
+- [ ] `optional`
+- [ ] `any`
+- [ ] `not_fn`
 - [ ] uninitialized memory
-  - [ ] destroy_at
-  - [ ] destroy
-  - [ ] destroy_n
-  - [ ] uninitialized_move
-  - [ ] uninitialized_value_construct
-- [ ] weak_from_this
+  - [ ] `destroy_at`
+  - [ ] `destroy`
+  - [ ] `destroy_n`
+  - [ ] `uninitialized_move`
+  - [ ] `uninitialized_value_construct`
+- [ ] `weak_from_this`
 - [ ] polymorphic allocators
-- [ ] aligned_alloc
-- [ ] transparent owner_less
-- [ ] array support for shared_ptr
+- [ ] `aligned_alloc`
+- [ ] transparent `owner_less`
+- [ ] array support for `shared_ptr`
 - [ ] allocation functions with explicit alignment
-- [ ] byte
-- [ ] [conjunction](#/conjunction)/disjunction/negation
+- [ ] `byte`
+- [ ] [`conjunction`](#/conjunction)/`disjunction`/`negation`
 - [ ] type trait variable templates (xxx_v)
-- [ ] is_swappable
-- [ ] is_invocable
-- [ ] is_aggregate
-- [ ] has_unique_object_representations.
-- [ ] clamp
+- [ ] `is_swappable`
+- [ ] `is_invocable`
+- [ ] `is_aggregate`
+- [ ] `has_unique_object_representations`
+- [ ] `clamp`
 - [ ] execution policies
-- [ ] reduce
-- [ ] inclusive_scan
-- [ ] exclusive_scan
-- [ ] map/set extract and map/set merge
-- [ ] map/unordered_map try_emplace and insert_or_assign
+- [ ] `reduce`
+- [ ] `inclusive_scan`
+- [ ] `exclusive_scan`
+- [ ] `map`/`set` extract and merge
+- [ ] `map`/`unordered_map` `try_emplace` and `insert_or_assign`
 - [ ] contiguous iterators
-- [ ] non-member size/empty/data
+- [ ] non-member `size`/`empty`/`data`
 - [ ] mathematical special functions
-- [ ] gcd
-- [ ] lcm
+- [ ] `gcd`
+- [ ] `lcm`
 - [ ] 3D hypot
-- [ ] is_always_lock_free
-- [ ] variadic lock_guard
+- [ ] `is_always_lock_free`
+- [x] variadic [`lock_guard`](#/scoped_lock)
 - [ ] cache line interface
-- [ ] uncaught_exceptions
-- [ ] timespec_get
-- [x] [rounding functions](#/chrono_rounding) for duration and time_point
+- [ ] `uncaught_exceptions`
+- [ ] `timespec_get`
+- [x] [rounding functions](#/chrono_rounding) for `duration` and `time_point`
 
 </div>
 
@@ -245,18 +248,18 @@ Note:
 ### Language
 
 - [ ] Feature test macros
-- [ ] 3-way comparison operator <=> and operator==() = default
+- [ ] 3-way comparison `operator<=>` and `operator==() = default`
 - [ ] designated initializers
 - [ ] init-statements and initializers in range-for
 - [x] [char8_t](#/utf_chars)
 - [ ] new attributes
-  - [ ] [[no_unique_address]]
-  - [ ] [[likely]]
-  - [ ] [[unlikely]]
+  - [ ] `[[no_unique_address]]`
+  - [ ] `[[likely]]`
+  - [ ] `[[unlikely]]`
 - [ ] pack-expansions in lambda captures
 - [ ] removed the requirement to use typename to disambiguate types in many contexts
-- [ ] consteval, constinit
-- [ ] further relaxed constexpr
+- [ ] `consteval`, `constinit`
+- [ ] further relaxed `constexpr`
 - [ ] signed integers are 2's complement
 - [ ] aggregate initialization using parentheses
 - [ ] Coroutines
@@ -277,33 +280,33 @@ Note:
 
 - [ ] Formatting library
 - [ ] Calendar and Time Zone library
-- [ ] std::source_location
-- [ ] std::span
-- [ ] std::endian
-- [ ] array support for std::make_shared
-- [ ] std::remove_cvref
-- [ ] std::to_address
-- [ ] floating point and shared_ptr atomics
-- [ ] std::barrier, std::latch, and std::counting_semaphore
-- [ ] std::jthread and thread cancellation classes
-- [ ] <version>
-- [ ] std::osyncstream
-- [ ] std::u8string and other char8_t uses
-- [ ] constexpr for <algorithm>, <utility>, <complex>
-- [ ] std::string::starts_with / ends_with and std::string_view::starts_with / ends_with
-- [ ] std::assume_aligned
-- [ ] std::bind_front
-- [ ] std::c8rtomb/std::mbrtoc8
-- [ ] std::make_obj_using_allocator etc
-- [ ] std::make_shared_for_overwrite / std::make_unique_for_overwrite
+- [ ] `std::source_location`
+- [ ] `std::span`
+- [ ] `std::endian`
+- [ ] array support for `std::make_shared`
+- [ ] `std::remove_cvref`
+- [ ] `std::to_address`
+- [ ] floating point and `shared_ptr` atomics
+- [ ] `std::barrier`, `std::latch`, and `std::counting_semaphore`
+- [ ] `std::jthread` and thread cancellation classes
+- [ ] `<version>`
+- [ ] `std::osyncstream`
+- [ ] `std::u8string` and other `char8_t` uses
+- [ ] `constexpr` for `<algorithm>`, `<utility>`, `<complex>`
+- [ ] `std::string::starts_with` / `ends_with` and `std::string_view::starts_with` / `ends_with`
+- [ ] `std::assume_aligned`
+- [ ] `std::bind_front`
+- [ ] `std::c8rtomb`/`std::mbrtoc8`
+- [ ] `std::make_obj_using_allocator` etc
+- [ ] `std::make_shared_for_overwrite` / `std::make_unique_for_overwrite`
 - [ ] heterogeneous lookup in unordered associative containers
-- [ ] std::polymoprhic_allocator with additional member functions and std::byte as its default template argument
-- [ ] std::execution::unseq
-- [ ] std::midpoint and std::lerp
-- [ ] std::ssize
-- [ ] std::is_bounded_array, std::is_unbounded_array
+- [ ] `std::polymoprhic_allocator` with additional member functions and `std::byte` as its default template argument
+- [ ] `std::execution::unseq`
+- [ ] `std::midpoint` and `std::lerp`
+- [ ] `std::ssize`
+- [ ] `std::is_bounded_array`, `std::is_unbounded_array`
 - [ ] Ranges
-- [ ] uniform container erasure (std::erase/std::erase_if)
+- [ ] uniform container erasure (`std::erase`/`std::erase_if`)
 - [ ] Mathematical constants
 
 </div>
