@@ -660,6 +660,7 @@ auto pSharedArray = std::shared_ptr<int[]>(new int[3],
 Custom deleters enable the standard smart pointers to manage other resources besides memory:
 
 ```cpp
+///external
 ///compiler=vcpp_v19_24_x64
 ///options=/O2
 ///hide
