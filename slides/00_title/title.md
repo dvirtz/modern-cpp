@@ -16,7 +16,7 @@
 Note:
 - The first C++ standard was published on 1998 with a small bug fix update on 2003.
 - After being stale for over a decade, starting from 2011, the standard switched to a train model where a new standard is being released every 3 years.
-- In this series we're going to discuss the new language and library features added to the C++ standard in the new revisons released since.
+- In this series we're going to discuss the new language and library features added to the C++ standard in the new revisions released since.
 - On each session we will have one main topic and smaller features will be introduced as needed.
 - Let's start.
 
@@ -26,13 +26,13 @@ Note:
 
 ## Chapters
 
-1. [auto](#/1)
+1. [`auto`](#/1)
 2. [Move Semantics](#/2)
 3. [List Initialization](#/3)
 4. [Variadic Templates](#/4)
 5. [Lambda Expressions](#/5)
 6. [Smart Pointers](#/6)
-7. [chrono](#/7)
+7. [`chrono`](#/7)
 8. [Error Handling](#/8)
 
 ## Index
@@ -62,7 +62,7 @@ Note:
 - [x] [move constructors](#/move_constructors) and [move assignment operators](#/move_constructors)
 - [x] [scoped enums](#/scoped_enums)
 - [ ] `constexpr` and literal types
-- [x] [list initilization](#/list_initilization)
+- [x] [list initialization](#/list_initialization)
 - [x] [delegating](#/delegating_constructors) and inherited constructors
 - [ ] brace-or-equal initializers
 - [x] [`nullptr`](#/nullptr)
@@ -227,8 +227,8 @@ Note:
 - [ ] mathematical special functions
 - [ ] `gcd`
 - [ ] `lcm`
-- [ ] 3D hypot
-- [ ] `is_always_lock_free`
+- [ ] 3D `hypot`
+- [x] [`is_always_lock_free`](#/is_always_lock_free)
 - [x] variadic [`lock_guard`](#/scoped_lock)
 - [ ] cache line interface
 - [ ] `uncaught_exceptions`

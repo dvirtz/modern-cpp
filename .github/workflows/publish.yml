@@ -39,6 +39,8 @@ jobs:
       run: npm test
       env:
         CI: true
+    - name: Spellcheck
+      run: npm run spellcheck
     - name: Generate static site
       run: npm run generate
     - name: GitHub Pages action

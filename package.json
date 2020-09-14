@@ -6,7 +6,8 @@
   "scripts": {
     "present": "reveal-md slides/index.md -w",
     "generate": "reveal-md slides/index.md --static .site",
-    "test": "mocha"
+    "test": "mocha",
+    "spellcheck": "cspell 'slides/**/*.md'"
   },
   "repository": {
     "type": "git",
@@ -24,11 +25,12 @@
     "ansi-colors": "^4.1.1",
     "bent": "^7.3.1",
     "chai": "^4.2.0",
+    "cspell": "^4.1.0",
     "github-fork-ribbon-css": "^0.2.3",
     "jquery": "^3.5.1",
     "mocha": "^7.1.2",
     "promise-retry": "^2.0.1",
-    "reveal-md": "^4.0.0-beta.0"
+    "reveal-md": "^4.1.4"
   },
   "homepage": "https://github.com/dvirtz/modern-cpp#readme"
 }
