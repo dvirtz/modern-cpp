@@ -87,7 +87,7 @@ fileList(slideFile('index.md'))
               return compile(`api/compiler/${info.compiler}/compile`, data);
             }
             catch (err) {
-              if (err.statusCode / 100 == 5) {
+              if (Math.trunc(err.statusCode / 100) === 5) {
                 retry(err);
               }
 
