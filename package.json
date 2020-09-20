@@ -4,8 +4,8 @@
   "description": "slides on modern C++",
   "main": "index.js",
   "scripts": {
-    "present": "reveal-md slides/index.md -w",
-    "generate": "reveal-md slides/index.md --static .site",
+    "present": "reveal-md slides/slides.md -w",
+    "generate": "reveal-md slides/slides.md --static .site",
     "test": "mocha --parallel",
     "spellcheck": "cspell 'slides/**/*.md'"
   },

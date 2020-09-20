@@ -42,7 +42,7 @@ const fileSnippets = file => {
   return snippets;
 };
 
-fileList(slideFile('index.md'))
+fileList(slideFile('slides.md'))
   .map(file => {
     return {
       file: file,
