@@ -31,3 +31,7 @@ FILE: 07_chrono/chrono.md
 ----
 
 FILE: 08_error_handling/error_handling.md
+
+----
+
+FILE: 09_concurrency/concurrency.md
