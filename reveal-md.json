@@ -7,7 +7,8 @@
         "scripts/startfrom.js",
         "node_modules/jquery/dist/jquery.min.js",
         "scripts/customize.js",
-        "scripts/compiler-explorer.js"
+        "node_modules/reveal-compiler-explorer/dist/reveal-compiler-explorer.js",
+        "scripts/load-plugins.js"
     ],
     "css": [
         "node_modules/github-fork-ribbon-css/gh-fork-ribbon.css",

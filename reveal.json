@@ -1,5 +1,9 @@
 {
   "highlight": {
     "highlightOnLoad": true
+  },
+  "compilerExplorer": {
+    "useLocal": true,
+    "compiler": "g83"
   }
 }
