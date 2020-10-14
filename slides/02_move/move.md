@@ -144,7 +144,7 @@ void foo(int);
 void foo(char*);
 
 ///hide
-int main(){
+void call(){
 ///unhide
 foo(42); // calls foo(int);
 foo(NULL); // calls foo(int);

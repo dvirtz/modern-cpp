@@ -1194,6 +1194,7 @@ Should be used by library implementers to report OS errors.
 ```cpp
 ///external
 ///compiler=vcpp_v19_24_x64
+///options=/O2
 ///hide
 #include <Windows.h>
 #include <string>

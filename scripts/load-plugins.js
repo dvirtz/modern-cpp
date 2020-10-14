@@ -1,0 +1,1 @@
+options.plugins.push(RevealCompilerExplorer);
