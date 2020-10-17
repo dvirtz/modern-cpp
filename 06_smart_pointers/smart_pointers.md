@@ -671,7 +671,7 @@ Custom deleters enable the standard smart pointers to manage other resources bes
 
 ///hide
 
-int main() {
+void load() {
 ///unhide
 using LibType = typename std::remove_pointer<HINSTANCE>::type;
 auto pLib = std::shared_ptr<LibType>(LoadLibrary("somelib.dll"), FreeLibrary);

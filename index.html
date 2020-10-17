@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
     <title>reveal-md</title>
+    <link rel="shortcut icon" href="./favicon.ico"/>
     <link rel="stylesheet" href="./dist/reveal.css" />
     <link rel="stylesheet" href="./dist/theme/black.css" id="theme" />
     <link rel="stylesheet" href="./css/highlight/atom-one-dark.css" />
@@ -1128,7 +1129,7 @@ void foo(int);
 void foo(char*);
 
 ///hide
-int main(){
+void call(){
 ///unhide
 foo(42); // calls foo(int);
 foo(NULL); // calls foo(int);
@@ -5390,7 +5391,7 @@ Custom deleters enable the standard smart pointers to manage other resources bes
 
 ///hide
 
-int main() {
+void load() {
 ///unhide
 using LibType = typename std::remove_pointer<HINSTANCE>::type;
 auto pLib = std::shared_ptr<LibType>(LoadLibrary("somelib.dll"), FreeLibrary);
@@ -8214,6 +8215,7 @@ Should be used by library implementers to report OS errors.
 ```cpp
 ///external
 ///compiler=vcpp_v19_24_x64
+///options=/O2
 ///hide
 #include <Windows.h>
 #include <string>
@@ -11045,13 +11047,13 @@ class thread_pool {
       // options from URL query string
       var queryOptions = Reveal().getQueryHash() || {};
 
-      var options = extend(defaultOptions, {"highlight":{"highlightOnLoad":true}}, queryOptions);
+      var options = extend(defaultOptions, {"highlight":{"highlightOnLoad":true},"compilerExplorer":{"useLocal":true,"compiler":"g83"}}, queryOptions);
     </script>
 
-    <script src="./_assets/scripts/startfrom.js"></script>
     <script src="./_assets/node_modules/jquery/dist/jquery.min.js"></script>
     <script src="./_assets/scripts/customize.js"></script>
-    <script src="./_assets/scripts/compiler-explorer.js"></script>
+    <script src="./_assets/node_modules/reveal-compiler-explorer/dist/reveal-compiler-explorer.js"></script>
+    <script src="./_assets/scripts/load-plugins.js"></script>
 
     <script>
       Reveal.initialize(options);
