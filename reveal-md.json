@@ -4,7 +4,6 @@
     "verticalSeparator": "^---\n",
     "separator": "^----\n",
     "scripts": [
-        "scripts/startfrom.js",
         "node_modules/jquery/dist/jquery.min.js",
         "scripts/customize.js",
         "node_modules/reveal-compiler-explorer/dist/reveal-compiler-explorer.js",
