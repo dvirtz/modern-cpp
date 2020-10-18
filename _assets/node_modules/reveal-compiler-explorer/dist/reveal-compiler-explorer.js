@@ -17206,9 +17206,13 @@ var RevealCompilerExplorer = (function () {
 	    const highlightOnLoad = typeof highlightConfig.highlightOnLoad === 'boolean' ? highlightConfig.highlightOnLoad : true;
 
 	    [].slice.call(reveal.getRevealElement().querySelectorAll('pre code')).forEach(function (block) {
-	      const lang = block.classList.length > 0 ? block.classList[0].replace('language-', '') : config.language;
 	      const config = reveal.getConfig().compilerExplorer;
-	      const info = compilerExplorerDirectives.parseCode(block.textContent, lang, config);
+	      const lang = block.classList.length > 0 ? block.classList[0].replace('language-', '') : config.language;
+	      // highlighting line numbers removes line break so we need to restore them
+	      const code = block.hasAttribute( 'data-line-numbers' ) && block.classList.contains('hljs')
+	        ? Array.from(block.querySelectorAll('tr').values()).map(v => v.textContent).join('\n')
+	        : block.textContent;
+	      const info = compilerExplorerDirectives.parseCode(code, lang, config);
 	      const url = compilerExplorerDirectives.displayUrl(info);
 
 	      if (isMobile) {
