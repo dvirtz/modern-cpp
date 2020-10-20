@@ -135,3 +135,7 @@ table.noheader thead {
 	width: 97%;
 	height: 95%;
 }
+
+.reveal ol.split {
+	display: block;
+}
