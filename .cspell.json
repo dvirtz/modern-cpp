@@ -10,6 +10,7 @@
         "chrono",
         "decltype",
         "dvir",
+        "Josuttis",
         "multithreaded",
         "noexcept",
         "nullptr",

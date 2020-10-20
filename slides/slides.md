@@ -35,3 +35,7 @@ FILE: 08_error_handling/error_handling.md
 ----
 
 FILE: 09_concurrency/concurrency.md
+
+----
+
+FILE: 10_regex/regex.md

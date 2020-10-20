@@ -723,7 +723,7 @@ std::cout
 
 <div class="footnote">
 
-Source: [The C++ Standard Library: A Tutorial and Reference, Nicolai Josuttis](https://www.informit.com/articles/article.aspx?p=1881386)
+Source: [The C++ Standard Library: A Tutorial and Reference, Nicolai Josuttis](http://www.cppstdlib.com/)
 
 </div>
 
