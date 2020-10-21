@@ -22,8 +22,6 @@ Note:
 
 ---
 
-<div class="split">
-
 ## Chapters
 
 1. [`auto`](#/1)
@@ -35,8 +33,16 @@ Note:
 7. [`chrono`](#/7)
 8. [Error Handling](#/8)
 9. [Concurrency](#/9)
+10. [Regular Expressions](#/10)
+
+<!-- .element: class="split" -->
+
+
+---
 
 ## Index
+
+<div class="split">
 
 - [C++11](#/cpp11)
 - [C++14](#/cpp14)
@@ -79,7 +85,7 @@ Note:
 - [x] [lambda expressions](#/lambda_expressions)
 - [x] [`noexcept` specifier](#/noexcept_specifier) and [`noexcept` operator](#/noexcept_operator)
 - [ ] `alignof` and `alignas`
-- [ ] multithreaded memory model
+- [x] multithreaded [memory model](#/atomic)
 - [x] [thread-local](#/thread_local) storage
 - [ ] GC interface
 - [x] [range based for loop](#/range_for)
