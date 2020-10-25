@@ -6,20 +6,46 @@
     "language": "en",
     // words - list of words to be always considered correct
     "words": [
+        "Andrzej",
+        "Bartek",
         "cantona",
         "chrono",
+        "cppreference",
         "decltype",
+        "deleter",
+        "deleters",
+        "devirtualization",
         "dvir",
+        "Fedor",
+        "GOTW",
+        "Hinnant",
         "Josuttis",
+        "lightblue",
+        "lvalue",
+        "MSVC",
         "multithreaded",
+        "mutex",
+        "mutexes",
+        "nextptr",
         "noexcept",
         "nullptr",
         "pallister",
+        "PCRE",
+        "Pikus",
+        "PIMPL",
+        "POSIX",
+        "RAII",
         "rvalue",
         "schmeichel",
+        "SFINAE",
+        "sirtaki",
         "spinlock",
+        "submatch",
+        "Sutter",
+        "templatize",
         "webp",
-        "Yitzchaki"
+        "Yitzchaki",
+        "ευχαριστώ"
     ],
     // flagWords - list of words to be always considered incorrect
     // This is useful for offensive words and common spelling errors.
@@ -29,7 +55,9 @@
         {
             "languageId": "markdown",
             "ignoreRegExpList": [
-                "/`[^`]+/"
+                "/`.*?`/", // inline code
+                "/(```+)\\s?[\\s\\S]+?\\1/g", // code block
+                "/'s\\b/" // trailing 's
             ]
         }
     ]

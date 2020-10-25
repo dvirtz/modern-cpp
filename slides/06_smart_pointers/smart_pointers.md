@@ -98,7 +98,7 @@ S s2 = std::move(s1);
 
 ## Don't heap allocate!
 
-![heap](06_smart_pointers/stopit.webp)
+![heap](06_smart_pointers/stop_it.webp)
 
 ---
 
@@ -971,7 +971,7 @@ Note: Since casting creates a copy of the pointer, it can be used with `shared_p
 
 ## attributes
 
-- Standardized GNU's `__attribute__` and MSVC’s `__declspec`
+- Standardized GNU's `__attribute__` and MSVC's `__declspec`
 - <!-- .element: class="fragment" --> can be used almost everywhere in the C++ program, and can be applied to almost everything
 - <!-- .element: class="fragment" --> each particular attribute is only valid where it is permitted by the implementation
 - <!-- .element: class="fragment" --> Besides the standard attributes, implementations may support arbitrary non-standard attributes
@@ -1033,7 +1033,7 @@ struct Work
 
 <!-- .element: data-id="code" style="font-size: 0.35em" -->
 
-Note: what if work is destoryed before the pool?
+Note: what if work is destroyed before the pool?
 
 <div class="footnote">
 

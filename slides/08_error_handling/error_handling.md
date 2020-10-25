@@ -177,7 +177,7 @@ enum class SeatsErrc
 
 ---
 
-## error severty
+## error severity
 
 1. A bug.
 2. An incorrect configuration.
@@ -186,7 +186,7 @@ enum class SeatsErrc
 
 ---
 
-<!-- .slide: data-background-image="08_error_handling/fixedit.gif" -->
+<!-- .slide: data-background-image="08_error_handling/fixed_it.gif" -->
 
 # error handling
 
@@ -1110,7 +1110,7 @@ handle_error(Flights0Errc::DatesInThePast);
 
  <!-- .element: class="r-stretch" --> 
 
-- Adding an additional subsystem will only require mappign to `SubsystemError` without affecting the rest of the system. 
+- Adding an additional subsystem will only require mapping to `SubsystemError` without affecting the rest of the system. 
 - Adding high level queries is easy.
 
 ---

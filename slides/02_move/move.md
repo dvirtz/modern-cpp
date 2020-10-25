@@ -649,7 +649,7 @@ struct MoveOnlyBuffer
 
 <table style="font-size:0.55em">
     <tr>
-        <td>Nothrow exception guarantee</td> <td>the function never throws exceptions</td>
+        <td>No-throw exception guarantee</td> <td>the function never throws exceptions</td>
     </tr>
     <tr>
         <td>Strong exception guarantee</td> <td>If the function throws an exception, the state of the program is rolled back to the state just before the function call</td>
@@ -956,7 +956,7 @@ auto trace(Func&& f, T&& t) {
 |5.|copy assignment|`T& operator=(const T&)`|
 |6.|move assignment|`T& operator=(T&&)`|
 
-<!-- .element: class="noheader noborder" style="font-size: 35px" -->
+<!-- .element: class="no-header no-border" style="font-size: 35px" -->
 
 **Special** - compiler generated, under certain circumstances
 

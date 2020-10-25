@@ -570,7 +570,7 @@ if (inserted) {
 
 ---
 
-## avoiding cecursion
+## avoiding recursion
 
 ```cpp
 ///hide
