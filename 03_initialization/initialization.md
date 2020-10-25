@@ -372,7 +372,7 @@ days.push_back("Saturday");
 ### `std::initializer_list<T>`
 
 - A lightweight proxy object that provides access to an array of objects of type const T.
-- Custructed automatically by the compiler when 
+- Constructed automatically by the compiler when 
   - calling a constructor/function accepting `std::initializer_list`
   - binding a `braced-init-list` to auto
 
@@ -462,7 +462,7 @@ std::map<int, std::string> m = {
 
 ---
 
-## `initializer_list` constructor is prefered
+## `initializer_list` constructor is preferred
 
 ```cpp
 ///hide

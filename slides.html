@@ -568,7 +568,7 @@ const auto& d   = val; // The type of d is const int&
 }
 ```
 
-<aside class="notes"><p>If needed, <code>const</code> and <code>&amp;</code> can be explicity added</p>
+<aside class="notes"><p>If needed, <code>const</code> and <code>&amp;</code> can be explicitly added</p>
 </aside></script></section><section data-markdown><script type="text/template">
 <!-- .slide: data-background-image="01_auto/whats_init.gif" data-background-size="contain" -->
 
@@ -975,7 +975,7 @@ void append_unique( Container& c, const Value& v ) {
 - <!-- .element: class="fragment" --> Polymorphism - hiding type
 
 <aside class="notes"><ul>
-<li>we write functions to hide implmenetation code</li>
+<li>we write functions to hide implementation code</li>
 <li>we write class to hide private members and methods</li>
 <li>we use static (templates) and dynamic (virtual methods) polymorphism to write generic code</li>
 <li>using <code>auto</code> is another link in this software development chain</li>
@@ -1617,7 +1617,7 @@ struct MoveOnlyBuffer
 
 <table style="font-size:0.55em">
     <tr>
-        <td>Nothrow exception guarantee</td> <td>the function never throws exceptions</td>
+        <td>No-throw exception guarantee</td> <td>the function never throws exceptions</td>
     </tr>
     <tr>
         <td>Strong exception guarantee</td> <td>If the function throws an exception, the state of the program is rolled back to the state just before the function call</td>
@@ -1910,7 +1910,7 @@ auto trace(Func&& f, T&& t) {
 |5.|copy assignment|`T& operator=(const T&)`|
 |6.|move assignment|`T& operator=(T&&)`|
 
-<!-- .element: class="noheader noborder" style="font-size: 35px" -->
+<!-- .element: class="no-header no-border" style="font-size: 35px" -->
 
 **Special** - compiler generated, under certain circumstances
 
@@ -2410,7 +2410,7 @@ days.push_back("Saturday");
 ### `std::initializer_list<T>`
 
 - A lightweight proxy object that provides access to an array of objects of type const T.
-- Custructed automatically by the compiler when 
+- Constructed automatically by the compiler when 
   - calling a constructor/function accepting `std::initializer_list`
   - binding a `braced-init-list` to auto
 
@@ -2496,7 +2496,7 @@ std::map<int, std::string> m = {
 ```
 
 </script></section><section data-markdown><script type="text/template">
-## `initializer_list` constructor is prefered
+## `initializer_list` constructor is preferred
 
 ```cpp
 ///hide
@@ -3214,7 +3214,7 @@ if (inserted) {
 <!-- .element: style="font-size:0.5em" -->
 
 </script></section><section data-markdown><script type="text/template">
-## avoiding cecursion
+## avoiding recursion
 
 ```cpp
 ///hide
@@ -3564,9 +3564,9 @@ int count_odds(const std::vector<int>& v)
 </script></section><section data-markdown><script type="text/template">
 ## So, what’s the problem?
 
-Creating functions or functors can be a lot of effort, especially if the function/functor is only used in one specific place. 
+Creating functions or function objects can be a lot of effort, especially if the function/function object is only used in one specific place. 
 
-These functions and functors also unnecessarily ‘clutter up’ the code.
+These functions and function objects also unnecessarily ‘clutter up’ the code.
 
 </script></section><section data-markdown><script type="text/template">
 <!-- .slide: id="lambda_expressions" data-background-image="05_lambda/sirtaki.gif" -->
@@ -3814,7 +3814,7 @@ struct Employee {
 <!-- .element: style="font-size: 0.45em" -->
 
 - <!-- .element: class="fragment" style="font-size: 0.7em" --> no base support
-- <!-- .element: class="fragment" style="font-size: 0.7em" --> return value may differ from what std::cout prints by default
+- <!-- .element: class="fragment" style="font-size: 0.7em" --> return value may differ from what `std::cout` prints by default
 - <!-- .element: class="fragment" style="font-size: 0.7em" --> relies on the current locale for formatting purposes
 
 </script></section><section data-markdown><script type="text/template">
@@ -4207,7 +4207,7 @@ How can we call this with a lambda?
 </script></section><section data-markdown><script type="text/template">
 <!-- .slide: data-auto-animate -->
 
-A captureless lambda can be converted to a function pointer
+A capture-less lambda can be converted to a function pointer
 
 ```cpp []
 ///hide
@@ -4435,7 +4435,7 @@ template< class R, typename... Args >
 class function<R(Args...)>;
 ```
 
-Can store any `Callable` which recieves `Args` and returns `R`.
+Can store any `Callable` which receives `Args` and returns `R`.
 
 </script></section><section data-markdown><script type="text/template">
 <!-- .slide: data-auto-animate -->
@@ -4732,7 +4732,7 @@ int callGet(const Derived& d, int i) {
 ```
 
 </script></section><section data-markdown><script type="text/template">
-## `std::function` Ceveats
+## `std::function` Caveats
 
 * might allocate
 * may require two calls through function pointers per invocation
@@ -4860,7 +4860,7 @@ S s2 = std::move(s1);
 </script></section><section data-markdown><script type="text/template">
 ## Don't heap allocate!
 
-![heap](06_smart_pointers/stopit.webp)
+![heap](06_smart_pointers/stop_it.webp)
 
 </script></section><section data-markdown><script type="text/template">
 ## When to heap-allocate
@@ -5684,7 +5684,7 @@ There's also
 
 ## attributes
 
-- Standardized GNU's `__attribute__` and MSVC’s `__declspec`
+- Standardized GNU's `__attribute__` and MSVC's `__declspec`
 - <!-- .element: class="fragment" --> can be used almost everywhere in the C++ program, and can be applied to almost everything
 - <!-- .element: class="fragment" --> each particular attribute is only valid where it is permitted by the implementation
 - <!-- .element: class="fragment" --> Besides the standard attributes, implementations may support arbitrary non-standard attributes
@@ -5743,7 +5743,7 @@ struct Work
 
 <!-- .element: data-id="code" style="font-size: 0.35em" -->
 
-<aside class="notes"><p>what if work is destoryed before the pool?</p>
+<aside class="notes"><p>what if work is destroyed before the pool?</p>
 <div class="footnote">
 
 <p>Source: <a href="https://www.nextptr.com/tutorial/ta1414193955/enable_shared_from_this-overview-examples-and-internals">nextptr</a></p>
@@ -6044,7 +6044,7 @@ std::chrono::seconds s{}; // zero initialization
 
 ## `std::chrono::seconds`
 
-no implicit convesion from int
+no implicit conversion from int
 
 ```cpp
 ///fails=conversion from 'int' to non-scalar type 'std::chrono::seconds'
@@ -6075,14 +6075,14 @@ Exact-width integer types
 
 <div class="split">
 
-- int8_t
-- int16_t
-- int32_t
-- int64_t
-- uint8_t
-- uint16_t
-- uint32_t
-- uint64_t
+- `int8_t`
+- `int16_t`
+- `int32_t`
+- `int64_t`
+- `uint8_t`
+- `uint16_t`
+- `uint32_t`
+- `uint64_t`
 
 </div>
 
@@ -6097,14 +6097,14 @@ Minimum-width integer types
 
 <div class="split">
 
-- int_least8_t
-- int_least16_t
-- int_least32_t
-- int_least64_t
-- uint_least8_t
-- uint_least16_t
-- uint_least32_t
-- uint_least64_t
+- `int_least8_t`
+- `int_least16_t`
+- `int_least32_t`
+- `int_least64_t`
+- `uint_least8_t`
+- `uint_least16_t`
+- `uint_least32_t`
+- `uint_least64_t`
 
 </div>
 
@@ -6118,14 +6118,14 @@ Fastest minimum-width integer types
 
 <div class="split">
 
-- int_fast8_t
-- int_fast16_t
-- int_fast32_t
-- int_fast64_t
-- uint_fast8_t
-- uint_fast16_t
-- uint_fast32_t
-- uint_fast64_t
+- `int_fast8_t`
+- `int_fast16_t`
+- `int_fast32_t`
+- `int_fast64_t`
+- `uint_fast8_t`
+- `uint_fast16_t`
+- `uint_fast32_t`
+- `uint_fast64_t`
 
 </div>
 
@@ -6139,8 +6139,8 @@ Integer types capable of holding object pointers
 
 <div class="split">
 
-- intptr_t
-- uintptr_t
+- `intptr_t`
+- `uintptr_t`
 
 </div>
 
@@ -6156,8 +6156,8 @@ Greatest-width integer types
 
 <div class="split">
 
-- intmax_t
-- uintmax_t
+- `intmax_t`
+- `uintmax_t`
 
 </div>
 
@@ -6168,7 +6168,7 @@ any (un)signed integer type.</p>
 
 ## `std::chrono::seconds`
 
-no implicit convesion to int
+no implicit conversion to int
 
 ```cpp
 ///fails=cannot convert 'std::chrono::seconds'
@@ -6467,7 +6467,7 @@ assert(std::sin(90_deg) == 1);
 </script></section><section data-markdown><script type="text/template">
 <!-- .slide: class="aside" data-auto-animate -->
 
-## allowed paramaters
+## allowed parameters
 
 user-defined integer literals
 
@@ -6486,7 +6486,7 @@ T x = 42_suffix;
 </script></section><section data-markdown><script type="text/template">
 <!-- .slide: class="aside" data-auto-animate -->
 
-## allowed paramaters
+## allowed parameters
 
 user-defined floating-point literals
 
@@ -6505,7 +6505,7 @@ T x = 42.0_suffix;
 </script></section><section data-markdown><script type="text/template">
 <!-- .slide: class="aside" data-auto-animate -->
 
-## allowed paramaters
+## allowed parameters
 
 raw literal operators
 
@@ -6528,7 +6528,7 @@ used as fallbacks for integer and floating-point user-defined literals
 </script></section><section data-markdown><script type="text/template">
 <!-- .slide: class="aside" data-auto-animate -->
 
-## allowed paramaters
+## allowed parameters
 
 user-defined character literals
 
@@ -6553,7 +6553,7 @@ T x = u'4'_suffix;
 </script></section><section data-markdown><script type="text/template">
 <!-- .slide: id="UDL" class="aside" data-auto-animate -->
 
-## allowed paramaters
+## allowed parameters
 
 user-defined string literals
 
@@ -6770,7 +6770,7 @@ std::ratio_divide<
 |`centi`|`std::ratio<1, 100>`|`zetta`*|`std::ratio<1000000000000000000000, 1>`|
 |`deci`|`std::ratio<1, 10>`|`yotta`*|`std::ratio<1000000000000000000000000, 1>`|
 
-<!-- .element: class="noborder" style="font-size: 0.38em" -->
+<!-- .element: class="no-border" style="font-size: 0.38em" -->
 
 `*` if `std::intmax_t` can represent the denominator
 
@@ -6802,11 +6802,11 @@ template<
 |`std::chrono::minutes`|`min`|`duration<int_least29_t, std::ratio<60>>`|
 |`std::chrono::hours`|`h`|`duration<int_least23_t, std::ratio<3600>>`|
 
-<!-- .element: class="noborder" style="font-size: 0.5em" -->
+<!-- .element: class="no-border" style="font-size: 0.5em" -->
 
 `*` some types can use smaller integers
 
-<!-- .element: class="noborder" style="font-size: 0.45em" -->
+<!-- .element: class="no-border" style="font-size: 0.45em" -->
 
 </script></section><section data-markdown><script type="text/template">
 ## conversions
@@ -6891,7 +6891,7 @@ assert(500ms + 2500000us == 3s);
 </script></section><section data-markdown><script type="text/template">
 ## custom representations
 
-users can use any arithmetics type as the underlying represenations
+users can use any arithmetics type as the underlying representations
 
 ```cpp
 ///hide
@@ -7031,7 +7031,7 @@ time_points associated with different clocks
 </script></section><section data-markdown><script type="text/template">
 ## time point arithmetic
 
-substracting two time points yields a duration
+subtracting two time points yields a duration
 
 ```cpp
 ///hide
@@ -7227,7 +7227,7 @@ enum class SeatsErrc
 3. No airline we are aware of is able to offer a requested trip.
 
 </script></section><section data-markdown><script type="text/template">
-## error severty
+## error severity
 
 1. A bug.
 2. An incorrect configuration.
@@ -7235,7 +7235,7 @@ enum class SeatsErrc
 4. Normal (like “no solutions found”) — user may be disappointed, but developers or the system did nothing wrong.
 
 </script></section><section data-markdown><script type="text/template">
-<!-- .slide: data-background-image="08_error_handling/fixedit.gif" -->
+<!-- .slide: data-background-image="08_error_handling/fixed_it.gif" -->
 
 # error handling
 
@@ -8140,7 +8140,7 @@ handle_error(Flights0Errc::DatesInThePast);
 
  <!-- .element: class="r-stretch" --> 
 
-- Adding an additional subsystem will only require mappign to `SubsystemError` without affecting the rest of the system. 
+- Adding an additional subsystem will only require mapping to `SubsystemError` without affecting the rest of the system. 
 - Adding high level queries is easy.
 
 </script></section><section data-markdown><script type="text/template">
@@ -9254,7 +9254,7 @@ void foo() {
 
 <!-- .element: data-id="code" -->
 
-<aside class="notes"><p>there&#39;s a possiblity for a race condition if the compiler reorders the code on line 11 to first set the pointer to be non-empty before completely constructing the resource.</p>
+<aside class="notes"><p>there&#39;s a possibility for a race condition if the compiler reorders the code on line 11 to first set the pointer to be non-empty before completely constructing the resource.</p>
 </aside></script></section><section data-markdown><script type="text/template">
 <!-- .slide: data-auto-animate -->
 
@@ -9625,9 +9625,9 @@ void dataProcessingThread() {
 
 <!-- .element: class="split" -->
 
-<aside class="notes"><p>the cond. var. calls checks the condition before going to sleep.
-the condition variable unlocks the mutex when waiting and relocks when it&#39;s awaiken to check the condition.
-There&#39;s also <code>notify_all</code> for awaikening <strong>all</strong> threads waiting on the same cond.</p>
+<aside class="notes"><p>the condition var. calls checks the condition before going to sleep.
+the condition variable unlocks the mutex when waiting and re-locks when it&#39;s awaken to check the condition.
+There&#39;s also <code>notify_all</code> for awakening <strong>all</strong> threads waiting on the same condition.</p>
 </aside></script></section><section data-markdown><script type="text/template">
 ## platform specific
 
@@ -9772,7 +9772,7 @@ void runInParallel(std::function<void()> f1,
 }
 ```
 
-<aside class="notes"><p>it&#39;s sequential becuase the future returned by <code>async</code> is blocked on destruction</p>
+<aside class="notes"><p>it&#39;s sequential because the future returned by <code>async</code> is blocked on destruction</p>
 </aside></script></section><section data-markdown><script type="text/template">
 ## `std::packaged_task`
 
@@ -9966,7 +9966,7 @@ std::cout << "Thread 1 received the signal "
 
 <!-- .element: style="font-size: 0.4em" -->
 
-<aside class="notes"><p><code>std::future::get</code> can only be called by a single thread. For multiple threads refering the same data, use <code>std::shared_ptr</code>.
+<aside class="notes"><p><code>std::future::get</code> can only be called by a single thread. For multiple threads referring the same data, use <code>std::shared_ptr</code>.
 Access to the same shared state from multiple threads is safe if each thread does it through its own copy of a shared_future object.</p>
 </aside></script></section><section data-markdown><script type="text/template">
 ## alternatively
@@ -10074,7 +10074,7 @@ int main() {
 
 <!-- .element: class="chapter bottom" -->
 
-<aside class="notes"><p>It&#39;s hard to imaging but there are someting errors in a program. How do we deal with them in a multithreaded code?</p>
+<aside class="notes"><p>It&#39;s hard to imaging but there are something errors in a program. How do we deal with them in a multithreaded code?</p>
 </aside></script></section><section data-markdown><script type="text/template">
 ## `std::system_error`
 
@@ -10389,7 +10389,7 @@ int main() {
 
 ## pointer types
 
-adds addition & substruction
+adds addition & subtraction
 
 ```cpp []
 ///hide
@@ -10581,7 +10581,7 @@ bool compare_exchange_strong(T& old_v, T new_v) {
 
 <aside class="notes"><p>double-checked locking pattern. Lock is not a real mutex but some form of exclusive access implemented in hardware</p>
 </aside></script></section><section data-markdown><script type="text/template">
-## Psuedo code - weak
+## Pseudo code - weak
 
 <!-- .slide: data-auto-animate -->
 
@@ -11123,7 +11123,7 @@ const char concert_17_raw[] =
 <!-- .element: data-id="code" -->
 
 <aside class="notes"><p>this is a multiline string, enabled by automatic concatenation of adjacent string literals.
-quotes need to be escaped and newlines to be explicitley written.</p>
+quotes need to be escaped and newlines to be explicitly written.</p>
 </aside></script></section><section data-markdown><script type="text/template">
 <!-- .slide: data-auto-animate class="aside" -->
 
@@ -11147,7 +11147,7 @@ The type is still <code>const char[]</code>.</p>
 </aside></script></section><section data-markdown><script type="text/template">
 <!-- .slide: class="aside" -->
 
-## custom delimeter
+## custom delimiter
 
 ```cpp
 ///hide
@@ -11160,8 +11160,8 @@ std::cout << R"__(This contains quoted parens "()")__";
 }
 ```
 
-<aside class="notes"><p>if we need quoted parens inside the string we can have add a custom delimiter between the quotes and paren. 
-custom delimeter is at most 16 characters except parentheses, backslash and spaces.</p>
+<aside class="notes"><p>if we need quoted parentheses inside the string we can have add a custom delimiter between the quotes and parentheses. 
+custom delimiter is at most 16 characters except parentheses, backslash and spaces.</p>
 </aside></script></section><section data-markdown><script type="text/template">
 ## hell cools down
 
@@ -11209,43 +11209,43 @@ assert(not found2);
 
 <!-- .element: class="chapter" -->
 
-<aside class="notes"><p>There are several slighlty different regular expression syntaxes: PCRE (Perl Compatible Regular Expressions), ECMAScript and several from POSIX. The syntax used, by default, by the C++ standard is a modified ECMAScript standard.
-The reason is that it&#39;s standardized (unline PCRE) and enables more features than POSIX.</p>
+<aside class="notes"><p>There are several slightly different regular expression syntaxes: PCRE (Perl Compatible Regular Expressions), ECMAScript and several from POSIX. The syntax used, by default, by the C++ standard is a modified ECMAScript standard.
+The reason is that it&#39;s standardized (unlike PCRE) and enables more features than POSIX.</p>
 </aside></script></section><section data-markdown><script type="text/template">
-## single charachter
+## single character
 
 |expression|meaning|
 |----------|-------|
 |`.`|any character except newline|
 |`[...]`|one of `...`|
 |`[^...]`|none of `...`|
-|`\n`, `\t`, `\f`, `\r`, `\v`|newline, tab, form feed, carriege return, vertical tab|
+|`\n`, `\t`, `\f`, `\r`, `\v`|newline, tab, form feed, carriage return, vertical tab|
 |`\xhh`, `\uhhh`|hexadecimal or Unicode|
 |`[[:charclass:]]`|one of the characters of class `charclass`|
 |`\d`, `\s`, `\w`|character class shortcuts|
 |`\D`, `\S`, `\W`|character class negators|
 
-<!-- .element: class="noheader noborder" style="font-size: 0.5em" -->
+<!-- .element: class="no-header no-border" style="font-size: 0.5em" -->
 
 </script></section><section data-markdown><script type="text/template">
 ## character classes
 
 |class|shortcut|meaning|
 |-----|--------|-------|
-|alpha| |letter|
-|lower| |lowercase letter|
-|upper| |uppercase letter|
-|digit|\d|digit|
-|xdigit| |hexadecimal digit|
-|alnum| |letter or digit|
-|blank| |space or tab|
-|space|\s|space|
-|punct| |punctuation|
-|graph| |printable character|
-|cntrl| |control character|
-| |\w|letter, digit or underscore|
+|`alpha`| |letter|
+|`lower`| |lowercase letter|
+|`upper`| |uppercase letter|
+|`digit`|`\d`|digit|
+|`xdigit`| |hexadecimal digit|
+|`alnum`| |letter or digit|
+|`blank`| |space or tab|
+|`space`|`\s`|space|
+|`punct`| |punctuation|
+|`graph`| |printable character|
+|`cntrl`| |control character|
+| |`\w`|letter, digit or underscore|
 
-<!-- .element: class="noheader noborder" style="font-size: 0.5em" -->
+<!-- .element: class="no-header no-border" style="font-size: 0.5em" -->
 
 </script></section><section data-markdown><script type="text/template">
 ## quantifiers
@@ -11259,7 +11259,7 @@ The reason is that it&#39;s standardized (unline PCRE) and enables more features
 |`{decimal,}`|decimal|∞|
 |`{decimal0,decimal1}`|decimal0|decimal1|
 
-<!-- .element: class="noborder" style="font-size: 0.5em" -->
+<!-- .element: class="no-border" style="font-size: 0.5em" -->
 
 </script></section><section data-markdown><script type="text/template">
 ## detect C++ identifiers
@@ -11282,7 +11282,7 @@ bool isCppIdentifier(const std::string& input) {
 |----------|-------|
 |`X\|Y`|either `X` or `Y`|
 
-<!-- .element: class="noheader noborder" style="font-size: 0.5em" -->
+<!-- .element: class="no-header no-border" style="font-size: 0.5em" -->
 
 </script></section><section data-markdown><script type="text/template">
 ## grouping
@@ -11293,7 +11293,7 @@ bool isCppIdentifier(const std::string& input) {
 |`(?...)`|a non-capturing group|
 |`\1`, `\2`, ...|back reference to group|
 
-<!-- .element: class="noheader noborder" style="font-size: 0.5em" -->
+<!-- .element: class="no-header no-border" style="font-size: 0.5em" -->
 
 </script></section><section data-markdown><script type="text/template">
 ## assertions
@@ -11307,7 +11307,7 @@ bool isCppIdentifier(const std::string& input) {
 |`(?=...)`|positive lookahead|
 |`(?!...)`|negative lookahead|
 
-<!-- .element: class="noheader noborder" style="font-size: 0.5em" -->
+<!-- .element: class="no-header no-border" style="font-size: 0.5em" -->
 
 </script></section><section data-markdown><script type="text/template">
 ## look ahead
@@ -11355,7 +11355,7 @@ assert(not found2);
 ```
 
 <aside class="notes"><p>the standard supports the POSIX grammars as well.
-In the <code>grep</code> syntax parens have no special meaning by defualt
+In the <code>grep</code> syntax parentheses have no special meaning by default
 and need to be escaped to form a capture group.</p>
 </aside></script></section><section data-markdown><script type="text/template">
 ## available syntaxes
@@ -11369,7 +11369,7 @@ and need to be escaped to form a capture group.</p>
 |`std::regex_constants::grep`|basic POSIX + '\n' as an alternation separator|
 |`std::regex_constants::egrep`|extended POSIX + '\n' as an alternation separator|
 
-<!-- .element: class="noheader noborder" style="font-size: 0.7em" -->
+<!-- .element: class="no-header no-border" style="font-size: 0.7em" -->
 
 </script></section><section data-markdown><script type="text/template">
 ## basic vs. grep
@@ -11468,7 +11468,7 @@ templated on searched text iterator
 |`std::smatch`|`std::match_results<std::string::const_iterator>`|
 |`std::wsmatch`|`std::match_results<std::wstring::const_iterator>`|
 
-<!-- .element: class="noheader noborder" style="font-size: 0.5em" -->
+<!-- .element: class="no-header no-border" style="font-size: 0.5em" -->
 
 </script></section><section data-markdown><script type="text/template">
 ## other members
@@ -11568,7 +11568,7 @@ submatch(std::match_results<BidirIt> m, size_t n) {
 |`std::regex_constants::collate`|Character ranges of the form `[a-b]` will be locale sensitive|
 |`std::regex_constants::multiline` (C++17)|`^` matches beginning of a line and `$` matches the end of a line|
 
-<!-- .element: class="noheader noborder" style="font-size: 0.5em" -->
+<!-- .element: class="no-header no-border" style="font-size: 0.5em" -->
 
 </script></section><section data-markdown><script type="text/template">
 ## matching flags
@@ -11584,7 +11584,7 @@ submatch(std::match_results<BidirIt> m, size_t n) {
 |`std::regex_constants::match_continuous`|match should begin at first character|
 |`std::regex_constants::match_prev_avail`|can refer to position before the first character|
 
-<!-- .element: class="noheader noborder" style="font-size: 0.5em" -->
+<!-- .element: class="no-header no-border" style="font-size: 0.5em" -->
 
 </script></section><section data-markdown><script type="text/template">
 ## `match_prev_avail`
@@ -11606,9 +11606,9 @@ assert(std::regex_match("ba" + 1, std::regex{"\\Ba"},
 <!-- .element: style="font-size: 0.5em" -->
 
 </script></section><section data-markdown><script type="text/template">
-## lazy quntifiers
+## lazy quantifiers
 
-adding `?` to a quatifier makes it match as little as possible
+adding `?` to a quantifier makes it match as little as possible
 
 ```cpp [3,6]
 ///hide
@@ -11787,7 +11787,7 @@ std::cout << std::regex_replace(data, r, R"(<\1 value="\2"/>)",
 |The `n`th matched capture group|$n|\n|
 |The prefix of the matched pattern|$‘| |
 |The suffix of the matched pattern|$’| |
-|The $ charachter|$$|$|
+|The $ character|$$|$|
 
 </script></section><section data-markdown><script type="text/template">
 ## to output iterator

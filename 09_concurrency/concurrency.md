@@ -986,7 +986,7 @@ void foo() {
 
 <!-- .element: data-id="code" -->
 
-Note: there's a possiblity for a race condition if the compiler reorders the code on line 11 to first set the pointer to be non-empty before completely constructing the resource.
+Note: there's a possibility for a race condition if the compiler reorders the code on line 11 to first set the pointer to be non-empty before completely constructing the resource.
 
 ---
 
@@ -1374,9 +1374,9 @@ void dataProcessingThread() {
 
 <!-- .element: class="split" -->
 
-Note: the cond. var. calls checks the condition before going to sleep.
-the condition variable unlocks the mutex when waiting and relocks when it's awaiken to check the condition.
-There's also `notify_all` for awaikening **all** threads waiting on the same cond.
+Note: the condition var. calls checks the condition before going to sleep.
+the condition variable unlocks the mutex when waiting and re-locks when it's awaken to check the condition.
+There's also `notify_all` for awakening **all** threads waiting on the same condition.
 
 ---
 
@@ -1532,7 +1532,7 @@ void runInParallel(std::function<void()> f1,
 }
 ```
 
-Note: it's sequential becuase the future returned by `async` is blocked on destruction
+Note: it's sequential because the future returned by `async` is blocked on destruction
 
 ---
 
@@ -1731,7 +1731,7 @@ std::cout << "Thread 1 received the signal "
 
 <!-- .element: style="font-size: 0.4em" -->
 
-Note: `std::future::get` can only be called by a single thread. For multiple threads refering the same data, use `std::shared_ptr`.
+Note: `std::future::get` can only be called by a single thread. For multiple threads referring the same data, use `std::shared_ptr`.
 Access to the same shared state from multiple threads is safe if each thread does it through its own copy of a shared_future object.
 
 ---
@@ -1845,7 +1845,7 @@ int main() {
 
 <!-- .element: class="chapter bottom" -->
 
-Note: It's hard to imaging but there are someting errors in a program. How do we deal with them in a multithreaded code?
+Note: It's hard to imaging but there are something errors in a program. How do we deal with them in a multithreaded code?
 
 ---
 
@@ -2176,7 +2176,7 @@ int main() {
 
 ## pointer types
 
-adds addition & substruction
+adds addition & subtraction
 
 ```cpp []
 ///hide
@@ -2378,7 +2378,7 @@ Note: double-checked locking pattern. Lock is not a real mutex but some form of 
 
 ---
 
-## Psuedo code - weak
+## Pseudo code - weak
 
 <!-- .slide: data-auto-animate -->
 

@@ -119,7 +119,7 @@ const char concert_17_raw[] =
 <!-- .element: data-id="code" -->
 
 Note: this is a multiline string, enabled by automatic concatenation of adjacent string literals.
-quotes need to be escaped and newlines to be explicitley written.
+quotes need to be escaped and newlines to be explicitly written.
 
 ---
 
@@ -147,7 +147,7 @@ The type is still `const char[]`.
 
 <!-- .slide: class="aside" -->
 
-## custom delimeter
+## custom delimiter
 
 ```cpp
 ///hide
@@ -160,8 +160,8 @@ std::cout << R"__(This contains quoted parens "()")__";
 }
 ```
 
-Note: if we need quoted parens inside the string we can have add a custom delimiter between the quotes and paren. 
-custom delimeter is at most 16 characters except parentheses, backslash and spaces.
+Note: if we need quoted parentheses inside the string we can have add a custom delimiter between the quotes and parentheses. 
+custom delimiter is at most 16 characters except parentheses, backslash and spaces.
 
 ---
 
@@ -215,25 +215,25 @@ Note: similarly on the xml example.
 
 <!-- .element: class="chapter" -->
 
-Note: There are several slighlty different regular expression syntaxes: PCRE (Perl Compatible Regular Expressions), ECMAScript and several from POSIX. The syntax used, by default, by the C++ standard is a modified ECMAScript standard.
-The reason is that it's standardized (unline PCRE) and enables more features than POSIX.
+Note: There are several slightly different regular expression syntaxes: PCRE (Perl Compatible Regular Expressions), ECMAScript and several from POSIX. The syntax used, by default, by the C++ standard is a modified ECMAScript standard.
+The reason is that it's standardized (unlike PCRE) and enables more features than POSIX.
 
 ---
 
-## single charachter
+## single character
 
 |expression|meaning|
 |----------|-------|
 |`.`|any character except newline|
 |`[...]`|one of `...`|
 |`[^...]`|none of `...`|
-|`\n`, `\t`, `\f`, `\r`, `\v`|newline, tab, form feed, carriege return, vertical tab|
+|`\n`, `\t`, `\f`, `\r`, `\v`|newline, tab, form feed, carriage return, vertical tab|
 |`\xhh`, `\uhhh`|hexadecimal or Unicode|
 |`[[:charclass:]]`|one of the characters of class `charclass`|
 |`\d`, `\s`, `\w`|character class shortcuts|
 |`\D`, `\S`, `\W`|character class negators|
 
-<!-- .element: class="noheader noborder" style="font-size: 0.5em" -->
+<!-- .element: class="no-header no-border" style="font-size: 0.5em" -->
 
 ---
 
@@ -241,20 +241,20 @@ The reason is that it's standardized (unline PCRE) and enables more features tha
 
 |class|shortcut|meaning|
 |-----|--------|-------|
-|alpha| |letter|
-|lower| |lowercase letter|
-|upper| |uppercase letter|
-|digit|\d|digit|
-|xdigit| |hexadecimal digit|
-|alnum| |letter or digit|
-|blank| |space or tab|
-|space|\s|space|
-|punct| |punctuation|
-|graph| |printable character|
-|cntrl| |control character|
-| |\w|letter, digit or underscore|
+|`alpha`| |letter|
+|`lower`| |lowercase letter|
+|`upper`| |uppercase letter|
+|`digit`|`\d`|digit|
+|`xdigit`| |hexadecimal digit|
+|`alnum`| |letter or digit|
+|`blank`| |space or tab|
+|`space`|`\s`|space|
+|`punct`| |punctuation|
+|`graph`| |printable character|
+|`cntrl`| |control character|
+| |`\w`|letter, digit or underscore|
 
-<!-- .element: class="noheader noborder" style="font-size: 0.5em" -->
+<!-- .element: class="no-header no-border" style="font-size: 0.5em" -->
 
 ---
 
@@ -269,7 +269,7 @@ The reason is that it's standardized (unline PCRE) and enables more features tha
 |`{decimal,}`|decimal|∞|
 |`{decimal0,decimal1}`|decimal0|decimal1|
 
-<!-- .element: class="noborder" style="font-size: 0.5em" -->
+<!-- .element: class="no-border" style="font-size: 0.5em" -->
 
 ---
 
@@ -294,7 +294,7 @@ bool isCppIdentifier(const std::string& input) {
 |----------|-------|
 |`X\|Y`|either `X` or `Y`|
 
-<!-- .element: class="noheader noborder" style="font-size: 0.5em" -->
+<!-- .element: class="no-header no-border" style="font-size: 0.5em" -->
 
 ---
 
@@ -306,7 +306,7 @@ bool isCppIdentifier(const std::string& input) {
 |`(?...)`|a non-capturing group|
 |`\1`, `\2`, ...|back reference to group|
 
-<!-- .element: class="noheader noborder" style="font-size: 0.5em" -->
+<!-- .element: class="no-header no-border" style="font-size: 0.5em" -->
 
 ---
 
@@ -321,7 +321,7 @@ bool isCppIdentifier(const std::string& input) {
 |`(?=...)`|positive lookahead|
 |`(?!...)`|negative lookahead|
 
-<!-- .element: class="noheader noborder" style="font-size: 0.5em" -->
+<!-- .element: class="no-header no-border" style="font-size: 0.5em" -->
 
 ---
 
@@ -372,7 +372,7 @@ assert(not found2);
 ```
 
 Note: the standard supports the POSIX grammars as well.
-In the `grep` syntax parens have no special meaning by defualt
+In the `grep` syntax parentheses have no special meaning by default
 and need to be escaped to form a capture group.
 
 ---
@@ -388,7 +388,7 @@ and need to be escaped to form a capture group.
 |`std::regex_constants::grep`|basic POSIX + '\n' as an alternation separator|
 |`std::regex_constants::egrep`|extended POSIX + '\n' as an alternation separator|
 
-<!-- .element: class="noheader noborder" style="font-size: 0.7em" -->
+<!-- .element: class="no-header no-border" style="font-size: 0.7em" -->
 
 ---
 
@@ -494,7 +494,7 @@ templated on searched text iterator
 |`std::smatch`|`std::match_results<std::string::const_iterator>`|
 |`std::wsmatch`|`std::match_results<std::wstring::const_iterator>`|
 
-<!-- .element: class="noheader noborder" style="font-size: 0.5em" -->
+<!-- .element: class="no-header no-border" style="font-size: 0.5em" -->
 
 ---
 
@@ -599,7 +599,7 @@ submatch(std::match_results<BidirIt> m, size_t n) {
 |`std::regex_constants::collate`|Character ranges of the form `[a-b]` will be locale sensitive|
 |`std::regex_constants::multiline` (C++17)|`^` matches beginning of a line and `$` matches the end of a line|
 
-<!-- .element: class="noheader noborder" style="font-size: 0.5em" -->
+<!-- .element: class="no-header no-border" style="font-size: 0.5em" -->
 
 ---
 
@@ -616,7 +616,7 @@ submatch(std::match_results<BidirIt> m, size_t n) {
 |`std::regex_constants::match_continuous`|match should begin at first character|
 |`std::regex_constants::match_prev_avail`|can refer to position before the first character|
 
-<!-- .element: class="noheader noborder" style="font-size: 0.5em" -->
+<!-- .element: class="no-header no-border" style="font-size: 0.5em" -->
 
 ---
 
@@ -640,9 +640,9 @@ assert(std::regex_match("ba" + 1, std::regex{"\\Ba"},
 
 ---
 
-## lazy quntifiers
+## lazy quantifiers
 
-adding `?` to a quatifier makes it match as little as possible
+adding `?` to a quantifier makes it match as little as possible
 
 ```cpp [3,6]
 ///hide
@@ -827,7 +827,7 @@ std::cout << std::regex_replace(data, r, R"(<\1 value="\2"/>)",
 |The `n`th matched capture group|$n|\n|
 |The prefix of the matched pattern|$‘| |
 |The suffix of the matched pattern|$’| |
-|The $ charachter|$$|$|
+|The $ character|$$|$|
 
 ---
 

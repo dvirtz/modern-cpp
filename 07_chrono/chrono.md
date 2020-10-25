@@ -66,7 +66,7 @@ std::chrono::seconds s{}; // zero initialization
 
 ## `std::chrono::seconds`
 
-no implicit convesion from int
+no implicit conversion from int
 
 ```cpp
 ///fails=conversion from 'int' to non-scalar type 'std::chrono::seconds'
@@ -98,14 +98,14 @@ Exact-width integer types
 
 <div class="split">
 
-- int8_t
-- int16_t
-- int32_t
-- int64_t
-- uint8_t
-- uint16_t
-- uint32_t
-- uint64_t
+- `int8_t`
+- `int16_t`
+- `int32_t`
+- `int64_t`
+- `uint8_t`
+- `uint16_t`
+- `uint32_t`
+- `uint64_t`
 
 </div>
 
@@ -122,14 +122,14 @@ Minimum-width integer types
 
 <div class="split">
 
-- int_least8_t
-- int_least16_t
-- int_least32_t
-- int_least64_t
-- uint_least8_t
-- uint_least16_t
-- uint_least32_t
-- uint_least64_t
+- `int_least8_t`
+- `int_least16_t`
+- `int_least32_t`
+- `int_least64_t`
+- `uint_least8_t`
+- `uint_least16_t`
+- `uint_least32_t`
+- `uint_least64_t`
 
 </div>
 
@@ -145,14 +145,14 @@ Fastest minimum-width integer types
 
 <div class="split">
 
-- int_fast8_t
-- int_fast16_t
-- int_fast32_t
-- int_fast64_t
-- uint_fast8_t
-- uint_fast16_t
-- uint_fast32_t
-- uint_fast64_t
+- `int_fast8_t`
+- `int_fast16_t`
+- `int_fast32_t`
+- `int_fast64_t`
+- `uint_fast8_t`
+- `uint_fast16_t`
+- `uint_fast32_t`
+- `uint_fast64_t`
 
 </div>
 
@@ -168,8 +168,8 @@ Integer types capable of holding object pointers
 
 <div class="split">
 
-- intptr_t
-- uintptr_t
+- `intptr_t`
+- `uintptr_t`
 
 </div>
 
@@ -187,8 +187,8 @@ Greatest-width integer types
 
 <div class="split">
 
-- intmax_t
-- uintmax_t
+- `intmax_t`
+- `uintmax_t`
 
 </div>
 
@@ -201,7 +201,7 @@ any (un)signed integer type.
 
 ## `std::chrono::seconds`
 
-no implicit convesion to int
+no implicit conversion to int
 
 ```cpp
 ///fails=cannot convert 'std::chrono::seconds'
@@ -513,7 +513,7 @@ assert(std::sin(90_deg) == 1);
 
 <!-- .slide: class="aside" data-auto-animate -->
 
-## allowed paramaters
+## allowed parameters
 
 user-defined integer literals
 
@@ -533,7 +533,7 @@ T x = 42_suffix;
 
 <!-- .slide: class="aside" data-auto-animate -->
 
-## allowed paramaters
+## allowed parameters
 
 user-defined floating-point literals
 
@@ -553,7 +553,7 @@ T x = 42.0_suffix;
 
 <!-- .slide: class="aside" data-auto-animate -->
 
-## allowed paramaters
+## allowed parameters
 
 raw literal operators
 
@@ -577,7 +577,7 @@ used as fallbacks for integer and floating-point user-defined literals
 
 <!-- .slide: class="aside" data-auto-animate -->
 
-## allowed paramaters
+## allowed parameters
 
 user-defined character literals
 
@@ -603,7 +603,7 @@ T x = u'4'_suffix;
 
 <!-- .slide: id="UDL" class="aside" data-auto-animate -->
 
-## allowed paramaters
+## allowed parameters
 
 user-defined string literals
 
@@ -828,7 +828,7 @@ std::ratio_divide<
 |`centi`|`std::ratio<1, 100>`|`zetta`*|`std::ratio<1000000000000000000000, 1>`|
 |`deci`|`std::ratio<1, 10>`|`yotta`*|`std::ratio<1000000000000000000000000, 1>`|
 
-<!-- .element: class="noborder" style="font-size: 0.38em" -->
+<!-- .element: class="no-border" style="font-size: 0.38em" -->
 
 `*` if `std::intmax_t` can represent the denominator
 
@@ -862,11 +862,11 @@ template<
 |`std::chrono::minutes`|`min`|`duration<int_least29_t, std::ratio<60>>`|
 |`std::chrono::hours`|`h`|`duration<int_least23_t, std::ratio<3600>>`|
 
-<!-- .element: class="noborder" style="font-size: 0.5em" -->
+<!-- .element: class="no-border" style="font-size: 0.5em" -->
 
 `*` some types can use smaller integers
 
-<!-- .element: class="noborder" style="font-size: 0.45em" -->
+<!-- .element: class="no-border" style="font-size: 0.45em" -->
 
 ---
 
@@ -957,7 +957,7 @@ assert(500ms + 2500000us == 3s);
 
 ## custom representations
 
-users can use any arithmetics type as the underlying represenations
+users can use any arithmetics type as the underlying representations
 
 ```cpp
 ///hide
@@ -1106,7 +1106,7 @@ time_points associated with different clocks
 
 ## time point arithmetic
 
-substracting two time points yields a duration
+subtracting two time points yields a duration
 
 ```cpp
 ///hide

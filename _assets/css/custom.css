@@ -36,11 +36,11 @@ input[type='checkbox']:checked:after {
 	color    : #99a1a7;
 }
 
-table.noborder td {
+table.no-border td {
 	border-bottom: none;
 }
 
-table.noheader thead {
+table.no-header thead {
 	display: none;
 }
 
