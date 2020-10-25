@@ -248,7 +248,7 @@ const auto& d   = val; // The type of d is const int&
 }
 ```
 
-Note: If needed, `const` and `&` can be explicity added
+Note: If needed, `const` and `&` can be explicitly added
 
 ---
 
@@ -686,7 +686,7 @@ the lack of exact types makes it much more powerful and doesn’t significantly 
 - <!-- .element: class="fragment" --> Polymorphism - hiding type
 
 Note: 
-- we write functions to hide implmenetation code
+- we write functions to hide implementation code
 - we write class to hide private members and methods
 - we use static (templates) and dynamic (virtual methods) polymorphism to write generic code
 - using `auto` is another link in this software development chain

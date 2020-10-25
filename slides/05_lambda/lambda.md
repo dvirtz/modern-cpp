@@ -148,9 +148,9 @@ int count_odds(const std::vector<int>& v)
 
 ## So, what’s the problem?
 
-Creating functions or functors can be a lot of effort, especially if the function/functor is only used in one specific place. 
+Creating functions or function objects can be a lot of effort, especially if the function/function object is only used in one specific place. 
 
-These functions and functors also unnecessarily ‘clutter up’ the code.
+These functions and function objects also unnecessarily ‘clutter up’ the code.
 
 ---
 
@@ -410,7 +410,7 @@ struct Employee {
 <!-- .element: style="font-size: 0.45em" -->
 
 - <!-- .element: class="fragment" style="font-size: 0.7em" --> no base support
-- <!-- .element: class="fragment" style="font-size: 0.7em" --> return value may differ from what std::cout prints by default
+- <!-- .element: class="fragment" style="font-size: 0.7em" --> return value may differ from what `std::cout` prints by default
 - <!-- .element: class="fragment" style="font-size: 0.7em" --> relies on the current locale for formatting purposes
 
 ---
@@ -827,7 +827,7 @@ How can we call this with a lambda?
 
 <!-- .slide: data-auto-animate -->
 
-A captureless lambda can be converted to a function pointer
+A capture-less lambda can be converted to a function pointer
 
 ```cpp []
 ///hide
@@ -1065,7 +1065,7 @@ template< class R, typename... Args >
 class function<R(Args...)>;
 ```
 
-Can store any `Callable` which recieves `Args` and returns `R`.
+Can store any `Callable` which receives `Args` and returns `R`.
 
 ---
 
@@ -1375,7 +1375,7 @@ int callGet(const Derived& d, int i) {
 
 ---
 
-## `std::function` Ceveats
+## `std::function` Caveats
 
 * might allocate
 * may require two calls through function pointers per invocation
