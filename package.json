@@ -34,7 +34,7 @@
     "promise-retry": "^2.0.1",
     "reveal-compiler-explorer": "^1.3.0",
     "reveal-md": "^4.1.7",
-    "reveal-test": "^1.3.0"
+    "reveal-test": "^1.3.2"
   },
   "homepage": "https://github.com/dvirtz/modern-cpp#readme"
 }

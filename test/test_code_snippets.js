@@ -21,7 +21,7 @@ FileHound.create().path('slides').ext('md').findSync()
 
       fileSnippets.snippets.forEach(function (codeSnippet, index) {
         it(`should compile snippet #${index} of ${fileSnippets.file}`, async function () {
-          await assert.doesNotReject(compile(codeSnippet));
+          await compile(codeSnippet);
         });
       });
     });
