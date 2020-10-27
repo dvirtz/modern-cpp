@@ -34,6 +34,7 @@ Note:
 8. [Error Handling](#/8)
 9. [Concurrency](#/9)
 10. [Regular Expressions](#/10)
+11. [Containers](#/11)
 
 <!-- .element: class="split" -->
 
@@ -75,7 +76,7 @@ Note:
 - [x] [`nullptr`](#/nullptr)
 - [ ] `long long`
 - [x] [`char16_t` and `char32_t`](#/utf_chars)
-- [ ] type aliases
+- [x] [type aliases](#type_aliases)
 - [x] [variadic templates](#/variadic_templates)
 - [ ] generalized (non-trivial) unions
 - [ ] generalized PODs (trivial types and standard-layout types)
@@ -99,7 +100,7 @@ Note:
 - [ ] `std::move_iterator`
 - [x] [`std::initializer_list`](#/initializer_list)
 - [ ] stateful and scoped allocators
-- [ ] `std::forward_list`
+- [x] [`std::forward_list`](#/forward_list)
 - [x] [`chrono`](#/chrono) library
 - [x] [`ratio`](#/ratio) library
 - [ ] new algorithms
@@ -111,7 +112,7 @@ Note:
   - [x] [`std::begin`/`end`](#/begin_end)
   - [x] [`std::next`/`prev`](#/next_prev)
 - [ ] Unicode conversion functions
-- [ ] `std::array`
+- [x] [`std::array`](#/array)
 - [x] [`std::tuple`](#/tuple)
 
 </div>
