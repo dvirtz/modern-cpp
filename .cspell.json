@@ -8,7 +8,6 @@
     "words": [
         "Andrzej",
         "Bartek",
-        "cantona",
         "chrono",
         "cppreference",
         "decltype",
@@ -29,23 +28,19 @@
         "nextptr",
         "noexcept",
         "nullptr",
-        "pallister",
         "PCRE",
         "Pikus",
         "PIMPL",
         "POSIX",
         "RAII",
         "rvalue",
-        "schmeichel",
         "SFINAE",
-        "sirtaki",
         "spinlock",
         "submatch",
         "Sutter",
         "templatize",
         "webp",
-        "Yitzchaki",
-        "ευχαριστώ"
+        "Yitzchaki"
     ],
     // flagWords - list of words to be always considered incorrect
     // This is useful for offensive words and common spelling errors.
@@ -57,7 +52,8 @@
             "ignoreRegExpList": [
                 "/`.*?`/", // inline code
                 "/(```+)\\s?[\\s\\S]+?\\1/g", // code block
-                "/'s\\b/" // trailing 's
+                "/'s\\b/", // trailing 's
+                "<!--.*?-->" // comments
             ]
         }
     ]
