@@ -51,6 +51,7 @@
 8. [Error Handling](#/8)
 9. [Concurrency](#/9)
 10. [Regular Expressions](#/10)
+11. [Containers](#/11)
 
 <!-- .element: class="split" -->
 
@@ -90,7 +91,7 @@
 - [x] [`nullptr`](#/nullptr)
 - [ ] `long long`
 - [x] [`char16_t` and `char32_t`](#/utf_chars)
-- [ ] type aliases
+- [x] [type aliases](#type_aliases)
 - [x] [variadic templates](#/variadic_templates)
 - [ ] generalized (non-trivial) unions
 - [ ] generalized PODs (trivial types and standard-layout types)
@@ -114,7 +115,7 @@
 - [ ] `std::move_iterator`
 - [x] [`std::initializer_list`](#/initializer_list)
 - [ ] stateful and scoped allocators
-- [ ] `std::forward_list`
+- [x] [`std::forward_list`](#/forward_list)
 - [x] [`chrono`](#/chrono) library
 - [x] [`ratio`](#/ratio) library
 - [ ] new algorithms
@@ -126,7 +127,7 @@
   - [x] [`std::begin`/`end`](#/begin_end)
   - [x] [`std::next`/`prev`](#/next_prev)
 - [ ] Unicode conversion functions
-- [ ] `std::array`
+- [x] [`std::array`](#/array)
 - [x] [`std::tuple`](#/tuple)
 
 </div>
@@ -11855,7 +11856,2072 @@ b. use of output params for match
 c. having to specify different match type per string type
 in addition it&#39;s known for not so great runtime but nevertheless, it&#39;s available everywhere
 and gets the job done eventually.</p>
-</aside></script></section></section></div>
+</aside></script></section></section><section ><section data-markdown><script type="text/template">
+<!-- .slide: data-background-image="11_containers/giggs.jpg" data-background-size="contain" -->
+
+</script></section><section data-markdown><script type="text/template">
+<!-- .slide: id="type_aliases" class="aside" -->
+
+## type aliases
+
+|`typedef`|`using`|
+|---------|-------|
+|`typedef std::ios_base::fmtflags flags;`|`using flags = std::ios_base::fmtflags;`|
+|`typedef void (*func)(int, int);`|`using func = void (*) (int, int);`|
+| - |`template<class T>`<br/>`using ptr = T*;`|
+|`template<class T>`<br/>`struct add_const {`<br/>&nbsp;&nbsp;`typedef const T type;`<br/>`};`|`template<class T>`<br/>`struct add_const {`<br/>&nbsp;&nbsp;`using type = const T;`<br/>`};`|
+|`typedef int int_t, *intp_t;`|`using int_t = int;`<br/>`using intp_t = int*;`|
+
+<!-- .element: class="no-header" style="font-size: 0.45em" -->
+
+</script></section><section data-markdown><script type="text/template">
+<!-- .slide: data-background-image="11_containers/containers.png" -->
+
+# C++11 Containers
+
+<!-- .element: class="chapter bottom" -->
+
+</script></section><section data-markdown><script type="text/template">
+### problems with c-style arrays
+#### part 1 of N
+
+cannot be passed by value
+
+```cpp
+void func(int* x); /* this is a pointer */
+
+void func(int x[]); /* this is a pointer */
+
+void func(int x[10]); /* this is a pointer */
+```
+
+</script></section><section data-markdown><script type="text/template">
+### problems with c-style arrays
+#### part 2 of N
+
+hard to get number of elements
+
+```cpp
+///hide
+#include <cstddef>
+
+///unhide
+int a[17];
+size_t n = sizeof(a)/sizeof(a[0]);
+```
+
+</script></section><section data-markdown><script type="text/template">
+[![array elements](11_containers/array_elements.png)](https://www.youtube.com/watch?v=7uAwFRQkzyA&ab_channel=NDCConferences)
+
+</script></section><section data-markdown><script type="text/template">
+### problems with c-style arrays
+#### part 3 of N
+
+what will happen when we combine the previous slides?
+
+```cpp
+///output=2
+///hide
+#include <iostream>
+
+///unhide
+void func(int a[17]) {
+  std::cout << sizeof(a)/sizeof(a[0]) << '\n';
+}
+///hide
+int main() {
+  int a[17];
+  func(a);
+}
+```
+
+</script></section><section data-markdown><script type="text/template">
+### problems with c-style arrays
+#### part 4 of N
+
+can't be assigned to
+
+```cpp
+///fails=error: 'str' does not name a type
+extern char *getpass();
+char str[10];
+str = getpass("Enter password: ");
+```
+
+</script></section><section data-markdown><script type="text/template">
+### problems with c-style arrays
+#### part 5 of N
+
+hard to overload on
+
+```cpp
+///output=pointer
+///hide
+#include <iostream>
+
+///unhide
+void func(int*) { std::cout << "pointer\n"; }
+
+template <size_t N>
+void func(int (&) [N]) {
+  std::cout << "array\n";
+}
+
+int main() {
+  int arr[2];
+  func(arr);
+}
+```
+
+</script></section><section data-markdown><script type="text/template">
+<!-- .slide: id="array" data-background-image="11_containers/array.jpg" -->
+
+# `std::array`
+
+<!-- .element: class="chapter" -->
+
+</script></section><section data-markdown><script type="text/template">
+## `std::array`
+
+```cpp
+///hide
+#include <cstddef>
+
+///unhide
+template<typename T, size_t N>
+class array;
+```
+
+<aside class="notes"><p>unlike other standard containers, there&#39;s no allocator cause <code>array</code> never allocates</p>
+</aside></script></section><section data-markdown><script type="text/template">
+## basic usage
+
+```cpp
+///output=1 2 3
+///hide
+#include <iostream>
+///unhide
+#include <array>
+
+int main() {
+  std::array<int, 3> arr = {1, 2, 3};
+  static_assert(sizeof(arr) == 3 * sizeof(int), 
+                "no space overhead");
+  for(const auto& a: arr)
+        std::cout << a << ' ';
+  std::cout << '\n';
+}
+```
+
+<aside class="notes"><p>aggregate initialization, otherwise default initialization</p>
+</aside></script></section><section data-markdown><script type="text/template">
+## can be passed by value
+
+reference, pointer, cv qualified...
+
+```cpp
+///hide
+#include <array>
+
+///unhide
+void func(std::array<int, 10> x);
+void func(const std::array<int, 10>& x);
+void func(volatile std::array<int, 10>* x);
+```
+
+</script></section><section data-markdown><script type="text/template">
+## convenient member functions
+
+```cpp
+///hide
+#include <array>
+#include <cassert>
+
+int main() {
+///unhide
+std::array<double, 10> arr;
+assert(arr.size() == 10);
+arr.fill(42.0);
+assert(arr.front() == arr.back());
+///hide
+}
+```
+
+</script></section><section data-markdown><script type="text/template">
+## works with legacy code
+
+```cpp
+///hide
+#include <array>
+
+///unhide
+void func(int* arr, int size);
+
+///hide
+void f() {
+///unhide
+std::array<int, 4> arr;
+func(arr.data(), arr.size());
+///hide
+}
+```
+
+</script></section><section data-markdown><script type="text/template">
+## checked and unchecked element access
+
+```cpp
+///hide
+#include <stdexcept>
+
+///unhide
+template<typename Cont>
+auto unchecked(const Cont& cont) {
+  return cont[2];
+}
+
+template<typename Cont>
+auto checked(const Cont& cont) {
+  try {
+    cont.at(2);
+  } catch (std::out_of_range& ex){
+    return -1;
+  }
+}
+```
+
+</script></section><section data-markdown><script type="text/template">
+## multi-dimensional is a little verbose
+
+instead of
+
+```cpp
+int board[3][3] = {{5, 8, 2}, {8, 3, 1}, {5, 3, 9}};
+```
+
+we have
+
+```cpp
+///hide
+#include <array>
+
+///unhide
+std::array<std::array<int, 3>, 3> arr = 
+  {{{5, 8, 2}, {8, 3, 1}, {5, 3, 9}}};
+```
+
+</script></section><section data-markdown><script type="text/template">
+<!-- .slide: data-auto-animate class="aside" -->
+
+## constructing pair
+
+```cpp
+///hide
+#include <string>
+#include <iostream>
+
+///unhide
+struct S {
+  S(int a) {
+    std::cout << "CTOR\n";
+  }
+  ~S() {
+    std::cout << "DTOR\n";
+  }
+  S(S&&) {
+    std::cout << "MOVE CTOR\n";
+  }
+};
+
+///hide
+int main() {
+///unhide
+std::pair<S, S> p{1, 3};
+///hide
+}
+```
+
+<!-- .element: data-id="code" style="font-size: 0.5em" -->
+
+</script></section><section data-markdown><script type="text/template">
+<!-- .slide: data-auto-animate class="aside" -->
+
+## constructing pair
+
+```cpp
+///fails=no matching function for call to 'std::pair<S, S>::pair(<brace-enclosed initializer list>)'
+///hide
+#include <string>
+#include <iostream>
+
+///unhide
+struct S {
+  S(int a, int b) {
+    std::cout << "CTOR\n";
+  }
+  ~S() {
+    std::cout << "DTOR\n";
+  }
+  S(S&&) {
+    std::cout << "MOVE CTOR\n";
+  }
+};
+
+///hide
+int main() {
+///unhide
+std::pair<S, S> p{1, 2, 3, 4};
+///hide
+}
+```
+
+<!-- .element: data-id="code" style="font-size: 0.5em" -->
+
+</script></section><section data-markdown><script type="text/template">
+<!-- .slide: data-auto-animate class="aside" -->
+
+## constructing pair
+
+```cpp
+///hide
+#include <string>
+#include <iostream>
+
+///unhide
+struct S {
+  S(int a, int b) {
+    std::cout << "CTOR\n";
+  }
+  ~S() {
+    std::cout << "DTOR\n";
+  }
+  S(S&&) {
+    std::cout << "MOVE CTOR\n";
+  }
+};
+
+///hide
+int main() {
+///unhide
+std::pair<S, S> p{S{1, 2}, S{3, 4}};
+///hide
+}
+```
+
+<!-- .element: data-id="code" style="font-size: 0.5em" -->
+
+</script></section><section data-markdown><script type="text/template">
+<!-- .slide: data-auto-animate class="aside" -->
+
+## constructing pair
+
+```cpp
+///hide
+#include <string>
+#include <iostream>
+#include <tuple>
+
+///unhide
+struct S {
+  S(int a, int b) {
+    std::cout << "CTOR\n";
+  }
+  ~S() {
+    std::cout << "DTOR\n";
+  }
+  S(S&&) {
+    std::cout << "MOVE CTOR\n";
+  }
+};
+
+///hide
+int main() {
+///unhide
+std::pair<S, S> p{std::piecewise_construct,
+                  std::forward_as_tuple(1, 2), 
+                  std::forward_as_tuple(3, 4)};
+///hide
+}
+```
+
+<!-- .element: data-id="code" style="font-size: 0.5em" -->
+
+</script></section><section data-markdown><script type="text/template">
+<!-- .slide: class="aside" -->
+
+## hash table
+
+![hash table](11_containers/hash.svg)
+
+<aside class="notes"><p>Unordered associative containers—hash tables—are one of the most frequently requested additions to the standard C++ library. </p>
+<p>As you recall, in a hash table, each key is mapped to one of <code>N</code> buckets by means of a hash function. If more than one key is mapped to the same bucket, the values are chained in a list. </p>
+<p>When searching for keys, first the hash function is called to compute the bucket index which is then search linearly to find the matching key.
+The (amortized) insertion and search times are O(1).</p>
+</aside></script></section><section data-markdown><script type="text/template">
+<!-- .slide: data-background-image="11_containers/unordered.jpg" -->
+
+## unordered containers
+
+<!-- .element: class="chapter bottom" -->
+
+</script></section><section data-markdown><script type="text/template">
+## `std::unordered_map`
+
+```cpp
+///hide
+#include <functional>
+
+///unhide
+template<class Key,
+         class T,
+         class Hash = std::hash<Key>,
+         class KeyEqual = std::equal_to<Key>,
+         class Allocator = std::allocator<std::pair<const Key, T>>>
+class unordered_map;
+```
+
+<!-- .element: style="font-size: 0.5em" -->
+
+<aside class="notes"><p>the name isn&#39;t <code>hash_map</code> for 2 reasons:</p>
+<ol>
+<li><code>hash_map</code>s were already in use when this was standardized but might had small differences so defining a standard class with that name would introduce a nasty backward compatibility problem.</li>
+<li>These names alert users to the most important way in which (say) <code>unordered_map</code> differs from <code>map</code>: the former lacks the latter&#39;s ordering guarantee.</li>
+</ol>
+</aside></script></section><section data-markdown><script type="text/template">
+<!-- .slide: data-auto-animate -->
+
+## basic usage
+
+```cpp [1|3-7|9-10]
+///output=The HEX of color BLACK is:[]
+///hide
+#include <iostream>
+#include <string>
+///unhide
+#include <unordered_map>
+
+///hide
+int main() {
+///unhide
+std::unordered_map<std::string, std::string> u = {
+  {"RED","#FF0000"},
+  {"GREEN","#00FF00"},
+  {"BLUE","#0000FF"}
+};
+
+std::cout << "The HEX of color RED is:[" << u["RED"] << "]\n";
+std::cout << "The HEX of color BLACK is:[" << u["BLACK"] << "]\n";
+///hide
+}
+```
+
+<!-- .element: data-id="code" style="font-size: 0.45em" -->
+
+<aside class="notes"><p>There is no specialization for C strings. <code>std::hash&lt;const char*&gt;</code> produces a hash of the value of the pointer.</p>
+</aside></script></section><section data-markdown><script type="text/template">
+<!-- .slide: data-auto-animate -->
+
+## insertion
+
+```cpp [9-12]
+///output=The HEX of color BLACK is:[#000000]
+///hide
+#include <iostream>
+#include <string>
+///unhide
+#include <unordered_map>
+
+///hide
+int main() {
+///unhide
+std::unordered_map<std::string, std::string> u = {
+  {"RED","#FF0000"},
+  {"GREEN","#00FF00"},
+  {"BLUE","#0000FF"}
+};
+
+u.emplace("BLACK", "#000000");
+
+std::cout << "The HEX of color RED is:[" << u["RED"] << "]\n";
+std::cout << "The HEX of color BLACK is:[" << u["BLACK"] << "]\n";
+///hide
+}
+```
+
+<!-- .element: data-id="code" style="font-size: 0.45em" -->
+
+<aside class="notes"><p>to insert elements, it&#39;s best to call <code>emplace</code> which constructs the value in place.</p>
+</aside></script></section><section data-markdown><script type="text/template">
+<!-- .slide: data-auto-animate -->
+
+## insertion
+
+```cpp [9-15]
+///output=The HEX of color BLACK is:[#000000]
+///hide
+#include <iostream>
+#include <string>
+#include <tuple>
+#include <cstring>
+///unhide
+#include <unordered_map>
+
+///hide
+int main() {
+///unhide
+std::unordered_map<std::string, std::string> u = {
+  {"RED","#FF0000"},
+  {"GREEN","#00FF00"},
+  {"BLUE","#0000FF"}
+};
+
+char black[] = "#000000";
+u.emplace(std::piecewise_construct, 
+          std::forward_as_tuple("BLACK"), 
+          std::forward_as_tuple(black, strlen(black)));
+
+std::cout << "The HEX of color RED is:[" << u["RED"] << "]\n";
+std::cout << "The HEX of color BLACK is:[" << u["BLACK"] << "]\n";
+///hide
+}
+```
+
+<!-- .element: data-id="code" style="font-size: 0.45em" -->
+
+</script></section><section data-markdown><script type="text/template">
+<!-- .slide: data-auto-animate -->
+
+## checked
+
+```cpp [9-14]
+///external
+///output=_Map_base::at
+///compiler=clang600
+///hide
+#include <iostream>
+#include <string>
+///unhide
+#include <unordered_map>
+
+///hide
+int main() {
+///unhide
+std::unordered_map<std::string, std::string> u = {
+  {"RED","#FF0000"},
+  {"GREEN","#00FF00"},
+  {"BLUE","#0000FF"}
+};
+
+try {
+  std::cout << "The HEX of color RED is:[" << u.at("RED") << "]\n";
+  std::cout << "The HEX of color BLACK is:[" << u.at("BLACK") << "]\n";
+} catch (std::out_of_range& ex){
+  std::cerr << ex.what() << "\n";
+}
+///hide
+}
+```
+
+<!-- .element: data-id="code" style="font-size: 0.45em" -->
+
+</script></section><section data-markdown><script type="text/template">
+<!-- .slide: data-auto-animate -->
+
+## find
+
+```cpp [9-15]
+///output=The HEX of color RED is:[#FF0000]
+///hide
+#include <iostream>
+#include <string>
+///unhide
+#include <unordered_map>
+
+///hide
+int main() {
+///unhide
+std::unordered_map<std::string, std::string> u = {
+  {"RED","#FF0000"},
+  {"GREEN","#00FF00"},
+  {"BLUE","#0000FF"}
+};
+
+for (const auto& key : {"RED", "BLACK"}) {
+  auto it = u.find(key);
+  if (it != u.end()) {
+    std::cout << "The HEX of color " << key 
+              << " is:[" << it->second << "]\n";
+  }
+}
+///hide
+}
+```
+
+<!-- .element: data-id="code" style="font-size: 0.45em" -->
+
+</script></section><section data-markdown><script type="text/template">
+<!-- .slide: data-auto-animate -->
+
+## iterating
+
+```cpp [9-13]
+///hide
+#include <iostream>
+#include <string>
+///unhide
+#include <unordered_map>
+
+///hide
+int main() {
+///unhide
+std::unordered_map<std::string, std::string> u = {
+  {"RED","#FF0000"},
+  {"GREEN","#00FF00"},
+  {"BLUE","#0000FF"}
+};
+
+for (const auto& n : u) {
+  std::cout << "Key:[" << n.first 
+            << "] Value:[" << n.second 
+            << "]\n";
+}
+///hide
+}
+```
+
+<!-- .element: data-id="code" style="font-size: 0.45em" -->
+
+</script></section><section data-markdown><script type="text/template">
+<!-- .slide: data-auto-animate -->
+
+## erasing
+
+```cpp [9-17]
+///hide
+#include <cassert>
+#include <string>
+///unhide
+#include <unordered_map>
+
+///hide
+int main() {
+///unhide
+std::unordered_map<std::string, std::string> u = {
+  {"RED","#FF0000"},
+  {"GREEN","#00FF00"},
+  {"BLUE","#0000FF"}
+};
+
+for (auto it = u.begin(); it != u.end();) {
+  if (it->second.substr(1, 2) == "00") {
+    it = u.erase(it);
+  } else {
+    ++it;
+  }
+}
+
+assert(u.size() == 1);
+///hide
+}
+```
+
+<!-- .element: data-id="code" style="font-size: 0.45em" -->
+
+<aside class="notes"><p>unordered containers provide forward iterators.</p>
+</aside></script></section><section data-markdown><script type="text/template">
+## load factor
+
+|a|b|
+|-|-|
+| `$$ loadFactor = \frac{occupied}{buckets} $$` | ![hash table](11_containers/hash.svg) <!-- .element: style="background-color: #bee4fd" --> |
+
+<!-- .element: class="no-header no-border" -->
+
+<aside class="notes"><p>in the example load factor is 5/255 ~ 0.02. </p>
+<p>A hash table is resized when its load factor goes beyond a predefined threshold. </p>
+<p>After resizing, the table is rehashed - all elements&#39; hashes are recomputed and they&#39;re moved to their new location.</p>
+</aside></script></section><section data-markdown><script type="text/template">
+## managing load factor
+
+```cpp [5-7|9|11-12]
+///hide
+#include <unordered_map>
+#include <cassert>
+#include <limits>
+
+///unhide
+bool approxEqual(float a, float b) {
+  return abs(a - b) < std::numeric_limits<float>::epsilon();
+}
+
+///hide
+int main() {
+///unhide
+std::unordered_map<int, double> um;
+assert(um.load_factor() == 0.0);
+assert(um.max_load_factor() == 1.0);
+
+um.max_load_factor(0.7);
+
+um.emplace(2, -2.5);
+assert(approxEqual(um.load_factor(), 1.0 / um.bucket_count()));
+///hide
+}
+```
+
+<!-- .element: style="font-size: 0.5em" -->
+
+</script></section><section data-markdown><script type="text/template">
+## be prepared
+
+```cpp []
+///hide
+#include <unordered_map>
+#include <cassert>
+
+int main() {
+///unhide
+using map = std::unordered_map<int, double>;
+map um{100};    // start with 100 buckets
+// ...
+um.rehash(50);  // prepare for 50/max_load_factor() elements
+// ...
+um.reserve(200); // prepare for 200 elements
+///hide
+}
+```
+
+<!-- .element: style="font-size: 0.5em" -->
+
+<aside class="notes"><p>before time critical sections, it&#39;s advised to prepare the hash table to the expected number of elements to be inserted so expensive rehashes won&#39;t occur when its least appropriate.</p>
+</aside></script></section><section data-markdown><script type="text/template">
+## `std::hash`
+
+```cpp
+///hide
+#include <cstdint>
+
+///unhide
+template<class Key>
+struct hash {
+  std::size_t operator()(const Key&) const;
+};
+```
+
+<aside class="notes"><p>as the number of buckets is less than <code>std::numeric_limits&lt;size_t&gt;::max()</code>, the container will need to map the return value to a bucket number, e.g. by taking the result modulo the number of buckets.</p>
+</aside></script></section><section data-markdown><script type="text/template">
+## standard provided hashing
+
+- all integral types
+- all floating-point types
+- pointers
+- strings
+- some library types, like
+  - `std::unique_ptr`
+  - `std::bitset`
+
+</script></section><section data-markdown><script type="text/template">
+## writing hash functions
+
+is difficult™
+
+</script></section><section data-markdown><script type="text/template">
+## writing hash functions
+
+using boost
+
+```cpp
+///external
+///libs=boost:173
+///hide
+#include <string>
+#include <vector>
+#include <unordered_set>
+///unhide
+#include <boost/container_hash/hash.hpp>
+
+struct S {
+  int a;
+  double d;
+  std::vector<std::string> v;
+};
+
+namespace std {
+  template<> struct hash<S> {
+    size_t operator()(const S& s) const {
+        std::size_t seed = 0;
+        boost::hash_combine(seed, s.a);
+        boost::hash_combine(seed, s.d);
+        boost::hash_range(seed, s.v.begin(), s.v.end());
+        return seed;
+    }
+  };
+}
+///hide
+
+std::unordered_set<S> us;
+```
+
+<!-- .element: style="font-size: 0.4em" -->
+
+</script></section><section data-markdown><script type="text/template">
+## accessing bucket structure
+
+```cpp [1-2,10|3-4,8-9|5-7|12-16]
+///output=bucket[1]: 8->7 1->2
+///hide
+#include <iostream>
+#include <unordered_map>
+#include <algorithm>
+
+///unhide
+template<typename Key, typename Val>
+void printTable(const std::unordered_map<Key, Val>& um) {
+  for(size_t i = 0; i < um.bucket_count(); ++i) {
+    std::cout << "bucket[" << i << "]: ";
+    for (auto it = um.begin(i); it != um.end(i); ++it) {
+      std::cout << it->first << "->" << it->second << " ";
+    }
+    std::cout << '\n';
+  }
+}
+
+int main() {
+  std::unordered_map<int, int> um{
+    {1, 2}, {5, 6}, {7, 8}, {9, 10}, {8, 7}
+  };
+  printTable(um);
+}
+```
+
+<!-- .element: style="font-size: 0.45em" -->
+
+<aside class="notes"><p>Can be useful to debug your hash functions</p>
+</aside></script></section><section data-markdown><script type="text/template">
+## other unordered containers
+
+- `<unordered_map>`
+  - `std::unordered_multimap`
+- `<unordered_set>`
+  - `std::unordered_set`
+  - `std::unordered_multiset`
+
+</script></section><section data-markdown><script type="text/template">
+## `std::list` overhead
+
+```cpp
+///external
+///options+=-fsanitize=address
+///fails=AddressSanitizer: 2424 byte(s) leaked in 101 allocation(s)
+#include <list>
+
+int main() {
+  new std::list<int>(100);
+}
+```
+
+</script></section><section data-markdown><script type="text/template">
+<!-- .slide: id="""forward_list" data-background-image="11_containers/forward.jpg" -->
+
+# `std::forward_list`
+
+<!-- .element: class="chapter" -->
+
+</script></section><section data-markdown><script type="text/template">
+## `std::forward_list`
+
+```cpp
+///hide
+#include <memory>
+
+///unhide
+template<class T,
+         class Allocator = std::allocator<T>> 
+class forward_list;
+```
+
+</script></section><section data-markdown><script type="text/template">
+## less overhead
+
+```cpp
+///external
+///options+=-fsanitize=address
+///fails=AddressSanitizer: 1608 byte(s) leaked in 101 allocation(s)
+#include <forward_list>
+
+int main() {
+  new std::forward_list<int>(100);
+}
+```
+
+</script></section><section data-markdown><script type="text/template">
+<!-- .slide: data-auto-animate -->
+
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   sodipodi:modified="true"
+   version="1.0"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   sodipodi:docname="list.svg"
+   inkscape:version="1.0 (4035a4f, 2020-05-01)"
+   sodipodi:version="0.32"
+   id="svg2"
+   height="104.83789"
+   width="531.13043">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     fit-margin-bottom="0"
+     fit-margin-right="0"
+     fit-margin-left="0"
+     fit-margin-top="0"
+     inkscape:window-maximized="0"
+     inkscape:document-rotation="0"
+     showguides="false"
+     showgrid="false"
+     height="60.000019px"
+     width="350px"
+     inkscape:window-y="23"
+     inkscape:window-x="0"
+     inkscape:window-height="1005"
+     inkscape:window-width="1600"
+     inkscape:current-layer="layer1"
+     inkscape:document-units="px"
+     inkscape:cy="63.415435"
+     inkscape:cx="265.56522"
+     inkscape:zoom="1.8187623"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0"
+     objecttolerance="10"
+     guidetolerance="10"
+     gridtolerance="10000"
+     borderopacity="1.0"
+     bordercolor="#666666"
+     pagecolor="#191919"
+     id="base" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     transform="translate(21.124908,-1018.9872)"
+     style="display:inline"
+     id="layer1"
+     inkscape:groupmode="layer"
+     inkscape:label="Layer 1">
+    <g
+       data-id="g12"
+       id="g1897">
+      <rect
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#4c4c4c;fill-opacity:0;fill-rule:nonzero;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate"
+         id="rect2160"
+         width="40"
+         height="40"
+         x="-20.624908"
+         y="1019.4872" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:'Bitstream Vera Sans';text-align:center;text-anchor:middle;display:inline;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         x="-0.73485488"
+         y="1060.7592"
+         id="text4108"
+         transform="scale(1.0114576,0.9886722)"><tspan
+           style="font-size:25.2281px;line-height:1.25"
+           sodipodi:role="line"
+           id="tspan4110"
+           x="-0.73485523"
+           y="1060.7592">12</tspan></text>
+      <path
+         style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 38.337482,1039.4872 c 59.663502,0 59.663502,0 59.663502,0"
+         id="path5097" />
+      <path
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:0.991208;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate"
+         d="m 98.676487,1039.4872 c 0,0 -3.388529,0.9151 -7.253144,2.8764 -3.864614,1.9616 -11.755648,6.7713 -11.755648,6.7713 l 4.809028,-9.6477 -4.809028,-9.6477 c 0,0 7.891034,4.8098 11.755648,6.7714 3.864615,1.9613 7.253144,2.8763 7.253144,2.8763 z"
+         id="path5099"
+         sodipodi:nodetypes="czccczc" />
+      <rect
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#4c4c4c;fill-opacity:0;fill-rule:nonzero;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate"
+         id="rect5282"
+         width="40"
+         height="40"
+         x="19.375092"
+         y="1019.4872" />
+      <circle
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate"
+         id="path6449"
+         transform="matrix(1,0,0,-1,18.375092,1057.9872)"
+         cx="21"
+         cy="18.5"
+         r="6" />
+    </g>
+    <g
+       data-id="g99"
+       id="g1920">
+      <rect
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#4c4c4c;fill-opacity:0;fill-rule:nonzero;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate"
+         id="rect9262"
+         width="40"
+         height="40"
+         x="100.37509"
+         y="1019.4872" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:'Bitstream Vera Sans';text-align:center;text-anchor:middle;display:inline;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         x="118.89449"
+         y="1060.7592"
+         id="text9264"
+         transform="scale(1.0114576,0.9886722)"><tspan
+           style="font-size:25.2281px;line-height:1.25"
+           sodipodi:role="line"
+           id="tspan9266"
+           x="118.89449"
+           y="1060.7592">99</tspan></text>
+      <path
+         style="display:inline;fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 159.33748,1039.4872 c 59.6635,0 59.6635,0 59.6635,0"
+         id="path9268" />
+      <path
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:0.991208;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate"
+         d="m 221.6762,1039.4872 c 0,0 -3.38853,0.9151 -7.25315,2.8764 -3.86461,1.9616 -11.75564,6.7713 -11.75564,6.7713 l 4.80902,-9.6477 -4.80902,-9.6477 c 0,0 7.89103,4.8098 11.75564,6.7714 3.86462,1.9613 7.25315,2.8763 7.25315,2.8763 z"
+         id="path9270"
+         sodipodi:nodetypes="czccczc" />
+      <rect
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#4c4c4c;fill-opacity:0;fill-rule:nonzero;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate"
+         id="rect9272"
+         width="40"
+         height="40"
+         x="140.37509"
+         y="1019.4872" />
+      <circle
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate"
+         id="path2339"
+         transform="matrix(1,0,0,-1,139.37509,1057.9872)"
+         cx="21"
+         cy="18.5"
+         r="6" />
+    </g>
+    <g
+       data-id="g37"
+       id="g1930">
+      <g
+         id="g1811">
+        <rect
+           y="1019.4872"
+           x="223.37509"
+           height="40"
+           width="40"
+           id="rect9276"
+           style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#4c4c4c;fill-opacity:0;fill-rule:nonzero;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate" />
+        <text
+           transform="scale(1.0114576,0.9886722)"
+           id="text9278"
+           y="1060.7592"
+           x="240.50117"
+           style="font-style:normal;font-weight:normal;line-height:0%;font-family:'Bitstream Vera Sans';text-align:center;text-anchor:middle;display:inline;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           xml:space="preserve"><tspan
+             y="1060.7592"
+             x="240.50117"
+             id="tspan9280"
+             sodipodi:role="line"
+             style="font-size:25.2281px;line-height:1.25">37</tspan></text>
+        <rect
+           y="1019.4872"
+           x="263.37509"
+           height="40"
+           width="40"
+           id="rect9286"
+           style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#4c4c4c;fill-opacity:0;fill-rule:nonzero;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate" />
+        <path
+           id="path2198"
+           d="m 282.33711,1039.4872 c 59.6635,0 59.6635,0 59.6635,0"
+           style="display:inline;fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+        <path
+           sodipodi:nodetypes="czccczc"
+           id="path2200"
+           d="m 344.67583,1039.4872 c 0,0 -3.38853,0.9151 -7.25315,2.8764 -3.86461,1.9616 -11.75564,6.7713 -11.75564,6.7713 l 4.80902,-9.6477 -4.80902,-9.6477 c 0,0 7.89103,4.8098 11.75564,6.7714 3.86462,1.9613 7.25315,2.8763 7.25315,2.8763 z"
+           style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:0.991208;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate" />
+        <circle
+           r="6"
+           cy="18.5"
+           cx="21"
+           transform="matrix(1,0,0,-1,262.37509,1057.9872)"
+           id="path2341"
+           style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate" />
+      </g>
+    </g>
+    <g
+       data-id="gEnd"
+       id="g2213">
+      <rect
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#b3b3b3;fill-opacity:0;fill-rule:nonzero;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate"
+         id="rect2202"
+         width="40"
+         height="40"
+         x="346.37509"
+         y="1019.4872" />
+      <path
+         style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 346.37509,1019.4872 c 39.59798,39.5979 39.77476,39.7747 39.77476,39.7747"
+         id="path2209" />
+      <path
+         style="display:inline;fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 386.37509,1019.4872 c -39.59798,39.5979 -39.77476,39.7747 -39.77476,39.7747"
+         id="path2211" />
+    </g>
+  </g>
+</svg>
+
+
+</script></section><section data-markdown><script type="text/template">
+<!-- .slide: data-auto-animate -->
+
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   sodipodi:modified="true"
+   version="1.0"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   sodipodi:docname="list_with_it.svg"
+   inkscape:version="1.0 (4035a4f, 2020-05-01)"
+   sodipodi:version="0.32"
+   id="svg2"
+   height="104.83789"
+   width="531.13043">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     fit-margin-bottom="0"
+     fit-margin-right="0"
+     fit-margin-left="0"
+     fit-margin-top="0"
+     inkscape:window-maximized="0"
+     inkscape:document-rotation="0"
+     showguides="false"
+     showgrid="false"
+     height="60.000019px"
+     width="350px"
+     inkscape:window-y="23"
+     inkscape:window-x="0"
+     inkscape:window-height="1005"
+     inkscape:window-width="1600"
+     inkscape:current-layer="layer1"
+     inkscape:document-units="px"
+     inkscape:cy="63.415435"
+     inkscape:cx="265.56522"
+     inkscape:zoom="1.8187623"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0"
+     objecttolerance="10"
+     guidetolerance="10"
+     gridtolerance="10000"
+     borderopacity="1.0"
+     bordercolor="#666666"
+     pagecolor="#191919"
+     id="base" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     transform="translate(21.124908,-1018.9872)"
+     style="display:inline"
+     id="layer1"
+     inkscape:groupmode="layer"
+     inkscape:label="Layer 1">
+    <g
+       data-id="g12"
+       id="g1897">
+      <rect
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#4c4c4c;fill-opacity:0;fill-rule:nonzero;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate"
+         id="rect2160"
+         width="40"
+         height="40"
+         x="-20.624908"
+         y="1019.4872" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:'Bitstream Vera Sans';text-align:center;text-anchor:middle;display:inline;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         x="-0.73485488"
+         y="1060.7592"
+         id="text4108"
+         transform="scale(1.0114576,0.9886722)"><tspan
+           style="font-size:25.2281px;line-height:1.25"
+           sodipodi:role="line"
+           id="tspan4110"
+           x="-0.73485523"
+           y="1060.7592">12</tspan></text>
+      <path
+         style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 38.337482,1039.4872 c 59.663502,0 59.663502,0 59.663502,0"
+         id="path5097" />
+      <path
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:0.991208;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate"
+         d="m 98.676487,1039.4872 c 0,0 -3.388529,0.9151 -7.253144,2.8764 -3.864614,1.9616 -11.755648,6.7713 -11.755648,6.7713 l 4.809028,-9.6477 -4.809028,-9.6477 c 0,0 7.891034,4.8098 11.755648,6.7714 3.864615,1.9613 7.253144,2.8763 7.253144,2.8763 z"
+         id="path5099"
+         sodipodi:nodetypes="czccczc" />
+      <rect
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#4c4c4c;fill-opacity:0;fill-rule:nonzero;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate"
+         id="rect5282"
+         width="40"
+         height="40"
+         x="19.375092"
+         y="1019.4872" />
+      <circle
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate"
+         id="path6449"
+         transform="matrix(1,0,0,-1,18.375092,1057.9872)"
+         cx="21"
+         cy="18.5"
+         r="6" />
+    </g>
+    <g
+       data-id="g99"
+       id="g1920">
+      <rect
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#4c4c4c;fill-opacity:0;fill-rule:nonzero;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate"
+         id="rect9262"
+         width="40"
+         height="40"
+         x="100.37509"
+         y="1019.4872" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:'Bitstream Vera Sans';text-align:center;text-anchor:middle;display:inline;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         x="118.89449"
+         y="1060.7592"
+         id="text9264"
+         transform="scale(1.0114576,0.9886722)"><tspan
+           style="font-size:25.2281px;line-height:1.25"
+           sodipodi:role="line"
+           id="tspan9266"
+           x="118.89449"
+           y="1060.7592">99</tspan></text>
+      <path
+         style="display:inline;fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 159.33748,1039.4872 c 59.6635,0 59.6635,0 59.6635,0"
+         id="path9268" />
+      <path
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:0.991208;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate"
+         d="m 221.6762,1039.4872 c 0,0 -3.38853,0.9151 -7.25315,2.8764 -3.86461,1.9616 -11.75564,6.7713 -11.75564,6.7713 l 4.80902,-9.6477 -4.80902,-9.6477 c 0,0 7.89103,4.8098 11.75564,6.7714 3.86462,1.9613 7.25315,2.8763 7.25315,2.8763 z"
+         id="path9270"
+         sodipodi:nodetypes="czccczc" />
+      <rect
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#4c4c4c;fill-opacity:0;fill-rule:nonzero;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate"
+         id="rect9272"
+         width="40"
+         height="40"
+         x="140.37509"
+         y="1019.4872" />
+      <circle
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate"
+         id="path2339"
+         transform="matrix(1,0,0,-1,139.37509,1057.9872)"
+         cx="21"
+         cy="18.5"
+         r="6" />
+    </g>
+    <g
+       data-id="g37"
+       id="g1930">
+      <g
+         id="g1811">
+        <rect
+           y="1019.4872"
+           x="223.37509"
+           height="40"
+           width="40"
+           id="rect9276"
+           style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#4c4c4c;fill-opacity:0;fill-rule:nonzero;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate" />
+        <text
+           transform="scale(1.0114576,0.9886722)"
+           id="text9278"
+           y="1060.7592"
+           x="240.50117"
+           style="font-style:normal;font-weight:normal;line-height:0%;font-family:'Bitstream Vera Sans';text-align:center;text-anchor:middle;display:inline;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           xml:space="preserve"><tspan
+             y="1060.7592"
+             x="240.50117"
+             id="tspan9280"
+             sodipodi:role="line"
+             style="font-size:25.2281px;line-height:1.25">37</tspan></text>
+        <rect
+           y="1019.4872"
+           x="263.37509"
+           height="40"
+           width="40"
+           id="rect9286"
+           style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#4c4c4c;fill-opacity:0;fill-rule:nonzero;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate" />
+        <path
+           id="path2198"
+           d="m 282.33711,1039.4872 c 59.6635,0 59.6635,0 59.6635,0"
+           style="display:inline;fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+        <path
+           sodipodi:nodetypes="czccczc"
+           id="path2200"
+           d="m 344.67583,1039.4872 c 0,0 -3.38853,0.9151 -7.25315,2.8764 -3.86461,1.9616 -11.75564,6.7713 -11.75564,6.7713 l 4.80902,-9.6477 -4.80902,-9.6477 c 0,0 7.89103,4.8098 11.75564,6.7714 3.86462,1.9613 7.25315,2.8763 7.25315,2.8763 z"
+           style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:0.991208;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate" />
+        <circle
+           r="6"
+           cy="18.5"
+           cx="21"
+           transform="matrix(1,0,0,-1,262.37509,1057.9872)"
+           id="path2341"
+           style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate" />
+      </g>
+    </g>
+    <g
+       data-id="gEnd"
+       id="g2213">
+      <rect
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#b3b3b3;fill-opacity:0;fill-rule:nonzero;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate"
+         id="rect2202"
+         width="40"
+         height="40"
+         x="346.37509"
+         y="1019.4872" />
+      <path
+         style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 346.37509,1019.4872 c 39.59798,39.5979 39.77476,39.7747 39.77476,39.7747"
+         id="path2209" />
+      <path
+         style="display:inline;fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 386.37509,1019.4872 c -39.59798,39.5979 -39.77476,39.7747 -39.77476,39.7747"
+         id="path2211" />
+    </g>
+    <g
+       data-id="gIt"
+       id="g4774">
+      <path
+         id="path1676"
+         d="m 243.86497,1123.8246 c 0.0523,-59.6634 0.0523,-59.6634 0.0523,-59.6634"
+         style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="czccczc"
+         id="path1678"
+         d="m 243.91784,1063.4857 c 0,0 0.91213,3.3893 2.87005,7.2556 1.95821,3.8663 6.76099,11.7616 6.76099,11.7616 l -9.64348,-4.8175 -9.65191,4.8006 c 0,0 4.81671,-7.8868 6.7817,-11.7497 1.96468,-3.8629 2.88265,-7.2506 2.88265,-7.2506 z"
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:0.991208;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate" />
+    </g>
+  </g>
+</svg>
+
+
+</script></section><section data-markdown><script type="text/template">
+<!-- .slide: data-auto-animate -->
+
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="531.13043"
+   height="104.83789"
+   id="svg2"
+   sodipodi:version="0.32"
+   inkscape:version="1.0 (4035a4f, 2020-05-01)"
+   sodipodi:docname="list_added.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   version="1.0"
+   sodipodi:modified="true">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#191919"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     gridtolerance="10000"
+     guidetolerance="10"
+     objecttolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.8187623"
+     inkscape:cx="337.31731"
+     inkscape:cy="63.415435"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     inkscape:window-width="1600"
+     inkscape:window-height="1005"
+     inkscape:window-x="0"
+     inkscape:window-y="23"
+     width="350px"
+     height="60.000019px"
+     showgrid="false"
+     showguides="false"
+     inkscape:document-rotation="0"
+     inkscape:window-maximized="0"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     style="display:inline"
+     transform="translate(21.124908,-1018.9872)">
+    <g
+       id="g1897"
+       data-id="g12">
+      <rect
+         y="1019.4872"
+         x="-20.624908"
+         height="40"
+         width="40"
+         id="rect2160"
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#4c4c4c;fill-opacity:0;fill-rule:nonzero;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate" />
+      <text
+         transform="scale(1.0114576,0.9886722)"
+         id="text4108"
+         y="1060.7592"
+         x="-0.73485488"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:'Bitstream Vera Sans';text-align:center;text-anchor:middle;display:inline;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           y="1060.7592"
+           x="-0.73485523"
+           id="tspan4110"
+           sodipodi:role="line"
+           style="font-size:25.2281px;line-height:1.25">12</tspan></text>
+      <path
+         id="path5097"
+         d="m 38.337482,1039.4872 c 59.663502,0 59.663502,0 59.663502,0"
+         style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="czccczc"
+         id="path5099"
+         d="m 98.676487,1039.4872 c 0,0 -3.388529,0.9151 -7.253144,2.8764 -3.864614,1.9616 -11.755648,6.7713 -11.755648,6.7713 l 4.809028,-9.6477 -4.809028,-9.6477 c 0,0 7.891034,4.8098 11.755648,6.7714 3.864615,1.9613 7.253144,2.8763 7.253144,2.8763 z"
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:0.991208;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate" />
+      <rect
+         y="1019.4872"
+         x="19.375092"
+         height="40"
+         width="40"
+         id="rect5282"
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#4c4c4c;fill-opacity:0;fill-rule:nonzero;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate" />
+      <circle
+         r="6"
+         cy="18.5"
+         cx="21"
+         transform="matrix(1,0,0,-1,18.375092,1057.9872)"
+         id="path6449"
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate" />
+    </g>
+    <g
+       id="g1920"
+       data-id="g99">
+      <rect
+         y="1019.4872"
+         x="100.37509"
+         height="40"
+         width="40"
+         id="rect9262"
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#4c4c4c;fill-opacity:0;fill-rule:nonzero;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate" />
+      <text
+         transform="scale(1.0114576,0.9886722)"
+         id="text9264"
+         y="1060.7592"
+         x="118.89449"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:'Bitstream Vera Sans';text-align:center;text-anchor:middle;display:inline;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           y="1060.7592"
+           x="118.89449"
+           id="tspan9266"
+           sodipodi:role="line"
+           style="font-size:25.2281px;line-height:1.25">99</tspan></text>
+      <path
+         id="path9268"
+         d="m 159.33748,1039.4872 c 59.6635,0 59.6635,0 59.6635,0"
+         style="display:inline;fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="czccczc"
+         id="path9270"
+         d="m 221.6762,1039.4872 c 0,0 -3.38853,0.9151 -7.25315,2.8764 -3.86461,1.9616 -11.75564,6.7713 -11.75564,6.7713 l 4.80902,-9.6477 -4.80902,-9.6477 c 0,0 7.89103,4.8098 11.75564,6.7714 3.86462,1.9613 7.25315,2.8763 7.25315,2.8763 z"
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:0.991208;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate" />
+      <rect
+         y="1019.4872"
+         x="140.37509"
+         height="40"
+         width="40"
+         id="rect9272"
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#4c4c4c;fill-opacity:0;fill-rule:nonzero;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate" />
+      <circle
+         r="6"
+         cy="18.5"
+         cx="21"
+         transform="matrix(1,0,0,-1,139.37509,1057.9872)"
+         id="path2339"
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate" />
+    </g>
+    <g
+       id="g1930"
+       data-id="g37">
+      <g
+         id="g1811">
+        <rect
+           style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#4c4c4c;fill-opacity:0;fill-rule:nonzero;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate"
+           id="rect9276"
+           width="40"
+           height="40"
+           x="223.37509"
+           y="1019.4872" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-weight:normal;line-height:0%;font-family:'Bitstream Vera Sans';text-align:center;text-anchor:middle;display:inline;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           x="240.50117"
+           y="1060.7592"
+           id="text9278"
+           transform="scale(1.0114576,0.9886722)"><tspan
+             style="font-size:25.2281px;line-height:1.25"
+             sodipodi:role="line"
+             id="tspan9280"
+             x="240.50117"
+             y="1060.7592">37</tspan></text>
+        <rect
+           style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#4c4c4c;fill-opacity:0;fill-rule:nonzero;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate"
+           id="rect9286"
+           width="40"
+           height="40"
+           x="263.37509"
+           y="1019.4872" />
+        <path
+           style="display:inline;fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="m 282.33711,1039.4872 c 59.6635,0 59.6635,0 59.6635,0"
+           id="path2198" />
+        <path
+           style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:0.991208;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate"
+           d="m 344.67583,1039.4872 c 0,0 -3.38853,0.9151 -7.25315,2.8764 -3.86461,1.9616 -11.75564,6.7713 -11.75564,6.7713 l 4.80902,-9.6477 -4.80902,-9.6477 c 0,0 7.89103,4.8098 11.75564,6.7714 3.86462,1.9613 7.25315,2.8763 7.25315,2.8763 z"
+           id="path2200"
+           sodipodi:nodetypes="czccczc" />
+        <circle
+           style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate"
+           id="path2341"
+           transform="matrix(1,0,0,-1,262.37509,1057.9872)"
+           cx="21"
+           cy="18.5"
+           r="6" />
+      </g>
+    </g>
+    <g
+       id="g1939"
+       data-id="g24">
+      <rect
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#4c4c4c;fill-opacity:0;fill-rule:nonzero;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate"
+         id="rect1813"
+         width="40"
+         height="40"
+         x="346.39371"
+         y="1019.4872" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:25.2281px;line-height:1.25;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans, Normal';font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-variant-east-asian:normal;font-feature-settings:normal;font-variation-settings:normal;text-indent:0;text-align:center;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:middle;white-space:normal;shape-padding:0;shape-margin:0;inline-size:0;display:inline;opacity:1;vector-effect:none;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1"
+         x="362.12628"
+         y="1060.7592"
+         id="text1817"
+         transform="scale(1.0114576,0.98867219)"><tspan
+           y="1060.7592"
+           x="362.12628"
+           id="tspan1838"
+           sodipodi:role="line">24</tspan></text>
+      <rect
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#4c4c4c;fill-opacity:0;fill-rule:nonzero;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate"
+         id="rect1819"
+         width="40"
+         height="40"
+         x="386.39371"
+         y="1019.4872" />
+      <path
+         style="display:inline;fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 405.35574,1039.4872 c 59.6635,0 59.6635,0 59.6635,0"
+         id="path1821" />
+      <path
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:0.991208;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate"
+         d="m 467.69446,1039.4872 c 0,0 -3.38853,0.9151 -7.25315,2.8764 -3.86461,1.9616 -11.75564,6.7713 -11.75564,6.7713 l 4.80902,-9.6477 -4.80902,-9.6477 c 0,0 7.89103,4.8098 11.75564,6.7714 3.86462,1.9613 7.25315,2.8763 7.25315,2.8763 z"
+         id="path1823"
+         sodipodi:nodetypes="czccczc" />
+      <circle
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate"
+         id="circle1825"
+         transform="scale(1,-1)"
+         cx="406.39371"
+         cy="-1039.4872"
+         r="6" />
+    </g>
+    <g
+       data-id="gEnd"
+       id="g4762">
+      <rect
+         y="1019.4872"
+         x="469.50552"
+         height="40"
+         width="40"
+         id="rect2202"
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#b3b3b3;fill-opacity:0;fill-rule:nonzero;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate" />
+      <path
+         id="path2209"
+         d="m 469.50553,1019.4872 c 39.59798,39.5979 39.77476,39.7747 39.77476,39.7747"
+         style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         id="path2211"
+         d="m 509.50553,1019.4872 c -39.59798,39.5979 -39.77476,39.7747 -39.77476,39.7747"
+         style="display:inline;fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+    <g
+       data-id="gIt"
+       id="g4768">
+      <path
+         style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 243.86497,1123.8246 c 0.0523,-59.6634 0.0523,-59.6634 0.0523,-59.6634"
+         id="path1676" />
+      <path
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:0.991208;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate"
+         d="m 243.91784,1063.4857 c 0,0 0.91213,3.3893 2.87005,7.2556 1.95821,3.8663 6.76099,11.7616 6.76099,11.7616 l -9.64348,-4.8175 -9.65191,4.8006 c 0,0 4.81671,-7.8868 6.7817,-11.7497 1.96468,-3.8629 2.88265,-7.2506 2.88265,-7.2506 z"
+         id="path1678"
+         sodipodi:nodetypes="czccczc" />
+    </g>
+  </g>
+</svg>
+
+
+</script></section><section data-markdown><script type="text/template">
+<!-- .slide: data-auto-animate -->
+
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   sodipodi:modified="true"
+   version="1.0"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   sodipodi:docname="list_begin.svg"
+   inkscape:version="1.0 (4035a4f, 2020-05-01)"
+   sodipodi:version="0.32"
+   id="svg2"
+   height="104.83789"
+   width="531.13043">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     fit-margin-bottom="0"
+     fit-margin-right="0"
+     fit-margin-left="0"
+     fit-margin-top="0"
+     inkscape:window-maximized="0"
+     inkscape:document-rotation="0"
+     showguides="false"
+     showgrid="false"
+     height="60.000019px"
+     width="350px"
+     inkscape:window-y="23"
+     inkscape:window-x="0"
+     inkscape:window-height="1005"
+     inkscape:window-width="1600"
+     inkscape:current-layer="layer1"
+     inkscape:document-units="px"
+     inkscape:cy="58.467015"
+     inkscape:cx="162.47313"
+     inkscape:zoom="1.8187623"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0"
+     objecttolerance="10"
+     guidetolerance="10"
+     gridtolerance="10000"
+     borderopacity="1.0"
+     bordercolor="#666666"
+     pagecolor="#191919"
+     id="base" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     transform="translate(21.124908,-1018.9872)"
+     style="display:inline"
+     id="layer1"
+     inkscape:groupmode="layer"
+     inkscape:label="Layer 1">
+    <g
+       data-id="g12"
+       id="g1897">
+      <rect
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#4c4c4c;fill-opacity:0;fill-rule:nonzero;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate"
+         id="rect2160"
+         width="40"
+         height="40"
+         x="-20.624908"
+         y="1019.4872" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:'Bitstream Vera Sans';text-align:center;text-anchor:middle;display:inline;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         x="-0.73485488"
+         y="1060.7592"
+         id="text4108"
+         transform="scale(1.0114576,0.9886722)"><tspan
+           style="font-size:25.2281px;line-height:1.25"
+           sodipodi:role="line"
+           id="tspan4110"
+           x="-0.73485523"
+           y="1060.7592">12</tspan></text>
+      <path
+         style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 38.337482,1039.4872 c 59.663502,0 59.663502,0 59.663502,0"
+         id="path5097" />
+      <path
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:0.991208;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate"
+         d="m 98.676487,1039.4872 c 0,0 -3.388529,0.9151 -7.253144,2.8764 -3.864614,1.9616 -11.755648,6.7713 -11.755648,6.7713 l 4.809028,-9.6477 -4.809028,-9.6477 c 0,0 7.891034,4.8098 11.755648,6.7714 3.864615,1.9613 7.253144,2.8763 7.253144,2.8763 z"
+         id="path5099"
+         sodipodi:nodetypes="czccczc" />
+      <rect
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#4c4c4c;fill-opacity:0;fill-rule:nonzero;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate"
+         id="rect5282"
+         width="40"
+         height="40"
+         x="19.375092"
+         y="1019.4872" />
+      <circle
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate"
+         id="path6449"
+         transform="matrix(1,0,0,-1,18.375092,1057.9872)"
+         cx="21"
+         cy="18.5"
+         r="6" />
+    </g>
+    <g
+       data-id="g99"
+       id="g1920">
+      <rect
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#4c4c4c;fill-opacity:0;fill-rule:nonzero;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate"
+         id="rect9262"
+         width="40"
+         height="40"
+         x="100.37509"
+         y="1019.4872" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:'Bitstream Vera Sans';text-align:center;text-anchor:middle;display:inline;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         x="118.89449"
+         y="1060.7592"
+         id="text9264"
+         transform="scale(1.0114576,0.9886722)"><tspan
+           style="font-size:25.2281px;line-height:1.25"
+           sodipodi:role="line"
+           id="tspan9266"
+           x="118.89449"
+           y="1060.7592">99</tspan></text>
+      <path
+         style="display:inline;fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 159.33748,1039.4872 c 59.6635,0 59.6635,0 59.6635,0"
+         id="path9268" />
+      <path
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:0.991208;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate"
+         d="m 221.6762,1039.4872 c 0,0 -3.38853,0.9151 -7.25315,2.8764 -3.86461,1.9616 -11.75564,6.7713 -11.75564,6.7713 l 4.80902,-9.6477 -4.80902,-9.6477 c 0,0 7.89103,4.8098 11.75564,6.7714 3.86462,1.9613 7.25315,2.8763 7.25315,2.8763 z"
+         id="path9270"
+         sodipodi:nodetypes="czccczc" />
+      <rect
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#4c4c4c;fill-opacity:0;fill-rule:nonzero;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate"
+         id="rect9272"
+         width="40"
+         height="40"
+         x="140.37509"
+         y="1019.4872" />
+      <circle
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate"
+         id="path2339"
+         transform="matrix(1,0,0,-1,139.37509,1057.9872)"
+         cx="21"
+         cy="18.5"
+         r="6" />
+    </g>
+    <g
+       data-id="g37"
+       id="g1930">
+      <g
+         id="g1811">
+        <rect
+           y="1019.4872"
+           x="223.37509"
+           height="40"
+           width="40"
+           id="rect9276"
+           style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#4c4c4c;fill-opacity:0;fill-rule:nonzero;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate" />
+        <text
+           transform="scale(1.0114576,0.9886722)"
+           id="text9278"
+           y="1060.7592"
+           x="240.50117"
+           style="font-style:normal;font-weight:normal;line-height:0%;font-family:'Bitstream Vera Sans';text-align:center;text-anchor:middle;display:inline;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           xml:space="preserve"><tspan
+             y="1060.7592"
+             x="240.50117"
+             id="tspan9280"
+             sodipodi:role="line"
+             style="font-size:25.2281px;line-height:1.25">37</tspan></text>
+        <rect
+           y="1019.4872"
+           x="263.37509"
+           height="40"
+           width="40"
+           id="rect9286"
+           style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#4c4c4c;fill-opacity:0;fill-rule:nonzero;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate" />
+        <path
+           id="path2198"
+           d="m 282.33711,1039.4872 c 59.6635,0 59.6635,0 59.6635,0"
+           style="display:inline;fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+        <path
+           sodipodi:nodetypes="czccczc"
+           id="path2200"
+           d="m 344.67583,1039.4872 c 0,0 -3.38853,0.9151 -7.25315,2.8764 -3.86461,1.9616 -11.75564,6.7713 -11.75564,6.7713 l 4.80902,-9.6477 -4.80902,-9.6477 c 0,0 7.89103,4.8098 11.75564,6.7714 3.86462,1.9613 7.25315,2.8763 7.25315,2.8763 z"
+           style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:0.991208;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate" />
+        <circle
+           r="6"
+           cy="18.5"
+           cx="21"
+           transform="matrix(1,0,0,-1,262.37509,1057.9872)"
+           id="path2341"
+           style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate" />
+      </g>
+    </g>
+    <g
+       data-id="g24"
+       id="g1939">
+      <rect
+         y="1019.4872"
+         x="346.39371"
+         height="40"
+         width="40"
+         id="rect1813"
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#4c4c4c;fill-opacity:0;fill-rule:nonzero;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate" />
+      <text
+         transform="scale(1.0114576,0.98867219)"
+         id="text1817"
+         y="1060.7592"
+         x="362.12628"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:25.2281px;line-height:1.25;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans, Normal';font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-variant-east-asian:normal;font-feature-settings:normal;font-variation-settings:normal;text-indent:0;text-align:center;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:middle;white-space:normal;shape-padding:0;shape-margin:0;inline-size:0;display:inline;opacity:1;vector-effect:none;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1"
+         xml:space="preserve"><tspan
+           sodipodi:role="line"
+           id="tspan1838"
+           x="362.12628"
+           y="1060.7592">24</tspan></text>
+      <rect
+         y="1019.4872"
+         x="386.39371"
+         height="40"
+         width="40"
+         id="rect1819"
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#4c4c4c;fill-opacity:0;fill-rule:nonzero;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate" />
+      <path
+         id="path1821"
+         d="m 405.35574,1039.4872 c 59.6635,0 59.6635,0 59.6635,0"
+         style="display:inline;fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="czccczc"
+         id="path1823"
+         d="m 467.69446,1039.4872 c 0,0 -3.38853,0.9151 -7.25315,2.8764 -3.86461,1.9616 -11.75564,6.7713 -11.75564,6.7713 l 4.80902,-9.6477 -4.80902,-9.6477 c 0,0 7.89103,4.8098 11.75564,6.7714 3.86462,1.9613 7.25315,2.8763 7.25315,2.8763 z"
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:0.991208;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate" />
+      <circle
+         r="6"
+         cy="-1039.4872"
+         cx="406.39371"
+         transform="scale(1,-1)"
+         id="circle1825"
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate" />
+    </g>
+    <g
+       id="g4762"
+       data-id="gEnd">
+      <rect
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#b3b3b3;fill-opacity:0;fill-rule:nonzero;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate"
+         id="rect2202"
+         width="40"
+         height="40"
+         x="469.50552"
+         y="1019.4872" />
+      <path
+         style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 469.50553,1019.4872 c 39.59798,39.5979 39.77476,39.7747 39.77476,39.7747"
+         id="path2209" />
+      <path
+         style="display:inline;fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 509.50553,1019.4872 c -39.59798,39.5979 -39.77476,39.7747 -39.77476,39.7747"
+         id="path2211" />
+    </g>
+    <g
+       data-id="gIt"
+       id="g5012">
+      <path
+         id="path1676"
+         d="m -0.25709,1121.2748 c 0.0523,-59.6634 0.0523,-59.6634 0.0523,-59.6634"
+         style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="czccczc"
+         id="path1678"
+         d="m -0.20422,1060.9359 c 0,0 0.91213,3.3893 2.87005,7.2556 1.95821,3.8663 6.76099,11.7616 6.76099,11.7616 l -9.64348,-4.8175 -9.65191,4.8006 c 0,0 4.81671,-7.8868 6.7817,-11.7497 1.96468,-3.8629 2.88265,-7.2506 2.88265,-7.2506 z"
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:0.991208;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate" />
+    </g>
+  </g>
+</svg>
+
+
+</script></section><section data-markdown><script type="text/template">
+## insertion
+
+```cpp [17-19|20-25]
+///hide
+#include <forward_list>
+#include <iostream>
+#include <string>
+ 
+///unhide
+struct Sum {
+  std::string remark;
+  int sum;
+
+  Sum(std::string remark, int sum)
+    : remark{std::move(remark)}, sum{sum} {}
+
+  void print() const {
+    std::cout << remark << " = " << sum << '\n';
+  }
+};
+
+
+
+int main()
+{
+  std::forward_list<Sum> list;
+
+  auto iter = list.before_begin();
+  std::string str{"1"};
+  for (int i{1}, sum{1}; i != 10; sum += i) {
+      iter = list.emplace_after(iter, str, sum);
+      ++i;
+      str += " + " + std::to_string(i);
+  }
+
+  for (const Sum& s : list) s.print();
+}
+```
+
+<!-- .element: class="split" -->
+
+</script></section><section data-markdown><script type="text/template">
+## at front
+
+```cpp
+///hide
+#include <forward_list>
+#include <cassert>
+int main ()
+{
+///unhide
+std::forward_list<int> mylist{1, 2};
+mylist.push_front(3);
+mylist.emplace_front(4);
+mylist.pop_front();
+assert(mylist.front() == 3);
+///hide
+}
+```
+
+</script></section><section data-markdown><script type="text/template">
+## algorithms
+
+```cpp [9-17]
+///hide
+#include <iostream>
+#include <forward_list>
+
+///unhide
+std::ostream& operator<<(std::ostream& ostr, 
+                         const std::forward_list<int>& list) {
+  for (auto &i : list) {
+    ostr << " " << i;
+  }
+  return ostr;
+}
+
+///hide
+int main() {
+///unhide
+std::forward_list<int> list1 = { 5,9,0,1,3 };
+std::forward_list<int> list2 = { 8,7,2,6,4 };
+
+list1.sort();
+list2.sort();
+std::cout << "list1:  " << list1 << "\n";
+std::cout << "list2:  " << list2 << "\n";
+list1.merge(list2);
+std::cout << "merged: " << list1 << "\n";
+///hide
+}
+```
+
+<!-- .element: style="font-size: 0.45em" -->
+
+</script></section><section data-markdown><script type="text/template">
+<!-- .slide: data-background-image="11_containers/thanks.gif" -->
+
+## thank you
+
+<!-- .element: class="chapter" -->
+
+</script></section></section></div>
     </div>
 
     <script src="./dist/reveal.js"></script>
@@ -11898,7 +13964,7 @@ and gets the job done eventually.</p>
       // options from URL query string
       var queryOptions = Reveal().getQueryHash() || {};
 
-      var options = extend(defaultOptions, {"highlight":{"highlightOnLoad":true},"compilerExplorer":{"useLocal":true,"compiler":"g83"}}, queryOptions);
+      var options = extend(defaultOptions, {"highlight":{"highlightOnLoad":true},"compilerExplorer":{"useLocal":true,"compiler":"g83"},"math":{"mathjax":"_assets/node_modules/mathjax/MathJax.js"}}, queryOptions);
     </script>
 
     <script src="./_assets/node_modules/jquery/dist/jquery.min.js"></script>
