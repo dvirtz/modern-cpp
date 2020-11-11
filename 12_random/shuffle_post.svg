@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:osb="http://www.openswatchbook.org/uri/2009/osb"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   class="animated"
+   width="552.35004pt"
+   height="57.573677pt"
+   viewBox="0 0 920.58351 95.956136"
+   version="1.1"
+   id="svg2080"
+   inkscape:version="1.0 (4035a4f, 2020-05-01)"
+   sodipodi:docname="shuffle_post.svg">
+  <defs
+     id="defs2074">
+    <rect
+       id="rect1146"
+       height="38.173286"
+       width="80.384132"
+       y="56.393085"
+       x="39.18819" />
+    <rect
+       id="rect1106"
+       height="34.135727"
+       width="74.144264"
+       y="28.130173"
+       x="145.99998" />
+    <linearGradient
+       osb:paint="solid"
+       id="linearGradient3355">
+      <stop
+         id="stop3353"
+         offset="0"
+         style="stop-color:#0000ff;stop-opacity:1;" />
+    </linearGradient>
+    <inkscape:path-effect
+       only_selected="false"
+       apply_with_weight="true"
+       apply_no_weight="true"
+       helper_size="0"
+       steps="2"
+       weight="33.333333"
+       lpeversion="1"
+       is_visible="true"
+       id="path-effect909"
+       effect="bspline" />
+    <inkscape:path-effect
+       effect="bspline"
+       id="path-effect2849"
+       is_visible="true"
+       lpeversion="1"
+       weight="33.333333"
+       steps="2"
+       helper_size="0"
+       apply_no_weight="true"
+       apply_with_weight="true"
+       only_selected="false" />
+    <inkscape:path-effect
+       effect="bspline"
+       id="path-effect2845"
+       is_visible="true"
+       lpeversion="1"
+       weight="33.333333"
+       steps="2"
+       helper_size="0"
+       apply_no_weight="true"
+       apply_with_weight="true"
+       only_selected="false" />
+    <rect
+       x="25.4"
+       y="117.21042"
+       width="23.547916"
+       height="21.960417"
+       id="rect2647" />
+    <rect
+       id="rect2835"
+       height="21.960417"
+       width="23.547916"
+       y="117.21042"
+       x="25.4" />
+    <rect
+       x="25.4"
+       y="117.21042"
+       width="23.547916"
+       height="21.960417"
+       id="rect2841" />
+    <rect
+       x="145.99998"
+       y="28.130173"
+       width="74.144264"
+       height="34.135727"
+       id="rect1114" />
+    <rect
+       x="39.18819"
+       y="56.393085"
+       width="80.384132"
+       height="38.173286"
+       id="rect1154" />
+    <rect
+       id="rect1160"
+       height="38.173286"
+       width="80.384132"
+       y="56.393085"
+       x="39.18819" />
+  </defs>
+  <sodipodi:namedview
+     units="pt"
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="3.4055229"
+     inkscape:cx="123.03542"
+     inkscape:cy="43.705784"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     inkscape:document-rotation="0"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="1680"
+     inkscape:window-height="1005"
+     inkscape:window-x="0"
+     inkscape:window-y="23"
+     inkscape:window-maximized="0" />
+  <metadata
+     id="metadata2077">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-16.06401,-106.77781)">
+    <g
+       data-id="box0"
+       id="g1132">
+      <path
+         d="M 752.81 109.754 L 842.81 109.754 L 842.81 199.754 L 752.81 199.754 Z"
+         style="fill:none;stop-color:#000000;stroke:#ff5555;stroke-width:1.72125"
+         id="rect2643" />
+      <path
+         d="M 752.81 109.754 L 842.81 109.754 L 842.81 199.754 L 752.81 199.754 Z"
+         style="fill:#bee4fd;fill-opacity:1;stop-color:#000000;stroke:#3e4837;stroke-dasharray:none;stroke-miterlimit:4;stroke-opacity:1;stroke-width:5.95314"
+         id="rect2704" />
+      <g
+         aria-label="0"
+         id="text2708"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect2647);fill:#000000;fill-opacity:1;stroke:none">
+        <path
+           d="M 803.399 154.745 C 803.399 157.646 802.943 159.776 802.031 161.135 C 801.128 162.488 799.721 163.166 797.81 163.166 C 795.872 163.166 794.453 162.479 793.556 161.105 C 792.668 159.731 792.221 157.616 792.221 154.766 C 792.221 151.892 792.674 149.774 793.577 148.409 C 794.483 147.032 795.893 146.345 797.81 146.345 C 799.748 146.345 801.164 147.044 802.055 148.439 C 802.952 149.828 803.399 151.931 803.399 154.745 Z M 800.546 159.671 C 800.798 159.086 800.969 158.399 801.056 157.61 C 801.149 156.815 801.197 155.861 801.197 154.745 C 801.197 153.647 801.149 152.69 801.056 151.88 C 800.969 151.07 800.795 150.38 800.534 149.819 C 800.282 149.261 799.934 148.841 799.493 148.559 C 799.058 148.277 798.497 148.136 797.81 148.136 C 797.132 148.136 796.565 148.277 796.118 148.559 C 795.677 148.841 795.326 149.267 795.065 149.84 C 794.819 150.374 794.648 151.073 794.555 151.934 C 794.468 152.795 794.426 153.737 794.426 154.766 C 794.426 155.897 794.465 156.839 794.543 157.598 C 794.624 158.357 794.795 159.038 795.053 159.641 C 795.293 160.202 795.629 160.634 796.064 160.931 C 796.505 161.225 797.087 161.375 797.81 161.375 C 798.491 161.375 799.055 161.234 799.505 160.952 C 799.952 160.67 800.3 160.244 800.546 159.671 Z"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+           id="path3657" />
+      </g>
+    </g>
+    <g
+       data-id="box1"
+       id="g1137">
+      <path
+         d="M 477.647 109.754 C 507.647 109.754 537.647 109.754 567.647 109.754 C 567.647 139.754 567.647 169.754 567.647 199.754 C 537.647 199.754 507.647 199.754 477.647 199.754 C 477.647 169.754 477.647 139.754 477.647 109.754 Z"
+         style="fill:#bee4fd;fill-opacity:1;stop-color:#000000;stroke:#3e4837;stroke-dasharray:none;stroke-miterlimit:4;stroke-opacity:1;stroke-width:5.95314"
+         id="rect2712" />
+      <g
+         aria-label="1"
+         id="text2716"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect2647);fill:#000000;fill-opacity:1;stroke:none">
+        <path
+           d="M 527.021 162.863 C 524.105 162.863 521.189 162.863 518.273 162.863 C 517.473 160.427 520.055 161.374 521.53 161.213 C 521.785 157.821 521.566 153.954 521.639 150.38 C 520.267 150.138 517.55 151.243 518.273 148.907 C 520.736 150.15 523.419 143.971 523.721 148.005 C 523.721 152.408 523.721 156.81 523.721 161.213 C 525.187 161.389 527.813 160.407 527.021 162.841 Z"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+           id="path3660" />
+      </g>
+    </g>
+    <g
+       data-id="box2"
+       id="g1142">
+      <path
+         d="M 202.483 109.755 L 292.483 109.755 L 292.483 199.755 L 202.483 199.755 Z"
+         style="fill:#bee4fd;fill-opacity:1;stop-color:#000000;stroke:#3e4837;stroke-dasharray:none;stroke-miterlimit:4;stroke-opacity:1;stroke-width:5.95314"
+         id="rect2720" />
+      <g
+         aria-label="2"
+         id="text2724"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect2647);fill:#000000;fill-opacity:1;stroke:none">
+        <path
+           d="M 252.953 163.004 L 242.014 163.004 L 242.014 160.736 C 242.774 160.082 243.532 159.434 244.293 158.783 C 245.06 158.129 245.771 157.481 246.43 156.839 C 247.819 155.492 248.77 154.427 249.286 153.638 C 249.799 152.843 250.055 151.985 250.055 151.064 C 250.055 150.227 249.776 149.57 249.22 149.102 C 248.669 148.625 247.9 148.385 246.907 148.385 C 246.25 148.385 245.537 148.499 244.77 148.733 C 244.003 148.964 243.253 149.318 242.524 149.795 L 242.414 149.795 L 242.414 147.518 C 242.929 147.266 243.613 147.032 244.466 146.822 C 245.328 146.612 246.158 146.51 246.961 146.51 C 248.62 146.51 249.918 146.909 250.858 147.713 C 251.799 148.508 252.269 149.588 252.269 150.956 C 252.269 151.571 252.19 152.147 252.031 152.684 C 251.877 153.212 251.65 153.713 251.347 154.19 C 251.065 154.64 250.732 155.081 250.348 155.516 C 249.972 155.951 249.513 156.431 248.971 156.959 C 248.197 157.718 247.396 158.456 246.572 159.173 C 245.746 159.881 244.977 160.541 244.259 161.147 L 252.953 161.147 Z"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+           id="path3663" />
+      </g>
+    </g>
+    <g
+       data-id="box3"
+       id="g1275">
+      <path
+         id="rect2744"
+         style="fill:#bee4fd;fill-opacity:1;stop-color:#000000;stroke:#3e4837;stroke-dasharray:none;stroke-miterlimit:4;stroke-opacity:1;stroke-width:5.95311"
+         d="M 110.762 109.754 L 200.762 109.754 L 200.762 199.754 L 110.762 199.754 Z" />
+      <g
+         aria-label="…"
+         id="text2833"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect2835);fill:#000000;fill-opacity:1;stroke:none">
+        <path
+           d="M 162.923 155.966 L 160.712 155.966 L 160.712 153.545 L 162.923 153.545 Z M 156.869 155.966 L 154.655 155.966 L 154.655 153.545 L 156.869 153.545 Z M 150.815 155.966 L 148.601 155.966 L 148.601 153.545 L 150.815 153.545 Z"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+           id="path3771" />
+      </g>
+    </g>
+    <g
+       data-id="box4"
+       id="g1270">
+      <path
+         d="M 385.926 109.755 L 475.926 109.755 L 475.926 199.755 L 385.926 199.755 Z"
+         style="fill:#bee4fd;fill-opacity:1;stop-color:#000000;stroke:#3e4837;stroke-dasharray:none;stroke-miterlimit:4;stroke-opacity:1;stroke-width:5.95314"
+         id="rect2736" />
+      <g
+         aria-label="…"
+         id="text2839"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect2841);fill:#000000;fill-opacity:1;stroke:none">
+        <path
+           d="M 438.086 155.966 L 435.875 155.966 L 435.875 153.545 L 438.086 153.545 Z M 432.032 155.966 L 429.818 155.966 L 429.818 153.545 L 432.032 153.545 Z M 425.978 155.966 L 423.764 155.966 L 423.764 153.545 L 425.978 153.545 Z"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+           id="path3667" />
+      </g>
+    </g>
+    <g
+       data-id="box5"
+       id="g1285">
+      <path
+         d="M 661.089 109.755 L 751.089 109.755 L 751.089 199.755 L 661.089 199.755 Z"
+         style="fill:#bee4fd;fill-opacity:1;stop-color:#000000;stroke:#3e4837;stroke-dasharray:none;stroke-miterlimit:4;stroke-opacity:1;stroke-width:5.95314"
+         id="rect2760" />
+      <g
+         aria-label="…"
+         id="text2772"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect2647);fill:#000000;fill-opacity:1;stroke:none">
+        <path
+           d="M 713.252 155.966 L 711.038 155.966 L 711.038 153.545 L 713.252 153.545 Z M 707.195 155.966 L 704.981 155.966 L 704.981 153.545 L 707.195 153.545 Z M 701.141 155.966 L 698.927 155.966 L 698.927 153.545 L 701.141 153.545 Z"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+           id="path3683" />
+      </g>
+    </g>
+    <g
+       data-id="box6"
+       id="g1280">
+      <path
+         d="M 569.368 109.755 L 659.368 109.755 L 659.368 199.755 L 569.368 199.755 Z"
+         style="fill:#bee4fd;fill-opacity:1;stop-color:#000000;stroke:#3e4837;stroke-dasharray:none;stroke-miterlimit:4;stroke-opacity:1;stroke-width:5.95314"
+         id="rect2752" />
+      <g
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect2647);fill:#000000;fill-opacity:1;stroke:none"
+         id="g1092"
+         aria-label="…">
+        <path
+           id="path1090"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+           d="M 621.53 155.966 L 619.319 155.966 L 619.319 153.545 L 621.53 153.545 Z M 615.476 155.966 L 613.262 155.966 L 613.262 153.545 L 615.476 153.545 Z M 609.419 155.966 L 607.205 155.966 L 607.205 153.545 L 609.419 153.545 Z" />
+      </g>
+    </g>
+    <g
+       data-id="box7"
+       id="g1265">
+      <path
+         d="M 843.671 109.754 L 933.671 109.754 L 933.671 199.754 L 843.671 199.754 Z"
+         style="fill:#bee4fd;fill-opacity:1;stop-color:#000000;stroke:#3e4837;stroke-dasharray:none;stroke-miterlimit:4;stroke-opacity:1;stroke-width:5.95314"
+         id="rect2728" />
+      <g
+         aria-label="3"
+         id="text1144"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.33333px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect1146)">
+        <path
+           d="M 893.318 155.09 C 893.708 155.441 894.029 155.879 894.281 156.41 C 894.533 156.938 894.659 157.622 894.659 158.459 C 894.659 159.29 894.509 160.052 894.209 160.742 C 893.906 161.435 893.483 162.038 892.937 162.551 C 892.328 163.118 891.608 163.541 890.777 163.82 C 889.955 164.087 889.052 164.222 888.068 164.222 C 887.06 164.222 886.067 164.099 885.089 163.856 C 884.114 163.619 883.31 163.358 882.686 163.073 L 882.686 160.523 L 882.869 160.523 C 883.559 160.979 884.372 161.357 885.308 161.657 C 886.244 161.96 887.147 162.11 888.02 162.11 C 888.533 162.11 889.076 162.026 889.655 161.855 C 890.234 161.684 890.702 161.432 891.059 161.096 C 891.434 160.739 891.71 160.343 891.89 159.914 C 892.076 159.482 892.169 158.936 892.169 158.276 C 892.169 157.625 892.064 157.088 891.851 156.665 C 891.65 156.233 891.365 155.897 890.999 155.654 C 890.63 155.399 890.189 155.228 889.667 155.141 C 889.145 155.042 888.584 154.994 887.981 154.994 L 886.883 154.994 L 886.883 152.966 L 887.738 152.966 C 888.974 152.966 889.961 152.711 890.693 152.198 C 891.434 151.676 891.803 150.92 891.803 149.927 C 891.803 149.489 891.71 149.105 891.521 148.781 C 891.335 148.445 891.074 148.175 890.741 147.962 C 890.39 147.752 890.018 147.605 889.619 147.524 C 889.22 147.44 888.767 147.401 888.263 147.401 C 887.489 147.401 886.667 147.539 885.797 147.815 C 884.927 148.091 884.105 148.484 883.331 148.988 L 883.208 148.988 L 883.208 146.435 C 883.787 146.15 884.555 145.892 885.518 145.655 C 886.484 145.412 887.42 145.289 888.323 145.289 C 889.211 145.289 889.994 145.37 890.669 145.532 C 891.344 145.697 891.953 145.955 892.499 146.315 C 893.084 146.705 893.528 147.176 893.831 147.731 C 894.131 148.283 894.281 148.931 894.281 149.672 C 894.281 150.68 893.924 151.562 893.207 152.321 C 892.499 153.068 891.662 153.542 890.693 153.737 L 890.693 153.908 C 891.083 153.971 891.53 154.109 892.034 154.322 C 892.541 154.526 892.967 154.781 893.318 155.09 Z"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.33333px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+           id="path1176" />
+      </g>
+    </g>
+    <g
+       data-id="box8"
+       id="g1292">
+      <path
+         d="M 19.0406 109.754 L 109.041 109.754 L 109.041 199.754 L 19.0406 199.754 Z"
+         style="fill:#bee4fd;fill-opacity:1;stop-color:#000000;stroke:#3e4837;stroke-dasharray:none;stroke-miterlimit:4;stroke-opacity:1;stroke-width:5.95314"
+         id="rect2768" />
+      <g
+         aria-label="k-1"
+         id="text1152"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.33333px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect1154)">
+        <path
+           d="M 57.797 163.844 L 54.77 163.844 L 49.301 157.874 L 47.813 159.29 L 47.813 163.844 L 45.518 163.844 L 45.518 144.848 L 47.813 144.848 L 47.813 157.031 L 54.44 150.209 L 57.335 150.209 L 50.999 156.506 Z"
+           id="path1169" />
+        <path
+           d="M 67.442 156.995 L 59.825 156.995 L 59.825 154.787 L 67.442 154.787 Z"
+           id="path1171" />
+        <path
+           d="M 82.565 163.844 L 72.728 163.844 L 72.728 161.987 L 76.511 161.987 L 76.511 149.804 L 72.728 149.804 L 72.728 148.145 C 73.241 148.145 73.79 148.106 74.375 148.022 C 74.96 147.935 75.404 147.809 75.704 147.644 C 76.079 147.44 76.373 147.185 76.583 146.876 C 76.805 146.558 76.931 146.135 76.964 145.607 L 78.854 145.607 L 78.854 161.987 L 82.565 161.987 Z"
+           id="path1173" />
+      </g>
+    </g>
+    <g
+       data-id="box9"
+       id="g1301">
+      <path
+         d="M 295.064 109.757 L 385.064 109.757 L 385.064 199.757 L 295.064 199.757 Z"
+         style="fill:#bee4fd;fill-opacity:1;stop-color:#000000;stroke:#3e4837;stroke-dasharray:none;stroke-miterlimit:4;stroke-opacity:1;stroke-width:5.95314"
+         id="rect2776" />
+      <g
+         id="g2852"
+         style="fill:#cccccc;stroke:#000000;stroke-dasharray:none;stroke-miterlimit:4;stroke-opacity:1;stroke-width:0.0">
+        <path
+           style="fill:#cccccc;stroke:#000000;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-width:0.0"
+           d="M 385.064 109.754 L 293.342 199.754"
+           id="path2843">
+          <path
+             id="path2847"
+             d="M 293.342 109.754 L 385.064 199.754"
+             style="fill:#cccccc;stroke:#000000;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-width:0.0" />
+        </path>
+      </g>
+      <path
+         style="fill:#cccccc;stroke:#000000;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-width:0.0"
+         d="M 295.064 109.757 C 325.064 139.757 355.064 169.757 385.064 199.757"
+         id="path907" />
+      <g
+         aria-label="k"
+         id="text1158"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.33333px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect1160)">
+        <path
+           d="M 345.812 163.844 L 342.785 163.844 L 337.316 157.874 L 335.828 159.29 L 335.828 163.844 L 333.533 163.844 L 333.533 144.848 L 335.828 144.848 L 335.828 157.031 L 342.455 150.209 L 345.35 150.209 L 339.014 156.506 Z"
+           id="path1166" />
+      </g>
+    </g>
+  </g>
+</svg>

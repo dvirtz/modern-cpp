@@ -35,6 +35,7 @@ Note:
 9. [Concurrency](#/9)
 10. [Regular Expressions](#/10)
 11. [Containers](#/11)
+12. [Random](#/12)
 
 <!-- .element: class="split" -->
 

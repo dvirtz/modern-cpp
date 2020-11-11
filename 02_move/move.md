@@ -700,7 +700,7 @@ void vector<T>::push_back(const T& value) {
     <text class="error" x="322" y="75" fill="red" style="opacity: 0">
         ERROR
     </text>
-    <g class="new">
+    <g class="disappear">
         <text x="2" y="115" fill="white">New</text>
         <rect x="122" y="82" width="600" height="40" fill="url(#empty)" />
         <rect class="filling" x="122" y="82" width="200" height="40" fill="url(#full)" />
@@ -726,7 +726,7 @@ void vector<T>::push_back(const T& value) {
     <text class="error" x="322" y="75" fill="red" style="opacity: 0">
         ERROR
     </text>
-    <g class="new">
+    <g class="disappear">
         <text x="2" y="115" fill="white">New</text>
         <rect x="122" y="82" width="600" height="40" fill="url(#empty)" />
         <rect class="filling" x="122" y="82" width="200" height="40" fill="url(#full)" />

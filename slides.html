@@ -52,6 +52,7 @@
 9. [Concurrency](#/9)
 10. [Regular Expressions](#/10)
 11. [Containers](#/11)
+12. [Random](#/12)
 
 <!-- .element: class="split" -->
 
@@ -1655,22 +1656,22 @@ void vector<T>::push_back(const T& value) {
 
 <svg class="animated" width="80%" xmlns="http://www.w3.org/2000/svg">
     <defs>
-          <pattern id="empty" x="2" y="2" width="40" height="40" patternUnits="userSpaceOnUse">
+          <pattern id="empty0" x="2" y="2" width="40" height="40" patternUnits="userSpaceOnUse">
               <rect x="1" y="1" width="38" height="38" fill= "#ffffff" stroke= "#333333" stroke-width="2" />
           </pattern>
-          <pattern id="full" x="2" y="2" width="40" height="40" patternUnits="userSpaceOnUse">
+          <pattern id="full0" x="2" y="2" width="40" height="40" patternUnits="userSpaceOnUse">
               <rect x="1" y="1" width="38" height="38" fill= "#876fc1" stroke= "#333333" stroke-width="2" />
           </pattern>
     </defs>
     <text x="2" y="35" fill="white">Old</text>
-    <rect x="122" y="2" width="400" height="40" fill="url(#full)" />
+    <rect x="122" y="2" width="400" height="40" fill="url(#full0)" />
     <text class="error" x="322" y="75" fill="red" style="opacity: 0">
         ERROR
     </text>
-    <g class="new">
+    <g class="disappear">
         <text x="2" y="115" fill="white">New</text>
-        <rect x="122" y="82" width="600" height="40" fill="url(#empty)" />
-        <rect class="filling" x="122" y="82" width="200" height="40" fill="url(#full)" />
+        <rect x="122" y="82" width="600" height="40" fill="url(#empty0)" />
+        <rect class="filling" x="122" y="82" width="200" height="40" fill="url(#full0)" />
     </g>
 </svg>
 
@@ -1679,23 +1680,23 @@ void vector<T>::push_back(const T& value) {
 
 <svg class="animated" width="80%" xmlns="http://www.w3.org/2000/svg">
     <defs>
-          <pattern id="empty" x="2" y="2" width="40" height="40" patternUnits="userSpaceOnUse">
+          <pattern id="empty1" x="2" y="2" width="40" height="40" patternUnits="userSpaceOnUse">
               <rect x="1" y="1" width="38" height="38" fill= "#ffffff" stroke= "#333333" stroke-width="2" />
           </pattern>
-          <pattern id="full" x="2" y="2" width="40" height="40" patternUnits="userSpaceOnUse">
+          <pattern id="full1" x="2" y="2" width="40" height="40" patternUnits="userSpaceOnUse">
               <rect x="1" y="1" width="38" height="38" fill= "#876fc1" stroke= "#333333" stroke-width="2" />
           </pattern>
     </defs>
     <text x="2" y="35" fill="white">Old</text>
-    <rect x="122" y="2" width="400" height="40" fill="url(#full)" />
-    <rect class="filling" x="122" y="2" width="200" height="40" fill="url(#empty)" />
+    <rect x="122" y="2" width="400" height="40" fill="url(#full1)" />
+    <rect class="filling" x="122" y="2" width="200" height="40" fill="url(#empty1)" />
     <text class="error" x="322" y="75" fill="red" style="opacity: 0">
         ERROR
     </text>
-    <g class="new">
+    <g class="disappear">
         <text x="2" y="115" fill="white">New</text>
-        <rect x="122" y="82" width="600" height="40" fill="url(#empty)" />
-        <rect class="filling" x="122" y="82" width="200" height="40" fill="url(#full)" />
+        <rect x="122" y="82" width="600" height="40" fill="url(#empty1)" />
+        <rect class="filling" x="122" y="82" width="200" height="40" fill="url(#full1)" />
     </g>
 </svg>
 
@@ -2246,7 +2247,7 @@ throw v;                    // throw an exception
 
 <!-- .element: class="chapter" -->
 
-<div class="footnote" style="text-shadow: 3px 3px black; color: lightblue">
+<div class="footnotes" style="text-shadow: 3px 3px black; color: lightblue">
 
 Sources:
 
@@ -5744,11 +5745,12 @@ struct Work
 
 <!-- .element: data-id="code" style="font-size: 0.35em" -->
 
-<aside class="notes"><p>what if work is destroyed before the pool?</p>
-<div class="footnote">
+Source: [nextptr](https://www.nextptr.com/tutorial/ta1414193955/enable_shared_from_this-overview-examples-and-internals)
 
-<p>Source: <a href="https://www.nextptr.com/tutorial/ta1414193955/enable_shared_from_this-overview-examples-and-internals">nextptr</a></p>
-</div></aside></script></section><section data-markdown><script type="text/template">
+<!-- .element: class="footnote" -->
+
+<aside class="notes"><p>what if work is destroyed before the pool?</p>
+</aside></script></section><section data-markdown><script type="text/template">
 <!-- .slide: data-auto-animate -->
 
 ## do work
@@ -13921,6 +13923,2696 @@ std::cout << "merged: " << list1 << "\n";
 
 <!-- .element: class="chapter" -->
 
+
+</script></section></section><section ><section data-markdown><script type="text/template">
+<!-- .slide: data-background-image="12_random/neville.jpg" -->
+
+</script></section><section data-markdown><script type="text/template">
+## c-style
+
+```cpp
+///hide
+#include <cstdlib>
+#include <ctime>
+#include <iostream>
+
+void foo() {
+///unhide
+std::srand(std::time(nullptr));
+
+for (size_t _ = 0; _ < 1'000; ++_) {
+    std::cout << std::rand() % 100'000 << '\n';
+}
+///hide
+}
+```
+
+</script></section><section data-markdown><script type="text/template">
+## what's wrong?
+
+1. <!-- .element: class="fragment" -->  seed in seconds
+2. <!-- .element: class="fragment" -->  non-uniform distribution
+3. <!-- .element: class="fragment" -->  <code>RAND_MAX</code>
+4. <!-- .element: class="fragment" -->  might not be thread safe
+
+<aside class="notes"><ol>
+<li>Imagine our application runs in a grid. There&#39;s a likely chance two instances will start on the same second.</li>
+<li>Assuming range is not divisible by the modulus without a remainder</li>
+<li>can be as low as 32767</li>
+<li>this is implementation defined</li>
+</ol>
+</aside></script></section><section data-markdown><script type="text/template">
+<!-- .slide: data-background-image="12_random/crack.gif" -->
+
+## Pseudo-random number generation 
+
+<!-- .element: class="chapter" -->
+
+<div class="footnotes" style="color: #333">
+
+Sources: 
+
+- [N3551](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2013/n3551.pdf), Walter E. Brown
+- [N1398](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2002/n1398.html), Jens Maurer
+
+</div>
+
+</script></section><section data-markdown><script type="text/template">
+## why?
+
+- numerics (simulation, Monte-Carlo integration)
+- games (shuffling card decks, non-deterministic enemy behavior)
+- testing (generation of test input data for good coverage)
+- security (generation of cryptographic keys)
+
+<aside class="notes"><p>Computers are deterministic machines by design: equal input data results in equal output, given the same internal state. Sometimes, applications require seemingly non-deterministic behavior, usually provided by generating random numbers.</p>
+</aside></script></section><section data-markdown><script type="text/template">
+<!-- .slide: class="aside" -->
+
+## generating pseudo randomness
+
+![generating random](12_random/generating_random.svg) 
+
+<aside class="notes"><p>We start with some seed data as an entropy source. This is used to initialize an engine which is a function object which upon call, generates a pseudo-random number and updates its internal state. The distribution post-processes the engine&#39;s output in such a way that resulting output is distributed according to a defined statistical probability density function.</p>
+</aside></script></section><section data-markdown><script type="text/template">
+## dice rolling
+
+```cpp
+///hide
+#include <iostream>
+///unhide
+#include <random>
+
+int roll_a_fair_die( ) {
+  static unsigned seed{0x12345678};
+  static std::default_random_engine e{seed};
+  static std::uniform_int_distribution<int> d{1, 6};
+  return d(e);
+}
+///hide
+
+int main() {
+  for (size_t i = 0; i < 20; ++i) {
+      std::cout << roll_a_fair_die() << ' ';
+  }
+  std::cout << '\n';
+}
+```
+
+</script></section><section data-markdown><script type="text/template">
+<!-- .slide: data-background-image="12_random/engine.gif" -->
+
+## engines
+
+<!-- .element: class="chapter" -->
+
+<aside class="notes"><p>An engine’s role is to return unpredictable (random) bits, ensuring that the likelihood of
+next obtaining a 0 bit is always the same as the likelihood of next obtaining a 1 bit. 
+To reduce overhead and improve throughput, C++ engines typically compute and return many bits per call by
+encoding them into a single result of an unsigned integer type.</p>
+</aside></script></section><section data-markdown><script type="text/template">
+## what can it do
+
+```cpp [1|3-5|7-16]
+///hide
+#include <random>
+#include <iostream>
+#include <cassert>
+#include <sstream>
+
+int main() {
+///unhide
+std::default_random_engine e;
+
+std::cout << "e's range is [" 
+          << e.min() << "," 
+          << e.max() << "]\n";
+
+std::stringstream sst;
+sst << e;
+const auto n1 = e();
+
+e.seed(42);
+e.discard(10);
+
+sst >> e;
+const auto n2 = e();
+assert(n1 == n2);
+///hide
+}
+```
+
+<!-- .element: style="font-size: 0.5em" -->
+
+<aside class="notes"><ol>
+<li>default constructible with some default seed</li>
+<li>generates values between <code>min</code> and <code>max</code></li>
+<li>can be serialized/deserialized to an <code>iostream</code></li>
+<li>can be called directly</li>
+<li>can be reseeded</li>
+<li>results can be discarded</li>
+</ol>
+</aside></script></section><section data-markdown><script type="text/template">
+## Library engines
+
+beyond `std::default_random_engine`.
+
+<aside class="notes"><p>it is actually an alias to one of several library defined engines.</p>
+</aside></script></section><section data-markdown><script type="text/template">
+## Linear congruential generator (LCG)
+
+`$$ X_{n+1} = \left( a X_n + c \right)\bmod m $$`
+
+for some predefined `a`, `c` and `m`.
+
+<aside class="notes"><p>of course, not every choice of parameters will generate a pseudo-random sequence. for example, a = 1 and c = 1 produces a simple modulo-m counter, but there are parameters which were found to produce series of high quality.</p>
+</aside></script></section><section data-markdown><script type="text/template">
+<!-- .slide: data-auto-animate -->
+
+## LCG
+
+```cpp
+template <class UIntType, 
+          UIntType a, UIntType c, UIntType m>
+class linear_congruential_engine;
+```
+
+<!-- .element: data-id="code" style="font-size: 0.45em" -->
+
+</script></section><section data-markdown><script type="text/template">
+<!-- .slide: data-auto-animate -->
+
+## predefined 
+
+## LCG
+
+```cpp
+///hide
+#include <cstdint>
+
+///unhide
+template <class UIntType, 
+          UIntType a, UIntType c, UIntType m>
+class linear_congruential_engine;
+
+using minstd_rand0 =
+    linear_congruential_engine<uint_fast32_t, 16807, 0, 2147483647>;
+
+using minstd_rand =
+    linear_congruential_engine<uint_fast32_t, 48271, 0, 2147483647>;
+```
+
+<!-- .element: data-id="code" style="font-size: 0.45em" -->
+
+</script></section><section data-markdown><script type="text/template">
+## Subtract with carry (SWC)
+
+`$$ x_i = (x_{i-s} - x_{i-r} - c_{i-1})\ \bmod\ m $$`
+
+where
+
+`$$
+c_i = \begin{cases}
+    1, & \text{if } x_{i-s} - x{i-r} - c_{i-1} < 0\\
+    0, & \text{otherwise}
+\end{cases}
+$$`
+
+</script></section><section data-markdown><script type="text/template">
+<!-- .slide: data-auto-animate -->
+
+## SWC
+
+```cpp
+///hide
+#include <cstddef>
+
+///unhide
+template<class UIntType,
+         size_t w, size_t s, size_t r> 
+class subtract_with_carry_engine;
+```
+
+<!-- .element: data-id="code" -->
+
+</script></section><section data-markdown><script type="text/template">
+<!-- .slide: data-auto-animate -->
+
+## predefined 
+
+## SWC
+
+```cpp
+///hide
+#include <cstddef>
+#include <cstdint>
+
+///unhide
+template<class UIntType,
+         size_t w, size_t s, size_t r> 
+class subtract_with_carry_engine;
+
+using ranlux24_base 
+  = subtract_with_carry_engine<uint_fast32_t, 24, 10, 24>;
+
+using ranlux48_base 
+  = subtract_with_carry_engine<uint_fast64_t, 48, 5, 12>;
+```
+
+<!-- .element: data-id="code" -->
+
+<aside class="notes"><p>ranlux is the name of the Fortran library which was the first implementation of this RNG.</p>
+</aside></script></section><section data-markdown><script type="text/template">
+## mersenne twister (MT)
+
+`$$ x_{k+n} := x_{k+m} \oplus \left( ({x_k}^u \mid\mid {x_{k+1}}^l) A \right) \qquad k=0,1,\ldots $$`
+
+where
+
+`$$ A = \begin{pmatrix} 0 & I_{w - 1} \\ a_{w-1} & (a_{w - 2}, \ldots , a_0) \end{pmatrix} $$`
+
+<aside class="notes"><p>This is a form of a shift register. <code>||</code> denotes concatenation of bit vectors, <code>^u</code> means the upper <code>w - r</code> bits, and <code>^l</code> means the lower <code>r</code> bits.</p>
+</aside></script></section><section data-markdown><script type="text/template">
+## mersenne twister (MT)
+
+on state `x` the engine's output will be
+
+```cpp
+///hide
+#include <cstdint>
+
+uint32_t calc(uint32_t x, uint32_t u, uint32_t s, uint32_t t, uint32_t d, uint32_t b, uint32_t c, uint32_t l) {
+///unhide
+auto y = x ^ ((x >> u) & d);
+     y = y ^ ((y << s) & b);
+     y = y ^ ((y << t) & c);
+auto z = y ^ (y >> l);
+
+return z;
+///hide
+}
+```
+
+for some predefined parameters `u`, `s`, `t`, `d`, `b`, `c` and `l`.
+
+</script></section><section data-markdown><script type="text/template">
+<!-- .slide: data-auto-animate -->
+
+## MT
+
+```cpp
+///hide
+#include <cstddef>
+
+///unhide
+template <class UIntType, size_t w, size_t n, size_t m, size_t r, UIntType a,
+          size_t u, UIntType d, size_t s, UIntType b, size_t t, UIntType c,
+          size_t l, UIntType f>
+class mersenne_twister_engine;
+```
+
+<!-- .element: data-id="code" style="font-size: 0.4em" -->
+
+</script></section><section data-markdown><script type="text/template">
+<!-- .slide: data-auto-animate -->
+
+## predefined 
+
+## MT
+
+```cpp
+///hide
+#include <cstddef>
+#include <cstdint>
+
+///unhide
+template <class UIntType, size_t w, size_t n, size_t m, size_t r, UIntType a,
+          size_t u, UIntType d, size_t s, UIntType b, size_t t, UIntType c,
+          size_t l, UIntType f>
+class mersenne_twister_engine;
+
+using mt19937 =
+    mersenne_twister_engine<uint_fast32_t, 32, 624, 397, 31, 0x9908b0df,
+                            11, 0xffffffff, 7, 0x9d2c5680, 15, 0xefc60000, 18,
+                            1812433253>;
+
+using mt19937_64 =
+    mersenne_twister_engine<uint_fast64_t, 64, 312, 156, 31,
+                            0xb5026f5aa96619e9, 29, 0x5555555555555555, 17,
+                            0x71d67fffeda60000, 37, 0xfff7eee000000000, 43,
+                            6364136223846793005>;
+```
+
+<!-- .element: data-id="code" style="font-size: 0.4em" -->
+
+<aside class="notes"><p>the period of those engines is <code>2^19937 − 1</code></p>
+</aside></script></section><section data-markdown><script type="text/template">
+## engine adaptors
+
+generate pseudo-random numbers using another random number engine as entropy source.
+
+</script></section><section data-markdown><script type="text/template">
+<!-- .slide: data-auto-animate -->
+
+## `discard_block_engine`
+
+```cpp
+///hide
+#include <cstddef>
+
+///unhide
+template <class Engine,
+          size_t P, size_t R> 
+class discard_block_engine;
+```
+
+<!-- .element: data-id="code" -->
+
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:osb="http://www.openswatchbook.org/uri/2009/osb"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   sodipodi:docname="discard.svg"
+   inkscape:version="1.0 (4035a4f, 2020-05-01)"
+   id="svg2080"
+   version="1.1"
+   viewBox="0 0 921.44445 20.310083"
+   height="20.310083mm"
+   width="195.03908mm"
+   class="animated">
+  <defs
+     id="defs2074">
+    <linearGradient
+       id="linearGradient3355"
+       osb:paint="solid">
+      <stop
+         style="stop-color:#0000ff;stop-opacity:1;"
+         offset="0"
+         id="stop3353" />
+    </linearGradient>
+    <inkscape:path-effect
+       effect="bspline"
+       id="path-effect909"
+       is_visible="true"
+       lpeversion="1"
+       weight="33.333333"
+       steps="2"
+       helper_size="0"
+       apply_no_weight="true"
+       apply_with_weight="true"
+       only_selected="false" />
+    <inkscape:path-effect
+       only_selected="false"
+       apply_with_weight="true"
+       apply_no_weight="true"
+       helper_size="0"
+       steps="2"
+       weight="33.333333"
+       lpeversion="1"
+       is_visible="true"
+       id="path-effect2849"
+       effect="bspline" />
+    <inkscape:path-effect
+       only_selected="false"
+       apply_with_weight="true"
+       apply_no_weight="true"
+       helper_size="0"
+       steps="2"
+       weight="33.333333"
+       lpeversion="1"
+       is_visible="true"
+       id="path-effect2845"
+       effect="bspline" />
+    <rect
+       id="rect2647"
+       height="21.960417"
+       width="23.547916"
+       y="117.21042"
+       x="25.4" />
+    <rect
+       x="25.4"
+       y="117.21042"
+       width="23.547916"
+       height="21.960417"
+       id="rect2835" />
+    <rect
+       id="rect2841"
+       height="21.960417"
+       width="23.547916"
+       y="117.21042"
+       x="25.4" />
+  </defs>
+  <sodipodi:namedview
+     inkscape:window-maximized="0"
+     inkscape:window-y="23"
+     inkscape:window-x="0"
+     inkscape:window-height="1005"
+     inkscape:window-width="1680"
+     fit-margin-bottom="0"
+     fit-margin-right="0"
+     fit-margin-left="0"
+     fit-margin-top="0"
+     showgrid="false"
+     inkscape:document-rotation="0"
+     inkscape:current-layer="layer1"
+     inkscape:document-units="mm"
+     inkscape:cy="31.360262"
+     inkscape:cx="85.743066"
+     inkscape:zoom="3.4055229"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     borderopacity="1.0"
+     bordercolor="#666666"
+     pagecolor="#ffffff"
+     id="base" />
+  <metadata
+     id="metadata2077">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     transform="translate(-16.063988,-144.59981)"
+     id="layer1"
+     inkscape:groupmode="layer"
+     inkscape:label="Layer 1">
+    <rect
+       y="109.75485"
+       x="19.040558"
+       height="90"
+       width="90"
+       id="rect2643"
+       style="fill:none;stroke:#ff5555;stroke-width:1.72125;stop-color:#000000" />
+    <rect
+       style="fill:#bee4fd;fill-opacity:1;stroke:#3e4837;stroke-width:5.95314;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000"
+       id="rect2704"
+       width="90"
+       height="90"
+       x="19.040558"
+       y="109.75485" />
+    <g
+       aria-label="0"
+       id="text2708"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect2647);fill:#000000;fill-opacity:1;stroke:none"
+       transform="matrix(2.25,0,0,2.25,-20.079982,-133.47285)">
+      <path
+         d="m 39.8708,128.096 c 0,1.29 -0.2026,2.237 -0.6077,2.841 -0.4019,0.601 -1.0273,0.902 -1.8762,0.902 -0.8617,0 -1.492,-0.305 -1.8907,-0.916 -0.3955,-0.611 -0.5932,-1.55 -0.5932,-2.817 0,-1.277 0.201,-2.219 0.6029,-2.826 0.4019,-0.611 1.0289,-0.917 1.881,-0.917 0.8617,0 1.4904,0.311 1.8859,0.931 0.3987,0.617 0.598,1.552 0.598,2.802 z m -1.2685,2.19 c 0.1126,-0.26 0.1881,-0.566 0.2267,-0.916 0.0418,-0.354 0.0627,-0.778 0.0627,-1.274 0,-0.488 -0.0209,-0.913 -0.0627,-1.273 -0.0386,-0.36 -0.1157,-0.666 -0.2315,-0.916 -0.1125,-0.248 -0.2669,-0.434 -0.463,-0.56 -0.1929,-0.125 -0.4421,-0.188 -0.7476,-0.188 -0.3022,0 -0.553,0.063 -0.7524,0.188 -0.1961,0.126 -0.3521,0.315 -0.4678,0.569 -0.1094,0.238 -0.1849,0.549 -0.2267,0.931 -0.0386,0.383 -0.0579,0.802 -0.0579,1.259 0,0.502 0.0177,0.921 0.053,1.259 0.0354,0.337 0.111,0.64 0.2267,0.907 0.1061,0.25 0.2557,0.442 0.4486,0.574 0.1961,0.131 0.455,0.197 0.7765,0.197 0.3023,0 0.5531,-0.062 0.7524,-0.188 0.1994,-0.125 0.3537,-0.315 0.463,-0.569 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+         id="path3657" />
+    </g>
+    <rect
+       style="fill:#bee4fd;fill-opacity:1;stroke:#3e4837;stroke-width:5.95314;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000"
+       id="rect2712"
+       width="90"
+       height="90"
+       x="110.7618"
+       y="109.75485" />
+    <g
+       aria-label="1"
+       id="text2716"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect2647);fill:#000000;fill-opacity:1;stroke:none"
+       transform="matrix(2.25,0,0,2.25,-20.079982,-133.47285)">
+      <path
+         d="m 80.0957,131.704 h -3.8875 v -0.733 h 1.4952 v -4.814 h -1.4952 v -0.655 c 0.2026,0 0.4196,-0.017 0.6511,-0.049 0.2316,-0.035 0.4068,-0.085 0.5258,-0.149 0.1479,-0.081 0.2636,-0.182 0.3472,-0.304 0.0868,-0.125 0.1367,-0.293 0.1496,-0.502 h 0.7475 v 6.473 h 1.4663 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+         id="path3660" />
+    </g>
+    <rect
+       style="fill:#bee4fd;fill-opacity:1;stroke:#3e4837;stroke-width:5.95314;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000"
+       id="rect2720"
+       width="90"
+       height="90"
+       x="202.48308"
+       y="109.75485" />
+    <g
+       aria-label="2"
+       id="text2724"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect2647);fill:#000000;fill-opacity:1;stroke:none"
+       transform="matrix(2.25,0,0,2.25,-20.079982,-133.47285)">
+      <path
+         d="m 121.348,131.767 h -4.862 v -1.008 c 0.338,-0.29 0.675,-0.579 1.013,-0.868 0.341,-0.29 0.657,-0.578 0.95,-0.864 0.617,-0.598 1.04,-1.072 1.269,-1.423 0.228,-0.353 0.342,-0.734 0.342,-1.143 0,-0.373 -0.124,-0.664 -0.371,-0.873 -0.245,-0.212 -0.587,-0.318 -1.028,-0.318 -0.292,0 -0.609,0.051 -0.95,0.154 -0.341,0.103 -0.674,0.261 -0.998,0.473 h -0.049 v -1.013 c 0.229,-0.112 0.533,-0.215 0.912,-0.309 0.383,-0.093 0.752,-0.139 1.109,-0.139 0.737,0 1.314,0.178 1.732,0.535 0.418,0.354 0.627,0.834 0.627,1.442 0,0.273 -0.035,0.529 -0.106,0.767 -0.068,0.235 -0.169,0.458 -0.304,0.67 -0.125,0.2 -0.273,0.396 -0.444,0.589 -0.167,0.193 -0.371,0.407 -0.612,0.641 -0.344,0.338 -0.7,0.666 -1.066,0.984 -0.367,0.315 -0.709,0.608 -1.028,0.878 h 3.864 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+         id="path3663" />
+    </g>
+    <rect
+       style="fill:#bee4fd;fill-opacity:1;stroke:#3e4837;stroke-width:5.95314;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000"
+       id="rect2728"
+       width="90"
+       height="90"
+       x="294.20428"
+       y="109.75485" />
+    <rect
+       style="fill:#bee4fd;fill-opacity:1;stroke:#3e4837;stroke-width:5.95314;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000"
+       id="rect2736"
+       width="90"
+       height="90"
+       x="385.92554"
+       y="109.75485" />
+    <path
+       id="rect2744"
+       style="fill:#bee4fd;fill-opacity:1;stroke:#3e4837;stroke-width:5.95311;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000"
+       d="m 477.64682,109.75485 h 90 v 90 h -90 z" />
+    <rect
+       style="fill:#bee4fd;fill-opacity:1;stroke:#3e4837;stroke-width:5.95314;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000"
+       id="rect2752"
+       width="90"
+       height="90"
+       x="569.3681"
+       y="109.75485" />
+    <g
+       aria-label="R"
+       id="text2756"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect2647);fill:#000000;fill-opacity:1;stroke:none"
+       transform="matrix(2.25,0,0,2.25,-20.079982,-133.47285)">
+      <path
+         d="m 284.948,131.692 h -1.239 l -2.402,-2.855 h -1.346 v 2.855 h -0.955 v -7.182 h 2.011 c 0.434,0 0.796,0.029 1.085,0.087 0.29,0.055 0.55,0.155 0.782,0.299 0.26,0.164 0.463,0.372 0.608,0.622 0.147,0.248 0.221,0.563 0.221,0.946 0,0.517 -0.13,0.951 -0.39,1.302 -0.261,0.347 -0.619,0.609 -1.076,0.786 z m -2.233,-5.161 c 0,-0.206 -0.037,-0.387 -0.111,-0.545 -0.071,-0.161 -0.19,-0.296 -0.357,-0.405 -0.138,-0.093 -0.302,-0.157 -0.492,-0.193 -0.19,-0.038 -0.413,-0.058 -0.67,-0.058 h -1.124 v 2.711 h 0.965 c 0.302,0 0.566,-0.026 0.791,-0.077 0.225,-0.055 0.416,-0.155 0.574,-0.299 0.144,-0.135 0.25,-0.29 0.318,-0.463 0.071,-0.177 0.106,-0.401 0.106,-0.671 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+         id="path3673" />
+    </g>
+    <g
+       aria-label="…"
+       id="text2833"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect2835);fill:#000000;fill-opacity:1;stroke:none"
+       transform="matrix(2.25,0,0,2.25,-20.079982,-133.47285)">
+      <path
+         d="m 244.395,128.639 h -0.983 v -1.076 h 0.983 z m -2.691,0 h -0.984 v -1.076 h 0.984 z m -2.691,0 h -0.984 v -1.076 h 0.984 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+         id="path3771" />
+    </g>
+    <g
+       aria-label="…"
+       id="text2839"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect2841);fill:#000000;fill-opacity:1;stroke:none"
+       transform="matrix(2.25,0,0,2.25,-20.079982,-133.47285)">
+      <path
+         d="m 203.63,128.639 h -0.983 v -1.076 h 0.983 z m -2.691,0 h -0.984 v -1.076 h 0.984 z m -2.691,0 h -0.984 v -1.076 h 0.984 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+         id="path3667" />
+    </g>
+    <g
+       transform="matrix(3,0,0,3,-32.127974,-213.55656)"
+       class="disappear"
+       style="animation-delay: 3s"
+       id="g1116">
+      <g
+         id="g3899">
+        <rect
+           style="fill:#bee4fd;fill-opacity:1;stroke:#3e4837;stroke-width:1.98438;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000"
+           id="rect2760"
+           width="30"
+           height="30"
+           x="231.07243"
+           y="107.77047" />
+        <g
+           aria-label="R+1"
+           id="text2764"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect2647);fill:#000000;fill-opacity:1;stroke:none"
+           transform="matrix(0.75,0,0,0.75,4.0159973,26.69457)">
+          <path
+             d="m 319.076,131.704 h -1.239 l -2.402,-2.855 h -1.346 v 2.855 h -0.955 v -7.182 h 2.011 c 0.434,0 0.796,0.029 1.085,0.087 0.29,0.055 0.55,0.155 0.782,0.299 0.26,0.164 0.463,0.372 0.608,0.622 0.147,0.248 0.221,0.563 0.221,0.946 0,0.517 -0.13,0.952 -0.39,1.302 -0.261,0.347 -0.619,0.609 -1.076,0.786 z m -2.233,-5.161 c 0,-0.205 -0.037,-0.387 -0.111,-0.545 -0.071,-0.16 -0.19,-0.296 -0.357,-0.405 -0.138,-0.093 -0.302,-0.157 -0.492,-0.193 -0.19,-0.038 -0.413,-0.058 -0.67,-0.058 h -1.124 v 2.711 h 0.965 c 0.302,0 0.566,-0.026 0.791,-0.077 0.225,-0.055 0.416,-0.155 0.574,-0.299 0.144,-0.135 0.25,-0.29 0.318,-0.463 0.071,-0.177 0.106,-0.401 0.106,-0.671 z"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+             id="path3676" />
+          <path
+             d="m 326.108,128.945 h -2.628 v 2.629 h -0.801 v -2.629 h -2.629 v -0.771 h 2.629 v -2.629 h 0.801 v 2.629 h 2.628 z"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+             id="path3678" />
+          <path
+             d="m 332.349,131.704 h -3.887 v -0.733 h 1.495 v -4.814 h -1.495 v -0.655 c 0.203,0 0.42,-0.017 0.651,-0.049 0.232,-0.035 0.407,-0.085 0.526,-0.149 0.148,-0.081 0.263,-0.182 0.347,-0.304 0.087,-0.125 0.137,-0.293 0.15,-0.502 h 0.747 v 6.473 h 1.466 z"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+             id="path3680" />
+        </g>
+      </g>
+      <g
+         id="g3892">
+        <rect
+           style="fill:#bee4fd;fill-opacity:1;stroke:#3e4837;stroke-width:1.98438;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000"
+           id="rect2768"
+           width="30"
+           height="30"
+           x="261.64618"
+           y="107.77047" />
+        <g
+           aria-label="…"
+           id="text2772"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect2647);fill:#000000;fill-opacity:1;stroke:none"
+           transform="matrix(0.75,0,0,0.75,4.0159973,26.69457)">
+          <path
+             d="m 366.69,128.639 h -0.983 v -1.076 h 0.983 z m -2.691,0 h -0.984 v -1.076 h 0.984 z m -2.691,0 h -0.984 v -1.076 h 0.984 z"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+             id="path3683" />
+        </g>
+      </g>
+      <g
+         id="g3887">
+        <rect
+           style="fill:#bee4fd;fill-opacity:1;stroke:#3e4837;stroke-width:1.98438;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000"
+           id="rect2776"
+           width="30"
+           height="30"
+           x="292.21994"
+           y="107.77047" />
+        <g
+           aria-label="P"
+           id="text2780"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect2647);fill:#000000;fill-opacity:1;stroke:none"
+           transform="matrix(0.75,0,0,0.75,4.0159973,26.69457)">
+          <path
+             d="m 406.621,126.681 c 0,0.318 -0.057,0.614 -0.169,0.887 -0.109,0.27 -0.264,0.505 -0.463,0.704 -0.248,0.248 -0.54,0.434 -0.878,0.56 -0.338,0.122 -0.764,0.183 -1.278,0.183 h -0.955 v 2.677 h -0.955 v -7.182 h 1.949 c 0.43,0 0.795,0.037 1.094,0.111 0.299,0.071 0.565,0.184 0.796,0.338 0.274,0.183 0.484,0.411 0.632,0.685 0.151,0.273 0.227,0.619 0.227,1.037 z m -0.994,0.024 c 0,-0.248 -0.043,-0.463 -0.13,-0.646 -0.087,-0.184 -0.219,-0.333 -0.396,-0.449 -0.154,-0.1 -0.331,-0.17 -0.53,-0.212 -0.196,-0.045 -0.445,-0.068 -0.748,-0.068 h -0.945 v 2.87 h 0.805 c 0.386,0 0.7,-0.034 0.941,-0.101 0.241,-0.071 0.437,-0.182 0.588,-0.333 0.152,-0.154 0.258,-0.317 0.319,-0.487 0.064,-0.171 0.096,-0.362 0.096,-0.574 z"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+             id="path3768" />
+        </g>
+        <g
+           id="g2852"
+           style="fill:#cccccc;stroke:#000000;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           transform="matrix(0.75,0,0,0.75,4.0159973,26.69457)">
+          <path
+             style="fill:#cccccc;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+             d="m 424.27192,108.1012 c 0,0 -40.76499,40 -40.76499,40"
+             id="path2843">
+            <path
+               id="path2847"
+               d="m 383.50693,108.1012 c 0,0 40.76499,40 40.76499,40"
+               style="fill:#cccccc;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none" />
+          </path>
+        </g>
+        <path
+           style="fill:#cccccc;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="m 292.21994,107.77047 c 10.00019,10.0002 20.00019,20.0002 30,30"
+           id="path907" />
+      </g>
+    </g>
+    <g
+       aria-label="3"
+       id="text1144"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.33333px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect1146)"
+       transform="matrix(3,0,0,3,-32.128214,-213.55665)">
+      <path
+         d="m 125.326,122.882 c 0.13,0.117 0.237,0.263 0.321,0.44 0.084,0.176 0.126,0.404 0.126,0.683 0,0.277 -0.05,0.531 -0.15,0.761 -0.101,0.231 -0.242,0.432 -0.424,0.603 -0.203,0.189 -0.443,0.33 -0.72,0.423 -0.274,0.089 -0.575,0.134 -0.903,0.134 -0.336,0 -0.667,-0.041 -0.993,-0.122 -0.325,-0.079 -0.593,-0.166 -0.801,-0.261 v -0.85 h 0.061 c 0.23,0.152 0.501,0.278 0.813,0.378 0.312,0.101 0.613,0.151 0.904,0.151 0.171,0 0.352,-0.028 0.545,-0.085 0.193,-0.057 0.349,-0.141 0.468,-0.253 0.125,-0.119 0.217,-0.251 0.277,-0.394 0.062,-0.144 0.093,-0.326 0.093,-0.546 0,-0.217 -0.035,-0.396 -0.106,-0.537 -0.067,-0.144 -0.162,-0.256 -0.284,-0.337 -0.123,-0.085 -0.27,-0.142 -0.444,-0.171 -0.174,-0.033 -0.361,-0.049 -0.562,-0.049 h -0.366 v -0.676 h 0.285 c 0.412,0 0.741,-0.085 0.985,-0.256 0.247,-0.174 0.37,-0.426 0.37,-0.757 0,-0.146 -0.031,-0.274 -0.094,-0.382 -0.062,-0.112 -0.149,-0.202 -0.26,-0.273 -0.117,-0.07 -0.241,-0.119 -0.374,-0.146 -0.133,-0.028 -0.284,-0.041 -0.452,-0.041 -0.258,0 -0.532,0.046 -0.822,0.138 -0.29,0.092 -0.564,0.223 -0.822,0.391 h -0.041 v -0.851 c 0.193,-0.095 0.449,-0.181 0.77,-0.26 0.322,-0.081 0.634,-0.122 0.935,-0.122 0.296,0 0.557,0.027 0.782,0.081 0.225,0.055 0.428,0.141 0.61,0.261 0.195,0.13 0.343,0.287 0.444,0.472 0.1,0.184 0.15,0.4 0.15,0.647 0,0.336 -0.119,0.63 -0.358,0.883 -0.236,0.249 -0.515,0.407 -0.838,0.472 v 0.057 c 0.13,0.021 0.279,0.067 0.447,0.138 0.169,0.068 0.311,0.153 0.428,0.256 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.33333px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+         id="path1176" />
+    </g>
+  </g>
+</svg>
+
+
+<aside class="notes"><p>From each block of size P generated by the base engine, the adaptor keeps only R numbers, discarding the rest.</p>
+</aside></script></section><section data-markdown><script type="text/template">
+<!-- .slide: data-auto-animate -->
+
+## predefined
+
+## `discard_block_engine`
+
+```cpp
+///hide
+#include <cstddef>
+#include <cstdint>
+
+template<class UIntType,
+         size_t w, size_t s, size_t r> 
+class subtract_with_carry_engine;
+
+using ranlux24_base 
+  = subtract_with_carry_engine<uint_fast32_t, 24, 10, 24>;
+
+using ranlux48_base 
+  = subtract_with_carry_engine<uint_fast64_t, 48, 5, 12>;
+
+///unhide
+template <class Engine,
+          size_t P, size_t R> 
+class discard_block_engine;
+
+using ranlux24 
+  = discard_block_engine<ranlux24_base, 223, 23>;
+
+using ranlux48 
+  = discard_block_engine<ranlux48_base, 389, 11>;
+```
+
+<!-- .element: data-id="code" -->
+
+</script></section><section data-markdown><script type="text/template">
+<!-- .slide: data-auto-animate data-autoslide="2000" -->
+
+## `shuffle_order_engine`
+
+```cpp
+///hide
+#include <cstddef>
+
+///unhide
+template<class Engine,
+         std::size_t K> 
+class shuffle_order_engine;
+```
+
+<!-- .element: data-id="code" -->
+
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:osb="http://www.openswatchbook.org/uri/2009/osb"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   class="animated"
+   width="195.03908mm"
+   height="20.310081mm"
+   viewBox="0 0 921.44446 20.310081"
+   version="1.1"
+   id="svg2080"
+   inkscape:version="1.0 (4035a4f, 2020-05-01)"
+   sodipodi:docname="shuffle_pre.svg">
+  <defs
+     id="defs2074">
+    <rect
+       x="39.18819"
+       y="56.393085"
+       width="80.384132"
+       height="38.173286"
+       id="rect1146" />
+    <rect
+       x="145.99998"
+       y="28.130173"
+       width="74.144264"
+       height="34.135727"
+       id="rect1106" />
+    <linearGradient
+       id="linearGradient3355"
+       osb:paint="solid">
+      <stop
+         style="stop-color:#0000ff;stop-opacity:1;"
+         offset="0"
+         id="stop3353" />
+    </linearGradient>
+    <inkscape:path-effect
+       effect="bspline"
+       id="path-effect909"
+       is_visible="true"
+       lpeversion="1"
+       weight="33.333333"
+       steps="2"
+       helper_size="0"
+       apply_no_weight="true"
+       apply_with_weight="true"
+       only_selected="false" />
+    <inkscape:path-effect
+       only_selected="false"
+       apply_with_weight="true"
+       apply_no_weight="true"
+       helper_size="0"
+       steps="2"
+       weight="33.333333"
+       lpeversion="1"
+       is_visible="true"
+       id="path-effect2849"
+       effect="bspline" />
+    <inkscape:path-effect
+       only_selected="false"
+       apply_with_weight="true"
+       apply_no_weight="true"
+       helper_size="0"
+       steps="2"
+       weight="33.333333"
+       lpeversion="1"
+       is_visible="true"
+       id="path-effect2845"
+       effect="bspline" />
+    <rect
+       id="rect2647"
+       height="21.960417"
+       width="23.547916"
+       y="117.21042"
+       x="25.4" />
+    <rect
+       x="25.4"
+       y="117.21042"
+       width="23.547916"
+       height="21.960417"
+       id="rect2835" />
+    <rect
+       id="rect2841"
+       height="21.960417"
+       width="23.547916"
+       y="117.21042"
+       x="25.4" />
+    <rect
+       id="rect1114"
+       height="34.135727"
+       width="74.144264"
+       y="28.130173"
+       x="145.99998" />
+    <rect
+       id="rect1154"
+       height="38.173286"
+       width="80.384132"
+       y="56.393085"
+       x="39.18819" />
+    <rect
+       x="39.18819"
+       y="56.393085"
+       width="80.384132"
+       height="38.173286"
+       id="rect1160" />
+  </defs>
+  <sodipodi:namedview
+     inkscape:window-maximized="0"
+     inkscape:window-y="23"
+     inkscape:window-x="0"
+     inkscape:window-height="1005"
+     inkscape:window-width="1680"
+     fit-margin-bottom="0"
+     fit-margin-right="0"
+     fit-margin-left="0"
+     fit-margin-top="0"
+     showgrid="false"
+     inkscape:document-rotation="0"
+     inkscape:current-layer="layer1"
+     inkscape:document-units="mm"
+     inkscape:cy="-31.343965"
+     inkscape:cx="99.984644"
+     inkscape:zoom="3.4055229"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     borderopacity="1.0"
+     bordercolor="#666666"
+     pagecolor="#ffffff"
+     id="base" />
+  <metadata
+     id="metadata2077">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     transform="translate(-16.063987,-144.59981)"
+     id="layer1"
+     inkscape:groupmode="layer"
+     inkscape:label="Layer 1">
+    <g
+       data-id="box0"
+       id="g1132">
+      <path
+         d="M 19.0405 109.754 L 109.041 109.754 L 109.041 199.754 L 19.0405 199.754 Z"
+         style="fill:none;stop-color:#000000;stroke:#ff5555;stroke-width:1.72125"
+         id="rect2643" />
+      <path
+         d="M 19.0405 109.754 L 109.041 109.754 L 109.041 199.754 L 19.0405 199.754 Z"
+         style="fill:#bee4fd;fill-opacity:1;stop-color:#000000;stroke:#3e4837;stroke-dasharray:none;stroke-miterlimit:4;stroke-opacity:1;stroke-width:5.95314"
+         id="rect2704" />
+      <g
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect2647);fill:#000000;fill-opacity:1;stroke:none"
+         id="text2708"
+         aria-label="0">
+        <path
+           id="path3657"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+           d="M 69.6293 154.744 C 69.6293 157.645 69.1736 159.775 68.2619 161.134 C 67.3577 162.487 65.9504 163.165 64.0406 163.165 C 62.1017 163.165 60.6836 162.478 59.7866 161.104 C 58.8965 159.73 58.4516 157.615 58.4516 154.765 C 58.4516 151.891 58.904 149.773 59.8082 148.408 C 60.7124 147.031 62.1233 146.344 64.0406 146.344 C 65.9792 146.344 67.394 147.043 68.2838 148.438 C 69.1808 149.827 69.6293 151.93 69.6293 154.744 Z M 66.7751 159.67 C 67.0286 159.085 67.1984 158.398 67.2851 157.609 C 67.3793 156.814 67.4264 155.86 67.4264 154.744 C 67.4264 153.646 67.3793 152.689 67.2851 151.879 C 67.1984 151.069 67.025 150.379 66.7643 149.818 C 66.5114 149.26 66.164 148.84 65.7227 148.558 C 65.2886 148.276 64.7279 148.135 64.0406 148.135 C 63.3605 148.135 62.7962 148.276 62.3477 148.558 C 61.9064 148.84 61.5554 149.266 61.295 149.839 C 61.049 150.373 60.8792 151.072 60.785 151.933 C 60.6983 152.794 60.6548 153.736 60.6548 154.765 C 60.6548 155.896 60.6947 156.838 60.7739 157.597 C 60.8537 158.356 61.0238 159.037 61.2842 159.64 C 61.5227 160.201 61.8593 160.633 62.2934 160.93 C 62.7347 161.224 63.317 161.374 64.0406 161.374 C 64.7207 161.374 65.285 161.233 65.7335 160.951 C 66.182 160.669 66.5294 160.243 66.7751 159.67 Z" />
+      </g>
+    </g>
+    <g
+       data-id="box1"
+       id="g1137">
+      <path
+         d="M 110.762 109.754 L 200.762 109.754 L 200.762 199.754 L 110.762 199.754 Z"
+         style="fill:#bee4fd;fill-opacity:1;stop-color:#000000;stroke:#3e4837;stroke-dasharray:none;stroke-miterlimit:4;stroke-opacity:1;stroke-width:5.95314"
+         id="rect2712" />
+      <g
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect2647);fill:#000000;fill-opacity:1;stroke:none"
+         id="text2716"
+         aria-label="1">
+        <path
+           id="path3660"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+           d="M 160.135 162.862 L 151.388 162.862 L 151.388 161.212 L 154.752 161.212 L 154.752 150.379 L 151.388 150.379 L 151.388 148.906 C 151.844 148.906 152.332 148.867 152.853 148.795 C 153.375 148.717 153.769 148.606 154.036 148.462 C 154.369 148.279 154.63 148.051 154.818 147.778 C 155.013 147.496 155.125 147.118 155.154 146.647 L 156.836 146.647 L 156.836 161.212 L 160.135 161.212 Z" />
+      </g>
+    </g>
+    <g
+       data-id="box2"
+       id="g1142">
+      <path
+         d="M 202.483 109.754 L 292.483 109.754 L 292.483 199.754 L 202.483 199.754 Z"
+         style="fill:#bee4fd;fill-opacity:1;stop-color:#000000;stroke:#3e4837;stroke-dasharray:none;stroke-miterlimit:4;stroke-opacity:1;stroke-width:5.95314"
+         id="rect2720" />
+      <g
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect2647);fill:#000000;fill-opacity:1;stroke:none"
+         id="text2724"
+         aria-label="2">
+        <path
+           id="path3663"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+           d="M 252.953 163.003 L 242.014 163.003 L 242.014 160.735 C 242.774 160.081 243.532 159.433 244.293 158.782 C 245.06 158.128 245.771 157.48 246.43 156.838 C 247.819 155.491 248.77 154.426 249.286 153.637 C 249.799 152.842 250.055 151.984 250.055 151.063 C 250.055 150.226 249.776 149.569 249.22 149.101 C 248.669 148.624 247.9 148.384 246.907 148.384 C 246.25 148.384 245.537 148.498 244.77 148.732 C 244.003 148.963 243.253 149.317 242.524 149.794 L 242.414 149.794 L 242.414 147.517 C 242.929 147.265 243.613 147.031 244.466 146.821 C 245.328 146.611 246.158 146.509 246.961 146.509 C 248.62 146.509 249.918 146.908 250.858 147.712 C 251.799 148.507 252.269 149.587 252.269 150.955 C 252.269 151.57 252.19 152.146 252.031 152.683 C 251.877 153.211 251.65 153.712 251.347 154.189 C 251.065 154.639 250.732 155.08 250.348 155.515 C 249.972 155.95 249.513 156.43 248.971 156.958 C 248.197 157.717 247.396 158.455 246.572 159.172 C 245.746 159.88 244.977 160.54 244.259 161.146 L 252.953 161.146 Z" />
+      </g>
+    </g>
+    <g
+       data-id="box3"
+       id="g1275">
+      <path
+         d="M 477.647 109.754 L 567.647 109.754 L 567.647 199.754 L 477.647 199.754 Z"
+         style="fill:#bee4fd;fill-opacity:1;stop-color:#000000;stroke:#3e4837;stroke-dasharray:none;stroke-miterlimit:4;stroke-opacity:1;stroke-width:5.95311"
+         id="rect2744" />
+      <g
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect2835);fill:#000000;fill-opacity:1;stroke:none"
+         id="text2833"
+         aria-label="…">
+        <path
+           id="path3771"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+           d="M 529.808 155.965 L 527.597 155.965 L 527.597 153.544 L 529.808 153.544 Z M 523.754 155.965 L 521.54 155.965 L 521.54 153.544 L 523.754 153.544 Z M 517.7 155.965 L 515.486 155.965 L 515.486 153.544 L 517.7 153.544 Z" />
+      </g>
+    </g>
+    <g
+       data-id="box4"
+       id="g1270">
+      <path
+         d="M 385.926 109.754 L 475.926 109.754 L 475.926 199.754 L 385.926 199.754 Z"
+         style="fill:#bee4fd;fill-opacity:1;stop-color:#000000;stroke:#3e4837;stroke-dasharray:none;stroke-miterlimit:4;stroke-opacity:1;stroke-width:5.95314"
+         id="rect2736" />
+      <g
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect2841);fill:#000000;fill-opacity:1;stroke:none"
+         id="text2839"
+         aria-label="…">
+        <path
+           id="path3667"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+           d="M 438.086 155.965 L 435.875 155.965 L 435.875 153.544 L 438.086 153.544 Z M 432.032 155.965 L 429.818 155.965 L 429.818 153.544 L 432.032 153.544 Z M 425.978 155.965 L 423.764 155.965 L 423.764 153.544 L 425.978 153.544 Z" />
+      </g>
+    </g>
+    <g
+       data-id="box5"
+       id="g1285">
+      <path
+         d="M 661.089 109.754 L 751.089 109.754 L 751.089 199.754 L 661.089 199.754 Z"
+         style="fill:#bee4fd;fill-opacity:1;stop-color:#000000;stroke:#3e4837;stroke-dasharray:none;stroke-miterlimit:4;stroke-opacity:1;stroke-width:5.95314"
+         id="rect2760" />
+      <g
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect2647);fill:#000000;fill-opacity:1;stroke:none"
+         id="text2772"
+         aria-label="…">
+        <path
+           id="path3683"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+           d="M 713.252 155.965 L 711.038 155.965 L 711.038 153.544 L 713.252 153.544 Z M 707.195 155.965 L 704.981 155.965 L 704.981 153.544 L 707.195 153.544 Z M 701.141 155.965 L 698.927 155.965 L 698.927 153.544 L 701.141 153.544 Z" />
+      </g>
+    </g>
+    <g
+       data-id="box6"
+       id="g1280">
+      <path
+         d="M 569.368 109.754 L 659.368 109.754 L 659.368 199.754 L 569.368 199.754 Z"
+         style="fill:#bee4fd;fill-opacity:1;stop-color:#000000;stroke:#3e4837;stroke-dasharray:none;stroke-miterlimit:4;stroke-opacity:1;stroke-width:5.95314"
+         id="rect2752" />
+      <g
+         aria-label="…"
+         id="g1092"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect2647);fill:#000000;fill-opacity:1;stroke:none">
+        <path
+           d="M 621.53 155.965 L 619.319 155.965 L 619.319 153.544 L 621.53 153.544 Z M 615.476 155.965 L 613.262 155.965 L 613.262 153.544 L 615.476 153.544 Z M 609.419 155.965 L 607.205 155.965 L 607.205 153.544 L 609.419 153.544 Z"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+           id="path1090" />
+      </g>
+    </g>
+    <g
+       data-id="box7"
+       id="g1265">
+      <path
+         d="M 294.204 109.754 L 384.204 109.754 L 384.204 199.754 L 294.204 199.754 Z"
+         style="fill:#bee4fd;fill-opacity:1;stop-color:#000000;stroke:#3e4837;stroke-dasharray:none;stroke-miterlimit:4;stroke-opacity:1;stroke-width:5.95314"
+         id="rect2728" />
+      <g
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.33333px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect1146)"
+         id="text1144"
+         aria-label="3">
+        <path
+           id="path1176"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.33333px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+           d="M 343.85 155.089 C 344.24 155.44 344.561 155.878 344.813 156.409 C 345.065 156.937 345.191 157.621 345.191 158.458 C 345.191 159.289 345.041 160.051 344.741 160.741 C 344.438 161.434 344.015 162.037 343.469 162.55 C 342.86 163.117 342.14 163.54 341.309 163.819 C 340.487 164.086 339.584 164.221 338.6 164.221 C 337.592 164.221 336.599 164.098 335.621 163.855 C 334.646 163.618 333.842 163.357 333.218 163.072 L 333.218 160.522 L 333.401 160.522 C 334.091 160.978 334.904 161.356 335.84 161.656 C 336.776 161.959 337.679 162.109 338.552 162.109 C 339.065 162.109 339.608 162.025 340.187 161.854 C 340.766 161.683 341.234 161.431 341.591 161.095 C 341.966 160.738 342.242 160.342 342.422 159.913 C 342.608 159.481 342.701 158.935 342.701 158.275 C 342.701 157.624 342.596 157.087 342.383 156.664 C 342.182 156.232 341.897 155.896 341.531 155.653 C 341.162 155.398 340.721 155.227 340.199 155.14 C 339.677 155.041 339.116 154.993 338.513 154.993 L 337.415 154.993 L 337.415 152.965 L 338.27 152.965 C 339.506 152.965 340.493 152.71 341.225 152.197 C 341.966 151.675 342.335 150.919 342.335 149.926 C 342.335 149.488 342.242 149.104 342.053 148.78 C 341.867 148.444 341.606 148.174 341.273 147.961 C 340.922 147.751 340.55 147.604 340.151 147.523 C 339.752 147.439 339.299 147.4 338.795 147.4 C 338.021 147.4 337.199 147.538 336.329 147.814 C 335.459 148.09 334.637 148.483 333.863 148.987 L 333.74 148.987 L 333.74 146.434 C 334.319 146.149 335.087 145.891 336.05 145.654 C 337.016 145.411 337.952 145.288 338.855 145.288 C 339.743 145.288 340.526 145.369 341.201 145.531 C 341.876 145.696 342.485 145.954 343.031 146.314 C 343.616 146.704 344.06 147.175 344.363 147.73 C 344.663 148.282 344.813 148.93 344.813 149.671 C 344.813 150.679 344.456 151.561 343.739 152.32 C 343.031 153.067 342.194 153.541 341.225 153.736 L 341.225 153.907 C 341.615 153.97 342.062 154.108 342.566 154.321 C 343.073 154.525 343.499 154.78 343.85 155.089 Z" />
+      </g>
+    </g>
+    <g
+       data-id="box8"
+       id="g1292">
+      <path
+         d="M 752.811 109.754 L 842.811 109.754 L 842.811 199.754 L 752.811 199.754 Z"
+         style="fill:#bee4fd;fill-opacity:1;stop-color:#000000;stroke:#3e4837;stroke-dasharray:none;stroke-miterlimit:4;stroke-opacity:1;stroke-width:5.95314"
+         id="rect2768" />
+      <g
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.33333px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect1154)"
+         id="text1152"
+         aria-label="k-1">
+        <path
+           id="path1169"
+           d="M 791.567 163.843 L 788.54 163.843 L 783.071 157.873 L 781.583 159.289 L 781.583 163.843 L 779.288 163.843 L 779.288 144.847 L 781.583 144.847 L 781.583 157.03 L 788.21 150.208 L 791.105 150.208 L 784.769 156.505 Z" />
+        <path
+           id="path1171"
+           d="M 801.212 156.994 L 793.595 156.994 L 793.595 154.786 L 801.212 154.786 Z" />
+        <path
+           id="path1173"
+           d="M 816.335 163.843 L 806.498 163.843 L 806.498 161.986 L 810.281 161.986 L 810.281 149.803 L 806.498 149.803 L 806.498 148.144 C 807.011 148.144 807.56 148.105 808.145 148.021 C 808.73 147.934 809.174 147.808 809.474 147.643 C 809.849 147.439 810.143 147.184 810.353 146.875 C 810.575 146.557 810.701 146.134 810.734 145.606 L 812.624 145.606 L 812.624 161.986 L 816.335 161.986 Z" />
+      </g>
+    </g>
+    <g
+       data-id="box9"
+       id="g1301">
+      <path
+         d="M 844.532 109.754 L 934.532 109.754 L 934.532 199.754 L 844.532 199.754 Z"
+         style="fill:#bee4fd;fill-opacity:1;stop-color:#000000;stroke:#3e4837;stroke-dasharray:none;stroke-miterlimit:4;stroke-opacity:1;stroke-width:5.95314"
+         id="rect2776" />
+      <g
+         style="fill:#cccccc;stroke:#000000;stroke-dasharray:none;stroke-miterlimit:4;stroke-opacity:1;stroke-width:0.0"
+         id="g2852">
+        <path
+           id="path2843"
+           d="M 934.532 109.753 L 842.81 199.753"
+           style="fill:#cccccc;stroke:#000000;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-width:0.0">
+          <path
+             style="fill:#cccccc;stroke:#000000;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-width:0.0"
+             d="M 842.81 109.753 L 934.532 199.753"
+             id="path2847" />
+        </path>
+      </g>
+      <path
+         id="path907"
+         d="M 844.532 109.754 C 874.532 139.755 904.532 169.755 934.532 199.754"
+         style="fill:#cccccc;stroke:#000000;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-width:0.0" />
+      <g
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.33333px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect1160)"
+         id="text1158"
+         aria-label="k">
+        <path
+           id="path1166"
+           d="M 895.28 163.843 L 892.253 163.843 L 886.784 157.873 L 885.296 159.289 L 885.296 163.843 L 883.001 163.843 L 883.001 144.847 L 885.296 144.847 L 885.296 157.03 L 891.923 150.208 L 894.818 150.208 L 888.482 156.505 Z" />
+      </g>
+    </g>
+  </g>
+</svg>
+
+
+<aside class="notes"><p>It maintains a table of size K and delivers a randomly selected number from that table when requested, replacing it with a number generated by the base engine</p>
+</aside></script></section><section data-markdown><script type="text/template">
+<!-- .slide: data-auto-animate -->
+
+## `shuffle_order_engine`
+
+```cpp
+///hide
+#include <cstddef>
+
+///unhide
+template<class Engine,
+         std::size_t K> 
+class shuffle_order_engine;
+```
+
+<!-- .element: data-id="code" -->
+
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:osb="http://www.openswatchbook.org/uri/2009/osb"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   class="animated"
+   width="552.35004pt"
+   height="57.573677pt"
+   viewBox="0 0 920.58351 95.956136"
+   version="1.1"
+   id="svg2080"
+   inkscape:version="1.0 (4035a4f, 2020-05-01)"
+   sodipodi:docname="shuffle_post.svg">
+  <defs
+     id="defs2074">
+    <rect
+       id="rect1146"
+       height="38.173286"
+       width="80.384132"
+       y="56.393085"
+       x="39.18819" />
+    <rect
+       id="rect1106"
+       height="34.135727"
+       width="74.144264"
+       y="28.130173"
+       x="145.99998" />
+    <linearGradient
+       osb:paint="solid"
+       id="linearGradient3355">
+      <stop
+         id="stop3353"
+         offset="0"
+         style="stop-color:#0000ff;stop-opacity:1;" />
+    </linearGradient>
+    <inkscape:path-effect
+       only_selected="false"
+       apply_with_weight="true"
+       apply_no_weight="true"
+       helper_size="0"
+       steps="2"
+       weight="33.333333"
+       lpeversion="1"
+       is_visible="true"
+       id="path-effect909"
+       effect="bspline" />
+    <inkscape:path-effect
+       effect="bspline"
+       id="path-effect2849"
+       is_visible="true"
+       lpeversion="1"
+       weight="33.333333"
+       steps="2"
+       helper_size="0"
+       apply_no_weight="true"
+       apply_with_weight="true"
+       only_selected="false" />
+    <inkscape:path-effect
+       effect="bspline"
+       id="path-effect2845"
+       is_visible="true"
+       lpeversion="1"
+       weight="33.333333"
+       steps="2"
+       helper_size="0"
+       apply_no_weight="true"
+       apply_with_weight="true"
+       only_selected="false" />
+    <rect
+       x="25.4"
+       y="117.21042"
+       width="23.547916"
+       height="21.960417"
+       id="rect2647" />
+    <rect
+       id="rect2835"
+       height="21.960417"
+       width="23.547916"
+       y="117.21042"
+       x="25.4" />
+    <rect
+       x="25.4"
+       y="117.21042"
+       width="23.547916"
+       height="21.960417"
+       id="rect2841" />
+    <rect
+       x="145.99998"
+       y="28.130173"
+       width="74.144264"
+       height="34.135727"
+       id="rect1114" />
+    <rect
+       x="39.18819"
+       y="56.393085"
+       width="80.384132"
+       height="38.173286"
+       id="rect1154" />
+    <rect
+       id="rect1160"
+       height="38.173286"
+       width="80.384132"
+       y="56.393085"
+       x="39.18819" />
+  </defs>
+  <sodipodi:namedview
+     units="pt"
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="3.4055229"
+     inkscape:cx="123.03542"
+     inkscape:cy="43.705784"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     inkscape:document-rotation="0"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="1680"
+     inkscape:window-height="1005"
+     inkscape:window-x="0"
+     inkscape:window-y="23"
+     inkscape:window-maximized="0" />
+  <metadata
+     id="metadata2077">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-16.06401,-106.77781)">
+    <g
+       data-id="box0"
+       id="g1132">
+      <path
+         d="M 752.81 109.754 L 842.81 109.754 L 842.81 199.754 L 752.81 199.754 Z"
+         style="fill:none;stop-color:#000000;stroke:#ff5555;stroke-width:1.72125"
+         id="rect2643" />
+      <path
+         d="M 752.81 109.754 L 842.81 109.754 L 842.81 199.754 L 752.81 199.754 Z"
+         style="fill:#bee4fd;fill-opacity:1;stop-color:#000000;stroke:#3e4837;stroke-dasharray:none;stroke-miterlimit:4;stroke-opacity:1;stroke-width:5.95314"
+         id="rect2704" />
+      <g
+         aria-label="0"
+         id="text2708"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect2647);fill:#000000;fill-opacity:1;stroke:none">
+        <path
+           d="M 803.399 154.745 C 803.399 157.646 802.943 159.776 802.031 161.135 C 801.128 162.488 799.721 163.166 797.81 163.166 C 795.872 163.166 794.453 162.479 793.556 161.105 C 792.668 159.731 792.221 157.616 792.221 154.766 C 792.221 151.892 792.674 149.774 793.577 148.409 C 794.483 147.032 795.893 146.345 797.81 146.345 C 799.748 146.345 801.164 147.044 802.055 148.439 C 802.952 149.828 803.399 151.931 803.399 154.745 Z M 800.546 159.671 C 800.798 159.086 800.969 158.399 801.056 157.61 C 801.149 156.815 801.197 155.861 801.197 154.745 C 801.197 153.647 801.149 152.69 801.056 151.88 C 800.969 151.07 800.795 150.38 800.534 149.819 C 800.282 149.261 799.934 148.841 799.493 148.559 C 799.058 148.277 798.497 148.136 797.81 148.136 C 797.132 148.136 796.565 148.277 796.118 148.559 C 795.677 148.841 795.326 149.267 795.065 149.84 C 794.819 150.374 794.648 151.073 794.555 151.934 C 794.468 152.795 794.426 153.737 794.426 154.766 C 794.426 155.897 794.465 156.839 794.543 157.598 C 794.624 158.357 794.795 159.038 795.053 159.641 C 795.293 160.202 795.629 160.634 796.064 160.931 C 796.505 161.225 797.087 161.375 797.81 161.375 C 798.491 161.375 799.055 161.234 799.505 160.952 C 799.952 160.67 800.3 160.244 800.546 159.671 Z"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+           id="path3657" />
+      </g>
+    </g>
+    <g
+       data-id="box1"
+       id="g1137">
+      <path
+         d="M 477.647 109.754 C 507.647 109.754 537.647 109.754 567.647 109.754 C 567.647 139.754 567.647 169.754 567.647 199.754 C 537.647 199.754 507.647 199.754 477.647 199.754 C 477.647 169.754 477.647 139.754 477.647 109.754 Z"
+         style="fill:#bee4fd;fill-opacity:1;stop-color:#000000;stroke:#3e4837;stroke-dasharray:none;stroke-miterlimit:4;stroke-opacity:1;stroke-width:5.95314"
+         id="rect2712" />
+      <g
+         aria-label="1"
+         id="text2716"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect2647);fill:#000000;fill-opacity:1;stroke:none">
+        <path
+           d="M 527.021 162.863 C 524.105 162.863 521.189 162.863 518.273 162.863 C 517.473 160.427 520.055 161.374 521.53 161.213 C 521.785 157.821 521.566 153.954 521.639 150.38 C 520.267 150.138 517.55 151.243 518.273 148.907 C 520.736 150.15 523.419 143.971 523.721 148.005 C 523.721 152.408 523.721 156.81 523.721 161.213 C 525.187 161.389 527.813 160.407 527.021 162.841 Z"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+           id="path3660" />
+      </g>
+    </g>
+    <g
+       data-id="box2"
+       id="g1142">
+      <path
+         d="M 202.483 109.755 L 292.483 109.755 L 292.483 199.755 L 202.483 199.755 Z"
+         style="fill:#bee4fd;fill-opacity:1;stop-color:#000000;stroke:#3e4837;stroke-dasharray:none;stroke-miterlimit:4;stroke-opacity:1;stroke-width:5.95314"
+         id="rect2720" />
+      <g
+         aria-label="2"
+         id="text2724"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect2647);fill:#000000;fill-opacity:1;stroke:none">
+        <path
+           d="M 252.953 163.004 L 242.014 163.004 L 242.014 160.736 C 242.774 160.082 243.532 159.434 244.293 158.783 C 245.06 158.129 245.771 157.481 246.43 156.839 C 247.819 155.492 248.77 154.427 249.286 153.638 C 249.799 152.843 250.055 151.985 250.055 151.064 C 250.055 150.227 249.776 149.57 249.22 149.102 C 248.669 148.625 247.9 148.385 246.907 148.385 C 246.25 148.385 245.537 148.499 244.77 148.733 C 244.003 148.964 243.253 149.318 242.524 149.795 L 242.414 149.795 L 242.414 147.518 C 242.929 147.266 243.613 147.032 244.466 146.822 C 245.328 146.612 246.158 146.51 246.961 146.51 C 248.62 146.51 249.918 146.909 250.858 147.713 C 251.799 148.508 252.269 149.588 252.269 150.956 C 252.269 151.571 252.19 152.147 252.031 152.684 C 251.877 153.212 251.65 153.713 251.347 154.19 C 251.065 154.64 250.732 155.081 250.348 155.516 C 249.972 155.951 249.513 156.431 248.971 156.959 C 248.197 157.718 247.396 158.456 246.572 159.173 C 245.746 159.881 244.977 160.541 244.259 161.147 L 252.953 161.147 Z"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+           id="path3663" />
+      </g>
+    </g>
+    <g
+       data-id="box3"
+       id="g1275">
+      <path
+         id="rect2744"
+         style="fill:#bee4fd;fill-opacity:1;stop-color:#000000;stroke:#3e4837;stroke-dasharray:none;stroke-miterlimit:4;stroke-opacity:1;stroke-width:5.95311"
+         d="M 110.762 109.754 L 200.762 109.754 L 200.762 199.754 L 110.762 199.754 Z" />
+      <g
+         aria-label="…"
+         id="text2833"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect2835);fill:#000000;fill-opacity:1;stroke:none">
+        <path
+           d="M 162.923 155.966 L 160.712 155.966 L 160.712 153.545 L 162.923 153.545 Z M 156.869 155.966 L 154.655 155.966 L 154.655 153.545 L 156.869 153.545 Z M 150.815 155.966 L 148.601 155.966 L 148.601 153.545 L 150.815 153.545 Z"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+           id="path3771" />
+      </g>
+    </g>
+    <g
+       data-id="box4"
+       id="g1270">
+      <path
+         d="M 385.926 109.755 L 475.926 109.755 L 475.926 199.755 L 385.926 199.755 Z"
+         style="fill:#bee4fd;fill-opacity:1;stop-color:#000000;stroke:#3e4837;stroke-dasharray:none;stroke-miterlimit:4;stroke-opacity:1;stroke-width:5.95314"
+         id="rect2736" />
+      <g
+         aria-label="…"
+         id="text2839"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect2841);fill:#000000;fill-opacity:1;stroke:none">
+        <path
+           d="M 438.086 155.966 L 435.875 155.966 L 435.875 153.545 L 438.086 153.545 Z M 432.032 155.966 L 429.818 155.966 L 429.818 153.545 L 432.032 153.545 Z M 425.978 155.966 L 423.764 155.966 L 423.764 153.545 L 425.978 153.545 Z"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+           id="path3667" />
+      </g>
+    </g>
+    <g
+       data-id="box5"
+       id="g1285">
+      <path
+         d="M 661.089 109.755 L 751.089 109.755 L 751.089 199.755 L 661.089 199.755 Z"
+         style="fill:#bee4fd;fill-opacity:1;stop-color:#000000;stroke:#3e4837;stroke-dasharray:none;stroke-miterlimit:4;stroke-opacity:1;stroke-width:5.95314"
+         id="rect2760" />
+      <g
+         aria-label="…"
+         id="text2772"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect2647);fill:#000000;fill-opacity:1;stroke:none">
+        <path
+           d="M 713.252 155.966 L 711.038 155.966 L 711.038 153.545 L 713.252 153.545 Z M 707.195 155.966 L 704.981 155.966 L 704.981 153.545 L 707.195 153.545 Z M 701.141 155.966 L 698.927 155.966 L 698.927 153.545 L 701.141 153.545 Z"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+           id="path3683" />
+      </g>
+    </g>
+    <g
+       data-id="box6"
+       id="g1280">
+      <path
+         d="M 569.368 109.755 L 659.368 109.755 L 659.368 199.755 L 569.368 199.755 Z"
+         style="fill:#bee4fd;fill-opacity:1;stop-color:#000000;stroke:#3e4837;stroke-dasharray:none;stroke-miterlimit:4;stroke-opacity:1;stroke-width:5.95314"
+         id="rect2752" />
+      <g
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect2647);fill:#000000;fill-opacity:1;stroke:none"
+         id="g1092"
+         aria-label="…">
+        <path
+           id="path1090"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87778px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+           d="M 621.53 155.966 L 619.319 155.966 L 619.319 153.545 L 621.53 153.545 Z M 615.476 155.966 L 613.262 155.966 L 613.262 153.545 L 615.476 153.545 Z M 609.419 155.966 L 607.205 155.966 L 607.205 153.545 L 609.419 153.545 Z" />
+      </g>
+    </g>
+    <g
+       data-id="box7"
+       id="g1265">
+      <path
+         d="M 843.671 109.754 L 933.671 109.754 L 933.671 199.754 L 843.671 199.754 Z"
+         style="fill:#bee4fd;fill-opacity:1;stop-color:#000000;stroke:#3e4837;stroke-dasharray:none;stroke-miterlimit:4;stroke-opacity:1;stroke-width:5.95314"
+         id="rect2728" />
+      <g
+         aria-label="3"
+         id="text1144"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.33333px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect1146)">
+        <path
+           d="M 893.318 155.09 C 893.708 155.441 894.029 155.879 894.281 156.41 C 894.533 156.938 894.659 157.622 894.659 158.459 C 894.659 159.29 894.509 160.052 894.209 160.742 C 893.906 161.435 893.483 162.038 892.937 162.551 C 892.328 163.118 891.608 163.541 890.777 163.82 C 889.955 164.087 889.052 164.222 888.068 164.222 C 887.06 164.222 886.067 164.099 885.089 163.856 C 884.114 163.619 883.31 163.358 882.686 163.073 L 882.686 160.523 L 882.869 160.523 C 883.559 160.979 884.372 161.357 885.308 161.657 C 886.244 161.96 887.147 162.11 888.02 162.11 C 888.533 162.11 889.076 162.026 889.655 161.855 C 890.234 161.684 890.702 161.432 891.059 161.096 C 891.434 160.739 891.71 160.343 891.89 159.914 C 892.076 159.482 892.169 158.936 892.169 158.276 C 892.169 157.625 892.064 157.088 891.851 156.665 C 891.65 156.233 891.365 155.897 890.999 155.654 C 890.63 155.399 890.189 155.228 889.667 155.141 C 889.145 155.042 888.584 154.994 887.981 154.994 L 886.883 154.994 L 886.883 152.966 L 887.738 152.966 C 888.974 152.966 889.961 152.711 890.693 152.198 C 891.434 151.676 891.803 150.92 891.803 149.927 C 891.803 149.489 891.71 149.105 891.521 148.781 C 891.335 148.445 891.074 148.175 890.741 147.962 C 890.39 147.752 890.018 147.605 889.619 147.524 C 889.22 147.44 888.767 147.401 888.263 147.401 C 887.489 147.401 886.667 147.539 885.797 147.815 C 884.927 148.091 884.105 148.484 883.331 148.988 L 883.208 148.988 L 883.208 146.435 C 883.787 146.15 884.555 145.892 885.518 145.655 C 886.484 145.412 887.42 145.289 888.323 145.289 C 889.211 145.289 889.994 145.37 890.669 145.532 C 891.344 145.697 891.953 145.955 892.499 146.315 C 893.084 146.705 893.528 147.176 893.831 147.731 C 894.131 148.283 894.281 148.931 894.281 149.672 C 894.281 150.68 893.924 151.562 893.207 152.321 C 892.499 153.068 891.662 153.542 890.693 153.737 L 890.693 153.908 C 891.083 153.971 891.53 154.109 892.034 154.322 C 892.541 154.526 892.967 154.781 893.318 155.09 Z"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.33333px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+           id="path1176" />
+      </g>
+    </g>
+    <g
+       data-id="box8"
+       id="g1292">
+      <path
+         d="M 19.0406 109.754 L 109.041 109.754 L 109.041 199.754 L 19.0406 199.754 Z"
+         style="fill:#bee4fd;fill-opacity:1;stop-color:#000000;stroke:#3e4837;stroke-dasharray:none;stroke-miterlimit:4;stroke-opacity:1;stroke-width:5.95314"
+         id="rect2768" />
+      <g
+         aria-label="k-1"
+         id="text1152"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.33333px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect1154)">
+        <path
+           d="M 57.797 163.844 L 54.77 163.844 L 49.301 157.874 L 47.813 159.29 L 47.813 163.844 L 45.518 163.844 L 45.518 144.848 L 47.813 144.848 L 47.813 157.031 L 54.44 150.209 L 57.335 150.209 L 50.999 156.506 Z"
+           id="path1169" />
+        <path
+           d="M 67.442 156.995 L 59.825 156.995 L 59.825 154.787 L 67.442 154.787 Z"
+           id="path1171" />
+        <path
+           d="M 82.565 163.844 L 72.728 163.844 L 72.728 161.987 L 76.511 161.987 L 76.511 149.804 L 72.728 149.804 L 72.728 148.145 C 73.241 148.145 73.79 148.106 74.375 148.022 C 74.96 147.935 75.404 147.809 75.704 147.644 C 76.079 147.44 76.373 147.185 76.583 146.876 C 76.805 146.558 76.931 146.135 76.964 145.607 L 78.854 145.607 L 78.854 161.987 L 82.565 161.987 Z"
+           id="path1173" />
+      </g>
+    </g>
+    <g
+       data-id="box9"
+       id="g1301">
+      <path
+         d="M 295.064 109.757 L 385.064 109.757 L 385.064 199.757 L 295.064 199.757 Z"
+         style="fill:#bee4fd;fill-opacity:1;stop-color:#000000;stroke:#3e4837;stroke-dasharray:none;stroke-miterlimit:4;stroke-opacity:1;stroke-width:5.95314"
+         id="rect2776" />
+      <g
+         id="g2852"
+         style="fill:#cccccc;stroke:#000000;stroke-dasharray:none;stroke-miterlimit:4;stroke-opacity:1;stroke-width:0.0">
+        <path
+           style="fill:#cccccc;stroke:#000000;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-width:0.0"
+           d="M 385.064 109.754 L 293.342 199.754"
+           id="path2843">
+          <path
+             id="path2847"
+             d="M 293.342 109.754 L 385.064 199.754"
+             style="fill:#cccccc;stroke:#000000;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-width:0.0" />
+        </path>
+      </g>
+      <path
+         style="fill:#cccccc;stroke:#000000;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-width:0.0"
+         d="M 295.064 109.757 C 325.064 139.757 355.064 169.757 385.064 199.757"
+         id="path907" />
+      <g
+         aria-label="k"
+         id="text1158"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.33333px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect1160)">
+        <path
+           d="M 345.812 163.844 L 342.785 163.844 L 337.316 157.874 L 335.828 159.29 L 335.828 163.844 L 333.533 163.844 L 333.533 144.848 L 335.828 144.848 L 335.828 157.031 L 342.455 150.209 L 345.35 150.209 L 339.014 156.506 Z"
+           id="path1166" />
+      </g>
+    </g>
+  </g>
+</svg>
+
+
+</script></section><section data-markdown><script type="text/template">
+<!-- .slide: data-auto-animate -->
+
+## predefined
+
+## `shuffle_order_engine`
+
+```cpp
+///hide
+#include <cstdint>
+#include <cstddef>
+
+template <class UIntType, 
+          UIntType a, UIntType c, UIntType m>
+class linear_congruential_engine;
+
+using minstd_rand0 =
+    linear_congruential_engine<uint_fast32_t, 16807, 0, 2147483647>;
+
+///unhide
+template<class Engine,
+         std::size_t K> 
+class shuffle_order_engine;
+
+using knuth_b =
+  shuffle_order_engine<minstd_rand0, 256>;
+```
+
+<!-- .element: data-id="code" -->
+
+</script></section><section data-markdown><script type="text/template">
+## `independent_bits_engine`
+
+```cpp
+///hide
+#include <cstddef>
+
+///unhide
+template<class Engine,
+         std::size_t W,
+         class UIntType> 
+class independent_bits_engine;
+```
+
+<aside class="notes"><p>produces random numbers with different number of bits than that of the wrapped engine</p>
+</aside></script></section><section data-markdown><script type="text/template">
+## what to choose
+
+| engine | quality | speed | state size |
+|--------|---------|-------|------------|
+|`linear_congruential_engine`|medium|medium|1 word|
+|`mersenne_twister_engine`|good|fast|624 words|
+|`subtract_with_carry_engine`|medium|fast|25 words|
+|`discard_block_engine`|good|slow|base + 1 word|
+|`shuffle_order_engine`|good|fast|base + 100 words|
+
+<!-- .element: style="font-size: 0.7em" -->
+
+<aside class="notes"><ul>
+<li>quality: What is the cycle length? Does the engine pass all relevant statistical tests?</li>
+<li>speed: How many and what kind of operations have to be performed to produce one random number, on average?</li>
+</ul>
+</aside></script></section><section data-markdown><script type="text/template">
+<!-- .slide: data-background-image="12_random/distribution.gif" -->
+
+## distributions
+
+<!-- .element: class="chapter" -->
+
+<aside class="notes"><p>It makes no sense to ask for a random number without some context. 
+A distribution’s role is to return random numbers (variates) whose likelihoods correspond to
+a specific shape. E.g., a normal distribution produces variates according to a &quot;bell-shaped
+curve.&quot;</p>
+</aside></script></section><section data-markdown><script type="text/template">
+## what can it do
+
+```cpp [1-2,17|3|5-7|9-16]
+///hide
+#include <random>
+#include <iostream>
+#include <cassert>
+#include <sstream>
+
+///unhide
+template<typename Distribution, typename Engine>
+void distribute(Engine& e) {
+  Distribution d;
+
+  std::cout << "d's range is [" 
+            << d.min() << "," 
+            << d.max() << "]\n";
+
+  std::stringstream sst;
+  sst << e << '\n' << d << '\n';
+  const auto n1 = d(e);
+  d(e);
+
+  sst >> e >> d;
+  const auto n2 = d(e);
+  assert(n1 == n2);
+}
+///hide
+
+int main() {
+  std::default_random_engine e;
+  distribute<std::uniform_int_distribution<>>(e);
+}
+```
+
+<!-- .element: style="font-size: 0.45em" -->
+
+<aside class="notes"><ol>
+<li>default constructible</li>
+<li>generates values between <code>min</code> and <code>max</code></li>
+<li>can be serialized/deserialized to an <code>iostream</code></li>
+<li>can be called directly</li>
+<li>can be reseeded</li>
+<li>results can be discarded</li>
+</ol>
+</aside></script></section><section data-markdown><script type="text/template">
+## distribution parameters
+
+```cpp [1-2,13|3|5-6|6,8-9|6,11-12]
+///hide
+#include <cassert>
+#include <random>
+
+///unhide
+template<typename Distribution, typename Engine, typename... Params>
+void distribute(Engine& e, Params... params) {
+  Distribution d1{params...};
+
+  typename Distribution::param_type p{params...};
+  Distribution d2{p};
+
+  d1.param(p);
+  assert(d1.param() == d2.param());
+
+  Distribution d3;
+  assert(d3(e, p) == d2(e));
+}
+
+///hide
+
+int main() {
+  std::default_random_engine e;
+  distribute<std::uniform_int_distribution<>>(e, 1, 6);
+}
+```
+
+<!-- .element: style="font-size: 0.45em" -->
+
+</script></section><section data-markdown><script type="text/template">
+## Library distributions
+
+no default this time
+
+</script></section><section data-markdown><script type="text/template">
+## uniform distributions
+
+![Cardano](12_random/Cardano.jpg)
+
+<!-- .element: class="r-stretch" -->
+
+<aside class="notes"><p>Gerolamo Cardano, one of the fathers of the probability theory.</p>
+</aside></script></section><section data-markdown><script type="text/template">
+### integral uniform distribution
+
+```cpp
+template<class IntType = int>
+class uniform_int_distribution;
+```
+
+<div class="distribution">
+
+<formula>
+
+`$$ P(i|a,b) = \frac{1}{b-a+1} $$`
+
+ </formula>
+
+ <parameters>
+
+|parameter|type|default|
+|---------|----|-------|
+|`a`|`IntType`|`0`|
+|`b`|`IntType`|`numeric_limits<IntType>::max()`|
+
+<!-- .element: style="font-size: 0.3em" -->
+
+</parameters>
+
+<diagram>
+
+![uniform_int_distribution](12_random/uniform_int_distribution.svg)
+
+</diagram>
+
+</div>
+
+<aside class="notes"><p>Produces random integer values <code>i</code>, uniformly distributed on the closed interval <code>[a, b]</code></p>
+</aside></script></section><section data-markdown><script type="text/template">
+### floating point uniform distribution
+
+```cpp
+template<class RealType = double>
+class uniform_real_distribution;
+```
+
+<div class="distribution">
+
+<formula>
+
+`$$ P(i|a,b) = \frac{1}{b-a} $$`
+
+ </formula>
+
+ <parameters>
+
+|parameter|type|default|
+|---------|----|-------|
+|`a`|`RealType`|`0.0`|
+|`b`|`RealType`|`1.0`|
+
+</parameters>
+
+<diagram>
+
+![uniform_real_distribution](12_random/uniform_real_distribution.svg)
+
+</diagram>
+
+</div>
+
+<aside class="notes"><p>Produces random floating-point values <code>i</code>, uniformly distributed on the closed interval <code>[a, b]</code></p>
+</aside></script></section><section data-markdown><script type="text/template">
+## Bernoulli distributions
+
+![Bernoulli](12_random/Bernoulli.jpg)
+
+<!-- .element: class="r-stretch" -->
+
+<aside class="notes"><p>named after Swiss mathematician Jacob Bernoulli.</p>
+</aside></script></section><section data-markdown><script type="text/template">
+### Bernoulli distribution
+
+```cpp
+class bernoulli_distribution;
+```
+
+<div class="distribution">
+
+<formula>
+
+`$$ P(b|p) = \begin{cases}
+   p & \text{if }b == true, \\
+   1-p & \text {if } b == false.
+ \end{cases} $$`
+
+ </formula>
+
+ <parameters>
+
+|parameter|type|default|
+|---------|----|-------|
+|`p`|`double`|`0.5`|
+
+</parameters>
+
+<diagram>
+
+![bernoulli_distribution](12_random/bernoulli_distribution.svg)
+
+</diagram>
+
+</div>
+
+<aside class="notes"><p>Produces random boolean values, according to the discrete probability function. It can be thought of as a model for the set of possible outcomes of any single experiment that asks a yes–no question (coin toss).</p>
+</aside></script></section><section data-markdown><script type="text/template">
+### Binomial distribution
+
+```cpp
+template<class IntType = int>
+class binomial_distribution;
+```
+
+<div class="distribution">
+
+<formula>
+
+`$$ P(i|t,p) = \binom{t}{i}p^i(1-p)^{t-i} $$`
+
+ </formula>
+
+ <parameters>
+
+|parameter|type|default|
+|---------|----|-------|
+|`t`|`IntType`|`1`|
+|`p`|`double`|`0.5`|
+
+</parameters>
+
+<diagram>
+
+![binomial_distribution](12_random/binomial_distribution.svg)
+
+</diagram>
+
+</div>
+
+<aside class="notes"><p>The value obtained is the number of successes in a sequence of <code>t</code> yes/no experiments, each of which succeeds with probability <code>p</code>. Notice that Bernoulli distribution is a special case of the binomial distribution, where <code>t = 1</code>.</p>
+</aside></script></section><section data-markdown><script type="text/template">
+### Negative Binomial distribution
+
+```cpp
+template<class IntType = int>
+class negative_binomial_distribution;
+```
+
+<div class="distribution">
+
+<formula>
+
+`$$ P(i|k,p) = \binom{k+i-1}{i}p^k(1-p)^i $$`
+
+ </formula>
+
+ <parameters>
+
+|parameter|type|default|
+|---------|----|-------|
+|`k`|`IntType`|`1`|
+|`p`|`double`|`0.5`|
+
+</parameters>
+
+<diagram>
+
+![negative_binomial_distribution](12_random/negative_binomial_distribution.svg)
+
+</diagram>
+
+</div>
+
+<aside class="notes"><p>The value represents the number of failures in a series of independent yes/no trials (each succeeds with probability <code>p</code>), before exactly <code>k</code> successes occur.</p>
+</aside></script></section><section data-markdown><script type="text/template">
+### Geometric distribution
+
+```cpp
+template<class IntType = int>
+class geometric_distribution;
+```
+
+<div class="distribution">
+
+<formula>
+
+`$$ P(i|p) = p\cdot(1-p)^i $$`
+
+ </formula>
+
+ <parameters>
+
+|parameter|type|default|
+|---------|----|-------|
+|`p`|`double`|`0.5`|
+
+</parameters>
+
+<diagram>
+
+![geometric_distribution](12_random/geometric_distribution.svg)
+
+</diagram>
+
+</div>
+
+<aside class="notes"><p>The value represents the number of yes/no trials (each succeeding with probability <code>p</code>) which are necessary to obtain a single success. It is exactly equivalent to <code>std::negative_binomial_distribution&lt;&gt;(1, p)</code>;</p>
+</aside></script></section><section data-markdown><script type="text/template">
+## Poisson distributions
+
+![Poisson](12_random/Poisson.jpg)
+
+<!-- .element: class="r-stretch" -->
+
+<aside class="notes"><p>named after French mathematician Siméon Denis Poisson</p>
+</aside></script></section><section data-markdown><script type="text/template">
+### Poisson distribution
+
+```cpp
+template<class IntType = int>
+class poisson_distribution;
+```
+
+<div class="distribution">
+
+<formula>
+
+`$$ P(i|\mu) = \frac{e^{-\mu} \mu^i}{i!} $$`
+
+ </formula>
+
+ <parameters>
+
+|parameter|type|default|
+|---------|----|-------|
+|`mean`|`double`|`1.0`|
+
+</parameters>
+
+<diagram>
+
+![poisson_distribution](12_random/poisson_distribution.svg)
+
+</diagram>
+
+</div>
+
+<aside class="notes"><p>The value obtained is the probability of exactly <code>i</code> occurrences of a random event if the expected, mean number of its occurrence under the same conditions (on the same time/space interval) is <code>μ</code>.</p>
+<p>The Poisson distribution may be useful to model events such as</p>
+<ul>
+<li>The number of meteorites greater than 1 meter diameter that strike Earth in a year</li>
+<li>The number of patients arriving in an emergency room between 10 and 11 pm</li>
+<li>The number of laser photons hitting a detector in a particular time interval</li>
+</ul>
+</aside></script></section><section data-markdown><script type="text/template">
+### Exponential distribution
+
+```cpp
+template<class RealType = double>
+class exponential_distribution;
+```
+
+<div class="distribution">
+
+<formula>
+
+`$$ P(x|\lambda) = \lambda e^{-\lambda x} $$`
+
+ </formula>
+
+ <parameters>
+
+|parameter|type|default|
+|---------|----|-------|
+|`lambda`|`RealType`|`1.0`|
+
+</parameters>
+
+<diagram>
+
+![exponential_distribution](12_random/exponential_distribution.svg)
+
+</diagram>
+
+</div>
+
+<aside class="notes"><p>The value obtained is the time/distance until the next random event if random events occur at constant rate λ per unit of time/distance. For example, the time it takes before the next telephone call in a call center.</p>
+</aside></script></section><section data-markdown><script type="text/template">
+### Gamma distribution
+
+```cpp
+template<class RealType = double>
+class gamma_distribution;
+```
+
+<div class="distribution">
+
+<formula>
+
+`$$ P(x|\alpha,\beta) = \frac{e^{-x/\beta}}{\beta^a\cdot\Gamma(\alpha)}\cdot x^{\alpha-1} $$`
+
+ </formula>
+
+ <parameters>
+
+|parameter|type|default|
+|---------|----|-------|
+|`alpha`|`RealType`|`1.0`|
+|`beta`|`RealType`|`1.0`|
+
+</parameters>
+
+<diagram>
+
+![gamma_distribution](12_random/gamma_distribution.svg)
+
+</diagram>
+
+</div>
+
+<aside class="notes"><p>The value obtained is the sum of <code>α</code> independent exponentially distributed random variables, each of which has a mean of <code>β</code>. This is a generalization of the exponential distribution. The gamma distribution is used to model the fading of signal power in wireless communication.</p>
+</aside></script></section><section data-markdown><script type="text/template">
+### Weibull distribution
+
+```cpp
+template<class RealType = double>
+class weibull_distribution;
+```
+
+<div class="distribution">
+
+<formula>
+
+`$$ P(x|a,b) = \frac{a}{b}(\frac{x}{b})^{a-1}e^{-(x/b)^a} $$`
+
+ </formula>
+
+ <parameters>
+
+|parameter|type|default|
+|---------|----|-------|
+|`a`|`RealType`|`1.0`|
+|`b`|`RealType`|`1.0`|
+
+</parameters>
+
+<diagram>
+
+![weibull_distribution](12_random/weibull_distribution.svg)
+
+</diagram>
+
+</div>
+
+<aside class="notes"><p>The Weibull distribution is often used in the field of failure analysis; in particular it can mimic distributions where the failure rate varies over time.</p>
+</aside></script></section><section data-markdown><script type="text/template">
+### Extreme value distribution
+
+```cpp
+template<class RealType = double>
+class extreme_value_distribution;
+```
+
+<div class="distribution">
+
+<formula>
+
+`$$ P(x|a,b) = \frac{1}{b}e^{\frac{a-x}{b}-e^{(a-x)/b}} $$`
+
+ </formula>
+
+ <parameters>
+
+|parameter|type|default|
+|---------|----|-------|
+|`a`|`RealType`|`0.0`|
+|`b`|`RealType`|`1.0`|
+
+</parameters>
+
+<diagram>
+
+![extreme_value_distribution](12_random/extreme_value_distribution.svg)
+
+</diagram>
+
+</div>
+
+<aside class="notes"><p>AKA Gumbel distribution. Used to model the distribution of the maximum (or the minimum) of a number of samples of various distributions. For example, the distribution of the maximum level of a river in a particular year if there was a list of maximum values for the past ten years.</p>
+</aside></script></section><section data-markdown><script type="text/template">
+## normal distributions
+
+![Gauss](12_random/Gauss.jpg)
+
+<!-- .element: class="r-stretch" -->
+
+<aside class="notes"><p>AKA Gaussian distributions after the German mathematician Johann Carl Friedrich Gauss.</p>
+</aside></script></section><section data-markdown><script type="text/template">
+### Normal distribution
+
+```cpp
+template<class RealType = double>
+class normal_distribution;
+```
+
+<div class="distribution">
+
+<formula>
+
+`$$ P(x|\mu,\sigma) = \frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{1}{2}(\frac{x-\mu}{\sigma})^2} $$`
+
+ </formula>
+
+ <parameters>
+
+|parameter|type|default|
+|---------|----|-------|
+|`mean`|`RealType`|`0.0`|
+|`stddev`|`RealType`|`1.0`|
+
+</parameters>
+
+<diagram>
+
+![normal_distribution](12_random/normal_distribution.svg)
+
+</diagram>
+
+</div>
+
+<aside class="notes"><p>probably the most well known statistical distribution. For example, total distance covered in a random walk.</p>
+</aside></script></section><section data-markdown><script type="text/template">
+### Log-normal distribution
+
+```cpp
+template<class RealType = double>
+class lognormal_distribution;
+```
+
+<div class="distribution">
+
+<formula>
+
+`$$ P(x|m,s) = \frac{1}{sx\sqrt{2\pi}}e^{-\frac{(\ln{x}-m)^2}{2s^2}} $$`
+
+ </formula>
+
+ <parameters>
+
+|parameter|type|default|
+|---------|----|-------|
+|`m`|`RealType`|`0.0`|
+|`s`|`RealType`|`1.0`|
+
+</parameters>
+
+<diagram>
+
+![lognormal_distribution](12_random/lognormal_distribution.svg)
+
+</diagram>
+
+</div>
+
+<aside class="notes"><p>important in the description of natural phenomena. e.g. The length of comments posted in internet discussion forums.</p>
+</aside></script></section><section data-markdown><script type="text/template">
+### Chi-square distribution
+
+```cpp
+template<class RealType = double>
+class chi_squared_distribution;
+```
+
+<div class="distribution">
+
+<formula>
+
+`$$ P(x|n) = \frac{x^{(n/2)-1}e^{-x/2}}{\Gamma(n/2)2^{n/2}} $$`
+
+ </formula>
+
+ <parameters>
+
+|parameter|type|default|
+|---------|----|-------|
+|`n`|`RealType`|`1.0`|
+
+</parameters>
+
+<diagram>
+
+![chi_squared_distribution](12_random/chi_squared_distribution.svg)
+
+</diagram>
+
+</div>
+
+<aside class="notes"><p>Value is the sum of the squares of <code>n</code> independent standard normal random variables. It is one of the most widely used distributions in statistical tests, and is often encountered in magnetic resonance imaging (MRI).</p>
+</aside></script></section><section data-markdown><script type="text/template">
+### Cauchy distribution
+
+```cpp
+template<class RealType = double>
+class cauchy_distribution;
+```
+
+<div class="distribution">
+
+<formula>
+
+`$$ P(x|a,b) = (b\pi[1+\frac{x-a}{b}^2])^{-1} $$`
+
+ </formula>
+
+ <parameters>
+
+|parameter|type|default|
+|---------|----|-------|
+|`a`|`RealType`|`0.0`|
+|`b`|`RealType`|`1.0`|
+
+</parameters>
+
+<diagram>
+
+![cauchy_distribution](12_random/cauchy_distribution.svg)
+
+</diagram>
+
+</div>
+
+<aside class="notes"><p>It the distribution of the ratio of two independent normally distributed random variables with mean zero.</p>
+</aside></script></section><section data-markdown><script type="text/template">
+### F-distribution
+
+```cpp
+template<class RealType = double>
+class fisher_f_distribution;
+```
+
+<div class="distribution">
+
+<formula style="font-size: 0.6em">
+
+`$$ P(x|m,n) = \frac{\Gamma\big((m+n)/2\big)
+     \cdot \left(\frac{m}{n}\right)^{m/2}
+     \cdot x^{(m/2)-1}}{\Gamma(m/2) \; \Gamma(n/2) \left(1 + \frac{m x}{n}\right)^{(m + n)/2}} $$`
+
+ </formula>
+
+ <parameters>
+
+|parameter|type|default|
+|---------|----|-------|
+|`m`|`RealType`|`1.0`|
+|`n`|`RealType`|`1.0`|
+
+</parameters>
+
+<diagram>
+
+![fisher_f_distribution](12_random/fisher_f_distribution.svg)
+
+</diagram>
+
+</div>
+
+<aside class="notes"><p>It is most often used when comparing statistical models that have been fitted to a data set, in order to identify the model that best fits the population from which the data were sampled.</p>
+</aside></script></section><section data-markdown><script type="text/template">
+### Student's t-distribution
+
+```cpp
+template<class RealType = double>
+class student_t_distribution;
+```
+
+<div class="distribution">
+
+<formula>
+
+`$$ P(x|n) = \frac{\Gamma\big((n+1)/2\big)}{\Gamma(n/2)\sqrt{n \pi}\left(1 + \frac{x^2}{n} \right)^{(n+1)/2}} $$`
+
+ </formula>
+
+ <parameters>
+
+|parameter|type|default|
+|---------|----|-------|
+|`n`|`RealType`|`1.0`|
+
+</parameters>
+
+<diagram>
+
+![student_t_distribution](12_random/student_t_distribution.svg)
+
+</diagram>
+
+</div>
+
+<aside class="notes"><p>It is used when estimating the mean of a normally distributed population in situations where the sample size is small and the population standard deviation is unknown.</p>
+</aside></script></section><section data-markdown><script type="text/template">
+## Sampling distributions
+
+![Shannon](12_random/Shannon.jpeg)
+
+<aside class="notes"><p>Sampling distributions are useful when you need to define a distribution based on a set of sample values, typically samples from the real world. The meaning of entropy in the context of data was developed by an American mathematician named Claude Shannon.</p>
+</aside></script></section><section data-markdown><script type="text/template">
+### Discrete distribution
+
+```cpp
+template<class IntType = int>
+class discrete_distribution;
+```
+
+<div class="distribution">
+
+<formula>
+
+`$$ P(i \,|\, p_0, \dotsc, p_{n-1}) = p_i $$`
+
+ </formula>
+
+ <parameters>
+
+|parameter|type|default|
+|---------|----|-------|
+|`probabilities`|`std::vector<double>`|`{1.0}`|
+
+<!-- .element:  style="font-size: 0.4em" -->
+
+</parameters>
+
+<diagram>
+
+![discrete_distribution](12_random/discrete_distribution.svg)
+
+</diagram>
+
+</div>
+
+<aside class="notes"><p>A generalization of <code>uniform_int_distribution</code></p>
+</aside></script></section><section data-markdown><script type="text/template">
+### Piecewise constant distribution
+
+```cpp
+template<class RealType = double>
+class piecewise_constant_distribution;
+```
+
+<div class="distribution">
+
+<formula>
+
+`$$ p(x \,|\, b_0, \dotsc, b_n, \; \rho_0, \dotsc, \rho_{n-1}) = \rho_i $$`
+`$$ \text{for $b_i \le x < b_{i+1}$} $$`
+
+ </formula>
+
+ <parameters>
+
+|parameter|type|default|
+|---------|----|-------|
+|`intervals`|`std::vector<RealType>`|`{0, 1}`|
+|`densities`|`std::vector<RealType>`|`{1}`|
+
+<!-- .element:  style="font-size: 0.4em" -->
+
+</parameters>
+
+<diagram>
+
+![piecewise_constant_distribution](12_random/piecewise_constant_distribution.svg)
+
+</diagram>
+
+</div>
+
+<aside class="notes"><p>A generalization of <code>uniform_real_distribution</code></p>
+</aside></script></section><section data-markdown><script type="text/template">
+### Piecewise linear distribution
+
+```cpp
+template<class RealType = double>
+class piecewise_linear_distribution;
+```
+
+<div class="distribution">
+
+<formula>
+
+`$$ p(x \,|\, b_0, \dotsc, b_n, \; \rho_0, \dotsc, \rho_n) = $$` 
+`$$ \rho_{i} \cdot {\frac{b_{i+1} - x}{b_{i+1} - b_i}} + \rho_{i+1} \cdot {\frac{x - b_i}{b_{i+1} - b_i}} $$`
+`$$ \text{for $b_i \le x < b_{i+1}$} $$`
+
+ </formula>
+
+ <parameters>
+
+|parameter|type|default|
+|---------|----|-------|
+|`intervals`|`std::vector<RealType>`|`{0, 1}`|
+|`densities`|`std::vector<RealType>`|`{1}`|
+
+<!-- .element:  style="font-size: 0.4em" -->
+
+</parameters>
+
+<diagram>
+
+![piecewise_linear_distribution](12_random/piecewise_linear_distribution.svg)
+
+</diagram>
+
+</div>
+
+<aside class="notes"><p>A generalization of <code>piecewise_constant_distribution</code></p>
+</aside></script></section><section data-markdown><script type="text/template">
+## example
+
+```cpp
+///external
+///compiler=g102
+///options+=-std=c++2a
+///hide
+#include <algorithm>
+#include <cmath>
+#include <iomanip>
+#include <iostream>
+#include <map>
+#include <random>
+#include <vector>
+
+template <int Height = 8, int BarWidth = 5, int Padding = 1, int Offset = 0,
+          bool DrawMinMax = true, class Hist>
+void draw_vbars(const char* name, Hist const& hist, const int norm) {
+    const float cutoff = 0.002f;
+    static_assert((Height > 0) && (BarWidth > 0) && (Padding >= 0) && (Offset >= 0));
+    auto cout_n = [](auto const& v, int n) { while (n-- > 0) std::cout << v; };
+
+    std::vector<float> bars;
+    std::vector<int> indices;
+    for (const auto [n, p] : hist) {
+        if (float x = p * (1.0/norm); cutoff < x) {
+            bars.push_back(x);
+            indices.push_back(n);
+        }
+    }
+
+    const auto [min, max] = std::minmax_element(std::cbegin(bars), std::cend(bars));
+    std::vector<std::div_t> qr;
+    for (float e : bars) {
+        qr.push_back(std::div(std::lerp(0.f, Height*8, (e - *min)/(*max - *min)), 8));
+    }
+
+    std::cout << name << ":\n";
+    for (auto h{Height}; h-- > 0 ;) {
+        cout_n(' ', Offset);
+        for (auto [q, r] : qr) {
+            char d[] = "█"; // == { 0xe2, 0x96, 0x88, 0 }
+            q < h ? d[0] = ' ', d[1] = '\0' : q == h ? d[2] -= (7 - r) : 0;
+            cout_n(d, BarWidth);
+            cout_n(' ', Padding);
+        }
+        if (DrawMinMax && Height > 1)
+            h == Height - 1 ? std::cout << "┬ " << *max:
+                     h != 0 ? std::cout << "│"
+                            : std::cout << "┴ " << *min;
+        cout_n('\n', 1);
+    }
+    for (int n : indices) { std::cout << " " << std::setw(2) << n << "   "; }
+        cout_n('\n', 2);
+}
+
+///unhide
+template<typename Engine, typename Distribution>
+void generate_and_draw(Engine& gen, Distribution&& d, const char* name) {
+    const int norm = 1'00'00;
+    std::map<int, int> hist{};
+    for (int n=0; n!=norm; ++n) { ++hist[std::round(d(gen))]; }
+    draw_vbars(name, hist, norm);
+}
+
+///hide
+int main() {
+///unhide
+std::mt19937 gen;
+generate_and_draw(gen, std::normal_distribution<>{5,2}, "Normal");
+generate_and_draw(gen, std::uniform_real_distribution<>{1.0, 7.0}, "Uniform");
+generate_and_draw(gen, std::binomial_distribution<>{4, 0.5}, "Binomial");
+generate_and_draw(gen, std::fisher_f_distribution<float>{1.0f, 5.0f}, "Fisher F");
+///hide
+}
+```
+
+<!-- .element: style="font-size: 0.4em" -->
+
+</script></section><section data-markdown><script type="text/template">
+## standard uniform distribution
+
+```cpp
+///hide
+#include <random>
+#include <iostream>
+#include <algorithm>
+#include <iterator>
+#include <iomanip>
+
+int main() {
+///unhide
+std::default_random_engine rng;
+
+std::generate_n(std::ostream_iterator<double>{std::cout << std::fixed 
+                                                        << std::setprecision(4), 
+                                              " "}, 
+                8,
+                [&rng] { return std::generate_canonical<double, 12>(rng); });
+
+std::cout << '\n';
+///hide
+}
+```
+
+<!-- .element: style="font-size: 0.4em" -->
+
+<aside class="notes"><p>The <code>generate_canonical</code> function template provides a standard uniform distribution of floating-point values over the range <code>[0,1)</code> with a given number of random bits.</p>
+</aside></script></section><section data-markdown><script type="text/template">
+<!-- .slide: data-background-image="12_random/sid.gif" -->
+
+## Seeds
+
+<!-- .element: class="chapter" -->
+
+<aside class="notes"><p>An algorithm for random number generation always starts with one or more seeds, which represent the initial input to the calculation that produces the random numbers. The seeds determine the initial state of a random number generator and determine the entire sequence. The number of bits in a seed is significant. With a 1-byte seed, you only have 255 possible values, so you can only produce a maximum of 255 different sequences. To maximize the entropy of a random sequence, you need two things: you need a seed value that is truly random – not pseudo-random, and you need the range of possible values for the seed to be large.</p>
+</aside></script></section><section data-markdown><script type="text/template">
+<!-- .slide: data-auto-animate -->
+
+## `std::random_device`
+
+```cpp
+///hide
+#include <random>
+#include <iostream>
+
+int main() {
+///unhide
+std::random_device rd;
+
+std::cout << "rd's range is [" 
+          << rd.min() << "," 
+          << rd.max() << "]\n";
+
+std::cout << "rd's entropy is " << rd.entropy() << '\n';
+
+std::cout << "generated " << rd() << '\n';
+///hide
+}
+```
+
+<!-- .element: data-id="code" -->
+
+<aside class="notes"><p>Using the OS to gen nondeterministic number from sources such as the times between successive keyboard keystrokes, or intervals between mouse clicks, or the current clock time.</p>
+</aside></script></section><section data-markdown><script type="text/template">
+<!-- .slide: data-auto-animate -->
+
+## specifying source 
+
+```cpp
+///hide
+///external
+#include <random>
+#include <iostream>
+
+int main() {
+///unhide
+std::random_device rd{"/dev/random"};
+
+std::cout << "rd's range is [" 
+          << rd.min() << "," 
+          << rd.max() << "]\n";
+
+std::cout << "rd's entropy is " << rd.entropy() << '\n';
+
+std::cout << "generated " << rd() << '\n';
+///hide
+}
+```
+
+<!-- .element: data-id="code" -->
+
+<aside class="notes"><p>Differs between implementations. Some of <code>libstdc++</code> sources are <code>rdseed</code> and <code>dev/urandom</code>. Might fall back to a pseudo RNG if no source is available.</p>
+</aside></script></section><section data-markdown><script type="text/template">
+## seeding a pseudo RNG
+
+```cpp
+///hide
+///external
+#include <random>
+#include <iostream>
+
+int main() {
+///unhide
+std::random_device rd;
+std::mt19937 gen{rd()};
+
+std::cout << "generated " << gen() << '\n';
+///hide
+}
+```
+
+<aside class="notes"><p>As we saw, <code>mt19937</code>&#39;s state is 624 words, so seeding it with a 32-bit value limits the possible entropy.</p>
+</aside></script></section><section data-markdown><script type="text/template">
+## `std::seed_seq`
+
+```cpp [1|3-4]
+///hide
+#include <random>
+#include <vector>
+#include <iostream>
+
+int main()
+{
+///unhide
+std::seed_seq seq{1,2,3,4,5};
+
+std::vector<std::uint32_t> seeds(10);
+seq.generate(seeds.begin(), seeds.end());
+
+for (std::uint32_t n : seeds) {
+  std::cout << n << '\n';
+}
+///hide
+}
+```
+
+<aside class="notes"><p>It consumes a sequence of integer-valued data and produces a requested number of unsigned integer values, based on the consumed data. The produced values are distributed over the entire 32-bit range even if the consumed values are close.
+It provides a way to seed a large number of random number engines or to seed a generator that requires a lot of entropy, given a small seed or a poorly distributed initial seed sequence.</p>
+</aside></script></section><section data-markdown><script type="text/template">
+## initializing RNG
+
+```cpp
+///hide
+#include <random>
+#include <vector>
+#include <iostream>
+
+int main()
+{
+///unhide
+std::random_device rd;
+std::seed_seq seq{rd(), rd()};
+std::mt19937_64{seq};
+///hide
+}
+```
+
+<aside class="notes"><p>the RNG calls <code>generate</code> to initialize its internal state</p>
+</aside></script></section><section data-markdown><script type="text/template">
+## querying params
+
+```cpp [1-3|5-7]
+///hide
+#include <random>
+#include <iostream>
+#include <iterator>
+#include <sstream>
+
+int main()
+{
+///unhide
+std::stringstream sst{"-1 0 1"};
+std::seed_seq s1(std::istream_iterator<uint32_t>{sst}, 
+                 std::istream_iterator<uint32_t>{});
+
+std::cout << "size: " << s1.size() << '\n';
+s1.param(std::ostream_iterator<int>(std::cout, " "));
+std::cout << '\n';
+///hide
+}
+```
+
+</script></section><section data-markdown><script type="text/template">
+## `std::shuffle`
+
+```cpp [4-6]
+///hide
+#include <random>
+#include <algorithm>
+#include <iterator>
+#include <iostream>
+ 
+int main()
+{
+///unhide
+std::vector<int> v = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+
+std::random_device rd;
+std::mt19937 g(rd());
+
+std::shuffle(v.begin(), v.end(), g);
+
+std::copy(v.begin(), v.end(), 
+          std::ostream_iterator<int>(std::cout, " "));
+std::cout << "\n";
+///hide
+}
+```
+
+<aside class="notes"><p>a new algorithm for shuffling random access ranges. deprecates <code>std::random_shuffle</code> which used <code>std::rand</code>.</p>
+</aside></script></section><section data-markdown><script type="text/template">
+## possible implementation
+
+```cpp [8-13]
+///hide
+#include <iterator>
+#include <random>
+
+///unhide
+template<class RandomIt, class URBG>
+void shuffle(RandomIt first, RandomIt last, URBG&& g)
+{
+  typedef typename std::iterator_traits<RandomIt>::difference_type diff_t;
+  typedef std::uniform_int_distribution<diff_t> distr_t;
+  typedef typename distr_t::param_type param_t;
+
+  distr_t D;
+  diff_t n = last - first;
+  for (diff_t i = n-1; i > 0; --i) {
+    using std::swap;
+    swap(first[i], first[D(g, param_t(0, i))]);
+  }
+}
+```
+
+<!-- .element: style="font-size: 0.4em" -->
+
+<aside class="notes"><p>the actual implementation is not standardized so different platform might order the range differently.</p>
+</aside></script></section><section data-markdown><script type="text/template">
+<!-- .slide: data-background-image="12_random/thanks.gif" -->
+
+## thank you
+
+<!-- .element: class="chapter" -->
 </script></section></section></div>
     </div>
 

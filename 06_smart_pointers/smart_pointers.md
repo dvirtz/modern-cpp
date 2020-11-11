@@ -1033,13 +1033,11 @@ struct Work
 
 <!-- .element: data-id="code" style="font-size: 0.35em" -->
 
-Note: what if work is destroyed before the pool?
-
-<div class="footnote">
-
 Source: [nextptr](https://www.nextptr.com/tutorial/ta1414193955/enable_shared_from_this-overview-examples-and-internals)
 
-</div>
+<!-- .element: class="footnote" -->
+
+Note: what if work is destroyed before the pool?
 
 ---
 

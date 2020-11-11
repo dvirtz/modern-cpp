@@ -1,0 +1,817 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   inkscape:version="1.0 (4035a4f, 2020-05-01)"
+   sodipodi:docname="chi_squared_distribution.svg"
+   height="400"
+   width="600"
+   version="1.1"
+   id="chi-square_pdf">
+  <metadata
+     id="metadata9355">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>The chi-Square distribution</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     inkscape:current-layer="chi-square_pdf"
+     inkscape:window-maximized="0"
+     inkscape:window-y="23"
+     inkscape:window-x="0"
+     inkscape:cy="200"
+     inkscape:cx="300"
+     inkscape:zoom="1.7433333"
+     showgrid="false"
+     id="namedview9353"
+     inkscape:window-height="1005"
+     inkscape:window-width="1680"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0"
+     guidetolerance="10"
+     gridtolerance="10"
+     objecttolerance="10"
+     borderopacity="1"
+     bordercolor="#666666"
+     pagecolor="#ffffff" />
+  <title
+     id="title9157">The chi-Square distribution</title>
+  <desc
+     id="desc9159">
+     chi-square distribution
+     f_k(x) = x^(n/2-1) * exp(-x/2) / (2^(n/2) * gamma(n/2))
+     
+     from Wikimedia Commons
+     plot-range: 0 to 8
+     plotted with cubic bezier-curves
+     the bezier-controll-points are calculated to give a very accurate result.
+     accuracy is 0.00001 units
+     symbols in &quot;Computer Modern&quot; (TeX) font embedded
+     created with a plain text editor using GNU/Linux
+
+     about: http://commons.wikimedia.org/wiki/Image:chi-square_pdf.svg
+     source: http://commons.wikimedia.org/
+     rights: GNU Free Documentation license,
+             Creative Commons Attribution ShareAlike license
+  </desc>
+  <defs
+     id="defs9182">
+    <rect
+       id="rect9365"
+       height="40.726578"
+       width="43.594646"
+       y="-12.045889"
+       x="182.40918" />
+    <!-- pstricks-style arrow, zoom 1.5 -->
+    <marker
+       orient="auto"
+       markerHeight="4.5"
+       markerWidth="6"
+       markerUnits="strokeWidth"
+       refY="2.25"
+       refX="2.52"
+       id="Arrow">
+      <path
+         id="path9161"
+         d="M 2.52,2.25 0,4.5 6,2.25 0,0 Z" />
+    </marker>
+    <!-- now the used chars in "Computer Modern" font. They are implemented
+         as plain paths and not as glyphs just because it didn't work -->
+    <!-- f: horiz-adv-x="489.6"-->
+    <path
+       d="m 53,0 m 314,400 h 86 c 20,0 30,0 30,20 0,11 -10,11 -27,11 h -83 c 11,58 10,56 21,114 4,21 18,92 24,104 9,19 26,34 47,34 4,0 30,0 49,-18 -44,-4 -54,-39 -54,-54 0,-23 18,-35 37,-35 26,0 55,22 55,60 0,46 -46,69 -87,69 -34,0 -97,-18 -127,-117 -6,-21 -9,-31 -33,-157 h -69 c -19,0 -30,0 -30,-19 0,-12 9,-12 28,-12 h 66 L 225,5 c -18,-97 -35,-188 -87,-188 -4,0 -29,0 -48,18 46,3 55,39 55,54 0,23 -18,35 -37,35 -26,0 -55,-22 -55,-60 0,-45 44,-69 85,-69 55,0 95,59 113,97 32,63 55,184 56,191 z"
+       id="f" />
+    <!-- k: horiz-adv-x="520.6"-->
+    <path
+       d="m 55,0 m 232,683 c 0,1 0,11 -13,11 -23,0 -96,-8 -122,-10 -8,-1 -19,-2 -19,-20 0,-12 9,-12 24,-12 48,0 50,-7 50,-17 L 204,615 59,39 C 55,25 55,23 55,17 c 0,-23 20,-28 29,-28 13,0 28,9 34,21 5,9 50,194 56,219 34,-3 116,-19 116,-85 0,-7 0,-11 -3,-21 -2,-12 -4,-24 -4,-35 0,-59 40,-99 92,-99 30,0 57,16 79,53 25,44 36,99 36,101 0,10 -9,10 -12,10 -10,0 -11,-4 -14,-18 C 444,62 421,11 377,11 c -19,0 -32,11 -32,47 0,17 4,40 8,56 4,17 4,21 4,31 0,65 -63,94 -148,105 31,18 63,50 86,74 48,53 94,96 143,96 6,0 7,0 9,-1 12,-2 13,-2 21,-8 2,-1 2,-2 4,-4 -48,-3 -57,-42 -57,-54 0,-16 11,-35 38,-35 26,0 55,22 55,61 0,30 -23,63 -68,63 -28,0 -74,-8 -146,-88 -34,-38 -73,-78 -111,-93 z"
+       id="k" />
+    <!-- x: horiz-adv-x="527.8"-->
+    <path
+       d="m 29,0 m 305,302 c 6,26 29,118 99,118 5,0 29,0 50,-13 -28,-5 -48,-30 -48,-54 0,-16 11,-35 38,-35 22,0 54,18 54,58 0,52 -59,66 -93,66 -58,0 -93,-53 -105,-76 -25,66 -79,76 -108,76 C 117,442 60,313 60,288 c 0,-10 10,-10 12,-10 8,0 11,2 13,11 34,106 100,131 134,131 19,0 54,-9 54,-67 0,-31 -17,-98 -54,-238 C 203,53 168,11 124,11 c -6,0 -29,0 -50,13 25,5 47,26 47,54 0,27 -22,35 -37,35 -30,0 -55,-26 -55,-58 0,-46 50,-66 94,-66 66,0 102,70 105,76 12,-37 48,-76 108,-76 103,0 160,129 160,154 0,10 -9,10 -12,10 -9,0 -11,-4 -13,-11 C 438,35 370,11 338,11 c -39,0 -55,32 -55,66 0,22 6,44 17,88 z"
+       id="x" />
+    <!-- chi: horiz-adv-x="625.7"-->
+    <path
+       d="m 31,0 m 552,403 c 11,11 11,13 11,16 0,6 -4,12 -12,12 -6,0 -10,-5 -16,-12 L 337,164 c -40,127 -48,152 -71,205 -11,23 -33,73 -121,73 -58,0 -84,-52 -84,-66 0,-1 0,-10 12,-10 9,0 11,6 13,11 15,39 47,43 53,43 30,0 60,-76 77,-120 32,-79 64,-195 64,-198 0,-1 0,-3 -8,-11 L 42,-166 c -11,-11 -11,-13 -11,-16 0,-6 6,-12 12,-12 7,0 12,7 16,11 L 288,74 c 32,-104 44,-143 68,-199 13,-30 35,-80 124,-80 58,0 85,52 85,65 0,5 -2,11 -12,11 -10,0 -11,-4 -14,-14 -9,-24 -34,-40 -53,-40 -51,0 -119,242 -141,319 z"
+       id="chi" />
+    <!-- (: horiz-adv-x="388.9"-->
+    <path
+       d="m 99,0 m 232,-240 c 0,3 0,5 -17,22 -125,126 -157,315 -157,468 0,174 38,348 161,473 13,12 13,14 13,17 0,7 -4,10 -10,10 C 311,750 221,682 162,555 111,445 99,334 99,250 c 0,-78 11,-199 66,-312 60,-123 146,-188 156,-188 6,0 10,3 10,10 z"
+       id="parleft" />
+    <!-- ): horiz-adv-x="388.9"-->
+    <path
+       d="m 57,0 m 232,250 c 0,78 -11,199 -66,312 -60,123 -146,188 -156,188 -6,0 -10,-4 -10,-10 0,-3 0,-5 19,-23 98,-99 155,-258 155,-467 0,-171 -37,-347 -161,-473 -13,-12 -13,-14 -13,-17 0,-6 4,-10 10,-10 10,0 100,68 159,195 51,110 63,221 63,305 z"
+       id="parright" />
+    <!-- =: horiz-adv-x="777.8"-->
+    <path
+       d="m 56,0 m 631,327 c 15,0 34,0 34,20 0,20 -19,20 -33,20 H 89 c -14,0 -33,0 -33,-20 0,-20 19,-20 34,-20 z M 90,327 M 688,133 c 14,0 33,0 33,20 0,20 -19,20 -34,20 H 90 c -15,0 -34,0 -34,-20 0,-20 19,-20 33,-20 z"
+       id="equal" />
+    <!-- 0: horiz-adv-x="500"-->
+    <path
+       d="m 39,0 m 421,320 c 0,80 -5,160 -40,234 C 374,650 292,666 250,666 190,666 117,640 76,547 44,478 39,400 39,320 39,245 43,155 84,79 127,-2 200,-22 249,-22 c 54,0 130,21 174,116 32,69 37,147 37,226 z m 0,0 M 249,0 c -39,0 -98,25 -116,121 -11,60 -11,152 -11,211 0,64 0,130 8,184 19,119 94,128 119,128 33,0 99,-18 118,-117 10,-56 10,-132 10,-195 0,-75 0,-143 -11,-207 C 351,30 294,0 249,0 Z"
+       id="zero" />
+    <!-- 1: horiz-adv-x="500"-->
+    <path
+       d="m 89,0 m 205,640 c 0,24 0,26 -23,26 C 209,602 121,602 89,602 v -31 c 20,0 79,0 131,26 V 79 C 220,43 217,31 127,31 H 95 V 0 c 35,3 122,3 162,3 40,0 127,0 162,-3 v 31 h -32 c -90,0 -93,11 -93,48 z"
+       id="one" />
+    <!-- 2: horiz-adv-x="500"-->
+    <path
+       d="m 50,0 m 399,174 h -25 c -5,-30 -12,-74 -22,-89 -7,-8 -73,-8 -95,-8 H 127 L 233,180 C 389,318 449,372 449,472 449,586 359,666 237,666 124,666 50,574 50,485 c 0,-56 50,-56 53,-56 17,0 52,12 52,53 0,26 -18,52 -53,52 -8,0 -10,0 -13,-1 23,65 77,102 135,102 91,0 134,-81 134,-163 0,-80 -50,-159 -105,-221 L 61,37 C 50,26 50,24 50,0 h 371 z"
+       id="two" />
+    <!-- 3: horiz-adv-x="500"-->
+    <path
+       d="m 42,0 m 248,352 c 82,27 140,97 140,176 0,82 -88,138 -184,138 -101,0 -177,-60 -177,-136 0,-33 22,-52 51,-52 31,0 51,22 51,51 0,50 -47,50 -62,50 31,49 97,62 133,62 41,0 96,-22 96,-112 0,-12 -2,-70 -28,-114 -30,-48 -64,-51 -89,-52 -8,-1 -32,-3 -39,-3 -8,-1 -15,-2 -15,-12 0,-11 7,-11 24,-11 h 44 C 317,337 354,269 354,171 354,35 285,6 241,6 198,6 123,23 88,82 c 35,-5 66,17 66,55 0,36 -27,56 -56,56 -24,0 -56,-14 -56,-58 0,-91 93,-157 202,-157 122,0 213,91 213,193 0,82 -63,160 -167,181 z"
+       id="three" />
+    <!-- 4: horiz-adv-x="500"-->
+    <path
+       d="m 28,0 m 0,165 H 294 V 78 C 294,42 292,31 218,31 H 197 V 0 c 41,3 93,3 135,3 42,0 95,0 136,-3 v 31 h -21 c -74,0 -76,11 -76,47 v 87 h 100 v 31 H 371 v 455 c 0,20 0,26 -16,26 -9,0 -12,0 -20,-12 L 28,196 Z m 0,31 m 272,0 H 56 l 244,373 z"
+       id="four" />
+    <!-- 5: horiz-adv-x="500"-->
+    <path
+       d="m 50,0 m 399,201 c 0,119 -82,219 -190,219 -48,0 -91,-16 -127,-51 v 195 c 20,-6 53,-13 85,-13 123,0 193,91 193,104 0,6 -3,11 -10,11 -1,0 -3,0 -8,-3 -20,-9 -69,-29 -136,-29 -40,0 -86,7 -133,28 -8,3 -10,3 -12,3 -10,0 -10,-8 -10,-24 V 345 c 0,-18 0,-26 14,-26 7,0 9,3 13,9 11,16 48,70 129,70 52,0 77,-46 85,-64 16,-37 18,-76 18,-126 0,-35 0,-95 -24,-137 C 312,32 275,6 229,6 156,6 99,59 82,118 c 3,-1 6,-2 17,-2 33,0 50,25 50,49 0,24 -17,49 -50,49 -14,0 -49,-7 -49,-53 0,-86 69,-183 181,-183 116,0 218,96 218,223 z"
+       id="five" />
+    <!-- 6: horiz-adv-x="500"-->
+    <path
+       d="m 42,0 m 90,328 v 24 c 0,253 124,289 175,289 24,0 66,-6 88,-40 -15,0 -55,0 -55,-45 0,-31 24,-46 46,-46 16,0 46,9 46,48 0,60 -44,108 -127,108 C 177,666 42,537 42,316 42,49 158,-22 251,-22 c 111,0 206,94 206,226 0,127 -89,223 -200,223 -68,0 -105,-51 -125,-99 z m 0,0 M 251,6 c -63,0 -93,60 -99,75 -18,47 -18,127 -18,145 0,78 32,178 122,178 16,0 62,0 93,-62 18,-37 18,-88 18,-137 0,-48 0,-98 -17,-134 C 320,11 274,6 251,6 Z"
+       id="six" />
+    <!-- 7: horiz-adv-x="500"-->
+    <path
+       d="m 56,0 m 420,609 c 9,12 9,14 9,35 H 242 c -122,0 -124,13 -128,32 H 89 L 56,470 h 25 c 3,16 12,79 25,91 7,6 85,6 98,6 H 411 C 400,551 321,442 299,409 209,274 176,135 176,33 c 0,-10 0,-55 46,-55 46,0 46,45 46,55 v 51 c 0,55 3,110 11,164 4,23 18,109 62,171 z"
+       id="seven" />
+    <!-- 8: horiz-adv-x="500"-->
+    <path
+       d="m 42,0 m 121,457 c -46,30 -50,64 -50,81 0,61 65,103 136,103 73,0 137,-52 137,-124 0,-57 -39,-105 -99,-140 z m 124,-80 m 22,-15 c 72,37 121,89 121,155 0,92 -89,149 -180,149 -100,0 -181,-74 -181,-167 0,-18 2,-63 44,-110 11,-12 48,-37 73,-54 C 128,306 42,250 42,151 42,45 144,-22 249,-22 c 113,0 208,83 208,190 0,36 -11,81 -49,123 -19,21 -35,31 -99,71 z m 0,0 M 209,320 c 28,-17 75,-47 123,-78 28,-19 75,-49 75,-110 C 407,58 332,6 250,6 164,6 92,68 92,151 c 0,58 32,122 117,169 z"
+       id="eight" />
+    <!-- 9: horiz-adv-x="500"-->
+    <path
+       d="M 42,0 M 367,318 V 286 C 367,52 263,6 205,6 c -17,0 -71,2 -98,36 44,0 52,29 52,46 0,31 -24,46 -46,46 C 97,134 67,125 67,86 67,19 121,-22 206,-22 335,-22 457,114 457,329 457,598 342,666 253,666 198,666 149,648 106,603 65,558 42,516 42,441 42,316 130,218 242,218 c 61,0 102,42 125,100 z m 0,0 M 243,241 c -16,0 -62,0 -93,63 -18,37 -18,87 -18,136 0,54 0,101 21,138 27,50 65,63 100,63 46,0 79,-34 96,-79 12,-32 16,-95 16,-141 0,-83 -34,-180 -122,-180 z"
+       id="nine" />
+    <!-- .: horiz-adv-x="277.8"-->
+    <path
+       d="m 192,378 m 0,-325 c 0,29 -24,53 -53,53 -29,0 -53,-24 -53,-53 0,-29 24,-53 53,-53 29,0 53,24 53,53 z"
+       id="dot" />
+    <rect
+       x="182.40918"
+       y="-12.045889"
+       width="43.594646"
+       height="40.726578"
+       id="rect9373" />
+    <rect
+       id="rect9379"
+       height="40.726578"
+       width="43.594646"
+       y="-12.045889"
+       x="182.40918" />
+    <rect
+       x="182.40918"
+       y="-12.045889"
+       width="43.594646"
+       height="40.726578"
+       id="rect9385" />
+    <rect
+       id="rect9391"
+       height="40.726578"
+       width="43.594646"
+       y="-12.045889"
+       x="182.40918" />
+    <rect
+       x="182.40918"
+       y="-12.045889"
+       width="43.594646"
+       height="40.726578"
+       id="rect9397" />
+  </defs>
+  <rect
+     fill="none"
+     height="400"
+     width="600"
+     y="0"
+     x="0"
+     id="background" />
+  <g
+     id="g9350"
+     transform="translate(61.5,362.5)">
+    <!-- grid -->
+    <g
+       style="opacity:0.4;stroke:#000000;stroke-width:0.5;stroke-linecap:butt"
+       transform="scale(1,-1)"
+       id="grid">
+      <path
+         d="M 60,0 V 300.5 M 120,0 V 300.5 M 180,0 V 300.5 M 240,0 V 300.5 M 300,0 V 300.5 M 360,0 V 300.5 M 420,0 V 300.5 M 480,0 v 300.5"
+         id="gridx" />
+      <path
+         d="M 0,60 H 480 M 0,120 H 480 M 0,180 H 480 M 0,240 H 480 M 0,300 h 480"
+         id="gridy" />
+    </g>
+    <!-- ticks -->
+    <g
+       style="stroke:#000000;stroke-width:1;stroke-linecap:square"
+       transform="scale(1,-1)"
+       id="ticks">
+      <path
+         d="M 0,-5 V 5 M 60,-5 V 5 M 120,-5 V 5 M 180,-5 V 5 M 240,-5 V 5 M 300,-5 V 5 M 360,-5 V 5 M 420,-5 V 5 M 480,-5 V 5"
+         id="ticksx" />
+      <path
+         d="M -5,0 H 5 M -5,60 H 5 M -5,120 H 5 M -5,180 H 5 M -5,240 H 5 M -5,300 H 5"
+         id="ticksy" />
+    </g>
+    <!-- axes -->
+    <line
+       marker-end="url(#Arrow)"
+       stroke-linecap="butt"
+       stroke-width="2"
+       stroke="#000000"
+       y2="0"
+       y1="0"
+       x2="510.5"
+       x1="0"
+       id="x-axis" />
+    <line
+       marker-end="url(#Arrow)"
+       stroke-linecap="butt"
+       stroke-width="2"
+       stroke="#000000"
+       y2="-330.5"
+       y1="0"
+       x2="0"
+       x1="0"
+       id="y-axis" />
+    <!-- labels -->
+    <g
+       transform="translate(0,29)"
+       id="xlabels">
+      <g
+         transform="scale(0.025,-0.025)"
+         id="x0">
+        <use
+           height="100%"
+           width="100%"
+           id="use9219"
+           y="0"
+           x="-250"
+           xlink:href="#zero" />
+      </g>
+      <g
+         transform="matrix(0.025,0,0,-0.025,60,0)"
+         id="x1">
+        <use
+           height="100%"
+           width="100%"
+           id="use9222"
+           y="0"
+           x="-250"
+           xlink:href="#one" />
+      </g>
+      <g
+         transform="matrix(0.025,0,0,-0.025,120,0)"
+         id="x2">
+        <use
+           height="100%"
+           width="100%"
+           id="use9225"
+           y="0"
+           x="-250"
+           xlink:href="#two" />
+      </g>
+      <g
+         transform="matrix(0.025,0,0,-0.025,180,0)"
+         id="x3">
+        <use
+           height="100%"
+           width="100%"
+           id="use9228"
+           y="0"
+           x="-250"
+           xlink:href="#three" />
+      </g>
+      <g
+         transform="matrix(0.025,0,0,-0.025,240,0)"
+         id="x4">
+        <use
+           height="100%"
+           width="100%"
+           id="use9231"
+           y="0"
+           x="-250"
+           xlink:href="#four" />
+      </g>
+      <g
+         transform="matrix(0.025,0,0,-0.025,300,0)"
+         id="x5">
+        <use
+           height="100%"
+           width="100%"
+           id="use9234"
+           y="0"
+           x="-250"
+           xlink:href="#five" />
+      </g>
+      <g
+         transform="matrix(0.025,0,0,-0.025,360,0)"
+         id="x6">
+        <use
+           height="100%"
+           width="100%"
+           id="use9237"
+           y="0"
+           x="-250"
+           xlink:href="#six" />
+      </g>
+      <g
+         transform="matrix(0.025,0,0,-0.025,420,0)"
+         id="x7">
+        <use
+           height="100%"
+           width="100%"
+           id="use9240"
+           y="0"
+           x="-250"
+           xlink:href="#seven" />
+      </g>
+      <g
+         transform="matrix(0.025,0,0,-0.025,480,0)"
+         id="x8">
+        <use
+           height="100%"
+           width="100%"
+           id="use9243"
+           y="0"
+           x="-250"
+           xlink:href="#eight" />
+      </g>
+    </g>
+    <g
+       transform="translate(-11,8)"
+       id="ylabels">
+      <g
+         transform="scale(0.025,-0.025)"
+         id="y00">
+        <use
+           height="100%"
+           width="100%"
+           id="use9247"
+           y="0"
+           x="-1277.8"
+           xlink:href="#zero" />
+        <use
+           height="100%"
+           width="100%"
+           id="use9249"
+           y="0"
+           x="-777.79999"
+           xlink:href="#dot" />
+        <use
+           height="100%"
+           width="100%"
+           id="use9251"
+           y="0"
+           x="-500"
+           xlink:href="#zero" />
+      </g>
+      <g
+         transform="matrix(0.025,0,0,-0.025,0,-60)"
+         id="y01">
+        <use
+           height="100%"
+           width="100%"
+           id="use9254"
+           y="0"
+           x="-1277.8"
+           xlink:href="#zero" />
+        <use
+           height="100%"
+           width="100%"
+           id="use9256"
+           y="0"
+           x="-777.79999"
+           xlink:href="#dot" />
+        <use
+           height="100%"
+           width="100%"
+           id="use9258"
+           y="0"
+           x="-500"
+           xlink:href="#one" />
+      </g>
+      <g
+         transform="matrix(0.025,0,0,-0.025,0,-120)"
+         id="y02">
+        <use
+           height="100%"
+           width="100%"
+           id="use9261"
+           y="0"
+           x="-1277.8"
+           xlink:href="#zero" />
+        <use
+           height="100%"
+           width="100%"
+           id="use9263"
+           y="0"
+           x="-777.79999"
+           xlink:href="#dot" />
+        <use
+           height="100%"
+           width="100%"
+           id="use9265"
+           y="0"
+           x="-500"
+           xlink:href="#two" />
+      </g>
+      <g
+         transform="matrix(0.025,0,0,-0.025,0,-180)"
+         id="y03">
+        <use
+           height="100%"
+           width="100%"
+           id="use9268"
+           y="0"
+           x="-1277.8"
+           xlink:href="#zero" />
+        <use
+           height="100%"
+           width="100%"
+           id="use9270"
+           y="0"
+           x="-777.79999"
+           xlink:href="#dot" />
+        <use
+           height="100%"
+           width="100%"
+           id="use9272"
+           y="0"
+           x="-500"
+           xlink:href="#three" />
+      </g>
+      <g
+         transform="matrix(0.025,0,0,-0.025,0,-240)"
+         id="y04">
+        <use
+           height="100%"
+           width="100%"
+           id="use9275"
+           y="0"
+           x="-1277.8"
+           xlink:href="#zero" />
+        <use
+           height="100%"
+           width="100%"
+           id="use9277"
+           y="0"
+           x="-777.79999"
+           xlink:href="#dot" />
+        <use
+           height="100%"
+           width="100%"
+           id="use9279"
+           y="0"
+           x="-500"
+           xlink:href="#four" />
+      </g>
+      <g
+         transform="matrix(0.025,0,0,-0.025,0,-300)"
+         id="y05">
+        <use
+           height="100%"
+           width="100%"
+           id="use9282"
+           y="0"
+           x="-1277.8"
+           xlink:href="#zero" />
+        <use
+           height="100%"
+           width="100%"
+           id="use9284"
+           y="0"
+           x="-777.79999"
+           xlink:href="#dot" />
+        <use
+           height="100%"
+           width="100%"
+           id="use9286"
+           y="0"
+           x="-500"
+           xlink:href="#five" />
+      </g>
+    </g>
+    <!-- the controll points lie on the tangents of the function.
+         they are furthermore positioned in a way to minimize the average
+         quadratic distance between the bezier-curve and the function. -->
+    <!-- chi-square distribution curve -->
+    <g
+       id="g9296"
+       transform="scale(60,-60)">
+      <path
+         d="M 0.41879,5 C 0.59805,3.48177 0.88514,2.42762 1.38309,1.69883 1.76965,1.13308 2.27787,0.77142 2.94497,0.53318 3.50676,0.33256 4.19518,0.21445 5.05985,0.14129 5.82729,0.07636 6.77056,0.0437 8,0.02583"
+         stroke-linecap="butt"
+         stroke-width="0.05px"
+         stroke="#cccc00"
+         fill="none"
+         id="curve-1" />
+      <path
+         d="M 0,5 C 0.66088,3.34781 1.41027,2.29306 2.28409,1.59583 3.0151,1.01255 3.85544,0.66171 4.85611,0.44104 5.71844,0.25088 6.7356,0.14947 8,0.09158"
+         stroke-linecap="butt"
+         stroke-width="0.05px"
+         stroke="#00dd00"
+         fill="none"
+         id="curve-2" />
+      <path
+         d="M 0,0 C 0,0.48303 0.04405,0.98887 0.14338,1.40612 0.22197,1.7362 0.31706,1.93541 0.3957,2.05905 0.54542,2.29445 0.72306,2.39316 0.91361,2.41492 1.17665,2.44495 1.48733,2.33094 1.85016,2.15158 2.22323,1.96716 2.65577,1.71153 3.17829,1.45161 3.6761,1.20398 4.22774,0.96632 4.89444,0.76374 5.80675,0.48654 6.80321,0.31488 8,0.20667"
+         stroke-linecap="butt"
+         stroke-width="0.05px"
+         stroke="#00cccc"
+         fill="none"
+         id="curve-3" />
+      <path
+         d="M 0,0 C 0.4645,1.16126 0.98412,1.65141 1.58171,1.79309 2.08518,1.91246 2.65512,1.78716 3.32771,1.57573 3.89916,1.3961 4.54795,1.15334 5.34399,0.92336 6.12639,0.69733 6.96547,0.50842 8,0.36631"
+         stroke-linecap="butt"
+         stroke-width="0.05px"
+         stroke="#0000ff"
+         fill="none"
+         id="curve-4" />
+      <!-- <path id="curve-5" fill="none" stroke="#000000"
+         stroke-width="0.05px" stroke-linecap="butt"
+         d="M 0.00000,0.00000
+            C 0.00038,0.00000 0.01607,0.00010 0.04916,0.01414
+            C 0.10830,0.03924 0.17676,0.08888 0.22921,0.13013
+            C 0.39130,0.25761 0.58811,0.45313 0.81740,0.65304
+            C 1.09474,0.89485 1.40740,1.13242 1.78662,1.29980
+            C 2.23195,1.49636 2.69352,1.56280 3.21389,1.53620
+            C 3.88754,1.50176 4.63047,1.31321 5.51283,1.09334
+            C 6.22929,0.91481 7.02267,0.71944 8.00000,0.55112" />-->
+      <path
+         d="M 0,0 C 0.3108,0 0.65409,0.18103 1.04552,0.40505 1.38115,0.59714 1.75087,0.82004 2.18272,0.99978 2.58666,1.1679 3.00745,1.28261 3.48992,1.32949 4.14009,1.39266 4.8162,1.32433 5.5753,1.19607 6.29011,1.07528 7.0747,0.9021 8,0.73263"
+         stroke-linecap="butt"
+         stroke-width="0.05px"
+         stroke="#aa00aa"
+         fill="none"
+         id="curve-6" />
+      <!-- <path id="curve-7" fill="none" stroke="#000000"
+         stroke-width="0.05px" stroke-linecap="butt"
+         d="M 0.00000,0.00000
+            C 0.09478,0.00000 0.22222,0.00086 0.37894,0.01945
+            C 0.64208,0.05066 0.90144,0.12157 1.19694,0.22913
+            C 1.71179,0.41655 2.25853,0.68644 2.90492,0.89507
+            C 3.42620,1.06333 3.96287,1.17573 4.58997,1.20961
+            C 5.62622,1.26559 6.70319,1.09620 8.00000,0.88179" />-->
+      <!-- <path id="curve-8" fill="none" stroke="#000000"
+         stroke-width="0.05px" stroke-linecap="butt"
+         d="M 0.00000,0.00000
+            C 0.24453,0.00000 0.51074,0.00010 0.83189,0.03956
+            C 1.16925,0.08102 1.49268,0.15678 1.84815,0.26099
+            C 2.42897,0.43126 3.02860,0.65766 3.71662,0.83391
+            C 4.25527,0.97189 4.80920,1.06912 5.44409,1.10493
+            C 6.25859,1.15088 7.08278,1.08883 8.00000,0.97683" />-->
+      <path
+         d="M 0,0 C 0.27399,0 0.51503,-2.9e-4 0.76856,0.0103 1.13354,0.02553 1.48981,0.06215 1.90621,0.14009 2.4766,0.24684 3.02998,0.40678 3.629,0.56357 4.24905,0.72587 4.89446,0.87841 5.64345,0.96531 6.40781,1.05399 7.16171,1.06056 8,1.00776"
+         stroke-linecap="butt"
+         stroke-width="0.05px"
+         stroke="#ff0000"
+         fill="none"
+         id="curve-9" />
+      <!-- <path id="curve-10" fill="none" stroke="#000000"
+         stroke-width="0.05px" stroke-linecap="butt"
+         d="M 0.00000,0.00000
+            C 0.32387,0.00000 0.55747,-0.00013 0.78633,0.00269
+            C 1.19849,0.00777 1.60191,0.02275 2.05960,0.06693
+            C 2.57660,0.11683 3.06040,0.19412 3.57238,0.28433
+            C 4.28000,0.40902 5.00156,0.55119 5.81830,0.65086
+            C 6.51464,0.73583 7.21138,0.78147 8.00000,0.78147" />-->
+    </g>
+    <g
+       transform="translate(397,-334)"
+       id="legend">
+      <rect
+         style="fill:none"
+         opacity="0.8"
+         fill="#ffffff"
+         height="190"
+         width="120"
+         y="0.5"
+         x="0.5"
+         id="legend_background" />
+      <g
+         transform="translate(46.5,20)"
+         id="legend_lines">
+        <path
+           d="M 0,0 H -30"
+           stroke-linecap="butt"
+           stroke-width="3px"
+           stroke="#cccc00"
+           fill="none"
+           id="curvel-1" />
+        <path
+           d="M 0,0 H -30"
+           stroke-linecap="butt"
+           stroke-width="3px"
+           stroke="#00dd00"
+           fill="none"
+           transform="translate(0,30)"
+           id="curvel-2" />
+        <path
+           d="M 0,0 H -30"
+           stroke-linecap="butt"
+           stroke-width="3px"
+           stroke="#00cccc"
+           fill="none"
+           transform="translate(0,60)"
+           id="curvel-3" />
+        <path
+           d="M 0,0 H -30"
+           stroke-linecap="butt"
+           stroke-width="3px"
+           stroke="#0000ff"
+           fill="none"
+           transform="translate(0,90)"
+           id="curvel-4" />
+        <path
+           d="M 0,0 H -30"
+           stroke-linecap="butt"
+           stroke-width="3px"
+           stroke="#aa00aa"
+           fill="none"
+           transform="translate(0,120)"
+           id="curvel-6" />
+        <path
+           d="M 0,0 H -30"
+           stroke-linecap="butt"
+           stroke-width="3px"
+           stroke="#ff0000"
+           fill="none"
+           transform="translate(0,150)"
+           id="curvel-9" />
+      </g>
+      <g
+         transform="translate(59,26)"
+         id="legend_labels">
+        <g
+           transform="scale(0.025,-0.025)"
+           id="k_is_1">
+          <use
+             height="100%"
+             width="100%"
+             id="use9308"
+             y="0"
+             x="581.70001"
+             xlink:href="#equal" />
+          <use
+             height="100%"
+             width="100%"
+             id="use9310"
+             y="0"
+             x="1420.6"
+             xlink:href="#one" />
+        </g>
+        <g
+           transform="matrix(0.025,0,0,-0.025,0,30)"
+           id="k_is_2">
+          <use
+             height="100%"
+             width="100%"
+             id="use9315"
+             y="0"
+             x="581.70001"
+             xlink:href="#equal" />
+          <use
+             height="100%"
+             width="100%"
+             id="use9317"
+             y="0"
+             x="1420.6"
+             xlink:href="#two" />
+        </g>
+        <g
+           transform="matrix(0.025,0,0,-0.025,0,60)"
+           id="k_is_3">
+          <use
+             height="100%"
+             width="100%"
+             id="use9322"
+             y="0"
+             x="581.70001"
+             xlink:href="#equal" />
+          <use
+             height="100%"
+             width="100%"
+             id="use9324"
+             y="0"
+             x="1420.6"
+             xlink:href="#three" />
+        </g>
+        <g
+           transform="matrix(0.025,0,0,-0.025,0,90)"
+           id="k_is_4">
+          <use
+             height="100%"
+             width="100%"
+             id="use9329"
+             y="0"
+             x="581.70001"
+             xlink:href="#equal" />
+          <use
+             height="100%"
+             width="100%"
+             id="use9331"
+             y="0"
+             x="1420.6"
+             xlink:href="#four" />
+        </g>
+        <g
+           transform="matrix(0.025,0,0,-0.025,0,120)"
+           id="k_is_6">
+          <use
+             height="100%"
+             width="100%"
+             id="use9336"
+             y="0"
+             x="581.70001"
+             xlink:href="#equal" />
+          <use
+             height="100%"
+             width="100%"
+             id="use9338"
+             y="0"
+             x="1420.6"
+             xlink:href="#six" />
+        </g>
+        <g
+           transform="matrix(0.025,0,0,-0.025,0,150)"
+           id="k_is_9">
+          <use
+             height="100%"
+             width="100%"
+             id="use9343"
+             y="0"
+             x="581.70001"
+             xlink:href="#equal" />
+          <use
+             height="100%"
+             width="100%"
+             id="use9345"
+             y="0"
+             x="1420.6"
+             xlink:href="#nine" />
+        </g>
+      </g>
+    </g>
+  </g>
+  <text
+     transform="translate(330.99044,41.609943)"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.66669999999999874px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect9365);fill:#000000;fill-opacity:1;stroke:none;"
+     id="text9363"
+     xml:space="preserve"><tspan
+       x="182.41016"
+       y="12.283917"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">n</tspan></tspan></text>
+  <text
+     xml:space="preserve"
+     id="text9371"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.66669999999999874px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect9373);fill:#000000;fill-opacity:1;stroke:none;"
+     transform="translate(330.99044,73.609943)"><tspan
+       x="182.41016"
+       y="12.283917"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">n</tspan></tspan></text>
+  <text
+     transform="translate(330.99044,101.60994)"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.66669999999999874px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect9379);fill:#000000;fill-opacity:1;stroke:none;"
+     id="text9377"
+     xml:space="preserve"><tspan
+       x="182.41016"
+       y="12.283917"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">n</tspan></tspan></text>
+  <text
+     xml:space="preserve"
+     id="text9383"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.66669999999999874px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect9385);fill:#000000;fill-opacity:1;stroke:none;"
+     transform="translate(330.99044,131.60994)"><tspan
+       x="182.41016"
+       y="12.283917"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">n</tspan></tspan></text>
+  <text
+     transform="translate(330.99044,161.60994)"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.66669999999999874px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect9391);fill:#000000;fill-opacity:1;stroke:none;"
+     id="text9389"
+     xml:space="preserve"><tspan
+       x="182.41016"
+       y="12.283917"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">n</tspan></tspan></text>
+  <text
+     xml:space="preserve"
+     id="text9395"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.66669999999999874px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect9397);fill:#000000;fill-opacity:1;stroke:none;"
+     transform="translate(330.99044,191.60994)"><tspan
+       x="182.41016"
+       y="12.283917"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">n</tspan></tspan></text>
+</svg>
