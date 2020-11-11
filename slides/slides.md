@@ -43,3 +43,7 @@ FILE: 10_regex/regex.md
 ----
 
 FILE: 11_containers/containers.md
+
+----
+
+FILE: 12_random/random.md

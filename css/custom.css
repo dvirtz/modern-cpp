@@ -9,11 +9,19 @@
 	align-items: flex-end;
 }
 
+.footnote,
+.footnotes {
+	display    : flex;
+	align-items: start;
+	font-size  : 0.5em;
+}
+
 .footnote {
-	display       : flex;
-	align-items   : start;
+	white-space: break-spaces;
+}
+
+.footnotes {
 	flex-direction: column;
-	font-size     : 0.5em;
 }
 
 input[type='checkbox'] {
@@ -121,21 +129,61 @@ table.no-header thead {
 
 .split.index {
 	column-count: 4;
-	font-size: 0.3em;
-	position : relative;
+	font-size   : 0.3em;
+	position    : relative;
 }
 
 .reveal div.grid2 {
-	display: grid;
+	display              : grid;
 	grid-template-columns: 50% 50%;
 }
 
 .reveal div.grid2 pre {
 	font-size: 0.35em;
-	width: 97%;
-	height: 95%;
+	width    : 97%;
+	height   : 95%;
 }
 
 .reveal ol.split {
 	display: block;
+}
+
+.reveal table .MathJax_Display {
+	margin: 0;
+}
+
+.reveal h1,
+.reveal h2,
+.reveal h3,
+.reveal h4,
+.reveal h5,
+.reveal h6
+{
+	color: #def1ff;
+}
+
+.distribution {
+	display: grid;
+	grid-template-areas:
+	"formula diagram"
+	"parameters diagram";
+  grid-template-columns: 50% 50%;
+}
+
+formula {
+	grid-area: formula;
+	font-size: 0.7em;
+}
+
+parameters {
+	grid-area: parameters;
+}
+
+parameters table {
+	font-size: 0.5em;
+}
+
+diagram {
+	background: #bee4fd;
+	grid-area: diagram;
 }

@@ -201,7 +201,7 @@ throw v;                    // throw an exception
 
 <!-- .element: class="chapter" -->
 
-<div class="footnote" style="text-shadow: 3px 3px black; color: lightblue">
+<div class="footnotes" style="text-shadow: 3px 3px black; color: lightblue">
 
 Sources:
 

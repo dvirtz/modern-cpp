@@ -146,7 +146,7 @@
 	}
 }
 
-.animated .new {
+.animated .disappear {
 	animation: disappear 1s 7.5s forwards;
 }
 
