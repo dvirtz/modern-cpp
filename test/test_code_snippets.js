@@ -5,7 +5,7 @@ const { cwd } = require('process');
 const FileHound = require('filehound');
 
 const config = {
-  compiler: 'g83'
+  compiler: 'g102'
 };
 
 FileHound.create().path('slides').ext('md').findSync()
