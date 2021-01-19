@@ -19,7 +19,7 @@ execute_process(
 )
 ")
 
-foreach(benchmark parallel_accumulate parallel_quicksort)
+foreach(benchmark parallel_accumulate parallel_quicksort frozen)
   add_executable(${benchmark} ${benchmark}.cpp)
   target_link_libraries(${benchmark} benchmark::benchmark)
   add_custom_target(

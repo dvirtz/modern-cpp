@@ -36,6 +36,7 @@ Note:
 10. [Regular Expressions](#/10)
 11. [Containers](#/11)
 12. [Random](#/12)
+12. [`constexpr`](#/13)
 
 <!-- .element: class="split" -->
 
@@ -70,7 +71,7 @@ Note:
 - [x] [rvalue references](#/rvalue_references)
 - [x] [move constructors](#/move_constructors) and [move assignment operators](#/move_constructors)
 - [x] [scoped enums](#/scoped_enums)
-- [ ] `constexpr` and literal types
+- [x] [`constexpr`](#/constexpr) and [literal types](#/literal_type)
 - [x] [list initialization](#/list_initialization)
 - [x] [delegating](#/delegating_constructors) and inherited constructors
 - [ ] brace-or-equal initializers
@@ -128,13 +129,13 @@ Note:
 
 ### Language
 
-- [ ] variable templates
+- [x] variable templates(#/variable_templates)
 - [x] [generic lambdas](#/generic_lambdas)
 - [x] [lambda init-capture](#/lambda_init_capture)
 - [ ] `new`/`delete` elision
-- [ ] relaxed restrictions on `constexpr` functions
-- [ ] binary literals
-- [ ] digit separators
+- [x] [relaxed](#/relaxed_constexpr) restrictions on `constexpr` functions
+- [x] [binary literals](#/binary_literals)
+- [x] [digit separators](#/binary_literals)
 - [x] [return type deduction](#/auto_return) for functions
 - [ ] aggregate classes with default non-static member initializers.
 
@@ -164,7 +165,7 @@ Note:
 - [ ] fold-expressions
 - [ ] class template argument deduction
 - [ ] non-type template parameters declared with auto
-- [ ] compile-time `if constexpr`
+- [x] compile-time [`if constexpr`](#/constexpr_if)
 - [ ] inline variables
 - [ ] structured bindings
 - [ ] initializers for if and switch
@@ -175,7 +176,7 @@ Note:
 - [ ] new order of evaluation rules
 - [ ] guaranteed copy elision
 - [ ] lambda capture of `*this`
-- [ ] `constexpr` lambda
+- [x] [`constexpr` lambda](#/constexpr_lambda)
 - [ ] attribute namespaces don't have to repeat
 - [ ] new attributes:
   - [ ] `[[fallthrough]]`
@@ -219,7 +220,7 @@ Note:
 - [ ] allocation functions with explicit alignment
 - [ ] `byte`
 - [ ] [`conjunction`](#/conjunction)/`disjunction`/`negation`
-- [ ] type trait variable templates (xxx_v)
+- [x] type trait [variable templates](#/variable_templates) (xxx_v)
 - [ ] `is_swappable`
 - [ ] `is_invocable`
 - [ ] `is_aggregate`
@@ -266,9 +267,9 @@ Note:
   - [ ] `[[likely]]`
   - [ ] `[[unlikely]]`
 - [ ] pack-expansions in lambda captures
-- [ ] removed the requirement to use typename to disambiguate types in many contexts
-- [ ] `consteval`, `constinit`
-- [ ] further relaxed `constexpr`
+- [ ] removed the requirement to use `typename` to disambiguate types in many contexts
+- [x] [`consteval`](#/consteval), [`constinit`](#/constinit)
+- [x] further relaxed [`constexpr`](#/20_constexpr)
 - [ ] signed integers are 2's complement
 - [ ] aggregate initialization using parentheses
 - [ ] Coroutines
@@ -301,7 +302,7 @@ Note:
 - [ ] `<version>`
 - [ ] `std::osyncstream`
 - [ ] `std::u8string` and other `char8_t` uses
-- [ ] `constexpr` for `<algorithm>`, `<utility>`, `<complex>`
+- [x] [`constexpr` for `<algorithm>`, `<utility>`, `<complex>`](#/20_constexpr_lib/0)
 - [ ] `std::string::starts_with` / `ends_with` and `std::string_view::starts_with` / `ends_with`
 - [ ] `std::assume_aligned`
 - [ ] `std::bind_front`
