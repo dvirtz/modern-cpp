@@ -4,6 +4,7 @@ from __future__ import print_function
 import argparse
 import sys
 import logging
+import re
 import pandas as pd
 import matplotlib.pyplot as plt
 
@@ -14,6 +15,7 @@ TRANSFORMS = {
     '': lambda x: x,
     'inverse': lambda x: 1.0 / x
 }
+INPUT_SIZE = re.compile(r'(<(\d+)>|/(\d+))$')
 
 
 def get_default_ylabel(args):
@@ -63,10 +65,10 @@ def parse_args():
 
 
 def parse_input_size(name):
-    splits = name.split('/')
-    if len(splits) == 1:
-        return 1
-    return int(splits[1])
+    m = INPUT_SIZE.search(name)
+    if m:
+        return m[2] or m[3]
+    return 1
 
 
 def read_data(args):
@@ -77,7 +79,7 @@ def read_data(args):
         msg = 'Could not parse the benchmark data. Did you forget "--benchmark_format=csv"?'
         logging.error(msg)
         exit(1)
-    data['label'] = data['name'].apply(lambda x: x.split('/')[0])
+    data['label'] = data['name'].apply(lambda x: INPUT_SIZE.sub('', x))
     data['input'] = data['name'].apply(parse_input_size)
     data[args.metric] = data[args.metric].apply(TRANSFORMS[args.transform])
     return data

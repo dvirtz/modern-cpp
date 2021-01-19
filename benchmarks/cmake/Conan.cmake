@@ -13,6 +13,7 @@ macro(run_conan)
     REQUIRES
     ${CONAN_EXTRA_REQUIRES}
     benchmark/1.5.1
+    frozen/1.0.0
     OPTIONS
     ${CONAN_EXTRA_OPTIONS}
     BASIC_SETUP
