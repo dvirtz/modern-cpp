@@ -695,6 +695,7 @@ A custom deleter of a `unique_ptr` should be declared as a second template param
 ///hide
 #include <memory>
 #include <cstdio>
+#include <cstdlib>
 
 int main() {
 ///unhide

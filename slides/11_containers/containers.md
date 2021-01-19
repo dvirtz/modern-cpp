@@ -438,6 +438,7 @@ The (amortized) insertion and search times are O(1).
 ```cpp
 ///hide
 #include <functional>
+#include <memory>
 
 ///unhide
 template<class Key,
@@ -731,10 +732,11 @@ After resizing, the table is rehashed - all elements' hashes are recomputed and 
 #include <unordered_map>
 #include <cassert>
 #include <limits>
+#include <cmath>
 
 ///unhide
 bool approxEqual(float a, float b) {
-  return abs(a - b) < std::numeric_limits<float>::epsilon();
+  return std::abs(a - b) < std::numeric_limits<float>::epsilon();
 }
 
 ///hide
@@ -860,6 +862,7 @@ std::unordered_set<S> us;
 
 ```cpp [1-2,10|3-4,8-9|5-7|12-16]
 ///output=bucket[1]: 8->7 1->2
+///compiler=g83
 ///hide
 #include <iostream>
 #include <unordered_map>

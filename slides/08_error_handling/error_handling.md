@@ -27,7 +27,7 @@ int main(){
 
 <div class="footnote">
 
-Source: [N2347](wg21.link/n2347)
+Source: [N2347](https://wg21.link/n2347)
 
 </div>
 
