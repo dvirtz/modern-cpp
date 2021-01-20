@@ -613,6 +613,7 @@ std::vector<S> v{S(), S(), S()};
 ```
 
 ```cpp
+///compiler=g83
 ///fails=use of deleted function 'S::S(const S&)'
 ///hide
 #include <vector>

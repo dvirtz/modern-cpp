@@ -891,7 +891,7 @@ int main() {
 
 <!-- .element: class="split" -->
 
-Note: proposed for standardization in [n4033](wg21.link/n4033)
+Note: proposed for standardization in [n4033](https://wg21.link/n4033)
 
 ---
 

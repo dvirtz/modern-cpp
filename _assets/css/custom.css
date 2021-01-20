@@ -187,3 +187,7 @@ diagram {
 	background: #bee4fd;
 	grid-area: diagram;
 }
+
+.bright_background {
+	background: #bee4fd;
+}

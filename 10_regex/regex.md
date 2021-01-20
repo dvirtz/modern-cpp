@@ -531,7 +531,7 @@ for (const auto& submatch : m) {
 
 <!-- .slide: data-auto-animate -->
 
-## three ways to obtain submatch `n`
+## three ways to obtain `submatch` `n`
 
 ```cpp
 ///hide
@@ -551,7 +551,7 @@ submatch(std::match_results<BidirIt> m, size_t n) {
 
 <!-- .slide: data-auto-animate -->
 
-## three ways to obtain submatch `n`
+## three ways to obtain `submatch` `n`
 
 ```cpp
 ///hide
@@ -571,7 +571,7 @@ submatch(std::match_results<BidirIt> m, size_t n) {
 
 <!-- .slide: data-auto-animate -->
 
-## three ways to obtain submatch `n`
+## three ways to obtain `submatch` `n`
 
 ```cpp
 ///hide
