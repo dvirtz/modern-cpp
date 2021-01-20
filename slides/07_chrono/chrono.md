@@ -25,7 +25,7 @@ Need to check [documentation](https://man7.org/linux/man-pages/man3/sleep.3.html
 
 <div class="footnote">
 
-Source: [CppCon 2016: Howard Hinnant "A ＜chrono＞ Tutorial"](https://www.youtube.com/watch?v=P32hvk8b13M)
+Source: [CppCon 2016: Howard Hinnant "A `＜chrono＞` Tutorial"](https://www.youtube.com/watch?v=P32hvk8b13M)
 
 </div>
 
@@ -693,7 +693,7 @@ std::cout << "abs" << c << " = " << abs(c) << '\n';
 
 ## Library string literals (C++14)
 
-Chrono literals
+`chrono` literals
 
 ```cpp
 #include <chrono>

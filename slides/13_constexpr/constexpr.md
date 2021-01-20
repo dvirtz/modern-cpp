@@ -155,7 +155,7 @@ using matrix = int[pow<I, D>::value];
 
 <!-- .element: class="chapter" -->
 
-Note: C++11 introduces a new keyword - constexpr, which comes obviously from constant expressions.
+Note: C++11 introduces a new keyword - `constexpr`, which comes obviously from constant expressions.
 
 ---
 
@@ -337,7 +337,7 @@ int j = value();
 }
 ```
 
-Note: for non-constexpr variables, the compile can choose whether to compute the initial value at compile time or run time
+Note: for non-`constexpr` variables, the compile can choose whether to compute the initial value at compile time or run time
 
 ---
 
@@ -405,7 +405,7 @@ static_assert(I.imag() == 1, "check");
 <!-- .element: data-id="code" -->
 
 Note: 
-- constexpr member function implies const 
+- `constexpr` member function implies const 
 - we can also access public members 
 
 ---
@@ -472,7 +472,7 @@ enum Range {
 - `complex`
 - `array`
 
-Note: for types, it means at least one constructor is constexpr, not necessarily all member functions
+Note: for types, it means at least one constructor is `constexpr`, not necessarily all member functions
 
 ---
 
@@ -486,7 +486,7 @@ Source: [N3597](https://wg21.link/n3597), Richard Smith
 
 <!-- .element: class="footnote" -->
 
-Note: for C++14, writing constexpr starts to look almost like writing any C++ code.
+Note: for C++14, writing `constexpr` starts to look almost like writing any C++ code.
 
 ---
 
@@ -621,11 +621,11 @@ Note: first two algorithms
 
 <!-- .element: class="chapter" -->
 
-Source: Scott Schurr, [constexpr: Applications](https://youtu.be/qO-9yiAOQqc), CppCon 2015
+Source: Scott Schurr, [`constexpr`: Applications](https://youtu.be/qO-9yiAOQqc), CppCon 2015
 
 <!-- .element: class="footnote" -->
 
-Note: with relaxed constexpr we can start to unleash the power of compile time calculation by having compile time containers and algorithms to operate on them
+Note: with relaxed `constexpr` we can start to unleash the power of compile time calculation by having compile time containers and algorithms to operate on them
 
 ---
 
@@ -746,7 +746,7 @@ constexpr auto generate_bits_set() {
 
 Note: 
 - have to init `res`
-- fails because non const `std::array::operator[]` is not constexpr in c++14
+- fails because non const `std::array::operator[]` is not `constexpr` in c++14
 
 ---
 
@@ -1611,7 +1611,7 @@ Sources:
 
 </div>
 
-Note: C++17 kept making constexpr code less restricted and more user friendly
+Note: C++17 kept making `constexpr` code less restricted and more user friendly
 
 ---
 
@@ -1718,7 +1718,7 @@ void f(T&& t, Rest&&... r) {
 }
 ```
 
-Note: C++17 introduces another constexpr related feature which attempts to solve the following annoying problems.
+Note: C++17 introduces another `constexpr` related feature which attempts to solve the following annoying problems.
 
 ---
 
@@ -2260,7 +2260,7 @@ constexpr int dblsqr(int n) { return 2 * sqr(n); }  // fails
 
 ---
 
-## checking constexpr
+## checking `constexpr`
 
 ```cpp [1-20|2-16|16-19|22-29]
 ///options+=-std=c++2a

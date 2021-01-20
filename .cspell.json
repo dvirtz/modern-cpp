@@ -6,9 +6,7 @@
         "Bartek",
         "Bjarne",
         "Cardano",
-        "chrono",
         "congruential",
-        "constexpr",
         "cppreference",
         "Daveed",
         "decltype",
@@ -35,8 +33,6 @@
         "mutex",
         "mutexes",
         "nextptr",
-        "noexcept",
-        "nullptr",
         "PCRE",
         "Pikus",
         "PIMPL",
@@ -50,7 +46,6 @@
         "SFINAE",
         "spinlock",
         "Stroustrup",
-        "submatch",
         "Sutter",
         "templatize",
         "Vali",
@@ -67,10 +62,12 @@
         {
             "languageId": "markdown",
             "ignoreRegExpList": [
-                "/`.*?`/", // inline code
-                "/(```+)\\s?[\\s\\S]+?\\1/g", // code block
-                "/'s\\b/", // trailing 's
-                "<!--.*?-->" // comments
+                "(`.*?`)|(<code>.*?</code>)", // inline code
+                "(```+)\\s?[\\s\\S]+?\\1", // code block
+                "'s\\b", // trailing 's
+                "<!--.*?-->", // comments
+                "\\]\\((#/)?[^\\)]+\\)", // internal links
+                "FILE: .*" // file inclusion
             ]
         }
     ]
