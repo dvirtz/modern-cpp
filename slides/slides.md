@@ -51,3 +51,7 @@ FILE: 12_random/random.md
 ----
 
 FILE: 13_constexpr/constexpr.md
+
+----
+
+FILE: 14_vocabulary_types/vocabulary_types.md
