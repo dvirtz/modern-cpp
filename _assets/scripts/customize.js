@@ -40,6 +40,8 @@ Reveal.addEventListener('ready', (event) => {
     });
     $(this).css('column-count', '');
   });
+  // move quote cites right
+  $('blockquote p:has(cite)').css('float', 'right');
   Reveal.sync();
 });
 
