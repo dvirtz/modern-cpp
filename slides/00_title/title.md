@@ -36,7 +36,8 @@ Note:
 10. [Regular Expressions](#/10)
 11. [Containers](#/11)
 12. [Random](#/12)
-12. [`constexpr`](#/13)
+13. [`constexpr`](#/13)
+14. [C++17 Vocabulary Types](#/14)
 
 <!-- .element: class="split" -->
 
@@ -198,13 +199,13 @@ Note:
   - [ ] `apply`
   - [ ] deduction guides
   - [ ] `make_from_tuple`
-- [ ] `variant`
+- [x] [`variant`](#/variant)
 - [ ] `launder`
 - [ ] `to_chars`/`from_chars`
 - [ ] `as_const`
 - [ ] searchers
-- [ ] `optional`
-- [ ] `any`
+- [x] [`optional`](#/optional)
+- [x] [`any`](#/any)
 - [ ] `not_fn`
 - [ ] uninitialized memory
   - [ ] `destroy_at`

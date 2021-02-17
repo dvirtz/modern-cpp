@@ -2,59 +2,36 @@
     "version": "0.1",
     "language": "en",
     "words": [
-        "Andrzej",
-        "Bartek",
-        "Bjarne",
         "Cardano",
         "congruential",
         "cppreference",
-        "Daveed",
         "decltype",
         "deleter",
         "deleters",
         "devirtualization",
         "dvir",
-        "Fedor",
         "Gerolamo",
         "GOTW",
-        "Hinnant",
-        "Jens",
-        "Josuttis",
-        "K",
-        "Köppe",
         "lightblue",
         "lognormal",
         "lvalue",
-        "Maurer",
         "mersenne",
-        "Modernes",
         "MSVC",
         "multithreaded",
         "mutex",
         "mutexes",
-        "nextptr",
         "PCRE",
-        "Pikus",
         "PIMPL",
         "POSIX",
-        "ppe",
         "RAII",
         "ranlux",
-        "Reis",
         "rvalue",
-        "Schurr",
         "SFINAE",
         "spinlock",
-        "Stroustrup",
-        "Sutter",
         "templatize",
-        "Vali",
-        "Vandevoorde",
-        "Ville",
-        "Voutilainen",
+        "unrepresentable",
         "webp",
         "Weibull",
-        "Wicht",
         "Yitzchaki"
     ],
     "flagWords": [],
@@ -67,7 +44,9 @@
                 "'s\\b", // trailing 's
                 "<!--.*?-->", // comments
                 "\\]\\((#/)?[^\\)]+\\)", // internal links
-                "FILE: .*" // file inclusion
+                "FILE: .*", // file inclusion
+                "(Source: .*)|(<div class=\"footnote(s?)\"\\s?[\\s\\S]+?</div>)", // footnotes
+                "<cite>.*?</cite>" // quote cites
             ]
         }
     ]
