@@ -1,4 +1,4 @@
-<!-- .slide: data-background-image="05_lambda/ferdinand.jpg" -->
+<!-- .slide: data-background-image="ferdinand.jpg" -->
 
 ---
 
@@ -42,7 +42,7 @@ int count_odds(const std::vector<int>& v)
 
 ---
 
-<!-- .slide: data-background="05_lambda/wheel.gif" data-background-size="contain" -->
+<!-- .slide: data-background="wheel.gif" data-background-size="contain" -->
 
 Don't reinvent the wheel
 
@@ -154,7 +154,7 @@ These functions and function objects also unnecessarily ‘clutter up’ the cod
 
 ---
 
-<!-- .slide: id="lambda_expressions" data-background-image="05_lambda/sirtaki.gif" -->
+<!-- .slide: id="lambda_expressions" data-background-image="sirtaki.gif" -->
 
 # Lambda expressions
 
@@ -1408,4 +1408,4 @@ Source: [Bartek's coding blog](https://www.bfilipek.com/2020/05/lambdasadvantage
 
 ---
 
-<!-- .slide: data-background-image="05_lambda/ευχαριστώ.jpg" data-background-size="contain" -->
+<!-- .slide: data-background-image="ευχαριστώ.jpg" data-background-size="contain" -->

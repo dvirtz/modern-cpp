@@ -1,4 +1,4 @@
-<!-- .slide: data-background-image="07_chrono/cantona.jpg" data-background-size="contain" -->
+<!-- .slide: data-background-image="cantona.jpg" data-background-size="contain" -->
 
 ---
 
@@ -21,7 +21,7 @@ Need to check [documentation](https://man7.org/linux/man-pages/man3/sleep.3.html
 
 ---
 
-<!-- .slide: id="chrono" data-background-image="07_chrono/chrono.gif" -->
+<!-- .slide: id="chrono" data-background-image="chrono.gif" -->
 
 <div class="footnote">
 
@@ -719,7 +719,7 @@ std::cout
 
 ---
 
-<!-- .slide: id="ratio" data-background-image="07_chrono/ratio.gif" -->
+<!-- .slide: id="ratio" data-background-image="ratio.gif" -->
 
 <div class="footnote">
 
@@ -1002,7 +1002,7 @@ std::cout << f.count() << "ms\n"; // 128.333ms
 
 ---
 
-<!-- .slide: data-background-image="07_chrono/second.gif" data-background-size="contain" -->
+<!-- .slide: data-background-image="second.gif" data-background-size="contain" -->
 
 ## `time points and clocks`
 
@@ -1130,4 +1130,4 @@ std::cout
 
 ---
 
-<!-- .slide: data-background-image="07_chrono/thanks.gif" -->
+<!-- .slide: data-background-image="thanks.gif" -->

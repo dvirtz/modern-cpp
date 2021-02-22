@@ -1,4 +1,4 @@
-<!-- .slide: data-background-image="04_variadic/bruce.jpg" -->
+<!-- .slide: data-background-image="bruce.jpg" -->
 
 ---
 
@@ -114,7 +114,7 @@ printf("Hello %s", getName());
 
 ---
 
-<!-- .slide: id="variadic_templates" data-background-image="04_variadic/smith.gif" -->
+<!-- .slide: id="variadic_templates" data-background-image="smith.gif" -->
 
 ## Variadic templates
 
@@ -624,7 +624,7 @@ Note: C++17 has fold expressions
 
 ---
 
-<!-- .slide: data-background-image="04_variadic/same.gif" -->
+<!-- .slide: data-background-image="same.gif" -->
 
 # variadic arguments of the same type
 
@@ -786,4 +786,4 @@ assert(sum(1, 2, 3) == 6);
 
 ---
 
-<!-- .slide: data-background-image="04_variadic/matrix_thanks.gif" -->
+<!-- .slide: data-background-image="matrix_thanks.gif" -->
