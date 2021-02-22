@@ -1,4 +1,4 @@
-<!-- .slide: data-background-image="09_concurrency/martial.jpg" -->
+<!-- .slide: data-background-image="martial.jpg" -->
 
 ---
 
@@ -229,7 +229,7 @@ int main()
 
 ## document editor
 
-![word tabs](09_concurrency/word_tabs.png)
+![word tabs](word_tabs.png)
 
 Note: We run each document-editing window in its own thread. Opening a new document therefore requires starting a new thread. The thread handling the request isn’t going to care about waiting for that other thread to finish, because it’s working on an unrelated document, so this makes it a prime candidate for running a detached thread.
 
@@ -570,7 +570,7 @@ int main() {
 
 ---
 
-<!-- .slide: data-background-image="09_concurrency/sharing.gif" -->
+<!-- .slide: data-background-image="sharing.gif" -->
 
 ## data sharing
 
@@ -1179,7 +1179,7 @@ int main() {
 
 ---
 
-<!-- .slide: data-background-image="09_concurrency/synchronization.gif" -->
+<!-- .slide: data-background-image="synchronization.gif" -->
 
 ## synchronization
 
@@ -1426,7 +1426,7 @@ Note:: there's a similar facility for mutex types
 
 ---
 
-<!-- .slide: data-background-image="09_concurrency/future.gif" data-background-size="contain" -->
+<!-- .slide: data-background-image="future.gif" data-background-size="contain" -->
 
 ## std::future
 
@@ -1839,7 +1839,7 @@ int main() {
 
 ---
 
-<!-- .slide: data-background-image="09_concurrency/errors.gif" -->
+<!-- .slide: data-background-image="errors.gif" -->
 
 ## Error handling
 
@@ -2110,7 +2110,7 @@ try {
 
 ---
 
-<!-- .slide: id="atomic" data-background-image="09_concurrency/atomic.gif" -->
+<!-- .slide: id="atomic" data-background-image="atomic.gif" -->
 
 ## `std::atomic` and memory ordering
 
@@ -2821,4 +2821,4 @@ class thread_pool {
 
 ---
 
-<!-- .slide: data-background-image="09_concurrency/thanks.gif" -->
+<!-- .slide: data-background-image="thanks.gif" -->

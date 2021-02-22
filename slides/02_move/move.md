@@ -1,4 +1,4 @@
-<!-- .slide: data-background-image="02_move/neville.jpg" -->
+<!-- .slide: data-background-image="neville.jpg" -->
 
 ---
 
@@ -315,7 +315,7 @@ Buffer(Buffer& temporary)
 
 ---
 
-<!-- .slide: data-background-image="02_move/move_it.gif" data-background-size="contain" data-transition="none slide" -->
+<!-- .slide: data-background-image="move_it.gif" data-background-size="contain" data-transition="none slide" -->
 
 # Move semantics
 <!-- .element: style="text-shadow: 3px 3px black; color: lightblue; position: fixed; top: 0; left: 8%" -->
@@ -658,7 +658,7 @@ struct MoveOnlyBuffer
         <td>Basic exception guarantee</td> <td>If the function throws an exception, the program is in a valid state. No resources are leaked, and all objects' invariants are intact</td>
     </tr>
     <tr>
-        <td>No exception guarantee</td> <td><img src="02_move/dragons.jpg" alt="dragons" style="position: relative; height: 20%; left: 30%"></img></td>
+        <td>No exception guarantee</td> <td><img src="dragons.jpg" alt="dragons" style="position: relative; height: 20%; left: 30%"></img></td>
     </tr>
 </table>
 
@@ -962,7 +962,7 @@ auto trace(Func&& f, T&& t) {
 
 ---
 
-![special members](02_move/special_members.jpg) <!-- .element: width="75%" -->
+![special members](special_members.jpg) <!-- .element: width="75%" -->
 
 Source: [Howard Hinnant](https://howardhinnant.github.io/classdecl.html)
 
@@ -1098,7 +1098,7 @@ Source: [Jonathan Müller](https://foonathan.net/2019/02/special-member-function
 
 ---
 
-<!-- .slide: data-background-image="02_move/roar.gif" data-transition="none slide" -->
+<!-- .slide: data-background-image="roar.gif" data-transition="none slide" -->
 
 # Thank you
 <!-- .element: style="text-shadow: 3px 3px black; color: lightblue; position: fixed; top: 0; left: 20%" -->

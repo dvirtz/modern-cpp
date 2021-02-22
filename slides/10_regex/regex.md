@@ -1,8 +1,8 @@
-<!-- .slide: data-background-image="10_regex/rooney.jpg" -->
+<!-- .slide: data-background-image="rooney.jpg" -->
 
 ---
 
-<!-- .slide: data-background-image="10_regex/computer.gif" -->
+<!-- .slide: data-background-image="computer.gif" -->
 
 ## Regular Expressions library
 
@@ -209,7 +209,7 @@ Note: similarly on the xml example.
 
 ---
 
-<!-- .slide: data-background-image="10_regex/words.gif" data-background-size="contain" -->
+<!-- .slide: data-background-image="words.gif" data-background-size="contain" -->
 
 ## syntax
 
@@ -891,7 +891,7 @@ catch (const std::regex_error& e) {
 
 ---
 
-<!-- .slide: data-background-image="10_regex/thanks.gif" data-background-size="contain" -->
+<!-- .slide: data-background-image="thanks.gif" data-background-size="contain" -->
 
 Note: There are a couple of design decisions I personally dislike about the regex library.
 a. it's not inside a namespace so you have to repeat `regex_` every second line.

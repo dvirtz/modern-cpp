@@ -1,4 +1,4 @@
-<!-- .slide: data-background-image="12_random/neville.jpg" -->
+<!-- .slide: data-background-image="neville.jpg" -->
 
 ---
 
@@ -38,7 +38,7 @@ Note:
 
 ---
 
-<!-- .slide: data-background-image="12_random/crack.gif" -->
+<!-- .slide: data-background-image="crack.gif" -->
 
 ## Pseudo-random number generation 
 
@@ -70,7 +70,7 @@ Note: Computers are deterministic machines by design: equal input data results i
 
 ## generating pseudo randomness
 
-![generating random](12_random/generating_random.svg) 
+![generating random](generating_random.svg) 
 
 Note: We start with some seed data as an entropy source. This is used to initialize an engine which is a function object which upon call, generates a pseudo-random number and updates its internal state. The distribution post-processes the engine's output in such a way that resulting output is distributed according to a defined statistical probability density function.
 
@@ -102,7 +102,7 @@ int main() {
 
 ---
 
-<!-- .slide: data-background-image="12_random/engine.gif" -->
+<!-- .slide: data-background-image="engine.gif" -->
 
 ## engines
 
@@ -541,7 +541,7 @@ Note:
 
 ---
 
-<!-- .slide: data-background-image="12_random/distribution.gif" -->
+<!-- .slide: data-background-image="distribution.gif" -->
 
 ## distributions
 
@@ -643,7 +643,7 @@ no default this time
 
 ## uniform distributions
 
-![Cardano](12_random/Cardano.jpg)
+![Cardano](Cardano.jpg)
 
 <!-- .element: class="r-stretch" -->
 
@@ -679,7 +679,7 @@ class uniform_int_distribution;
 
 <diagram>
 
-![uniform_int_distribution](12_random/uniform_int_distribution.svg)
+![uniform_int_distribution](uniform_int_distribution.svg)
 
 </diagram>
 
@@ -715,7 +715,7 @@ class uniform_real_distribution;
 
 <diagram>
 
-![uniform_real_distribution](12_random/uniform_real_distribution.svg)
+![uniform_real_distribution](uniform_real_distribution.svg)
 
 </diagram>
 
@@ -727,7 +727,7 @@ Note: Produces random floating-point values `i`, uniformly distributed on the cl
 
 ## Bernoulli distributions
 
-![Bernoulli](12_random/Bernoulli.jpg)
+![Bernoulli](Bernoulli.jpg)
 
 <!-- .element: class="r-stretch" -->
 
@@ -762,7 +762,7 @@ class bernoulli_distribution;
 
 <diagram>
 
-![bernoulli_distribution](12_random/bernoulli_distribution.svg)
+![bernoulli_distribution](bernoulli_distribution.svg)
 
 </diagram>
 
@@ -798,7 +798,7 @@ class binomial_distribution;
 
 <diagram>
 
-![binomial_distribution](12_random/binomial_distribution.svg)
+![binomial_distribution](binomial_distribution.svg)
 
 </diagram>
 
@@ -834,7 +834,7 @@ class negative_binomial_distribution;
 
 <diagram>
 
-![negative_binomial_distribution](12_random/negative_binomial_distribution.svg)
+![negative_binomial_distribution](negative_binomial_distribution.svg)
 
 </diagram>
 
@@ -869,7 +869,7 @@ class geometric_distribution;
 
 <diagram>
 
-![geometric_distribution](12_random/geometric_distribution.svg)
+![geometric_distribution](geometric_distribution.svg)
 
 </diagram>
 
@@ -881,7 +881,7 @@ Note: The value represents the number of yes/no trials (each succeeding with pro
 
 ## Poisson distributions
 
-![Poisson](12_random/Poisson.jpg)
+![Poisson](Poisson.jpg)
 
 <!-- .element: class="r-stretch" -->
 
@@ -914,7 +914,7 @@ class poisson_distribution;
 
 <diagram>
 
-![poisson_distribution](12_random/poisson_distribution.svg)
+![poisson_distribution](poisson_distribution.svg)
 
 </diagram>
 
@@ -954,7 +954,7 @@ class exponential_distribution;
 
 <diagram>
 
-![exponential_distribution](12_random/exponential_distribution.svg)
+![exponential_distribution](exponential_distribution.svg)
 
 </diagram>
 
@@ -990,7 +990,7 @@ class gamma_distribution;
 
 <diagram>
 
-![gamma_distribution](12_random/gamma_distribution.svg)
+![gamma_distribution](gamma_distribution.svg)
 
 </diagram>
 
@@ -1026,7 +1026,7 @@ class weibull_distribution;
 
 <diagram>
 
-![weibull_distribution](12_random/weibull_distribution.svg)
+![weibull_distribution](weibull_distribution.svg)
 
 </diagram>
 
@@ -1062,7 +1062,7 @@ class extreme_value_distribution;
 
 <diagram>
 
-![extreme_value_distribution](12_random/extreme_value_distribution.svg)
+![extreme_value_distribution](extreme_value_distribution.svg)
 
 </diagram>
 
@@ -1074,7 +1074,7 @@ Note: AKA Gumbel distribution. Used to model the distribution of the maximum (or
 
 ## normal distributions
 
-![Gauss](12_random/Gauss.jpg)
+![Gauss](Gauss.jpg)
 
 <!-- .element: class="r-stretch" -->
 
@@ -1108,7 +1108,7 @@ class normal_distribution;
 
 <diagram>
 
-![normal_distribution](12_random/normal_distribution.svg)
+![normal_distribution](normal_distribution.svg)
 
 </diagram>
 
@@ -1144,7 +1144,7 @@ class lognormal_distribution;
 
 <diagram>
 
-![lognormal_distribution](12_random/lognormal_distribution.svg)
+![lognormal_distribution](lognormal_distribution.svg)
 
 </diagram>
 
@@ -1179,7 +1179,7 @@ class chi_squared_distribution;
 
 <diagram>
 
-![chi_squared_distribution](12_random/chi_squared_distribution.svg)
+![chi_squared_distribution](chi_squared_distribution.svg)
 
 </diagram>
 
@@ -1215,7 +1215,7 @@ class cauchy_distribution;
 
 <diagram>
 
-![cauchy_distribution](12_random/cauchy_distribution.svg)
+![cauchy_distribution](cauchy_distribution.svg)
 
 </diagram>
 
@@ -1253,7 +1253,7 @@ class fisher_f_distribution;
 
 <diagram>
 
-![fisher_f_distribution](12_random/fisher_f_distribution.svg)
+![fisher_f_distribution](fisher_f_distribution.svg)
 
 </diagram>
 
@@ -1288,7 +1288,7 @@ class student_t_distribution;
 
 <diagram>
 
-![student_t_distribution](12_random/student_t_distribution.svg)
+![student_t_distribution](student_t_distribution.svg)
 
 </diagram>
 
@@ -1333,7 +1333,7 @@ class discrete_distribution;
 
 <diagram>
 
-![discrete_distribution](12_random/discrete_distribution.svg)
+![discrete_distribution](discrete_distribution.svg)
 
 </diagram>
 
@@ -1372,7 +1372,7 @@ class piecewise_constant_distribution;
 
 <diagram>
 
-![piecewise_constant_distribution](12_random/piecewise_constant_distribution.svg)
+![piecewise_constant_distribution](piecewise_constant_distribution.svg)
 
 </diagram>
 
@@ -1412,7 +1412,7 @@ class piecewise_linear_distribution;
 
 <diagram>
 
-![piecewise_linear_distribution](12_random/piecewise_linear_distribution.svg)
+![piecewise_linear_distribution](piecewise_linear_distribution.svg)
 
 </diagram>
 
@@ -1534,7 +1534,7 @@ Note: The `generate_canonical` function template provides a standard uniform dis
 
 ---
 
-<!-- .slide: data-background-image="12_random/sid.gif" -->
+<!-- .slide: data-background-image="sid.gif" -->
 
 ## Seeds
 
@@ -1762,7 +1762,7 @@ Note: the actual implementation is not standardized so different platform might 
 
 ---
 
-<!-- .slide: data-background-image="12_random/thanks.gif" -->
+<!-- .slide: data-background-image="thanks.gif" -->
 
 ## thank you
 

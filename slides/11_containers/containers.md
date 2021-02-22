@@ -1,4 +1,4 @@
-<!-- .slide: data-background-image="11_containers/giggs.jpg" data-background-size="contain" -->
+<!-- .slide: data-background-image="giggs.jpg" data-background-size="contain" -->
 
 ---
 
@@ -18,7 +18,7 @@
 
 ---
 
-<!-- .slide: data-background-image="11_containers/containers.png" -->
+<!-- .slide: data-background-image="containers.png" -->
 
 # C++11 Containers
 
@@ -57,7 +57,7 @@ size_t n = sizeof(a)/sizeof(a[0]);
 
 ---
 
-[![array elements](11_containers/array_elements.png)](https://www.youtube.com/watch?v=7uAwFRQkzyA&ab_channel=NDCConferences)
+[![array elements](array_elements.png)](https://www.youtube.com/watch?v=7uAwFRQkzyA&ab_channel=NDCConferences)
 
 ---
 
@@ -124,7 +124,7 @@ int main() {
 
 ---
 
-<!-- .slide: id="array" data-background-image="11_containers/array.jpg" -->
+<!-- .slide: id="array" data-background-image="array.jpg" -->
 
 # `std::array`
 
@@ -414,7 +414,7 @@ std::pair<S, S> p{std::piecewise_construct,
 
 ## hash table
 
-![hash table](11_containers/hash.svg)
+![hash table](hash.svg)
 
 Note: Unordered associative containers—hash tables—are one of the most frequently requested additions to the standard C++ library. 
 
@@ -425,7 +425,7 @@ The (amortized) insertion and search times are O(1).
 
 ---
 
-<!-- .slide: data-background-image="11_containers/unordered.jpg" -->
+<!-- .slide: data-background-image="unordered.jpg" -->
 
 ## unordered containers
 
@@ -713,7 +713,7 @@ Note: unordered containers provide forward iterators.
 
 |a|b|
 |-|-|
-| `$$ loadFactor = \frac{occupied}{buckets} $$` | ![hash table](11_containers/hash.svg) <!-- .element: style="background-color: #bee4fd" --> |
+| `$$ loadFactor = \frac{occupied}{buckets} $$` | ![hash table](hash.svg) <!-- .element: style="background-color: #bee4fd" --> |
 
 <!-- .element: class="no-header no-border" -->
 
@@ -919,7 +919,7 @@ int main() {
 
 ---
 
-<!-- .slide: id="""forward_list" data-background-image="11_containers/forward.jpg" -->
+<!-- .slide: id="""forward_list" data-background-image="forward.jpg" -->
 
 # `std::forward_list`
 
@@ -1079,7 +1079,7 @@ std::cout << "merged: " << list1 << "\n";
 
 ---
 
-<!-- .slide: data-background-image="11_containers/thanks.gif" -->
+<!-- .slide: data-background-image="thanks.gif" -->
 
 ## thank you
 

@@ -1,4 +1,4 @@
-<!-- .slide: data-background-image="13_constexpr/park.png" -->
+<!-- .slide: data-background-image="park.png" -->
 
 ---
 
@@ -149,7 +149,7 @@ using matrix = int[pow<I, D>::value];
 
 ---
 
-<!-- .slide: id="constexpr" data-background-image="13_constexpr/leviosa.gif" data-background-size="contain" -->
+<!-- .slide: id="constexpr" data-background-image="leviosa.gif" data-background-size="contain" -->
 
 # `constexpr`
 
@@ -198,7 +198,7 @@ Note: implies inline
 
 ---
 
-<!-- .slide: data-background-image="13_constexpr/c++11.gif" -->
+<!-- .slide: data-background-image="c++11.gif" -->
 
 ## C++11 &nbsp; `constexpr`
 
@@ -476,7 +476,7 @@ Note: for types, it means at least one constructor is `constexpr`, not necessari
 
 ---
 
-<!-- .slide: id="relaxed_constexpr" data-background-image="13_constexpr/relaxed.gif" -->
+<!-- .slide: id="relaxed_constexpr" data-background-image="relaxed.gif" -->
 
 ## C++14 relaxed &nbsp; `constexpr`
 
@@ -615,7 +615,7 @@ Note: first two algorithms
 
 ---
 
-<!-- .slide: data-background-image="13_constexpr/containers.gif" -->
+<!-- .slide: data-background-image="containers.gif" -->
 
 ## `constexpr` &nbsp; containers and algorithms
 
@@ -1515,7 +1515,7 @@ TEST_CASE("test constexpr set") {
 
 ## unordered containers
 
-![hash](11_containers/hash.svg)
+![hash](hash.svg)
 
 <!-- .element: class="bright_background" -->
 
@@ -1523,7 +1523,7 @@ TEST_CASE("test constexpr set") {
 
 ## minimal perfect hash
 
-![perfect hash](13_constexpr/hash_perfect.svg)
+![perfect hash](hash_perfect.svg)
 
 <!-- .element: class="bright_background" -->
 
@@ -1533,7 +1533,7 @@ Note: how to generate a perfect hash?
 
 ## minimal perfect hash step 0
 
-![condensed hash](13_constexpr/hash_condensed.svg)
+![condensed hash](hash_condensed.svg)
 
 <!-- .element: class="bright_background" -->
 
@@ -1557,7 +1557,7 @@ std::size_t helper_hash(const Key& key,
 
 ## minimal perfect hash step 1
 
-![first bucket hash](13_constexpr/hash_first_bucket.svg)
+![first bucket hash](hash_first_bucket.svg)
 
 <!-- .element: class="bright_background" -->
 
@@ -1583,7 +1583,7 @@ FILE: 13_constexpr/hash_second_bucket.svg
 
 ## minimal perfect hash final
 
-![final perfect hash](13_constexpr/hash_final.svg)
+![final perfect hash](hash_final.svg)
 
 <!-- .element: class="bright_background" -->
 
@@ -1591,11 +1591,11 @@ FILE: 13_constexpr/hash_second_bucket.svg
 
 ## benchmark
 
-![frozen](13_constexpr/frozen.png)
+![frozen](frozen.png)
 
 ---
 
-<!-- .slide: data-background-image="13_constexpr/serene.gif" -->
+<!-- .slide: data-background-image="serene.gif" -->
 
 ## C++17 serene &nbsp; `constexpr`
 
@@ -2043,7 +2043,7 @@ int main() {
 
 ---
 
-<!-- .slide: data-background-image="13_constexpr/contented.gif" -->
+<!-- .slide: data-background-image="contented.gif" -->
 
 ## C++20 contented &nbsp; `constexpr`
 
@@ -2479,7 +2479,7 @@ Note: only static and thread local storage duration variables can be declared `c
 ---
 
 
-<!-- .slide: data-background-image="13_constexpr/continued.gif" -->
+<!-- .slide: data-background-image="continued.gif" -->
 
 ## `to be continued...`
 
