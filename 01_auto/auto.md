@@ -1,4 +1,4 @@
-<!-- .slide: data-background-image="01_auto/schmeichel.jpg" -->
+<!-- .slide: data-background-image="schmeichel.jpg" -->
 
 ---
 
@@ -144,7 +144,7 @@ Note:
 
 ---
 
-<!-- .slide: data-background-image="01_auto/auto.gif" -->
+<!-- .slide: data-background-image="auto.gif" -->
 
 # auto
 <!-- .element: class="chapter" -->
@@ -252,7 +252,7 @@ Note: If needed, `const` and `&` can be explicitly added
 
 ---
 
-<!-- .slide: data-background-image="01_auto/whats_init.gif" data-background-size="contain" -->
+<!-- .slide: data-background-image="whats_init.gif" data-background-size="contain" -->
 
 ---
 

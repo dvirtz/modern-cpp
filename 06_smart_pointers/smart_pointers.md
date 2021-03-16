@@ -1,4 +1,4 @@
-<!-- .slide: data-background-image="06_smart_pointers/pallister.png" data-background-size="contain" -->
+<!-- .slide: data-background-image="pallister.png" data-background-size="contain" -->
 
 ---
 
@@ -530,7 +530,7 @@ The `shared_ptr` works on reference counting, so as long as the factory holds a 
 
 <!-- .element: class="chapter bottom" -->
 
-<!-- .slide: data-background-image="06_smart_pointers/lunch.gif" data-background-size="contain" -->
+<!-- .slide: data-background-image="lunch.gif" data-background-size="contain" -->
 
 ---
 
@@ -778,7 +778,7 @@ int main()
 
 ## What happened?
 
-![cycle](06_smart_pointers/marriage.svg)
+![cycle](marriage.svg)
 
 When there is a cycle of `shared_ptr`s pointing to each other, they all keep each other from being destroyed.
 

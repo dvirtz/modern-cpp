@@ -195,7 +195,7 @@ throw v;                    // throw an exception
 
 ---
 
-<!-- .slide: id="list_initialization" data-background-image="03_initialization/list.gif" -->
+<!-- .slide: id="list_initialization" data-background-image="list.gif" -->
 
 # List Initialization
 
@@ -638,4 +638,4 @@ std::vector<S> v{S(), S(), S()}; // error
 
 ---
 
-<!-- .slide: data-background-image="03_initialization/aladdin_thanks.gif" data-background-size="contain" -->
+<!-- .slide: data-background-image="aladdin_thanks.gif" data-background-size="contain" -->

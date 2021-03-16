@@ -1,8 +1,8 @@
-<!-- .slide: data-background-image="14_vocabulary_types/cruyff.png" -->
+<!-- .slide: data-background-image="cruyff.png" -->
 
 ---
 
-<!-- .slide: data-background-image="14_vocabulary_types/typing.gif" -->
+<!-- .slide: data-background-image="typing.gif" -->
 
 ## C++17 Vocabulary Types
 
@@ -17,7 +17,7 @@
 
 ---
 
-<!-- .slide: data-background-image="14_vocabulary_types/strings.gif" -->
+<!-- .slide: data-background-image="strings.gif" -->
 
 ## strings
 
@@ -260,7 +260,7 @@ int main() {
 
 ## benchmark
 
-[![split benchmark](14_vocabulary_types/split.png)](https://quick-bench.com/q/qb8GrTTCPYthl_lyfe0C0zbqM40)
+[![split benchmark](split.png)](https://quick-bench.com/q/qb8GrTTCPYthl_lyfe0C0zbqM40)
 
 ---
 
@@ -387,7 +387,7 @@ As much as `T`
 
 <!-- .element: class="chapter" -->
 
-![optional](14_vocabulary_types/optional.gif) <!-- .element: style="width: 100%" -->
+![optional](optional.gif) <!-- .element: style="width: 100%" -->
 
 Source: [N3672](https://wg21.link/n3672), Fernando Cacciola & Andrzej Krzemieński
 
@@ -879,11 +879,11 @@ struct Foo {
 
 ---
 
-<!-- .slide: data-background-image="14_vocabulary_types/good.gif" -->
+<!-- .slide: data-background-image="good.gif" -->
 
 ---
 
-<!-- .slide: id="variant" data-background-image="14_vocabulary_types/variant.gif" -->
+<!-- .slide: id="variant" data-background-image="variant.gif" -->
 
 ## variant
 
@@ -2346,7 +2346,7 @@ struct Foo {
 
 ---
 
-<!-- .slide: id="any" data-background-image="14_vocabulary_types/any.gif" -->
+<!-- .slide: id="any" data-background-image="any.gif" -->
 
 ## any
 
@@ -2750,4 +2750,4 @@ std::any;
 
 ---
 
-<!-- .slide: data-background-image="14_vocabulary_types/cookie.gif" data-background-size="contain" -->
+<!-- .slide: data-background-image="cookie.gif" data-background-size="contain" -->

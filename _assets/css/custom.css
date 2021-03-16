@@ -191,3 +191,11 @@ diagram {
 .bright_background {
 	background: #bee4fd;
 }
+
+.reveal .no-line-numbers .hljs-ln-numbers {
+	display: none;
+}
+
+.reveal .r-stack.no-margin>* {
+	margin: inherit;
+}

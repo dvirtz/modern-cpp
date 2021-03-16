@@ -1,4 +1,4 @@
-<!-- .slide: data-background-image="08_error_handling/butt.jpg" -->
+<!-- .slide: data-background-image="butt.jpg" -->
 
 ---
 
@@ -106,7 +106,7 @@ C++ Core Guidelines [Enum.3](https://isocpp.github.io/CppCoreGuidelines/CppCoreG
 
 ## let's fly
 
-![flights](08_error_handling/flights.svg)
+![flights](flights.svg)
 
 <!-- .element: class="r-stretch" -->
 
@@ -186,7 +186,7 @@ enum class SeatsErrc
 
 ---
 
-<!-- .slide: data-background-image="08_error_handling/fixed_it.gif" -->
+<!-- .slide: data-background-image="fixed_it.gif" -->
 
 # error handling
 
@@ -1106,7 +1106,7 @@ handle_error(Flights0Errc::DatesInThePast);
 
 # system agnostic failure handling
 
-![error mapping](08_error_handling/error_mapping.svg)
+![error mapping](error_mapping.svg)
 
  <!-- .element: class="r-stretch" --> 
 
@@ -1115,7 +1115,7 @@ handle_error(Flights0Errc::DatesInThePast);
 
 ---
 
-<!-- .slide: data-background-image="08_error_handling/aha.gif" -->
+<!-- .slide: data-background-image="aha.gif" -->
 
 ## In the standard library
 
@@ -1271,7 +1271,7 @@ int main() {
 
 ---
 
-<!-- .slide: data-background-image="08_error_handling/wink.gif" data-background-size="contain" -->
+<!-- .slide: data-background-image="wink.gif" data-background-size="contain" -->
 
 ## thank you
 
