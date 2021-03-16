@@ -164,8 +164,8 @@ Note:
 
 ### Language
 
-- [ ] fold-expressions
-- [ ] class template argument deduction
+- [x] [fold-expressions](#/fold_expressions)
+- [x] [class template argument deduction](#/ctad)
 - [ ] non-type template parameters declared with auto
 - [x] compile-time [`if constexpr`](#/constexpr_if)
 - [ ] inline variables
