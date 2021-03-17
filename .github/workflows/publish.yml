@@ -44,6 +44,7 @@ jobs:
     - name: Generate static site
       run: npm run generate
     - name: GitHub Pages action
+      if: ${{ github.event_name == 'push' }}
       uses: peaceiris/actions-gh-pages@v3.6.1
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
