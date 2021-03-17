@@ -5,8 +5,5 @@
   "compilerExplorer": {
     "useLocal": true,
     "compiler": "g102"
-  },
-  "math": {
-    "mathjax": "_assets/node_modules/mathjax/MathJax.js"
   }
 }
