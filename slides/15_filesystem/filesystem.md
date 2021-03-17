@@ -970,7 +970,7 @@ left binary fold
 
 <!-- .element: style="font-size: 0.8em" -->
 
-right unary fold
+right binary fold
 
 `$$ (args + \ldots + init) => init + (args_{0} + (\ldots + (args_{n-1} + args_{n}))) $$`
 
