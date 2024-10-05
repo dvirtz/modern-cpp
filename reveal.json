@@ -1,9 +1,6 @@
 {
-  "highlight": {
-    "highlightOnLoad": true
-  },
   "compilerExplorer": {
-    "useLocal": true,
+    "useLocal": false,
     "compiler": "g102"
   }
 }

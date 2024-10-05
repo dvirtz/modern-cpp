@@ -1,21 +1,22 @@
-const { parseMarkdownSync, compile } = require('reveal-test');
-const assert = require('assert');
-const path = require('path');
-const { cwd } = require('process');
-const FileHound = require('filehound');
+import { parseMarkdownFile, compile } from 'reveal-test';
+import path from 'path';
+import { cwd } from 'process';
+import FileHound from 'filehound';
 
 const config = {
   compiler: 'g102'
 };
 
-FileHound.create().path('slides').ext('md').findSync()
-  .map(file => {
+const snippets = await FileHound.create().path('slides').ext('md').find()
+  .map(async file => {
     return {
       file: path.relative('slides', file),
-      snippets: parseMarkdownSync(path.join(cwd(), file), config)
+      snippets: await parseMarkdownFile(path.join(cwd(), file), config)
     };
   })
-  .filter(fileSnippets => fileSnippets.snippets.length > 0)
+  .filter(fileSnippets => fileSnippets.snippets.length > 0);
+
+snippets
   .map(fileSnippets => {
     describe(`compile snippets from ${fileSnippets.file}`, function () {
 
