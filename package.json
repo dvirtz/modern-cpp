@@ -1,6 +1,6 @@
 {
   "name": "modern-cpp",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "slides on modern C++",
   "main": "index.js",
   "type": "module",
