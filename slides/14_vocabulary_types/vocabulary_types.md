@@ -138,7 +138,7 @@ std::cout << greet("std::string_view"sv) << '\n';
 ```cpp [2,4,9-10]
 ///external
 ///options+=-std=c++17
-///libs=eastl:trunk
+///libs=eastl:3_12_01
 ///hide
 #include <iostream>
 #include <string>

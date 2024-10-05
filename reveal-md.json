@@ -1,5 +1,5 @@
 {
-    "preprocessor": "scripts/preprocess.js",
+    "preprocessor": "scripts/preprocess.cjs",
     "includeDir": "slides",
     "verticalSeparator": "^---\n",
     "separator": "^----\n",
